@@ -4,6 +4,12 @@ Este diretório é o **ponto de entrada oficial** da pós-graduação neste repo
 
 Vídeos de aula **não** estão neste repositório. O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — uso para estudo, sem uso comercial.
 
+## Mídia
+
+Capas do curso e dos nove módulos, mais o índice de vídeos HeyGen (IDs da conta, sem arquivo de playback no Git): [media/README.md](./media/README.md).
+
+![Capa do curso — Engenharia de Software com IA Aplicada](./media/imagens/curso-capa-hero.png)
+
 ## Público-alvo
 
 - Pessoas desenvolvedoras (web/backend) que já escrevem software e querem **projetar, integrar e operar** sistemas com LLMs, agentes, MCP, RAG e AIOps.
@@ -87,6 +93,7 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [glossario.md](./glossario.md) | Termos-chave da trilha |
 | [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) | O que falta no material (honesto) |
 | [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Guia ensinável de cada módulo |
+| [media/README.md](./media/README.md) | Capas e IDs dos vídeos HeyGen |
 
 ## Os nove módulos
 
