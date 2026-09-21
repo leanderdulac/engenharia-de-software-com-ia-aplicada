@@ -2,11 +2,11 @@
 
 Este diretório é o **ponto de entrada oficial** da pós-graduação neste repositório. Os módulos, labs e exemplos já existiam; aqui eles viram uma trilha ensinável, com ordem, critérios e mapa do que o aluno faz em cada pasta.
 
-Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — uso para estudo, sem uso comercial.
+Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~3,5–4 min por módulo, voz `pt-BR-FranciscaNeural`) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — uso para estudo, sem uso comercial.
 
 ## Mídia
 
-Capas do curso e dos nove módulos, intros Grok Imagine em [`media/videos/grok/`](./media/videos/grok/) e índice complementar de IDs HeyGen: [media/README.md](./media/README.md).
+Capas do curso e dos nove módulos, narrações TTS em [`media/audios/tts/`](./media/audios/tts/), intros Grok Imagine em [`media/videos/grok/`](./media/videos/grok/) e índice complementar de IDs HeyGen: [media/README.md](./media/README.md).
 
 ![Capa do curso — Engenharia de Software com IA Aplicada](./media/imagens/curso-capa-hero.png)
 
@@ -16,7 +16,7 @@ O texto didático (aula completa, roteiro de narração e metadados) está em [`
 
 ## Preview local
 
-Para abrir o pacote no navegador (sidebar, markdown, capas, intros Grok e índice de mídia): [preview/README.md](./preview/README.md).
+Para abrir o pacote no navegador (sidebar, markdown, capas, narrações TTS, intros Grok e índice de mídia): [preview/README.md](./preview/README.md).
 
 ## Público-alvo
 
@@ -102,7 +102,7 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) | O que falta no material (honesto) |
 | [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Guia ensinável de cada módulo |
 | [conteudo/README.md](./conteudo/README.md) | Texto das aulas, roteiros de narração e `meta.json` |
-| [media/README.md](./media/README.md) | Capas, intros Grok Imagine (`media/videos/grok/`) e IDs HeyGen |
+| [media/README.md](./media/README.md) | Capas, narrações TTS (`media/audios/tts/`), intros Grok Imagine (`media/videos/grok/`) e IDs HeyGen |
 | [preview/README.md](./preview/README.md) | Preview local do pacote no navegador |
 
 ## Os nove módulos

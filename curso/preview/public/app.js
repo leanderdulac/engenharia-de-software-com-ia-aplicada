@@ -11,6 +11,7 @@ const NAV = [
   { path: "lacunas-e-proximos-passos.md", label: "Lacunas" },
   { path: "media/README.md", label: "Mídia" },
   { path: "videos/grok", label: "Intros Grok", kind: "grok" },
+  { path: "audios", label: "Narrações TTS", kind: "tts" },
   { section: "Módulos" },
   { path: "modulos/01.md", label: "Módulo 01" },
   { path: "modulos/02.md", label: "Módulo 02" },
@@ -110,6 +111,84 @@ async function loadGrokGallery() {
   return grokGalleryHtml(data);
 }
 
+let ttsPayloadCache = null;
+
+async function loadTtsPayload() {
+  if (ttsPayloadCache) return ttsPayloadCache;
+  const res = await fetch("/api/tts-audios");
+  const data = await res.json();
+  if (!res.ok || data.error) {
+    throw new Error(data.message || `Falha HTTP ${res.status}`);
+  }
+  ttsPayloadCache = data;
+  return data;
+}
+
+function formatTtsDuration(seconds) {
+  if (seconds == null || Number.isNaN(Number(seconds))) return "duração n/d";
+  const total = Math.round(Number(seconds));
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return `${m} min ${String(s).padStart(2, "0")} s`;
+}
+
+function moduloFromPath(pagePath) {
+  const guide = pagePath.match(/^modulos\/(\d{2})\.md$/);
+  if (guide) return guide[1];
+  const content = pagePath.match(/^conteudo\/modulo-(\d{2})\//);
+  if (content) return content[1];
+  return null;
+}
+
+function ttsPlayerHtml(audio, { compact = false } = {}) {
+  const duration = formatTtsDuration(audio.duration_seconds);
+  const heading = compact
+    ? "<h3>Narração TTS desta aula</h3>"
+    : `<h3>Módulo ${audio.modulo} — ${audio.title}</h3>`;
+  const roteiro = audio.source_path
+    ? ` · <a href="#/${audio.source_path}">roteiro</a>`
+    : "";
+  return `<article class="tts-card">
+  ${heading}
+  <p class="tts-meta">${duration} · ${audio.voice} · rate ${audio.rate} · <code>${audio.file}</code>${roteiro}</p>
+  <audio class="tts-player" controls preload="metadata" src="${audio.src}">
+    Seu navegador não reproduz este MP3. <a href="${audio.src}">Baixar ${audio.file}</a>
+  </audio>
+</article>`;
+}
+
+function ttsGalleryHtml(payload) {
+  const audios = payload.audios || [];
+  const cards = audios.map((audio) => ttsPlayerHtml(audio)).join("\n");
+  const voice = payload.voice || "pt-BR-FranciscaNeural";
+  const rate = payload.rate || "-5%";
+  return `<section class="tts-gallery" aria-label="Narrações TTS">
+  <h2>Narrações TTS</h2>
+  <p>MP3 versionados em <code>curso/media/audios/tts/</code>, voz <code>${voice}</code>, rate <code>${rate}</code>. Servidos em <code>/media/audios/tts/modulo-0N-narracao.mp3</code>. São a leitura falada do roteiro de cada módulo (~3,5–4 min).</p>
+  <div class="tts-grid">${cards}</div>
+</section>`;
+}
+
+async function loadTtsGallery() {
+  return ttsGalleryHtml(await loadTtsPayload());
+}
+
+async function injectLessonTtsPlayer(pagePath) {
+  const modulo = moduloFromPath(pagePath);
+  if (!modulo) return;
+  try {
+    const payload = await loadTtsPayload();
+    const audio = (payload.audios || []).find((item) => item.modulo === modulo);
+    if (!audio) return;
+    const player = `<aside class="tts-lesson" aria-label="Narração TTS desta aula">${ttsPlayerHtml(audio, { compact: true })}</aside>`;
+    const heading = articleEl.querySelector("h1");
+    if (heading) heading.insertAdjacentHTML("afterend", player);
+    else articleEl.insertAdjacentHTML("afterbegin", player);
+  } catch {
+    // Página de aula continua sem o player se o manifesto não estiver disponível.
+  }
+}
+
 async function loadPage() {
   const path = currentPath();
   setActive(path);
@@ -122,6 +201,12 @@ async function loadPage() {
   try {
     if (path === "videos/grok") {
       articleEl.innerHTML = await loadGrokGallery();
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (path === "audios") {
+      articleEl.innerHTML = await loadTtsGallery();
       window.scrollTo(0, 0);
       return;
     }
@@ -141,6 +226,16 @@ async function loadPage() {
           `<p class="error">Intros Grok indisponíveis: ${galleryErr.message}</p>`
         );
       }
+      try {
+        articleEl.insertAdjacentHTML("beforeend", await loadTtsGallery());
+      } catch (galleryErr) {
+        articleEl.insertAdjacentHTML(
+          "beforeend",
+          `<p class="error">Narrações TTS indisponíveis: ${galleryErr.message}</p>`
+        );
+      }
+    } else {
+      await injectLessonTtsPlayer(path);
     }
     window.scrollTo(0, 0);
   } catch (err) {

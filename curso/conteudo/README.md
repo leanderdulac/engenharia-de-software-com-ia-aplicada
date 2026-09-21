@@ -2,7 +2,7 @@
 
 Este diretório é o **texto didático** da pós-graduação: o que a pessoa lê (e o que a narração de áudio/vídeo comprime). Não substitui os labs. Complementa os guias de [`curso/modulos/`](../modulos/), que continuam sendo o mapa operacional (objetivos, checklist, pastas).
 
-Os vídeos **não** estão neste Git. Os IDs HeyGen ficam em [`curso/media/videos/heygen-ids.json`](../media/videos/heygen-ids.json). As capas versionadas estão em [`curso/media/imagens/`](../media/imagens/).
+As narrações TTS (MP3) estão em [`curso/media/audios/tts/`](../media/audios/tts/). As intros Grok Imagine estão em [`curso/media/videos/grok/`](../media/videos/grok/). Os IDs HeyGen (complementares; o MP4 HeyGen **não** entra no Git) ficam em [`curso/media/videos/heygen-ids.json`](../media/videos/heygen-ids.json). As capas versionadas estão em [`curso/media/imagens/`](../media/imagens/).
 
 ## Como texto, áudio e vídeo se encaixam
 
@@ -12,6 +12,7 @@ Cada módulo tem três camadas. Elas contam a **mesma** história, em profundida
 | --- | --- | --- | --- |
 | Texto da aula | `modulo-0N/aula.md` | Ler com calma, com caminhos reais, armadilhas e exercício | 1.500–3.000 palavras (~10–20 min de leitura) |
 | Roteiro falado | `modulo-0N/roteiro-narracao.md` | Gravar áudio ou vídeo; português falado, frases curtas | ~450–700 palavras (3–5 min) |
+| Narração TTS | [`media/audios/tts/modulo-0N-narracao.mp3`](../media/audios/tts/) | Ouvir o roteiro (Azure TTS, `pt-BR-FranciscaNeural`, rate `-5%`) | ~3,5–4 min |
 | Metadados | `modulo-0N/meta.json` | Título, duração, caso âncora, capa | — |
 | Guia operacional | [`modulos/0N.md`](../modulos/01.md) | Objetivos, mapa de labs, checklist, projeto | Não é aula: é o “o que fazer” |
 | Vídeo HeyGen | IDs em [`media/videos/heygen-ids.json`](../media/videos/heygen-ids.json) | Abertura visual do módulo (fora do Git) | peça curta de abertura |
@@ -19,7 +20,7 @@ Cada módulo tem três camadas. Elas contam a **mesma** história, em profundida
 Fluxo sugerido para o aluno:
 
 1. Abrir o [guia do módulo](../modulos/) e a capa.
-2. Ler `aula.md` (ou ouvir o áudio gerado a partir do roteiro).
+2. Ler `aula.md` (ou ouvir [`media/audios/tts/modulo-0N-narracao.mp3`](../media/audios/tts/)).
 3. Ir para a pasta real do lab e **trabalhar no template** (M01–M03) ou no snapshot (M04) / ferramenta (M07–M09).
 4. Só então abrir o gabarito `-z` ou o `output-exemplo-*`.
 5. Fechar o checklist do guia.

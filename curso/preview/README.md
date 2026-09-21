@@ -1,6 +1,6 @@
 # Preview local do curso
 
-Servidor mínimo (Node.js + Express) para avaliar o pacote em `curso/` no navegador: navegação lateral, markdown renderizado, capas dos módulos, intros Grok Imagine e índice de mídia.
+Servidor mínimo (Node.js + Express) para avaliar o pacote em `curso/` no navegador: navegação lateral, markdown renderizado, capas dos módulos, narrações TTS, intros Grok Imagine e índice de mídia.
 
 Não altera labs nem exemplos. Só lê os arquivos Markdown e a pasta `curso/media/`.
 
@@ -48,10 +48,11 @@ O script `npm run dev` é o mesmo que `npm start` (`node server.js`).
 | `GET /api/page?path=README.md` | Lê um `.md` **somente** sob `curso/` (sem path traversal) |
 | `GET /api/page?path=modulos/01.md` | Guia de um módulo |
 | `GET /api/grok-videos` | Lista as intros Grok Imagine a partir de `media/videos/grok/manifest.json` |
-| `/media/…` | Arquivos estáticos de `curso/media/` (capas, intros Grok em `/media/videos/grok/modulo-0N-intro.mp4`) |
+| `GET /api/tts-audios` | Lista as narrações TTS a partir de `media/audios/tts/manifest.json` |
+| `/media/…` | Arquivos estáticos de `curso/media/` (capas, intros Grok em `/media/videos/grok/modulo-0N-intro.mp4`, narrações em `/media/audios/tts/modulo-0N-narracao.mp3`) |
 
 Caminhos relativos de imagem no markdown (`../media/...`, `./media/...`, `media/...` e `imagens/...` a partir de `media/README.md`) são reescritos para `/media/...`.
 
 ## Interface
 
-A sidebar, em português, lista: Início, Syllabus, Trilha, Mapa, Avaliação, Guia do aluno, Guia do instrutor, Glossário, Lacunas, Mídia, **Intros Grok** e os Módulos 01–09. A capa hero aparece na home. A página de mídia e a rota `#/videos/grok` reproduzem os MP4 versionados (além do índice de IDs HeyGen no markdown).
+A sidebar, em português, lista: Início, Syllabus, Trilha, Mapa, Avaliação, Guia do aluno, Guia do instrutor, Glossário, Lacunas, Mídia, **Intros Grok**, **Narrações TTS** e os Módulos 01–09. A capa hero aparece na home. A página de mídia, a rota `#/videos/grok` e a rota `#/audios` reproduzem os MP4 e MP3 versionados (além do índice de IDs HeyGen no markdown). Os guias `modulos/0N.md` e as páginas em `conteudo/modulo-0N/` ganham um player da narração daquele módulo.

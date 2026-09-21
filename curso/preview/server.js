@@ -166,6 +166,7 @@ const app = express();
 app.disable("x-powered-by");
 
 const GROK_MANIFEST = path.join(MEDIA_DIR, "videos", "grok", "manifest.json");
+const TTS_MANIFEST = path.join(MEDIA_DIR, "audios", "tts", "manifest.json");
 
 const MODULE_TITLES = {
   "01": "Fundamentos de IA e LLMs",
@@ -220,8 +221,64 @@ async function handleGrokVideos(_req, res) {
   }
 }
 
+function toPreviewPath(sourcePath) {
+  const posix = String(sourcePath || "")
+    .trim()
+    .replace(/\\/g, "/");
+  if (!posix) return null;
+  return posix.replace(/^curso\//, "");
+}
+
+async function handleTtsAudios(_req, res) {
+  try {
+    const raw = await fs.readFile(TTS_MANIFEST, "utf8");
+    const data = JSON.parse(raw);
+    const items = Array.isArray(data) ? data : data.files;
+    if (!Array.isArray(items)) {
+      throw new Error("manifest.json inválido: esperado um array em files.");
+    }
+
+    const audios = items.map((item) => {
+      const modulo = String(item.modulo || "").padStart(2, "0");
+      const file = path.basename(item.file || `modulo-${modulo}-narracao.mp3`);
+      if (!/^modulo-\d{2}-narracao\.mp3$/.test(file)) {
+        throw new Error(`Arquivo TTS inválido no manifesto: ${file}`);
+      }
+      return {
+        modulo,
+        title: MODULE_TITLES[modulo] || `Módulo ${modulo}`,
+        file,
+        src: `/media/audios/tts/${file}`,
+        source_path: toPreviewPath(item.source_path),
+        voice: item.voice || data.voice || "pt-BR-FranciscaNeural",
+        rate: item.rate || data.rate || "-5%",
+        duration_seconds: item.duration_seconds ?? null,
+        bytes: item.bytes ?? null,
+        status: item.status || null,
+      };
+    });
+
+    res.json({
+      source: "Azure Neural TTS",
+      voice: data.voice || "pt-BR-FranciscaNeural",
+      rate: data.rate || "-5%",
+      audios,
+    });
+  } catch (err) {
+    const status = err.code === "ENOENT" ? 404 : 500;
+    res.status(status).json({
+      error: true,
+      message:
+        status === 404
+          ? "Manifesto TTS não encontrado em media/audios/tts/manifest.json."
+          : err.message || "Falha ao ler as narrações TTS.",
+    });
+  }
+}
+
 app.get("/api/page", handlePage);
 app.get("/api/grok-videos", handleGrokVideos);
+app.get("/api/tts-audios", handleTtsAudios);
 
 app.use(
   "/media",
