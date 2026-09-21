@@ -10,6 +10,10 @@ Capas do curso e dos nove módulos, mais o índice de vídeos HeyGen (IDs da con
 
 ![Capa do curso — Engenharia de Software com IA Aplicada](./media/imagens/curso-capa-hero.png)
 
+## Conteúdo das aulas
+
+O texto didático (aula completa, roteiro de narração e metadados) está em [`conteudo/`](./conteudo/README.md). Os guias em [`modulos/`](./modulos/) continuam sendo o mapa operacional — objetivos, labs, checklist. Leia a aula, depois execute o lab.
+
 ## Preview local
 
 Para abrir o pacote no navegador (sidebar, markdown, capas e índice de mídia): [preview/README.md](./preview/README.md).
@@ -97,7 +101,9 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [glossario.md](./glossario.md) | Termos-chave da trilha |
 | [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) | O que falta no material (honesto) |
 | [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Guia ensinável de cada módulo |
+| [conteudo/README.md](./conteudo/README.md) | Texto das aulas, roteiros de narração e `meta.json` |
 | [media/README.md](./media/README.md) | Capas e IDs dos vídeos HeyGen |
+| [preview/README.md](./preview/README.md) | Preview local do pacote no navegador |
 
 ## Os nove módulos
 
