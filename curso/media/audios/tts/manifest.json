@@ -1,0 +1,97 @@
+{
+  "voice": "pt-BR-FranciscaNeural",
+  "rate": "-5%",
+  "generated_at": "2026-09-21T15:24:59.952886+00:00",
+  "files": [
+    {
+      "modulo": "01",
+      "file": "modulo-01-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-01/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1379376,
+      "duration_seconds": 229.896,
+      "status": "ok"
+    },
+    {
+      "modulo": "02",
+      "file": "modulo-02-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-02/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1205712,
+      "duration_seconds": 200.952,
+      "status": "ok"
+    },
+    {
+      "modulo": "03",
+      "file": "modulo-03-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-03/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1280448,
+      "duration_seconds": 213.408,
+      "status": "ok"
+    },
+    {
+      "modulo": "04",
+      "file": "modulo-04-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-04/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1383840,
+      "duration_seconds": 230.64,
+      "status": "ok"
+    },
+    {
+      "modulo": "05",
+      "file": "modulo-05-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-05/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1330992,
+      "duration_seconds": 221.832,
+      "status": "ok"
+    },
+    {
+      "modulo": "06",
+      "file": "modulo-06-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-06/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1251648,
+      "duration_seconds": 208.608,
+      "status": "ok"
+    },
+    {
+      "modulo": "07",
+      "file": "modulo-07-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-07/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1342512,
+      "duration_seconds": 223.752,
+      "status": "ok"
+    },
+    {
+      "modulo": "08",
+      "file": "modulo-08-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-08/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1372896,
+      "duration_seconds": 228.816,
+      "status": "ok"
+    },
+    {
+      "modulo": "09",
+      "file": "modulo-09-narracao.mp3",
+      "source_path": "curso/conteudo/modulo-09/roteiro-narracao.md",
+      "voice": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "bytes": 1288656,
+      "duration_seconds": 214.776,
+      "status": "ok"
+    }
+  ]
+}

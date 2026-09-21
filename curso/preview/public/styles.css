@@ -316,6 +316,15 @@ pre {
   margin: 0.6rem 0 0;
 }
 
+.article audio,
+.tts-player {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  margin: 0.7rem 0 0;
+  accent-color: var(--cyan-400);
+}
+
 .grok-gallery {
   margin-top: 1.8rem;
   padding-top: 0.6rem;
@@ -349,6 +358,45 @@ pre {
   margin: 0.35rem 0 0;
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.tts-gallery {
+  margin-top: 1.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.tts-gallery h2 {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+
+.tts-grid {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.tts-card {
+  background: var(--navy-900);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.tts-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.tts-meta {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.tts-lesson {
+  margin: 1rem 0 1.4rem;
 }
 
 .backdrop {
