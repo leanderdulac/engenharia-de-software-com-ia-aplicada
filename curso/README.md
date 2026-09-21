@@ -10,6 +10,10 @@ Capas do curso e dos nove módulos, mais o índice de vídeos HeyGen (IDs da con
 
 ![Capa do curso — Engenharia de Software com IA Aplicada](./media/imagens/curso-capa-hero.png)
 
+## Preview local
+
+Para abrir o pacote no navegador (sidebar, markdown, capas e índice de mídia): [preview/README.md](./preview/README.md).
+
 ## Público-alvo
 
 - Pessoas desenvolvedoras (web/backend) que já escrevem software e querem **projetar, integrar e operar** sistemas com LLMs, agentes, MCP, RAG e AIOps.
