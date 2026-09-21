@@ -1,6 +1,44 @@
 # Engenharia de Software com IA Aplicada
 
-Abaixo são as referências e links complementares às aulas, dividido por módulos e submodulos:
+Pós-graduação prática: LLMs, MCP, agentes, AIOps, gestão, arquitetura e fine-tuning — com labs e casos âncora neste repositório.
+
+## Pacote do curso (comece aqui)
+
+O **ponto de entrada oficial** para aluno e instrutor é a pasta [`curso/`](./curso/README.md). Lá estão ementa, trilha ordenada, mapa pasta→lab, rubricas, guias e um arquivo por módulo (01–09).
+
+| Documento | Para quê |
+| --- | --- |
+| [`curso/README.md`](./curso/README.md) | Visão, público, pré-requisitos, carga, competências |
+| [`curso/trilha-aprendizado.md`](./curso/trilha-aprendizado.md) | Ordem das unidades e dependências |
+| [`curso/mapa-do-repositorio.md`](./curso/mapa-do-repositorio.md) | O que fazer em cada pasta |
+| [`curso/guia-do-aluno.md`](./curso/guia-do-aluno.md) | Setup, ritmo, troubleshooting |
+| [`curso/guia-do-instrutor.md`](./curso/guia-do-instrutor.md) | Demos, ênfases, traps |
+| [`curso/modulos/`](./curso/modulos/) | Roteiro ensinável de cada módulo |
+
+Licença: [CC BY-NC-ND 4.0](./LICENSE.md). Vídeos **não** vêm neste Git. Problemas de ambiente: [`troubleshooting/`](./troubleshooting/). Windows nativo: skill [`windowsfy`](./skills/windowsfy/SKILL.md).
+
+## Os 9 módulos
+
+| Módulo | Foco | Pasta | Projeto âncora |
+| --- | --- | --- | --- |
+| 01 | Fundamentos de IA e LLMs | [`modulo01-fundamentos-de-ia-e-llms-para-programadores/`](./modulo01-fundamentos-de-ia-e-llms-para-programadores/) | TF.js, Duck Hunt, RAG Neo4j |
+| 02 | Integração de APIs de LLMs | [`modulo02-integracao-apis-llms/`](./modulo02-integracao-apis-llms/) | Gateway, consultas médicas, Cypher |
+| 03 | MCP na prática | [`modulo03-mcp-na-pratica/`](./modulo03-mcp-na-pratica/) | CipherSuite MCP, customers MCP |
+| 04 | Agentes autônomos | [`modulo04-criacao-de-agentes-autonomos-novo/`](./modulo04-criacao-de-agentes-autonomos-novo/) | Notas API + **OpsPilot** |
+| 05 | IA para UI/UX | [`modulo05-ferramentas-de-IA-para-UI-UX/`](./modulo05-ferramentas-de-IA-para-UI-UX/) | Pix App, CFP, BragBot |
+| 06 | AIOps / engenharia agêntica | [`modulo06-aiops-engenharia-agentica/`](./modulo06-aiops-engenharia-agentica/) | **Nexus** (12 labs) |
+| 07 | Gestão de projetos com IA | [`modulo07-ferramentas-de-ia-para-gestao-de-projetos/`](./modulo07-ferramentas-de-ia-para-gestao-de-projetos/) | **RouteWise** (10 ferramentas) |
+| 08 | Arquitetura de sistemas com IA | [`modulo08-arquitetura-de-sistemas-com-ia/`](./modulo08-arquitetura-de-sistemas-com-ia/) | **TrialForge** |
+| 09 | Dados e fine-tuning | [`modulo09-processamento-de-dados-e-fine-tuning-de-modelos/`](./modulo09-processamento-de-dados-e-fine-tuning-de-modelos/) | **Amplitude Seguros** |
+
+Complementos: [`lives/`](./lives/) (MCP/Skills, Spec-Driven Development, Safer). A pasta `modulo04-agentes-autonomos/` (gravação antiga) **não está neste clone** — use a pasta `-novo` acima.
+
+---
+
+## Referências e links complementares às aulas
+
+Abaixo, os links por módulo e submódulo (papers, ferramentas, demos externas). A ordem pedagógica e o “o que fazer em cada pasta” estão em [`curso/`](./curso/README.md).
+
 
 ## Modulo 01 - Fundamentos de IA e LLMs para Programadores
 
