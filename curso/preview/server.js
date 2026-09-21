@@ -165,7 +165,63 @@ async function handlePage(req, res) {
 const app = express();
 app.disable("x-powered-by");
 
+const GROK_MANIFEST = path.join(MEDIA_DIR, "videos", "grok", "manifest.json");
+
+const MODULE_TITLES = {
+  "01": "Fundamentos de IA e LLMs",
+  "02": "Integração de APIs de LLMs",
+  "03": "MCP na prática",
+  "04": "Agentes autônomos",
+  "05": "IA para UI/UX",
+  "06": "AIOps e engenharia agêntica",
+  "07": "Gestão de projetos com IA",
+  "08": "Arquitetura de sistemas com IA",
+  "09": "Dados e fine-tuning",
+};
+
+async function handleGrokVideos(_req, res) {
+  try {
+    const raw = await fs.readFile(GROK_MANIFEST, "utf8");
+    const items = JSON.parse(raw);
+    if (!Array.isArray(items)) {
+      throw new Error("manifest.json inválido: esperado um array.");
+    }
+
+    const videos = items.map((item) => {
+      const modulo = String(item.modulo || "").padStart(2, "0");
+      const file = path.basename(item.file || `modulo-${modulo}-intro.mp4`);
+      if (!/^modulo-\d{2}-intro\.mp4$/.test(file)) {
+        throw new Error(`Arquivo Grok inválido no manifesto: ${file}`);
+      }
+      return {
+        modulo,
+        title: MODULE_TITLES[modulo] || `Módulo ${modulo}`,
+        file,
+        src: `/media/videos/grok/${file}`,
+        request_id: item.request_id || null,
+        duration: item.duration ?? null,
+        status: item.status || null,
+      };
+    });
+
+    res.json({
+      source: "Grok Imagine (xAI)",
+      videos,
+    });
+  } catch (err) {
+    const status = err.code === "ENOENT" ? 404 : 500;
+    res.status(status).json({
+      error: true,
+      message:
+        status === 404
+          ? "Manifesto Grok não encontrado em media/videos/grok/manifest.json."
+          : err.message || "Falha ao ler as intros Grok.",
+    });
+  }
+}
+
 app.get("/api/page", handlePage);
+app.get("/api/grok-videos", handleGrokVideos);
 
 app.use(
   "/media",

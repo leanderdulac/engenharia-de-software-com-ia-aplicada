@@ -305,6 +305,52 @@ pre {
   border-top: 1px solid var(--line);
 }
 
+.article video,
+.grok-player {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #000;
+  margin: 0.6rem 0 0;
+}
+
+.grok-gallery {
+  margin-top: 1.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.grok-gallery h2 {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+
+.grok-grid {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.grok-card {
+  background: var(--navy-900);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.grok-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.grok-meta {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .backdrop {
   display: none;
 }
