@@ -18,6 +18,7 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **MCP** | Model Context Protocol: contrato de tools, resources e prompts entre host (IDE/agente) e servidor. | M01 §8; M03; M04 U3 `npm run mcp`; live 2026-02-24 |
 | **MCP Inspector** | UI para depurar um servidor MCP (`mcp:inspect`). | M03 `05-mcps-do-zero-z` |
 | **Tool / function calling** | Função que o modelo escolhe chamar (schema JSON). | M02 safeguard; M03; M04 U3; M08 tool canvas |
+| **Structured output** | JSON (ou TOON) com schema; o próximo nó do grafo depende disso. | M01 §1.8; M02 medical; M05 prompts |
 | **LangGraph / StateGraph** | Grafo de nós e arestas (incluindo condicionais) para fluxos com LLM. | M02; M03; M04 U6 |
 | **ReAct** | Loop Pensamento → Ação → Observação. Paper Yao et al. | M04 U2; M06 lab 4; M08 M2 |
 | **Plan-and-Execute** | Planeja passos e depois executa (contrasta com ReAct passo a passo). | M04 U2 |

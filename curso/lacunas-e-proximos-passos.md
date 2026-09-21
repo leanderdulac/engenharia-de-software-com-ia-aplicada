@@ -25,7 +25,7 @@ O código é usável; a **documentação interna mente**.
 - M03 `07-…-template` contém subpastas nomeadas `*-z` — confunde.
 - M03 `03-dev-instructions-agents` e `04-skills`: material curto, sem app.
 
-**Próximo passo (manutenção do repo):** um README verdadeiro por lab (propósito, env, comando, o que o template deixa vazio). Até lá, o guia do módulo prevalece sobre o README da pasta.
+**Próximo passo (manutenção do repo):** um README verdadeiro por lab (propósito, env, comando, o que o template deixa vazio). Até lá, o **capítulo** em [`modulos/`](./modulos/) prevalece sobre o README da pasta (ele já ensina o conceito; continua sem corrigir o texto copiado nos labs).
 
 ## Módulo 01
 

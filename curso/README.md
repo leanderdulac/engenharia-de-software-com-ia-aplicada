@@ -92,7 +92,7 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [guia-do-aluno.md](./guia-do-aluno.md) | Setup, ritmo, estudo, troubleshooting |
 | [glossario.md](./glossario.md) | Termos-chave da trilha |
 | [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) | O que falta no material (honesto) |
-| [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Guia ensinável de cada módulo |
+| [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Capítulos didáticos (conceito → lab → armadilha → ponte) |
 | [media/README.md](./media/README.md) | Capas e IDs dos vídeos HeyGen |
 
 ## Os nove módulos
