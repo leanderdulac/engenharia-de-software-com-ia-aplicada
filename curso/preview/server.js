@@ -1,0 +1,193 @@
+import express from "express";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { marked } from "marked";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PREVIEW_ROOT = __dirname;
+const PUBLIC_DIR = path.join(PREVIEW_ROOT, "public");
+const CURSO_ROOT = path.resolve(PREVIEW_ROOT, "..");
+const MEDIA_DIR = path.join(CURSO_ROOT, "media");
+const PORT = Number.parseInt(process.env.PORT, 10) || 3847;
+
+marked.setOptions({ gfm: true, breaks: false });
+
+function toPosix(filePath) {
+  return filePath.split(path.sep).join("/");
+}
+
+function isInsideRoot(candidate, root) {
+  const rel = path.relative(root, candidate);
+  return rel === "" || (!rel.startsWith("..") && !path.isAbsolute(rel));
+}
+
+/**
+ * Resolve a request path to a markdown file under curso/.
+ * Rejects absolute paths, NUL bytes and anything that escapes CURSO_ROOT.
+ */
+export function resolveMarkdownPath(rawPath) {
+  if (typeof rawPath !== "string" || !rawPath.trim()) {
+    const err = new Error("Informe um caminho de markdown em ?path=");
+    err.status = 400;
+    throw err;
+  }
+
+  const trimmed = rawPath.trim();
+  if (trimmed.includes("\0")) {
+    const err = new Error("Caminho inválido.");
+    err.status = 400;
+    throw err;
+  }
+
+  if (path.isAbsolute(trimmed) || /^[a-zA-Z]:[\\/]/.test(trimmed)) {
+    const err = new Error("Caminho fora do pacote do curso.");
+    err.status = 403;
+    throw err;
+  }
+
+  const resolved = path.resolve(CURSO_ROOT, trimmed);
+  if (!isInsideRoot(resolved, CURSO_ROOT)) {
+    const err = new Error("Caminho fora do pacote do curso.");
+    err.status = 403;
+    throw err;
+  }
+
+  if (path.extname(resolved).toLowerCase() !== ".md") {
+    const err = new Error("Apenas arquivos Markdown (.md) são permitidos.");
+    err.status = 400;
+    throw err;
+  }
+
+  return {
+    abs: resolved,
+    rel: toPosix(path.relative(CURSO_ROOT, resolved)),
+  };
+}
+
+function resolveLocalUrl(url, mdRelPath) {
+  const cleaned = String(url || "")
+    .trim()
+    .replace(/\\/g, "/");
+  if (!cleaned) return null;
+  if (/^(https?:|data:|mailto:|tel:|#|\/\/)/i.test(cleaned)) return null;
+  if (cleaned.startsWith("/media/")) return { kind: "media", href: cleaned };
+  if (cleaned.startsWith("/")) return null;
+
+  const hashIndex = cleaned.indexOf("#");
+  const queryIndex = cleaned.indexOf("?");
+  let end = cleaned.length;
+  if (hashIndex >= 0) end = Math.min(end, hashIndex);
+  if (queryIndex >= 0) end = Math.min(end, queryIndex);
+  const withoutSuffix = cleaned.slice(0, end);
+  const suffix = cleaned.slice(end);
+
+  const mdDir = path.posix.dirname(mdRelPath);
+  const joined = path.posix.normalize(path.posix.join(mdDir, withoutSuffix));
+  if (joined.startsWith("../") || joined === "..") return null;
+
+  return { kind: "local", href: joined, suffix };
+}
+
+/**
+ * Point relative media paths at /media/ and in-package .md links at hash routes.
+ */
+export function rewriteHtml(html, mdRelPath) {
+  return html.replace(/\s(src|href)="([^"]*)"/gi, (full, attr, url) => {
+    const resolved = resolveLocalUrl(url, mdRelPath);
+    if (!resolved) return full;
+
+    if (resolved.kind === "media") {
+      return ` ${attr}="${resolved.href}"`;
+    }
+
+    const target = resolved.href;
+    const suffix = resolved.suffix || "";
+    const attrName = attr.toLowerCase();
+
+    if (target === "media" || target.startsWith("media/")) {
+      return ` ${attr}="/${target}${suffix}"`;
+    }
+
+    if (attrName === "href" && target.toLowerCase().endsWith(".md")) {
+      return ` ${attr}="#/${target}${suffix}"`;
+    }
+
+    return full;
+  });
+}
+
+function extractTitle(markdown, fallback) {
+  const match = markdown.match(/^#\s+(.+)$/m);
+  if (!match) return fallback;
+  return match[1].replace(/[*_`]/g, "").trim();
+}
+
+function stripHomeHeroDuplicate(html, rel) {
+  if (rel !== "README.md") return html;
+  return html.replace(/<p>\s*<img[^>]*curso-capa-hero[^>]*>\s*<\/p>/i, "");
+}
+
+async function handlePage(req, res) {
+  try {
+    const { abs, rel } = resolveMarkdownPath(req.query.path);
+    let markdown;
+    try {
+      markdown = await fs.readFile(abs, "utf8");
+    } catch (ioErr) {
+      if (ioErr && ioErr.code === "ENOENT") {
+        const err = new Error(`Arquivo não encontrado: ${rel}`);
+        err.status = 404;
+        throw err;
+      }
+      throw ioErr;
+    }
+
+    const html = stripHomeHeroDuplicate(
+      rewriteHtml(marked.parse(markdown), rel),
+      rel
+    );
+
+    res.json({
+      path: rel,
+      title: extractTitle(markdown, rel),
+      html,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    res.status(status).json({
+      error: true,
+      message: err.message || "Falha ao ler a página.",
+    });
+  }
+}
+
+const app = express();
+app.disable("x-powered-by");
+
+app.get("/api/page", handlePage);
+
+app.use(
+  "/media",
+  express.static(MEDIA_DIR, {
+    index: false,
+    dotfiles: "deny",
+    fallthrough: false,
+  })
+);
+
+app.use(express.static(PUBLIC_DIR, { index: "index.html" }));
+
+app.use((req, res) => {
+  res.status(404).json({ error: true, message: "Recurso não encontrado." });
+});
+
+const server = app.listen(PORT, () => {
+  console.log(`Preview do curso em http://localhost:${PORT}`);
+  console.log(`Pacote servido a partir de ${CURSO_ROOT}`);
+});
+
+server.on("error", (err) => {
+  console.error(err);
+  process.exit(1);
+});

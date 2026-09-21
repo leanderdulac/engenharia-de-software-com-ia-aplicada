@@ -1,0 +1,18 @@
+{
+  "name": "curso-preview",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Preview local do pacote do curso (markdown, capas e índice de mídia) no navegador.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "marked": "^15.0.12"
+  }
+}

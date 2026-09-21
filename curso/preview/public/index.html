@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Preview do curso — Engenharia de Software com IA Aplicada</title>
+    <meta
+      name="description"
+      content="Leitura local do pacote do curso: guias, módulos, capas e índice de mídia."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <div class="app">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <p class="brand-kicker">Pós-graduação</p>
+          <h1 class="brand-title">Engenharia de Software com IA Aplicada</h1>
+          <p class="brand-meta">Preview local do pacote <code>curso/</code></p>
+        </div>
+        <nav class="nav" id="nav" aria-label="Pacote do curso"></nav>
+      </aside>
+
+      <div class="main-wrap">
+        <header class="topbar">
+          <button
+            type="button"
+            class="menu-btn"
+            id="menu-btn"
+            aria-controls="sidebar"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+          <p class="crumb" id="crumb">Início</p>
+        </header>
+
+        <main class="main" id="conteudo">
+          <figure class="hero" id="hero" hidden>
+            <img
+              src="/media/imagens/curso-capa-hero.png"
+              alt="Capa do curso — camadas de aplicação, serviços, domínio, dados e infraestrutura"
+            />
+          </figure>
+          <article class="article" id="article" aria-live="polite">
+            <p class="status">Carregando o pacote do curso…</p>
+          </article>
+        </main>
+      </div>
+    </div>
+    <div class="backdrop" id="backdrop" hidden></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
