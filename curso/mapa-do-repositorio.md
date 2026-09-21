@@ -150,20 +150,20 @@ Entrada: [`README.md`](../modulo06-aiops-engenharia-agentica/README.md), menu `p
 
 ## Módulo 07 — `modulo07-ferramentas-de-ia-para-gestao-de-projetos/`
 
-Fluxo padrão: `*-prompt.md` no AI Studio → dados de entrada → comparar `output-exemplo-*`. PDFs de atividade são citados no README e **não estão neste clone**.
+Fluxo padrão: `*-prompt.md` no AI Studio → dados de entrada → comparar `output-exemplo-*`. Cada pasta tem missão [`Atividade - Módulo N.pdf`](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-01-planejamento-e-escopo/Atividade%20-%20Módulo%201.pdf) e gabarito `Exemplo - Módulo N.pdf` (N = 1…10). Entregue a Atividade **ou** o checkpoint — ver [avaliacao.md](./avaliacao.md).
 
-| Pasta | Ferramenta | O aluno faz |
-| --- | --- | --- |
-| `modulo-01-planejamento-e-escopo/` | Requirements Copilot | Transcrição → backlog; CSV Jira |
-| `modulo-02-priorizacao-de-backlog/` | Backlog Scorer | RICE + WSJF |
-| `modulo-03-cronograma-e-capacidade/` | Scheduling | Cronograma + what-if |
-| `modulo-04-estimativas-e-previsoes/` | Probability Forecast | PERT; **Monte Carlo nos scripts** `monte-carlo-routewise.js/.py` |
-| `modulo-05-riscos-e-aiops/` | Risk Monitor | Cockpit V/A/V |
-| `modulo-06-reunioes-turbinadas/` | Meeting Digest | Ata + JSON Jira |
-| `modulo-07-status-reports/` | Status Report | Três audiências |
-| `modulo-08-governanca-e-compliance/` | Compliance + Danger | Checklist + `danger-config-routewise.py --local` |
-| `modulo-09-automacao-de-ecossistema/` | NL to Workflow | Make.com **ou** `ecosystem-bot-template.js` |
-| `modulo-10-portfolio-e-okrs/` | OKR Aligner | Validar OKRs + scorecard |
+| Pasta | Ferramenta | O aluno faz | Missão |
+| --- | --- | --- | --- |
+| `modulo-01-planejamento-e-escopo/` | Requirements Copilot | Transcrição → backlog; CSV Jira | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-01-planejamento-e-escopo/Atividade%20-%20Módulo%201.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-01-planejamento-e-escopo/Exemplo%20-%20Módulo%201.pdf) |
+| `modulo-02-priorizacao-de-backlog/` | Backlog Scorer | RICE + WSJF | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-02-priorizacao-de-backlog/Atividade%20-%20Módulo%202.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-02-priorizacao-de-backlog/Exemplo%20-%20Módulo%202.pdf) |
+| `modulo-03-cronograma-e-capacidade/` | Scheduling | Cronograma + what-if | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-03-cronograma-e-capacidade/Atividade%20-%20Módulo%203.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-03-cronograma-e-capacidade/Exemplo%20-%20Módulo%203.pdf) |
+| `modulo-04-estimativas-e-previsoes/` | Probability Forecast | PERT; **Monte Carlo nos scripts** `monte-carlo-routewise.js` / `monte-carlo-routewise.py` | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-04-estimativas-e-previsoes/Atividade%20-%20Módulo%204.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-04-estimativas-e-previsoes/Exemplo%20-%20Módulo%204.pdf) |
+| `modulo-05-riscos-e-aiops/` | Risk Monitor | Cockpit V/A/V | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-05-riscos-e-aiops/Atividade%20-%20Módulo%205.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-05-riscos-e-aiops/Exemplo%20-%20Módulo%205.pdf) |
+| `modulo-06-reunioes-turbinadas/` | Meeting Digest | Ata + JSON Jira | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-06-reunioes-turbinadas/Atividade%20-%20Módulo%206.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-06-reunioes-turbinadas/Exemplo%20-%20Módulo%206.pdf) |
+| `modulo-07-status-reports/` | Status Report | Três audiências | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-07-status-reports/Atividade%20-%20Módulo%207.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-07-status-reports/Exemplo%20-%20Módulo%207.pdf) |
+| `modulo-08-governanca-e-compliance/` | Compliance + Danger | Checklist + `danger-config-routewise.py --local` | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-08-governanca-e-compliance/Atividade%20-%20Módulo%208.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-08-governanca-e-compliance/Exemplo%20-%20Módulo%208.pdf) |
+| `modulo-09-automacao-de-ecossistema/` | NL to Workflow | Make.com **ou** `ecosystem-bot-template.js` | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-09-automacao-de-ecossistema/Atividade%20-%20Módulo%209.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-09-automacao-de-ecossistema/Exemplo%20-%20Módulo%209.pdf) |
+| `modulo-10-portfolio-e-okrs/` | OKR Aligner | Validar OKRs + scorecard | [Atividade](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-10-portfolio-e-okrs/Atividade%20-%20Módulo%2010.pdf) · [Exemplo](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-10-portfolio-e-okrs/Exemplo%20-%20Módulo%2010.pdf) |
 
 ---
 
@@ -171,7 +171,7 @@ Fluxo padrão: `*-prompt.md` no AI Studio → dados de entrada → comparar `out
 
 | Pasta | O aluno faz |
 | --- | --- |
-| `modulo-01-fundamentos-ai-first/` | Canvas + `decision-framework-tool.js/.py` |
+| `modulo-01-fundamentos-ai-first/` | Canvas + `decision-framework-tool.js` / `decision_framework_tool.py` |
 | `modulo-02-single-agent/` | Protótipo ReAct (Ollama `gemma4:e2b`) |
 | `modulo-03-multi-agent/` | Fila de mensagens + seletor de padrão |
 | `modulo-04-padroes-ai-especificos/` | Gateway + `audit-trail.jsonl` |

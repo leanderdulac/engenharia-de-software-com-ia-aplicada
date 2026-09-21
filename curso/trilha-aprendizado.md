@@ -124,7 +124,7 @@ Labs 1→12 em [`modulo06-aiops-engenharia-agentica/labs/`](../modulo06-aiops-en
 
 Uma ferramenta por pasta `modulo-01-…` até `modulo-10-…`. ~2 h cada.
 
-**Checkpoint:** scorecard de portfólio (M10) usando o board RouteWise evolutivo (`jira-estado-board.md` de cada pasta).
+**Checkpoint:** scorecard de portfólio (M10) usando o board RouteWise evolutivo (`jira-estado-board.md` nas pastas 01–07 e 10; **não** existe em 08 nem 09).
 
 ### Módulo 08 — 20 h — [guia](./modulos/08.md)
 

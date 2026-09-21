@@ -321,7 +321,7 @@ Projeto em [exemplo-13-embeddings-neo4j-rag/](./modulo01-fundamentos-de-ia-e-llm
 
 ## Modulo 04 - Criação de Agentes Autônomos
 
-> Material da **regravação** do módulo (pasta `-novo`). O material da versão anterior permanece em [modulo04-agentes-autonomos/](./modulo04-agentes-autonomos/).
+> Material da **regravação** do módulo: [modulo04-criacao-de-agentes-autonomos-novo/](./modulo04-criacao-de-agentes-autonomos-novo/). A pasta da versão anterior (`modulo04-agentes-autonomos/`) **não está neste clone**.
 
 Dois projetos construídos do zero ao longo do módulo — a **Notas API** (Unidade 1, operando o GitHub Copilot com método: instructions, spec-driven development, guardrails) e o **OpsPilot** (Unidades 2–9, um copiloto de plantão/incident commander com LangChain/LangGraph sobre OpenRouter, que evolui unidade a unidade até virar produto publicado com modo multiagente).
 

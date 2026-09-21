@@ -7,9 +7,8 @@ Inventário **honesto** do que o clone atual não entrega, para o pacote `curso/
 | Item | Impacto | Como o curso contorna hoje |
 | --- | --- | --- |
 | Sem README na raiz de M01, M02, M03 | Aluno se perde | Guias [`modulos/01.md`](./modulos/01.md)–[`03.md`](./modulos/03.md) + [mapa](./mapa-do-repositorio.md) |
-| `modulo04-agentes-autonomos/` citado no README da raiz **não existe** neste clone | Link morto | Usar só [`modulo04-criacao-de-agentes-autonomos-novo/`](../modulo04-criacao-de-agentes-autonomos-novo/) |
+| Pasta `modulo04-agentes-autonomos/` (gravação antiga) **não existe** neste clone | Não há material legado para abrir | Só [`modulo04-criacao-de-agentes-autonomos-novo/`](../modulo04-criacao-de-agentes-autonomos-novo/) |
 | Planos `unidade-N-plano-de-aula.html` (M04) ausentes | Instrutor sem roteiro minuto a minuto | `UNIDADE.md` em cada snapshot |
-| PDFs `Atividade` / `Exemplo` dos M07–M09 citados e **não versionados** neste workspace | Missão oficial some | Checkpoints em [avaliacao.md](./avaliacao.md) |
 | `embaixadores/` vazio | Nada a ensinar | Ignorar |
 | Vídeos fora do Git | Curso incompleto sem a plataforma da pós | Labs + este pacote |
 
@@ -53,8 +52,8 @@ O código é usável; a **documentação interna mente**.
 ## Módulos 06–09
 
 - M06: sem rubrica de nota; Prometheus/Jaeger simulados; README não detalha arquivo `.env` (só `GROQ_API_KEY` no código).
-- M07: PDFs ausentes; submódulo git `routewise-danger-demo` (`.gitmodules`) — clone com `--recurse-submodules` se a demo CI for usada.
-- M08/M09: PDFs de atividade podem existir nas pastas (há `Atividade*.pdf` referenciados). Se um PDF não abrir no clone do aluno, cair nos canvases/tools.
+- M07: submódulo git `routewise-danger-demo` (`.gitmodules`) — clone com `--recurse-submodules` se a demo CI for usada. Missões `Atividade - Módulo N.pdf` e gabaritos `Exemplo - Módulo N.pdf` estão em cada pasta `modulo-01-` … `modulo-10-`. Não há `jira-estado-board.md` em `modulo-08-governanca-e-compliance/` nem em `modulo-09-automacao-de-ecossistema/` (existe em 01–07 e 10).
+- M08/M09: cada submódulo tem `Atividade N - Módulo N.pdf` e `Exemplo - Módulo N.pdf` (M08 M1 também tem os canvases PDF e o cheat sheet de clouds).
 - M09: `adapters.safetensors` propositalmente fora do Git; nomes de modelo Gemini envelhecem (`risco-validade-modelo-companion.md`).
 
 ## Lives e extras
@@ -66,8 +65,6 @@ O código é usável; a **documentação interna mente**.
 
 1. README de verdade em cada lab M02/M03 (corrige a maior fonte de abandono).
 2. `.env.example` em M01 exemplo 11 e OpsPilot U2–U5.
-3. PDF ou Markdown das missões M07 no Git.
-4. Alinhar README do M05 aos nomes de pasta.
-5. Restaurar ou remover o link do M04 legado.
+3. Alinhar README do M05 aos nomes de pasta.
 
 Este pacote `curso/` **não** corrige código de exemplo (pedido explícito do trabalho). Só documenta e aponta.

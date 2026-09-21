@@ -127,7 +127,7 @@ Canvas no projetor, caso **da turma** (um aluno voluntário). Protótipo Ollama 
 | Pastas `modulo-01-discovery-…` | README M05 | Disco = `modulo-01/` … `modulo-05/` |
 | Groq 3.14 | M06 | Python 3.10–3.13 |
 | Prometheus “de verdade” | M06 lab 4 | `tools/obs_tools.py` simula |
-| PDFs de missão | M07–M09 | Use [avaliacao.md](./avaliacao.md) |
+| Copiar a Atividade sem curadoria | M07–M09 | PDF `Exemplo` é gabarito; entregue Atividade **ou** checkpoint ([avaliacao.md](./avaliacao.md)), uma nota só |
 | Copiar limiar RAG do demo | M08 M4 | Canvas pede medição própria |
 | `adapters.safetensors` | M09 M4 | Treinar; não estão no Git |
 | Crédito GCP = Vertex | M09 README | Nem sempre; ler exclusões |
@@ -144,4 +144,4 @@ Canvas no projetor, caso **da turma** (um aluno voluntário). Protótipo Ollama 
 
 ## Comunicação de lacunas
 
-Se o aluno perguntar “cadê o plano HTML / o PDF / o módulo 04 antigo”, aponte [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) e siga. Não prometa pasta que não está no clone.
+Se o aluno perguntar “cadê o plano HTML / o módulo 04 antigo”, aponte [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) e siga. As missões M07–M09 **estão** nas pastas (`Atividade` / `Exemplo` em PDF). Não prometa a pasta `modulo04-agentes-autonomos/` — não está neste clone.

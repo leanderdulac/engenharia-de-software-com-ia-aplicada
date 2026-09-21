@@ -1,6 +1,8 @@
 # Avaliação
 
-Critérios para turma de pós-graduação usando **este** repositório. Adapte pesos ao calendário; não avalie o que o lab não pede e não invente PDFs que não estão no clone.
+Critérios para turma de pós-graduação usando **este** repositório. Adapte pesos ao calendário; não avalie o que o lab não pede.
+
+**Missão oficial (M07–M09):** um critério só — a entrega da unidade é o PDF `Atividade` da pasta **ou** o artefato do checkpoint abaixo (mesmo conteúdo pedagógico). Não some as duas notas. O `Exemplo - Módulo N.pdf` (e, no M08 M1, os canvases PDF) é gabarito de curadoria, não entrega extra.
 
 ## Aprovação
 
@@ -106,7 +108,7 @@ Projeto âncora = **C06.4**.
 | C07.3 | M8 Danger local com um mock que falha e um que passa |
 | C07.4 | M10 OKR Aligner (partes A–C ou caso próprio equivalente) |
 
-Projeto âncora = pipeline **C07.1 → C07.4** no mesmo caso (RouteWise ou o projeto do aluno).
+Projeto âncora = pipeline **C07.1 → C07.4** no mesmo caso (RouteWise ou o projeto do aluno). Em cada unidade, vale a [`Atividade - Módulo N.pdf`](../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-01-planejamento-e-escopo/Atividade%20-%20Módulo%201.pdf) da pasta (padrão `Atividade - Módulo 1.pdf` … `10.pdf`) **ou** o artefato C07.x — não os dois.
 
 ### M08 — TrialForge
 
@@ -117,7 +119,7 @@ Projeto âncora = pipeline **C07.1 → C07.4** no mesmo caso (RouteWise ou o pro
 | C08.3 | Seletor de orquestração (M3) justificado |
 | C08.4 | Gateway ou tiering (M4/M5) com comparação ao `audit-trail*.jsonl` |
 
-Projeto âncora = **C08.1 + C08.4**.
+Projeto âncora = **C08.1 + C08.4**. Missão da unidade: `Atividade N - Módulo N.pdf` na pasta do submódulo **ou** o checkpoint C08.x.
 
 ### M09 — Amplitude Seguros
 
@@ -129,7 +131,7 @@ Projeto âncora = **C08.1 + C08.4**.
 | C09.4 | Harness de avaliação (M5) com números |
 | C09.5 | Capstone: `decisoes-de-arquitetura.md` **próprio** (pode partir do exemplo da pasta M6) |
 
-Projeto âncora = **C09.1 + C09.3 + C09.4**. Sem GCP, C09.3 = Colab/MLX documentado.
+Projeto âncora = **C09.1 + C09.3 + C09.4**. Sem GCP, C09.3 = Colab/MLX documentado. Missão da unidade: `Atividade N - Módulo N.pdf` na pasta do submódulo **ou** o checkpoint C09.x.
 
 ---
 
@@ -156,7 +158,7 @@ Integração opcional (os 10%): por exemplo, usar o Requirements Copilot (M07) n
 ## O que não avaliar
 
 - Presença nas lives (`lives/`) — salvo combinado no início da turma.
-- PDFs `Atividade - Módulo N.pdf` dos M07–M09: **não estão neste clone**; use os checkpoints acima.
+- Entregar **Atividade e** checkpoint da mesma unidade como se fossem duas notas (escolha um; ver o parágrafo no topo).
 - Planos HTML `unidade-N-plano-de-aula.html` do M04: **ausentes** neste clone; use `UNIDADE.md`.
 - Pasta `modulo04-agentes-autonomos/` (legado): **não existe** aqui.
 - Qualidade gráfica de slides Nexus vs. execução dos labs.
