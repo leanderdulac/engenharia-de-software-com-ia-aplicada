@@ -70,12 +70,13 @@ Links de vídeo e papers extras: [README da raiz](../README.md). Comece sempre p
 
 ## 3. Como estudar cada unidade
 
-1. Leia os **objetivos** do guia do módulo (são mensuráveis — você sabe quando acabou).
-2. Assista ao vídeo da aula (fora do Git), se a turma tiver.
-3. Abra a pasta da [trilha](./trilha-aprendizado.md); instale só aquela pasta (`npm ci` / `pip` no venv do M06).
-4. Faça a atividade do guia **no template** ou no canvas vazio.
-5. Compare com `-z`, `output-exemplo-*`, `respostas/` ou `audit-trail*.jsonl`.
-6. Marque o **checklist** do módulo; arquive a evidência do checkpoint.
+1. Leia o capítulo em [`modulos/`](./modulos/): **por que o módulo existe** e a seção **A ideia** da aula — *antes* de abrir a pasta.
+2. Confira os **objetivos** (são mensuráveis — você sabe quando acabou).
+3. Assista ao vídeo da aula (fora do Git), se a turma tiver.
+4. Abra a pasta da [trilha](./trilha-aprendizado.md); instale só aquela pasta (`npm ci` / `pip` no venv do M06).
+5. Faça a atividade do guia **no template** ou no canvas vazio. Anote o que a seção **O que observar** pede.
+6. Compare com `-z`, `output-exemplo-*`, `respostas/` ou `audit-trail*.jsonl`.
+7. Marque o **checklist** do módulo; arquive a evidência do checkpoint. A **ponte** no fim do capítulo diz o que levar para o próximo.
 
 Não instale o monorepo inteiro. Não rode `npm ci` na raiz (não há `package.json` raiz de aplicação).
 

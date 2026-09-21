@@ -1,6 +1,6 @@
 # Trilha de aprendizado
 
-Ordem recomendada para um aluno que entra do zero neste repositório. Cada linha aponta para o guia em [`modulos/`](./modulos/) e para as pastas reais.
+Ordem recomendada para um aluno que entra do zero neste repositório. Cada linha aponta para o **capítulo didático** em [`modulos/`](./modulos/) (conceito, lab, armadilha, ponte) e para as pastas reais.
 
 **Não pule M01 § RAG e M03 MCP** se a meta é o OpsPilot (M04) ou o TrialForge (M08): eles reutilizam as mesmas ideias com outro produto.
 

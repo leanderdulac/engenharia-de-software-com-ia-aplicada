@@ -1,6 +1,8 @@
 # Guias por módulo
 
-Cada arquivo é a aula ensinável da pasta correspondente no repositório. Comece pelo [README do curso](../README.md) e pela [trilha](../trilha-aprendizado.md).
+Cada arquivo é o **capítulo ensinável** da pasta correspondente: por que o módulo existe, os conceitos, o que observar no lab, armadilhas do disco e a ponte para o seguinte. O mapa puro de pastas continua em [mapa-do-repositorio.md](../mapa-do-repositorio.md). Comece pelo [README do curso](../README.md) e pela [trilha](../trilha-aprendizado.md).
+
+Como ler um capítulo: **A ideia** → pasta no disco → **O que observar** / **Armadilha** → checklist. Trabalhe no template; o `-z` vem depois.
 
 | Guia | Pasta no repo |
 | --- | --- |

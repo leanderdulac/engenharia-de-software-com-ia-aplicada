@@ -30,7 +30,7 @@ Ao final, o aluno projeta, implementa, avalia e governa software que **usa model
 
 ## Conteúdo programático
 
-Unidades alinhadas às pastas reais. Detalhe operacional em [`modulos/`](./modulos/).
+Unidades alinhadas às pastas reais. O capítulo didático (ideia, lab, armadilha, ponte para o seguinte) está em [`modulos/`](./modulos/).
 
 ### Unidade 1 — Fundamentos de IA e LLMs para programadores (M01)
 

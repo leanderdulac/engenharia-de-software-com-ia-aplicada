@@ -4,7 +4,7 @@ Como conduzir a trilha **deste** repositório, sem depender de conhecimento de c
 
 ## Papel do instrutor
 
-Os vídeos não estão no Git. Sua função em sala é: **ordenar demos**, **impedir que a turma abra o `-z` cedo**, **traduzir READMEs errados** (M02/M03/M05) e **forçar curadoria** (diff vs exemplo). Não reescreva o curso: o código já é o material.
+Os vídeos não estão no Git. Sua função em sala é: **ordenar demos**, **impedir que a turma abra o `-z` cedo**, **traduzir READMEs errados** (M02/M03/M05) e **forçar curadoria** (diff vs exemplo). Os capítulos em [`modulos/`](./modulos/) agora ensinam o conceito *antes* do lab — use-os como roteiro de fala; não reescreva o código dos exemplos.
 
 ## Antes da primeira aula
 
