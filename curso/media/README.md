@@ -1,10 +1,10 @@
 # Mídia do curso
 
-Índice das capas versionadas neste repositório e dos vídeos HeyGen da trilha **Engenharia de Software com IA Aplicada**.
+Índice das capas e dos vídeos introdutórios da trilha **Engenharia de Software com IA Aplicada**.
 
-As imagens ficam em [`imagens/`](./imagens/). Os arquivos de vídeo **não** entram no Git: vivem na conta HeyGen. Os `video_id` em [`videos/heygen-ids.json`](./videos/heygen-ids.json) servem para recuperar ou exibir cada peça via API da HeyGen. Não há URL de playback assinada neste pacote — não invente uma.
+As imagens ficam em [`imagens/`](./imagens/). As intros de módulo **versionadas neste repositório** são MP4 gerados com **Grok Imagine (xAI)** a partir dessas capas; estão em [`videos/grok/`](./videos/grok/). Os IDs HeyGen em [`videos/heygen-ids.json`](./videos/heygen-ids.json) continuam como referência complementar (os arquivos HeyGen **não** entram no Git). Use os MP4 Grok para playback local e no preview.
 
-Estilo visual dos vídeos: **Blueprint** (`style_id`: `4c9025a3b9734c6ea6c122fc00e04767`).
+Estilo visual das peças HeyGen: **Blueprint** (`style_id`: `4c9025a3b9734c6ea6c122fc00e04767`).
 
 ## Imagens
 
@@ -23,9 +23,29 @@ Pré-visualização com caminho relativo a esta pasta. Capas 16:9 (1280×720).
 | ![Capa do Módulo 08](imagens/modulo-08-capa.png) | [`imagens/modulo-08-capa.png`](imagens/modulo-08-capa.png) | Capa do Módulo 08 — Arquitetura de sistemas com IA (TrialForge: gateway → Approval Gate). |
 | ![Capa do Módulo 09](imagens/modulo-09-capa.png) | [`imagens/modulo-09-capa.png`](imagens/modulo-09-capa.png) | Capa do Módulo 09 — Dados e fine-tuning (pipeline JSONL + adapters LoRA). |
 
+## Vídeos Grok Imagine (intros por módulo)
+
+Mídia **canônica versionada no Git**: image-to-video (~8 s) a partir das capas em `imagens/modulo-0N-capa.png`, gerada com **Grok Imagine (xAI)**. Metadados (`modulo`, `request_id`, `duration`, `status`) em [`videos/grok/manifest.json`](./videos/grok/manifest.json).
+
+No preview local, os arquivos são servidos em `/media/videos/grok/modulo-0N-intro.mp4`.
+
+Estas intros **substituem / complementam** os IDs HeyGen da seção seguinte: use o MP4 Grok para assistir e distribuir o pacote; os IDs HeyGen ficam como trilha alternativa na conta que gerou as peças.
+
+| Módulo | Arquivo |
+| --- | --- |
+| 01 — Fundamentos de IA e LLMs | [`videos/grok/modulo-01-intro.mp4`](videos/grok/modulo-01-intro.mp4) |
+| 02 — Integração de APIs de LLMs | [`videos/grok/modulo-02-intro.mp4`](videos/grok/modulo-02-intro.mp4) |
+| 03 — MCP na prática | [`videos/grok/modulo-03-intro.mp4`](videos/grok/modulo-03-intro.mp4) |
+| 04 — Agentes autônomos | [`videos/grok/modulo-04-intro.mp4`](videos/grok/modulo-04-intro.mp4) |
+| 05 — IA para UI/UX | [`videos/grok/modulo-05-intro.mp4`](videos/grok/modulo-05-intro.mp4) |
+| 06 — AIOps e engenharia agêntica | [`videos/grok/modulo-06-intro.mp4`](videos/grok/modulo-06-intro.mp4) |
+| 07 — Gestão de projetos com IA | [`videos/grok/modulo-07-intro.mp4`](videos/grok/modulo-07-intro.mp4) |
+| 08 — Arquitetura de sistemas com IA | [`videos/grok/modulo-08-intro.mp4`](videos/grok/modulo-08-intro.mp4) |
+| 09 — Dados e fine-tuning | [`videos/grok/modulo-09-intro.mp4`](videos/grok/modulo-09-intro.mp4) |
+
 ## Vídeos HeyGen
 
-Fonte canônica dos IDs: [`videos/heygen-ids.json`](./videos/heygen-ids.json). Para obter o vídeo, use a API HeyGen com o `video_id` (por exemplo `GET /v1/video_status.get?video_id=…` na conta que gerou as peças). O arquivo de mídia em si **não** está neste repositório.
+Referência complementar (não é a mídia versionada no repo). Fonte dos IDs: [`videos/heygen-ids.json`](./videos/heygen-ids.json). Para obter o vídeo, use a API HeyGen com o `video_id` (por exemplo `GET /v1/video_status.get?video_id=…` na conta que gerou as peças). O arquivo de mídia HeyGen em si **não** está neste repositório — para playback no Git, use as intros Grok acima. Não invente URL de playback assinada.
 
 | Título | Propósito | `video_id` |
 | --- | --- | --- |
@@ -43,4 +63,5 @@ Fonte canônica dos IDs: [`videos/heygen-ids.json`](./videos/heygen-ids.json). P
 ## Como regenerar
 
 1. **Imagens** — gerar de novo com **Grok** (mesmo recorte 16:9, paleta escura e tema de cada módulo). Substituir o PNG em `imagens/` e conferir o preview nesta página.
-2. **Vídeos** — gerar de novo no **HeyGen Video Agent**, estilo **Blueprint** (`style_id` `4c9025a3b9734c6ea6c122fc00e04767`). Atualizar o `video_id` correspondente em `videos/heygen-ids.json` e nesta tabela. Não versionar o MP4 nem URLs temporárias de playback.
+2. **Intros Grok Imagine** — image-to-video (~8 s) a partir de `imagens/modulo-0N-capa.png`. Substituir o MP4 em `videos/grok/`, atualizar `request_id` / `duration` / `status` em `videos/grok/manifest.json` e a tabela acima. Não versionar `XAI_API_KEY` nem URLs temporárias de playback da xAI.
+3. **Vídeos HeyGen** (complementar) — gerar de novo no **HeyGen Video Agent**, estilo **Blueprint** (`style_id` `4c9025a3b9734c6ea6c122fc00e04767`). Atualizar o `video_id` correspondente em `videos/heygen-ids.json` e na tabela HeyGen. Não versionar o MP4 HeyGen nem URLs temporárias de playback.

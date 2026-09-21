@@ -2,7 +2,7 @@
   "name": "curso-preview",
   "version": "1.0.0",
   "private": true,
-  "description": "Preview local do pacote do curso (markdown, capas e índice de mídia) no navegador.",
+  "description": "Preview local do pacote do curso (markdown, capas, intros Grok e índice de mídia) no navegador.",
   "type": "module",
   "scripts": {
     "start": "node server.js",

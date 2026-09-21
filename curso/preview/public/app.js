@@ -10,6 +10,7 @@ const NAV = [
   { path: "glossario.md", label: "Glossário" },
   { path: "lacunas-e-proximos-passos.md", label: "Lacunas" },
   { path: "media/README.md", label: "Mídia" },
+  { path: "videos/grok", label: "Intros Grok", kind: "grok" },
   { section: "Módulos" },
   { path: "modulos/01.md", label: "Módulo 01" },
   { path: "modulos/02.md", label: "Módulo 02" },
@@ -77,6 +78,38 @@ function openMenu() {
   backdropEl.hidden = false;
 }
 
+function grokGalleryHtml(payload) {
+  const videos = payload.videos || [];
+  const cards = videos
+    .map((video) => {
+      const duration =
+        video.duration != null ? `${video.duration} s` : "duração n/d";
+      return `<article class="grok-card">
+  <h3>Módulo ${video.modulo} — ${video.title}</h3>
+  <p class="grok-meta">${duration} · Grok Imagine · <code>${video.file}</code></p>
+  <video class="grok-player" controls preload="metadata" src="${video.src}">
+    Seu navegador não reproduz este MP4. <a href="${video.src}">Baixar ${video.file}</a>
+  </video>
+</article>`;
+    })
+    .join("\n");
+
+  return `<section class="grok-gallery" aria-label="Intros Grok Imagine">
+  <h2>Intros Grok Imagine</h2>
+  <p>MP4 versionados em <code>curso/media/videos/grok/</code>, servidos em <code>/media/videos/grok/modulo-0N-intro.mp4</code>. Complementam (e substituem no preview) os IDs HeyGen.</p>
+  <div class="grok-grid">${cards}</div>
+</section>`;
+}
+
+async function loadGrokGallery() {
+  const res = await fetch("/api/grok-videos");
+  const data = await res.json();
+  if (!res.ok || data.error) {
+    throw new Error(data.message || `Falha HTTP ${res.status}`);
+  }
+  return grokGalleryHtml(data);
+}
+
 async function loadPage() {
   const path = currentPath();
   setActive(path);
@@ -87,12 +120,28 @@ async function loadPage() {
   closeMenu();
 
   try {
+    if (path === "videos/grok") {
+      articleEl.innerHTML = await loadGrokGallery();
+      window.scrollTo(0, 0);
+      return;
+    }
+
     const res = await fetch(`/api/page?path=${encodeURIComponent(path)}`);
     const data = await res.json();
     if (!res.ok || data.error) {
       throw new Error(data.message || `Falha HTTP ${res.status}`);
     }
     articleEl.innerHTML = data.html;
+    if (path === "media/README.md") {
+      try {
+        articleEl.insertAdjacentHTML("beforeend", await loadGrokGallery());
+      } catch (galleryErr) {
+        articleEl.insertAdjacentHTML(
+          "beforeend",
+          `<p class="error">Intros Grok indisponíveis: ${galleryErr.message}</p>`
+        );
+      }
+    }
     window.scrollTo(0, 0);
   } catch (err) {
     articleEl.innerHTML = `<p class="error">Não foi possível abrir esta página: ${err.message}</p>`;
