@@ -1,5 +1,15 @@
 # Engenharia de Software com IA Aplicada
 
+> [!TIP]
+> 📘 **Novo:** [**Manual Expandido do curso**](./conteudo/README.md) — cada capítulo com conteúdo didático, diagramas, imagens e vídeos.
+>
+> | Capítulo | | Capítulo | |
+> |---|---|---|---|
+> | [Módulo 01 — Fundamentos de IA e LLMs](./conteudo/modulo-01.md) | 📗 | [Módulo 07 — Gestão de Projetos](./conteudo/modulo-07.md) | 📊 |
+> | [Módulo 04 — Agentes Autônomos](./conteudo/modulo-04.md) | 🤖 | [Módulo 08 — Arquitetura de Sistemas](./conteudo/modulo-08.md) | 🏛️ |
+> | [Módulo 05 — IA para UI/UX](./conteudo/modulo-05.md) | 🎨 | [Módulo 09 — Dados e Fine-Tuning](./conteudo/modulo-09.md) | 🧬 |
+> | [Módulo 06 — AI-Ops Agêntica](./conteudo/modulo-06.md) | ⚙️ | | |
+
 Abaixo são as referências e links complementares às aulas, dividido por módulos e submodulos:
 
 ## Modulo 01 - Fundamentos de IA e LLMs para Programadores
