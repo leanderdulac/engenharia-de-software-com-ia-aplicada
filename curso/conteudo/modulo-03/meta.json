@@ -1,7 +1,7 @@
 {
   "modulo": "03",
   "titulo": "MCP na prática",
-  "duracao_narracao_min": 4,
+  "duracao_narracao_min": 6,
   "caso_ancora": "CipherSuite MCP, customers MCP",
   "capa": "../../media/imagens/modulo-03-capa.png"
 }

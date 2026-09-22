@@ -1,29 +1,41 @@
 <!-- titulo: Módulo 07 — RouteWise, gestão com IA e critério humano -->
 
-RouteWise. Conecta Cargas. Cento e quarenta veículos. Dez ferramentas. Um board que evolui. Professor no README, José Ahirton. Leia jira-estado-board quando o arquivo existir. Está nos módulos um a sete e no dez. Não está no oito nem no nove.
+Olá. Seja bem-vinda, seja bem-vindo ao módulo sete.
 
-Gestão com IA neste curso não é o modelo virar gerente. É pipeline. Transcrição vira backlog INVEST e Gherkin. Backlog ganha RICE e WSJF. Cronograma respeita capacidade. Prazo ganha PERT. Monte Carlo roda em script. Risco de fluxo. Ata e status. Compliance no PR. Frase vira card. OKR passa por scorecard.
+RouteWise. Conecta Cargas. Cento e quarenta veículos. Dez ferramentas. Um quadro que evolui.
 
-O ritual é sempre o mesmo. Prompt no System Instructions do AI Studio. Temperatura do arquivo. Dado da pasta. Comparar com o output de exemplo. A diferença é a aula. Atividade em PDF ou checkpoint. Uma nota só. Não os dois. O exemplo PDF ensina o formato. Não é a sua curadoria.
+Gestão com inteligência artificial, neste curso, não é o modelo virar gerente. É um encadeamento de artefatos, com curadoria humana. Transcrição vira backlog INVEST e Gherkin. O backlog ganha pontuação. O cronograma respeita capacidade. O prazo ganha estimativa de três pontos. O Monte Carlo roda em script. O risco é de fluxo. A ata e o status mudam de voz. Conformidade entra no pull request. A frase vira cartão. Objetivos e resultados-chave, os OKRs, passam por um placar.
 
-A transcrição de discovery é barulhenta. História duplicada. Aceite implícito. Quero um mapa. Você corta. INVEST não é slogan. Dashboard bonito para ser feliz não é história. O CSV importa no Jira se você quiser. Não é bloqueio.
+Ao final, você não precisa das dez atividades em PDF. Precisa do músculo de curadoria. Histórias que você cortaria. Três notas das quais discorda, ou um número saído do script. Um pull request que falha e outro que passa. Um objetivo válido e um de vaidade. E a frase. Onde o modelo alucinou. O que você cortou.
 
-No scorer, acenda flag. Confiança baixa. Esforço subestimado. Discorde de três. Concordar com o gabarito não é lab. RICE e WSJF estão nos links da raiz. O modelo calcula. Você decide o trimestre.
+O rito é sempre o mesmo. Prompt nas instruções de sistema do estúdio. Temperatura do arquivo. Dado da pasta. Comparar com a saída de exemplo. A diferença é a aula. Atividade em PDF, ou ponto de verificação. Uma nota só. O exemplo ensina o formato. Não é a sua curadoria.
 
-Scheduling. Dependência. WIP. What-if. E se a telemetria atrasar duas sprints. A Conecta Cargas não ganha gente porque o prompt pediu.
+Você já treinou prompt estruturado no módulo um e no Pix. Aqui o destinatário muda. O quadro. O patrocinador. O auditor. Um percentil oitenta e cinco inventado pelo modelo vira compromisso de contrato. Por isso o Monte Carlo é código.
 
-Estimativa. Linha vermelha da disciplina. O modelo ajuda a montar otimista, provável, pessimista. Quem sorteia P50, P85 e P95 é o JavaScript ou o Python. monte-carlo-routewise. P50 não é a data do cronograma. É percentual de simulações. Entregar P50 como se fosse P95 é temperature um com multa de contrato. Se o chat e o script coincidirem demais, desconfie. O LLM não simulou.
+Vamos às ideias centrais.
 
-Risk Monitor é AIOps de projeto. Aging. Fila. O board adoecendo. Não é o pod do Nexus. Vocabulário diferente. Pastas diferentes.
+A transcrição de descoberta é barulhenta de propósito. História duplicada. Aceite implícito. “A gente precisa de um mapa.” Você corta. INVEST não é slogan. Independente. Negociável. Valiosa. Estimável. Pequena. Testável. Gherkin amarra o aceite. Dado, quando, então. “Como gestor, quero um painel bonito para ser feliz” não é história. É cartaz. Importar a planilha no Jira é opcional. Não é bloqueio.
 
-Digest da sprint review. Status para três audiências. Time, liderança, sponsor. Se os três textos forem iguais, recomece. Jargão de Jira no e-mail do C-level é bug.
+No pontuador, acenda a bandeira. Confiança baixa. Esforço subestimado. Iniciativa política. Discorde de três. Concordar com o gabarito não é laboratório. RICE, alcance, impacto, confiança e esforço, e WSJF, o custo de atraso ponderado, estão nos links da raiz. O modelo calcula. Você decide o trimestre.
 
-Governança. Checklist em prosa. Danger em código. Dois mocks. Um PR passa. Um falha. Rode com hífen hífen local. Submódulo da demo CI só se for essa demo.
+Cronograma. Dependência. Trabalho em progresso. E se. E se a telemetria atrasar duas sprints. A Conecta Cargas não ganha gente porque o prompt pediu.
 
-NL to workflow. Make ou o bot Node. Slack é cenário. Sem Make a nota não morre se o parser demonstrar o card.
+Estimativa é a linha vermelha. O modelo ajuda a montar o otimista, o provável e o pessimista. Quem sorteia os percentis é o script. O percentil cinquenta não é a data do cronograma. É o percentual de simulações que terminaram até ali. Entregar o cinquenta como se fosse o noventa e cinco é temperatura um, com multa de contrato. Se o chat e o script coincidirem demais, desconfie. O modelo não simulou.
 
-OKR Aligner. Três partes. Validar objetivo. Ligar backlog. Scorecard de portfólio. RouteWise, fintech, e-commerce. Derrube OKR de vaidade.
+O monitor de risco é AIOps de projeto. Envelhecimento. Fila. O quadro adoecendo. Não é o pod do Nexus. Vocabulário diferente. Pastas diferentes.
 
-Projeto. Dossiê. Transcrição, prioridade, um número de Monte Carlo, OKRs. Onde a IA alucinou. O que você cortou.
+O resumo da revisão de sprint e o relatório de status partem da mesma verdade. Três audiências. Time. Liderança. Patrocinador. Se os três textos forem iguais, recomece. Jargão de Jira no e-mail da diretoria é defeito de produto.
 
-No próximo módulo o mesmo recusa vira Approval Gate. TrialForge. Documento clínico. A arquiteta também não entrega o critério.
+Governança. Um checklist em prosa. O Danger em código. Dois mocks. Um pull request passa. Um falha. Rode em modo local. O submódulo da demonstração de integração contínua só se for essa demonstração.
+
+Frase para fluxo. Make, ou o robô Node. Slack é cenário. Sem Make a nota não morre, se o analisador demonstrar o cartão.
+
+O alinhador de OKR tem três partes. Validar o objetivo. Ligar o backlog. Placar de portfólio. RouteWise, fintech, comércio eletrônico. Derrube OKR de vaidade.
+
+O projeto é um dossiê. Transcrição. Prioridade. Um número de Monte Carlo. OKRs. Onde a inteligência artificial alucinou. O que você cortou.
+
+Curadoria, na prática, é um comentário no Markdown gerado. “Rejeitei a história tal porque a transcrição só menciona isso uma vez, como desejo.” Sem esse comentário, o avaliador não distingue o seu olho da temperatura do Gemini. O quadro é o estado do caso. O modelo não estava na daily.
+
+No próximo módulo, a mesma recusa vira portão de aprovação. TrialForge. Documento clínico. A arquiteta também não entrega o critério.
+
+Até lá, cole o prompt. Jogue a transcrição. Marque o que você cortaria. Rode o script de Monte Carlo, ou discorde do pontuador. Mostre o pull request que quebra. Escreva o parágrafo de alucinação. Frameworks clássicos continuam no volante. O modelo redige. Você corta o cartão inventado.
