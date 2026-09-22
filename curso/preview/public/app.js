@@ -148,12 +148,23 @@ function ttsPlayerHtml(audio, { compact = false } = {}) {
   const roteiro = audio.source_path
     ? ` · <a href="#/${audio.source_path}">roteiro</a>`
     : "";
+  const pitch = audio.pitch ? ` · pitch ${audio.pitch}` : "";
+  const vttSrc = audio.vtt_src || "";
+  const track = vttSrc
+    ? `<track kind="captions" srclang="pt-BR" label="Português (Brasil)" src="${vttSrc}" default>`
+    : "";
+  const vttLink = vttSrc
+    ? `<p class="tts-caption-link"><a href="${vttSrc}" download>Baixar legenda VTT</a></p>`
+    : "";
   return `<article class="tts-card">
   ${heading}
-  <p class="tts-meta">${duration} · ${audio.voice} · rate ${audio.rate} · <code>${audio.file}</code>${roteiro}</p>
-  <audio class="tts-player" controls preload="metadata" src="${audio.src}">
+  <p class="tts-meta">${duration} · ${audio.voice} · rate ${audio.rate}${pitch} · <code>${audio.file}</code>${roteiro}</p>
+  <audio class="tts-player" controls preload="metadata">
+    <source src="${audio.src}" type="audio/mpeg">
+    ${track}
     Seu navegador não reproduz este MP3. <a href="${audio.src}">Baixar ${audio.file}</a>
   </audio>
+  ${vttLink}
 </article>`;
 }
 
@@ -161,10 +172,11 @@ function ttsGalleryHtml(payload) {
   const audios = payload.audios || [];
   const cards = audios.map((audio) => ttsPlayerHtml(audio)).join("\n");
   const voice = payload.voice || "pt-BR-FranciscaNeural";
-  const rate = payload.rate || "-5%";
+  const rate = payload.rate || "-18%";
+  const pitch = payload.pitch || "-2Hz";
   return `<section class="tts-gallery" aria-label="Narrações TTS">
   <h2>Narrações TTS</h2>
-  <p>MP3 versionados em <code>curso/media/audios/tts/</code>, voz <code>${voice}</code>, rate <code>${rate}</code>. Servidos em <code>/media/audios/tts/modulo-0N-narracao.mp3</code>. São a leitura falada do roteiro de cada módulo (~3,5–4 min).</p>
+  <p>MP3 e legendas WebVTT em <code>curso/media/audios/tts/</code>, voz <code>${voice}</code>, rate <code>${rate}</code>, pitch <code>${pitch}</code>. Servidos em <code>/media/audios/tts/modulo-0N-narracao.mp3</code> e <code>.vtt</code>. São a leitura falada do roteiro de cada módulo (~5,5–6 min).</p>
   <div class="tts-grid">${cards}</div>
 </section>`;
 }

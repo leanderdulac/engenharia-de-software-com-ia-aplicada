@@ -48,11 +48,11 @@ O script `npm run dev` é o mesmo que `npm start` (`node server.js`).
 | `GET /api/page?path=README.md` | Lê um `.md` **somente** sob `curso/` (sem path traversal) |
 | `GET /api/page?path=modulos/01.md` | Guia de um módulo |
 | `GET /api/grok-videos` | Lista as intros Grok Imagine a partir de `media/videos/grok/manifest.json` |
-| `GET /api/tts-audios` | Lista as narrações TTS a partir de `media/audios/tts/manifest.json` |
-| `/media/…` | Arquivos estáticos de `curso/media/` (capas, intros Grok em `/media/videos/grok/modulo-0N-intro.mp4`, narrações em `/media/audios/tts/modulo-0N-narracao.mp3`) |
+| `GET /api/tts-audios` | Lista as narrações TTS a partir de `media/audios/tts/manifest.json` (`voice`, `rate`, `pitch`, `duration_seconds`, `src`, `vtt_src`) |
+| `/media/…` | Arquivos estáticos de `curso/media/` (capas, intros Grok em `/media/videos/grok/modulo-0N-intro.mp4`, narrações em `/media/audios/tts/modulo-0N-narracao.mp3`, legendas em `/media/audios/tts/modulo-0N-narracao.vtt`) |
 
 Caminhos relativos de imagem no markdown (`../media/...`, `./media/...`, `media/...` e `imagens/...` a partir de `media/README.md`) são reescritos para `/media/...`.
 
 ## Interface
 
-A sidebar, em português, lista: Início, Syllabus, Trilha, Mapa, Avaliação, Guia do aluno, Guia do instrutor, Glossário, Lacunas, Mídia, **Intros Grok**, **Narrações TTS** e os Módulos 01–09. A capa hero aparece na home. A página de mídia, a rota `#/videos/grok` e a rota `#/audios` reproduzem os MP4 e MP3 versionados (além do índice de IDs HeyGen no markdown). Os guias `modulos/0N.md` e as páginas em `conteudo/modulo-0N/` ganham um player da narração daquele módulo.
+A sidebar, em português, lista: Início, Syllabus, Trilha, Mapa, Avaliação, Guia do aluno, Guia do instrutor, Glossário, Lacunas, Mídia, **Intros Grok**, **Narrações TTS** e os Módulos 01–09. A capa hero aparece na home. A página de mídia, a rota `#/videos/grok` e a rota `#/audios` reproduzem os MP4 e MP3 versionados (além do índice de IDs HeyGen no markdown). Os players de áudio incluem `<track kind="captions" srclang="pt-BR">` e um link **Baixar legenda VTT**. Os guias `modulos/0N.md` e as páginas em `conteudo/modulo-0N/` ganham um player da narração daquele módulo.

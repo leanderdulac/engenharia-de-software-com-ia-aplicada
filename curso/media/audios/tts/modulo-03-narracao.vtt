@@ -1,0 +1,158 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:00.949
+Olá. Seja bem-vinda, seja bem-vindo ao módulo três.
+No módulo um, você consumiu o protocolo de contexto de modelo, 
+
+2
+00:00:00.899 --> 00:00:04.679
+Seja bem-vinda, seja bem-vindo ao módulo três.
+No módulo um, você consumiu o protocolo de contexto de modelo, o MCP. Playwright. Context7. Grafana. No módulo
+
+3
+00:00:04.679 --> 00:00:10.731
+No módulo um, você consumiu o protocolo de contexto de modelo, o MCP. Playwright. Context7. Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o 
+
+4
+00:00:10.731 --> 00:00:11.996
+Playwright. Context7. Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai
+
+5
+00:00:11.996 --> 00:00:13.582
+Context7. Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai do seu bi
+
+6
+00:00:13.582 --> 00:00:14.695
+Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai do seu binário e v
+
+7
+00:00:14.695 --> 00:00:19.878
+No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai do seu binário e vira servidor. Qualquer anfitrião pode descobrir ferramentas, recursos e
+
+8
+00:00:19.878 --> 00:00:23.914
+Agora o contrato sai do seu binário e vira servidor. Qualquer anfitrião pode descobrir ferramentas, recursos e prompts do mesmo jeito. O seu editor. O agente. O in
+
+9
+00:00:23.914 --> 00:00:29.984
+Qualquer anfitrião pode descobrir ferramentas, recursos e prompts do mesmo jeito. O seu editor. O agente. O inspetor. O grafo.
+Três papéis. Decore agora, com calma.
+O servidor MCP é o proces
+
+10
+00:00:29.984 --> 00:00:31.295
+O seu editor. O agente. O inspetor. O grafo.
+Três papéis. Decore agora, com calma.
+O servidor MCP é o processo que declara
+
+11
+00:00:31.295 --> 00:00:32.484
+O agente. O inspetor. O grafo.
+Três papéis. Decore agora, com calma.
+O servidor MCP é o processo que declara as ferram
+
+12
+00:00:32.484 --> 00:00:33.689
+O inspetor. O grafo.
+Três papéis. Decore agora, com calma.
+O servidor MCP é o processo que declara as ferramentas. Cript
+
+13
+00:00:33.689 --> 00:00:34.756
+O grafo.
+Três papéis. Decore agora, com calma.
+O servidor MCP é o processo que declara as ferramentas. Criptografia. 
+
+14
+00:00:34.756 --> 00:00:36.249
+Três papéis. Decore agora, com calma.
+O servidor MCP é o processo que declara as ferramentas. Criptografia. Clientes. O a
+
+15
+00:00:36.249 --> 00:00:38.414
+Decore agora, com calma.
+O servidor MCP é o processo que declara as ferramentas. Criptografia. Clientes. O anfitrião, o host, é o edi
+
+16
+00:00:38.414 --> 00:00:42.896
+O servidor MCP é o processo que declara as ferramentas. Criptografia. Clientes. O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de
+
+17
+00:00:42.896 --> 00:00:44.435
+Criptografia. Clientes. O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de depuração. Se
+
+18
+00:00:44.435 --> 00:00:45.685
+Clientes. O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de depuração. Se misturar 
+
+19
+00:00:45.685 --> 00:00:50.198
+O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de depuração. Se misturar os três, o token do laboratório de segurança não faz sent
+
+20
+00:00:50.198 --> 00:00:53.323
+O inspetor é a interface de depuração. Se misturar os três, o token do laboratório de segurança não faz sentido. Quem recusa a chamada é a API Fast
+
+21
+00:00:53.323 --> 00:00:58.963
+Se misturar os três, o token do laboratório de segurança não faz sentido. Quem recusa a chamada é a API Fastify. O MCP só repassa o token de serviço.
+A especificação oficial está no
+
+22
+00:00:58.963 --> 00:01:02.073
+Quem recusa a chamada é a API Fastify. O MCP só repassa o token de serviço.
+A especificação oficial está no site do protocolo, já linkado no mater
+
+23
+00:01:02.073 --> 00:01:05.594
+O MCP só repassa o token de serviço.
+A especificação oficial está no site do protocolo, já linkado no material. Três primitivas bastam. Ferramen
+
+24
+00:01:05.594 --> 00:01:13.109
+A especificação oficial está no site do protocolo, já linkado no material. Três primitivas bastam. Ferramenta, a tool, é uma função com esquema. O modelo escolhe chamar. Recurso, o re
+
+25
+00:01:13.109 --> 00:01:16.524
+Ferramenta, a tool, é uma função com esquema. O modelo escolhe chamar. Recurso, o resource, é dado para ler. Não é uma ação
+
+26
+00:01:16.524 --> 00:01:18.490
+O modelo escolhe chamar. Recurso, o resource, é dado para ler. Não é uma ação. É contexto. Prompt é um
+
+27
+00:05:29.596 --> 00:05:33.399
+Até lá, faça o inspetor listar as ferramentas.
+
+28
+00:05:33.349 --> 00:05:34.861
+Crie um cliente.
+
+29
+00:05:34.861 --> 00:05:37.178
+Mostre a recusa sem token.
+
+30
+00:05:37.178 --> 00:05:38.703
+Quatro saltos.
+
+31
+00:05:38.703 --> 00:05:39.892
+Anfitrião.
+
+32
+00:05:39.892 --> 00:05:41.111
+MCP.
+
+33
+00:05:41.111 --> 00:05:42.148
+API.
+
+34
+00:05:42.148 --> 00:05:43.093
+Token.
+
+35
+00:05:43.093 --> 00:05:49.221
+Um pulo a menos e você está de volta na injeção de prompt do módulo dois.
