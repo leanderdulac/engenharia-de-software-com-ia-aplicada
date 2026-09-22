@@ -1,7 +1,7 @@
 {
   "modulo": "02",
   "titulo": "Integração de APIs de LLMs",
-  "duracao_narracao_min": 4,
+  "duracao_narracao_min": 6,
   "caso_ancora": "Gateway, consultas médicas, Cypher",
   "capa": "../../media/imagens/modulo-02-capa.png"
 }

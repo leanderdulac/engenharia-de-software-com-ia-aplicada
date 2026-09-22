@@ -1,7 +1,7 @@
 {
   "modulo": "01",
   "titulo": "Fundamentos de IA e LLMs para programadores",
-  "duracao_narracao_min": 5,
+  "duracao_narracao_min": 6,
   "caso_ancora": "TF.js, Duck Hunt, RAG Neo4j",
   "capa": "../../media/imagens/modulo-01-capa.png"
 }
