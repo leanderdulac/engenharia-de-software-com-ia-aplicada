@@ -1,0 +1,521 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:00.949
+Olá.
+
+2
+00:00:00.899 --> 00:00:04.679
+Seja bem-vinda, seja bem-vindo ao módulo quatro.
+
+3
+00:00:04.679 --> 00:00:07.393
+Este módulo tem dois produtos.
+
+4
+00:00:07.393 --> 00:00:08.719
+Não misture.
+
+5
+00:00:08.719 --> 00:00:11.859
+A primeira unidade não é o OpsPilot.
+
+6
+00:00:11.859 --> 00:00:13.689
+É a API de notas.
+
+7
+00:00:13.689 --> 00:00:17.606
+Um criar, ler, atualizar e apagar de tarefas.
+
+8
+00:00:17.606 --> 00:00:20.289
+O objetivo não é a API em si.
+
+9
+00:00:20.289 --> 00:00:23.749
+É você operar o agente de código com método.
+
+10
+00:00:23.749 --> 00:00:25.121
+Especificar.
+
+11
+00:00:25.121 --> 00:00:26.234
+Planejar.
+
+12
+00:00:26.234 --> 00:00:27.378
+Tarefas.
+
+13
+00:00:27.378 --> 00:00:28.612
+Implementar.
+
+14
+00:00:28.612 --> 00:00:30.228
+O agente é rápido.
+
+15
+00:00:30.228 --> 00:00:32.774
+Você revisa a diferença no Git.
+
+16
+00:00:32.774 --> 00:00:35.609
+A permissão de terminal é estreita.
+
+17
+00:00:35.609 --> 00:00:42.530
+Isso se chama desenvolvimento dirigido por especificação, o spec-driven development.
+
+18
+00:00:42.530 --> 00:00:45.045
+A live de maio mostra o rito.
+
+19
+00:00:45.045 --> 00:00:49.862
+Se pular esta unidade, o resto vira assista o servidor subir.
+
+20
+00:00:49.862 --> 00:00:51.753
+A pós quer o contrário.
+
+21
+00:00:51.753 --> 00:00:53.628
+Você manda no agente.
+
+22
+00:00:53.628 --> 00:00:55.762
+O agente não manda no Git.
+
+23
+00:00:55.762 --> 00:00:59.969
+Das unidades dois a nove, o caso é o OpsPilot.
+
+24
+00:00:59.969 --> 00:01:04.420
+Copiloto de plantão do Mercadinho, o e-commerce fictício.
+
+25
+00:01:04.420 --> 00:01:06.067
+Um único projeto.
+
+26
+00:01:06.067 --> 00:01:09.344
+Cada pasta é um retrato ao final da unidade.
+
+27
+00:01:09.344 --> 00:01:12.865
+Não copie a interface da oitava para a sexta.
+
+28
+00:01:12.865 --> 00:01:15.518
+Leia primeiro o texto da unidade.
+
+29
+00:01:15.518 --> 00:01:19.908
+Ele lista o que é novo, e o que o plano imaginou e não entrou.
+
+30
+00:01:19.908 --> 00:01:25.350
+Ao final, você compara três estratégias com métrica no estado da loja.
+
+31
+00:01:25.350 --> 00:01:33.124
+Expõe ferramentas, e o próprio OpsPilot como servidor do protocolo de contexto de modelo, o MCP.
+
+32
+00:01:33.124 --> 00:01:34.756
+Persiste memória.
+
+33
+00:01:34.756 --> 00:01:36.341
+Orça o contexto.
+
+34
+00:01:36.341 --> 00:01:38.124
+Liga o freio humano.
+
+35
+00:01:38.124 --> 00:01:40.182
+Publica a sala de guerra.
+
+36
+00:01:40.182 --> 00:01:42.134
+E dispara o modo time.
+
+37
+00:01:42.134 --> 00:01:44.847
+Vamos por ideias, não por pasta.
+
+38
+00:01:44.847 --> 00:01:47.774
+Na segunda unidade, três cérebros.
+
+39
+00:01:47.774 --> 00:01:48.932
+ReAct.
+
+40
+00:01:48.932 --> 00:01:51.753
+Pensamento, ação, observação.
+
+41
+00:01:51.753 --> 00:01:53.384
+Plan-and-Execute.
+
+42
+00:01:53.384 --> 00:01:56.265
+Plano inteiro, execução, replano.
+
+43
+00:01:56.265 --> 00:01:57.698
+Reflection.
+
+44
+00:01:57.698 --> 00:02:00.350
+Um crítico com teto de voltas.
+
+45
+00:02:00.350 --> 00:02:01.935
+A arena compara.
+
+46
+00:02:01.935 --> 00:02:06.570
+A bancada mede acerto no estado da loja, não no texto bonito.
+
+47
+00:02:06.570 --> 00:02:09.344
+Ferramentas ainda são imitação.
+
+48
+00:02:09.344 --> 00:02:11.554
+O chat ainda não está aqui.
+
+49
+00:02:11.554 --> 00:02:15.945
+Se faltar o arquivo de ambiente, copie o da unidade seis.
+
+50
+00:02:15.945 --> 00:02:18.628
+Não troque o modelo no meio da arena.
+
+51
+00:02:18.628 --> 00:02:20.701
+Você quebra a comparação.
+
+52
+00:02:20.701 --> 00:02:24.512
+Na terceira unidade, o chat chega de verdade.
+
+53
+00:02:24.512 --> 00:02:26.097
+Há um banco local.
+
+54
+00:02:26.097 --> 00:02:28.246
+Ferramentas de verdade.
+
+55
+00:02:28.246 --> 00:02:30.045
+Status do provedor.
+
+56
+00:02:30.045 --> 00:02:33.689
+E o próprio OpsPilot como servidor MCP.
+
+57
+00:02:33.689 --> 00:02:36.173
+Mesma ideia do módulo três.
+
+58
+00:02:36.173 --> 00:02:37.606
+Outro domínio.
+
+59
+00:02:37.606 --> 00:02:41.996
+Registre uma ferramenta sua, mesmo que seja um esboço.
+
+60
+00:02:41.996 --> 00:02:44.222
+Mostre a chamada no rastro.
+
+61
+00:02:44.222 --> 00:02:48.003
+Na quarta unidade, a conversa ganha identidade.
+
+62
+00:02:48.003 --> 00:02:50.259
+Identificador de conversa.
+
+63
+00:02:50.259 --> 00:02:52.393
+Identificador de usuário.
+
+64
+00:02:52.393 --> 00:02:54.115
+Memória semântica.
+
+65
+00:02:54.115 --> 00:02:56.219
+Um evento de aprendizado.
+
+66
+00:02:56.219 --> 00:02:59.496
+A primeira execução baixa embeddings.
+
+67
+00:02:59.496 --> 00:03:01.082
+Precisa de rede.
+
+68
+00:03:01.082 --> 00:03:02.972
+Não é modelo quebrado.
+
+69
+00:03:02.972 --> 00:03:07.042
+Compare com o laboratório de músicas do módulo dois.
+
+70
+00:03:07.042 --> 00:03:09.192
+Lá a preferência era tabela.
+
+71
+00:03:09.192 --> 00:03:11.356
+Aqui o recall é semântico.
+
+72
+00:03:11.356 --> 00:03:13.734
+Os dois existem em produção.
+
+73
+00:03:13.734 --> 00:03:17.301
+Na quinta unidade, o contexto vira orçamento.
+
+74
+00:03:17.301 --> 00:03:20.945
+Há um roteiro de conversa longa, com trinta turnos.
+
+75
+00:03:20.945 --> 00:03:23.643
+Eventos de contexto e de resumo.
+
+76
+00:03:23.643 --> 00:03:28.262
+O montador do prompt trabalha por seção, com teto de tokens.
+
+77
+00:03:28.262 --> 00:03:33.216
+Sem isso, a janela estoura, ou o runbook some no meio do ruído.
+
+78
+00:03:33.216 --> 00:03:38.003
+Na sexta unidade, o grafo de produção escolhe a estratégia.
+
+79
+00:03:38.003 --> 00:03:39.801
+Você não manda o nome.
+
+80
+00:03:39.801 --> 00:03:41.585
+O roteador escolhe.
+
+81
+00:03:41.585 --> 00:03:43.307
+Há um modelo reserva.
+
+82
+00:03:43.307 --> 00:03:45.408
+Ainda não há interface.
+
+83
+00:03:45.408 --> 00:03:48.689
+Quem procura a tela aqui está no retrato errado.
+
+84
+00:03:48.689 --> 00:03:51.204
+Na sétima unidade, o freio.
+
+85
+00:03:51.204 --> 00:03:53.490
+Você pede aprovação humana.
+
+86
+00:03:53.490 --> 00:03:58.170
+A API responde com o código HTTP duzentos e dois.
+
+87
+00:03:58.170 --> 00:03:59.984
+Vem um identificador.
+
+88
+00:03:59.984 --> 00:04:02.164
+Você aprova noutro pedido.
+
+89
+00:04:02.164 --> 00:04:04.314
+O log guarda metadado.
+
+90
+00:04:04.314 --> 00:04:06.006
+Nunca o conteúdo.
+
+91
+00:04:06.006 --> 00:04:08.064
+Dado pessoal não vaza.
+
+92
+00:04:08.064 --> 00:04:12.088
+O plano falava em interromper no meio de uma ferramenta.
+
+93
+00:04:12.088 --> 00:04:13.475
+Isso não entrou.
+
+94
+00:04:13.475 --> 00:04:16.097
+Orçamento em dólares também não.
+
+95
+00:04:16.097 --> 00:04:17.591
+Leia o desvio.
+
+96
+00:04:17.591 --> 00:04:19.923
+Não invente na demonstração.
+
+97
+00:04:19.923 --> 00:04:27.225
+Esse freio é o mesmo espírito da senha de gestor no Nexus, e do portão de aprovação no TrialForge.
+
+98
+00:04:27.225 --> 00:04:28.734
+Três produtos.
+
+99
+00:04:28.734 --> 00:04:30.015
+Um princípio.
+
+100
+00:04:30.015 --> 00:04:33.445
+Ação destrutiva não é autônoma por padrão.
+
+101
+00:04:33.445 --> 00:04:36.600
+Na oitava unidade, a sala de guerra.
+
+102
+00:04:36.600 --> 00:04:38.231
+API de um lado.
+
+103
+00:04:38.231 --> 00:04:40.045
+Interface do outro.
+
+104
+00:04:40.045 --> 00:04:42.439
+Agora sim a tela de aprovar.
+
+105
+00:04:42.439 --> 00:04:44.466
+Na nona, o modo time.
+
+106
+00:04:44.466 --> 00:04:45.929
+Supervisor.
+
+107
+00:04:45.929 --> 00:04:47.743
+Quadro compartilhado.
+
+108
+00:04:47.743 --> 00:04:49.512
+Passagem de bastão.
+
+109
+00:04:49.512 --> 00:04:52.789
+Um pedido que pede análise, plano e ação.
+
+110
+00:04:52.789 --> 00:04:54.771
+Testes usam dublês.
+
+111
+00:04:54.771 --> 00:04:56.432
+Não queimam cota.
+
+112
+00:04:56.432 --> 00:04:59.923
+O projeto é um retrato da oitava ou da nona.
+
+113
+00:04:59.923 --> 00:05:01.829
+Um incidente fictício.
+
+114
+00:05:01.829 --> 00:05:03.917
+O rastro, ou um print.
+
+115
+00:05:03.917 --> 00:05:06.783
+E a frase mais importante do módulo.
+
+116
+00:05:06.783 --> 00:05:09.115
+O que não deveria ser autônomo.
+
+117
+00:05:09.115 --> 00:05:13.277
+Amarre no freio humano da sétima unidade.
+
+118
+00:05:13.492 --> 00:05:17.725
+Autonomia é um controle deslizante, não um sim ou não.
+
+119
+00:05:17.675 --> 00:05:20.160
+No Nexus, a senha do gestor.
+
+120
+00:05:20.160 --> 00:05:22.416
+No TrialForge, o portão.
+
+121
+00:05:22.416 --> 00:05:24.733
+Aqui, o duzentos e dois.
+
+122
+00:05:24.733 --> 00:05:26.425
+Mesma engenharia.
+
+123
+00:05:26.425 --> 00:05:27.690
+Outra pele.
+
+124
+00:05:27.690 --> 00:05:32.934
+Até lá, não tente o OpsPilot completo no primeiro fim de semana.
+
+125
+00:05:32.934 --> 00:05:36.257
+Faça a especificação da API de notas.
+
+126
+00:05:36.257 --> 00:05:38.727
+Compare as estratégias na arena.
+
+127
+00:05:38.727 --> 00:05:41.715
+Mande um chat com ferramenta visível.
+
+128
+00:05:41.715 --> 00:05:43.574
+Depois ligue o freio.
+
+129
+00:05:43.574 --> 00:05:47.020
+Escreva no caderno qual retrato você rodou.
+
+130
+00:05:47.020 --> 00:05:52.141
+O avaliador lê o texto da unidade junto com o seu print.

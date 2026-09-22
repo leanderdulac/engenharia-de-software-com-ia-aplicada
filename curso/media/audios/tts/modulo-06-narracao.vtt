@@ -1,0 +1,489 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:00.949
+Olá.
+
+2
+00:00:00.899 --> 00:00:04.725
+Seja bem-vinda, seja bem-vindo ao módulo seis.
+
+3
+00:00:04.725 --> 00:00:05.868
+Nexus.
+
+4
+00:00:05.868 --> 00:00:07.850
+Doze laboratórios.
+
+5
+00:00:07.850 --> 00:00:08.932
+Um caso.
+
+6
+00:00:08.932 --> 00:00:10.152
+Operação.
+
+7
+00:00:10.152 --> 00:00:13.170
+Você já viu o ReAct no OpsPilot.
+
+8
+00:00:13.170 --> 00:00:15.990
+Pensamento, ação, observação.
+
+9
+00:00:15.990 --> 00:00:19.512
+Agora o loop pensa e age em infraestrutura.
+
+10
+00:00:19.512 --> 00:00:23.414
+A fantasia é o agente apagar o banco de madrugada.
+
+11
+00:00:23.414 --> 00:00:25.167
+A aula é o contrário.
+
+12
+00:00:25.167 --> 00:00:26.432
+Auditoria.
+
+13
+00:00:26.432 --> 00:00:28.231
+Ensaio, o dry-run.
+
+14
+00:00:28.231 --> 00:00:29.786
+Senha de gestor.
+
+15
+00:00:29.786 --> 00:00:33.003
+E um gerente hierárquico que escreve relatório.
+
+16
+00:00:33.003 --> 00:00:35.533
+Não um botão vermelho sem dono.
+
+17
+00:00:35.533 --> 00:00:41.295
+O Nexus é o caso âncora de AIOps, operação com inteligência artificial.
+
+18
+00:00:41.295 --> 00:00:46.814
+Agentes CrewAI, com Llama pela Groq, geram infraestrutura como código.
+
+19
+00:00:46.814 --> 00:00:48.673
+Diagnosticam um pod.
+
+20
+00:00:48.673 --> 00:00:50.975
+Falam no teatro de Slack.
+
+21
+00:00:50.975 --> 00:00:53.003
+Triam vulnerabilidades.
+
+22
+00:00:53.003 --> 00:00:54.939
+Caçam zumbi de nuvem.
+
+23
+00:00:54.939 --> 00:00:58.155
+E fecham um incidente de vários domínios.
+
+24
+00:00:58.155 --> 00:01:01.798
+Ao final, você sai com infraestrutura auditável.
+
+25
+00:01:01.798 --> 00:01:04.664
+Um diagnóstico, ou um chat com freio.
+
+26
+00:01:04.664 --> 00:01:08.185
+Um artefato de segurança, custo ou runbook.
+
+27
+00:01:08.185 --> 00:01:14.146
+E o jogo do dia, com o parágrafo do que você não deixaria o gerente aplicar sozinho.
+
+28
+00:01:14.146 --> 00:01:17.728
+Python de 3.10 a 3.13.
+
+29
+00:01:17.728 --> 00:01:20.167
+Não use 3.14.
+
+30
+00:01:20.167 --> 00:01:23.506
+A chave da Groq vai na variável de ambiente.
+
+31
+00:01:23.506 --> 00:01:25.777
+Ative o ambiente virtual.
+
+32
+00:01:25.777 --> 00:01:29.344
+Sem ele, o erro é biblioteca não encontrada.
+
+33
+00:01:29.344 --> 00:01:31.097
+Não é o laboratório.
+
+34
+00:01:31.097 --> 00:01:33.475
+O menu dispara os agentes.
+
+35
+00:01:33.475 --> 00:01:35.426
+O painel é opcional.
+
+36
+00:01:35.426 --> 00:01:39.405
+Prometheus e Jaeger, neste material, são simulados.
+
+37
+00:01:39.405 --> 00:01:42.820
+Vamos à esteira, sem ler caminho de pasta.
+
+38
+00:01:42.820 --> 00:01:49.176
+Os dois primeiros laboratórios tratam de um balde de registros com regra de conformidade.
+
+39
+00:01:49.176 --> 00:01:50.716
+Criptografia.
+
+40
+00:01:50.716 --> 00:01:52.454
+Bloqueio de público.
+
+41
+00:01:52.454 --> 00:01:53.795
+Tag de dono.
+
+42
+00:01:53.795 --> 00:01:57.698
+O copiloto gera Terraform, e um auditor confere.
+
+43
+00:01:57.698 --> 00:02:00.731
+O copiloto não substitui o auditor.
+
+44
+00:02:00.731 --> 00:02:04.573
+O arquivo principal de infraestrutura fica no disco.
+
+45
+00:02:04.573 --> 00:02:11.371
+Se o código nascer sem bloquear o acesso público, e o auditor calar, o laboratório falhou.
+
+46
+00:02:11.371 --> 00:02:13.978
+Mesmo que o texto esteja bonito.
+
+47
+00:02:13.978 --> 00:02:17.317
+O terceiro laboratório é manifesto e canário.
+
+48
+00:02:17.317 --> 00:02:21.204
+GitOps, aqui, é a ideia de reconciliação.
+
+49
+00:02:21.204 --> 00:02:24.161
+O agrupamento tende ao que foi declarado.
+
+50
+00:02:24.161 --> 00:02:26.905
+Canário é métrica, não coragem.
+
+51
+00:02:26.905 --> 00:02:30.274
+Sem linha de base, cem por cento é chute.
+
+52
+00:02:30.274 --> 00:02:33.246
+O quarto é o irmão do OpsPilot.
+
+53
+00:02:33.246 --> 00:02:36.615
+Você aplica o deploy quebrado de propósito.
+
+54
+00:02:36.615 --> 00:02:40.289
+Depois o engenheiro de confiabilidade de plantão.
+
+55
+00:02:40.289 --> 00:02:41.920
+Reinício em loop.
+
+56
+00:02:41.920 --> 00:02:43.460
+Imagem errada.
+
+57
+00:02:43.460 --> 00:02:47.012
+Pensamento, ação, observação, correção.
+
+58
+00:02:47.012 --> 00:02:51.067
+Sem o pod no agrupamento, o diagnóstico é teatro.
+
+59
+00:02:51.067 --> 00:02:53.262
+Não cole a correção sem ler.
+
+60
+00:02:53.262 --> 00:03:03.323
+Se a causa no caderno for “faltou memória”, e o manifesto aponta imagem inexistente, você avaliou a prosa, não o arquivo de implantação.
+
+61
+00:03:03.323 --> 00:03:09.207
+O quinto traduz português em PromQL, a linguagem de consulta do Prometheus.
+
+62
+00:03:09.207 --> 00:03:11.570
+Alerta preditivo de disco.
+
+63
+00:03:11.570 --> 00:03:13.277
+Um JSON de Grafana.
+
+64
+00:03:13.277 --> 00:03:15.442
+O modelo ajusta uma reta.
+
+65
+00:03:15.442 --> 00:03:17.896
+Você decide se pagina alguém.
+
+66
+00:03:17.896 --> 00:03:24.496
+No módulo um você consumia Grafana pelo protocolo de contexto de modelo, o MCP.
+
+67
+00:03:24.496 --> 00:03:26.920
+Aqui você gera o artefato.
+
+68
+00:03:26.920 --> 00:03:28.826
+O sexto é ChatOps.
+
+69
+00:03:28.826 --> 00:03:31.128
+Peça para destruir o banco.
+
+70
+00:03:31.128 --> 00:03:34.984
+A senha é a frase didática de aprovação do gestor.
+
+71
+00:03:34.984 --> 00:03:37.057
+Sem senha, não passa.
+
+72
+00:03:37.057 --> 00:03:41.707
+É o código duzentos e dois do OpsPilot, com cara de Slack.
+
+73
+00:03:41.707 --> 00:03:47.088
+Não cole a frase no PDF da turma como se fosse segredo de produção.
+
+74
+00:03:47.088 --> 00:03:49.618
+O que vale é o fluxo de recusa.
+
+75
+00:03:49.618 --> 00:03:54.435
+Depois vêm segurança, integração contínua, dinheiro e runbook.
+
+76
+00:03:54.435 --> 00:03:57.317
+Trivy com um JSON de vulnerabilidades.
+
+77
+00:03:57.317 --> 00:04:01.280
+Uma vulnerabilidade conhecida, no espírito XZ.
+
+78
+00:04:01.280 --> 00:04:04.466
+Um fluxo lento para acelerar com cache.
+
+79
+00:04:04.466 --> 00:04:06.920
+Inventário com zumbi de nuvem.
+
+80
+00:04:06.920 --> 00:04:08.597
+Endereço e disco.
+
+81
+00:04:08.597 --> 00:04:10.442
+Retorno do corte.
+
+82
+00:04:10.442 --> 00:04:12.134
+Runbook em Markdown.
+
+83
+00:04:12.134 --> 00:04:16.920
+Geração aumentada por recuperação, o RAG, de remediação.
+
+84
+00:04:16.920 --> 00:04:20.472
+Sem citar o runbook, o comando é alucinação.
+
+85
+00:04:20.472 --> 00:04:21.432
+A pior.
+
+86
+00:04:21.432 --> 00:04:23.292
+Operação inventada.
+
+87
+00:04:23.292 --> 00:04:25.960
+O laboratório onze é o ensaio.
+
+88
+00:04:25.960 --> 00:04:27.393
+Sim ou não.
+
+89
+00:04:27.393 --> 00:04:30.533
+O agente sugere o comando no agrupamento.
+
+90
+00:04:30.533 --> 00:04:31.981
+Você autoriza.
+
+91
+00:04:31.981 --> 00:04:34.207
+O doze é o jogo do dia.
+
+92
+00:04:34.207 --> 00:04:36.631
+Checkout com erro quinhentos.
+
+93
+00:04:36.631 --> 00:04:38.231
+Porta dos fundos.
+
+94
+00:04:38.231 --> 00:04:40.533
+Custo mais quarenta por cento.
+
+95
+00:04:40.533 --> 00:04:43.551
+O gerente hierárquico escreve o relatório.
+
+96
+00:04:43.551 --> 00:04:46.067
+Engenharia de confiabilidade.
+
+97
+00:04:46.067 --> 00:04:47.393
+Segurança.
+
+98
+00:04:47.393 --> 00:04:50.457
+FinOps, o lado financeiro da nuvem.
+
+99
+00:04:50.457 --> 00:04:51.951
+Três papéis.
+
+100
+00:04:51.951 --> 00:04:53.307
+Três freios.
+
+101
+00:04:53.307 --> 00:04:59.969
+Se o texto misturar apagar um pod com corte de custo na mesma aplicação, o gerente falhou.
+
+102
+00:04:59.969 --> 00:05:01.295
+E você também.
+
+103
+00:05:01.295 --> 00:05:03.643
+O projeto é esse relatório.
+
+104
+00:05:03.643 --> 00:05:05.198
+E quinze linhas.
+
+105
+00:05:05.198 --> 00:05:08.810
+O que você não deixaria o gerente aplicar sozinho.
+
+106
+00:05:08.810 --> 00:05:11.432
+Nomeie uma ação de cada domínio.
+
+107
+00:05:11.432 --> 00:05:13.704
+Amarre no ensaio do onze.
+
+108
+00:05:13.704 --> 00:05:17.713
+Os slides da pasta de laboratório são opcionais.
+
+109
+00:05:17.713 --> 00:05:21.402
+Úteis se o script parecer mágica.
+
+110
+00:05:21.628 --> 00:05:25.114
+Autonomia continua um controle deslizante.
+
+111
+00:05:25.064 --> 00:05:29.012
+Na produção de verdade, o não é uma funcionalidade.
+
+112
+00:05:29.012 --> 00:05:32.290
+O RouteWise vai falar de risco de quadro.
+
+113
+00:05:32.290 --> 00:05:34.287
+Aqui o risco é produção.
+
+114
+00:05:34.287 --> 00:05:36.451
+Não misture os relatórios.
+
+115
+00:05:36.451 --> 00:05:39.485
+Até lá, ative o ambiente virtual.
+
+116
+00:05:39.485 --> 00:05:42.351
+Rode os dois primeiros laboratórios.
+
+117
+00:05:42.351 --> 00:05:45.674
+Guarde o Terraform e o parecer da auditoria.
+
+118
+00:05:45.674 --> 00:05:47.991
+Recuse uma vez no ensaio.
+
+119
+00:05:47.991 --> 00:05:50.842
+Aceite outra com o ensaio aprovado.
+
+120
+00:05:50.842 --> 00:05:53.448
+Depois escreva as quinze linhas.
+
+121
+00:05:53.448 --> 00:05:57.076
+Beleza de painel não é evidência de governança.
+
+122
+00:05:57.076 --> 00:05:59.454
+O não do onze é.

@@ -1,0 +1,497 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:00.949
+Olá.
+
+2
+00:00:00.899 --> 00:00:04.756
+Seja bem-vinda, seja bem-vindo ao módulo cinco.
+
+3
+00:00:04.756 --> 00:00:11.676
+Até agora a inteligência artificial falava com interface de programação, grafo e incidente.
+
+4
+00:00:11.676 --> 00:00:15.076
+Neste módulo ela entra no ciclo de produto.
+
+5
+00:00:15.076 --> 00:00:16.371
+Briefing ruim.
+
+6
+00:00:16.371 --> 00:00:18.201
+Feedback de usuário.
+
+7
+00:00:18.201 --> 00:00:19.009
+Tela.
+
+8
+00:00:19.009 --> 00:00:20.823
+Contrato de mudança.
+
+9
+00:00:20.823 --> 00:00:22.667
+Teste de ponta a ponta.
+
+10
+00:00:22.667 --> 00:00:26.585
+E um backend que transforma texto informal em documento.
+
+11
+00:00:26.585 --> 00:00:28.810
+Isso não é aula de layout.
+
+12
+00:00:28.810 --> 00:00:30.655
+É aula de curadoria.
+
+13
+00:00:30.655 --> 00:00:34.817
+Ao final, você não precisa gerar um aplicativo inteiro.
+
+14
+00:00:34.817 --> 00:00:36.707
+Precisa de outra coisa.
+
+15
+00:00:36.707 --> 00:00:38.582
+Um prompt versionado.
+
+16
+00:00:38.582 --> 00:00:40.411
+Um artefato no Git.
+
+17
+00:00:40.411 --> 00:00:44.268
+E uma frase do que a inteligência artificial não fez.
+
+18
+00:00:44.268 --> 00:00:45.579
+Você fez.
+
+19
+00:00:45.579 --> 00:00:50.777
+O fio é um Pix agendado que nasce ambíguo e vira aplicativo Angular.
+
+20
+00:00:50.777 --> 00:00:55.838
+Um monorepo de plataforma, o CFP, em que a mudança é contrato.
+
+21
+00:00:55.838 --> 00:01:02.881
+E o BragBot, que recebe “fechei o laboratório do OpsPilot” e devolve um brag estruturado.
+
+22
+00:01:02.881 --> 00:01:06.234
+Pode rodar em paralelo com o módulo sete.
+
+23
+00:01:06.234 --> 00:01:08.673
+O estilo de estúdio é o mesmo.
+
+24
+00:01:08.673 --> 00:01:11.128
+Não depende do OpsPilot.
+
+25
+00:01:11.128 --> 00:01:12.865
+Vamos às ideias.
+
+26
+00:01:12.865 --> 00:01:14.969
+Comece pelo briefing bruto.
+
+27
+00:01:14.969 --> 00:01:17.393
+Sem inteligência artificial.
+
+28
+00:01:17.393 --> 00:01:18.734
+Um parágrafo.
+
+29
+00:01:18.734 --> 00:01:20.243
+Agendar Pix.
+
+30
+00:01:20.243 --> 00:01:21.356
+Contato.
+
+31
+00:01:21.356 --> 00:01:22.240
+Valor.
+
+32
+00:01:22.240 --> 00:01:23.170
+Data.
+
+33
+00:01:23.170 --> 00:01:24.512
+Comprovante.
+
+34
+00:01:24.512 --> 00:01:26.966
+Limite de cinco mil reais.
+
+35
+00:01:26.966 --> 00:01:29.496
+Sem agendar para o mesmo dia.
+
+36
+00:01:29.496 --> 00:01:31.219
+Botão de cancelar.
+
+37
+00:01:31.219 --> 00:01:33.551
+Você lista três buracos.
+
+38
+00:01:33.551 --> 00:01:34.527
+Fuso.
+
+39
+00:01:34.527 --> 00:01:38.658
+A cota é do dia da execução, ou do dia do pedido.
+
+40
+00:01:38.658 --> 00:01:41.356
+O estado de cancelamento depois.
+
+41
+00:01:41.356 --> 00:01:45.152
+Só então cole o prompt de refinamento no estúdio.
+
+42
+00:01:45.152 --> 00:01:46.905
+Temperatura baixa.
+
+43
+00:01:46.905 --> 00:01:50.411
+A inteligência artificial estressa o requisito.
+
+44
+00:01:50.411 --> 00:01:53.201
+Você decide o que entra no backlog.
+
+45
+00:01:53.201 --> 00:01:55.274
+Há feedback em JSON bruto.
+
+46
+00:01:55.274 --> 00:01:56.753
+Um sanitizador.
+
+47
+00:01:56.753 --> 00:01:58.124
+Um destilador.
+
+48
+00:01:58.124 --> 00:02:00.426
+Um backlog de referência.
+
+49
+00:02:00.426 --> 00:02:05.091
+Os relatórios de aula estão na pasta de relatório, no singular.
+
+50
+00:02:05.091 --> 00:02:09.999
+O texto interno pede outra árvore, com arquivos que não estão no Git.
+
+51
+00:02:09.999 --> 00:02:11.920
+Entregue equivalentes.
+
+52
+00:02:11.920 --> 00:02:14.801
+Não finja que o diagrama já existe.
+
+53
+00:02:14.801 --> 00:02:19.054
+Feedback sem sanitizar vira backlog contaminado.
+
+54
+00:02:19.054 --> 00:02:24.603
+Três falhas clássicas, para você não esperar o modelo descobrir sozinho.
+
+55
+00:02:24.603 --> 00:02:27.865
+Não pode o mesmo dia” não define fuso.
+
+56
+00:02:27.865 --> 00:02:32.408
+O limite de cinco mil não diz se a cota é do dia da execução.
+
+57
+00:02:32.408 --> 00:02:34.969
+Cancelar depois exige estado.
+
+58
+00:02:34.969 --> 00:02:41.692
+Se o modelo devolver um fluxo feliz em três telas, o refinamento não estressou o bastante.
+
+59
+00:02:41.692 --> 00:02:44.359
+Ou você aceitou a primeira geração.
+
+60
+00:02:44.359 --> 00:02:47.149
+Depois vem o aplicativo do Pix.
+
+61
+00:02:47.149 --> 00:02:51.082
+Há artefatos de desenho, extrato e comprovante.
+
+62
+00:02:51.082 --> 00:02:53.795
+Prompts que levam isso para o Angular.
+
+63
+00:02:53.795 --> 00:02:54.923
+Tokens.
+
+64
+00:02:54.923 --> 00:02:56.552
+Acessibilidade.
+
+65
+00:02:56.552 --> 00:02:59.268
+Aplique um prompt num componente.
+
+66
+00:02:59.268 --> 00:03:01.387
+Mostre a diferença no Git.
+
+67
+00:03:01.387 --> 00:03:05.198
+Não gere o aplicativo inteiro e chame de evidência.
+
+68
+00:03:05.198 --> 00:03:09.756
+Se a conta Figma falhar, os artefatos na pasta bastam.
+
+69
+00:03:09.756 --> 00:03:14.039
+A inteligência artificial acelera o código repetitivo.
+
+70
+00:03:14.039 --> 00:03:17.576
+O estado de erro continua decisão de produto.
+
+71
+00:03:17.576 --> 00:03:19.725
+O CFP é monorepo.
+
+72
+00:03:19.725 --> 00:03:21.006
+Interface.
+
+73
+00:03:21.006 --> 00:03:22.042
+API.
+
+74
+00:03:22.042 --> 00:03:24.024
+Tipos compartilhados.
+
+75
+00:03:24.024 --> 00:03:25.457
+OpenSpec.
+
+76
+00:03:25.457 --> 00:03:27.347
+A mudança é o produto.
+
+77
+00:03:27.347 --> 00:03:29.969
+Você não pede “refatora o front”
+
+78
+00:03:29.969 --> 00:03:34.222
+Você segue o contrato até um arquivo de especificação mudar.
+
+79
+00:03:34.222 --> 00:03:38.292
+Não precisa das duas plataformas no mesmo entregável.
+
+80
+00:03:38.292 --> 00:03:42.530
+OpenSpec é primo da primeira unidade do OpsPilot.
+
+81
+00:03:42.530 --> 00:03:43.993
+Outro formato.
+
+82
+00:03:43.993 --> 00:03:45.457
+Mesmo gesto.
+
+83
+00:03:45.457 --> 00:03:47.698
+Contrato antes do código.
+
+84
+00:03:47.698 --> 00:03:49.984
+O BragBot usa Genkit.
+
+85
+00:03:49.984 --> 00:03:51.920
+Um fluxo no servidor.
+
+86
+00:03:51.920 --> 00:03:57.606
+Um pedido que recebe texto informal e devolve um documento que você assinaria.
+
+87
+00:03:57.606 --> 00:04:01.280
+Sem arquivo de ambiente de exemplo neste clone.
+
+88
+00:04:01.280 --> 00:04:05.442
+Configure a chave Gemini como o Genkit local pedir.
+
+89
+00:04:05.442 --> 00:04:07.987
+Sem teatro de infraestrutura.
+
+90
+00:04:07.987 --> 00:04:10.365
+Sem Firebase obrigatório.
+
+91
+00:04:10.365 --> 00:04:18.094
+Se a saída vier em prosa, sem título, impacto e evidência, o fluxo não está constrangendo o formato.
+
+92
+00:04:18.094 --> 00:04:20.289
+Volte ao prompt do fluxo.
+
+93
+00:04:20.289 --> 00:04:23.185
+Não peça educado no corpo do pedido.
+
+94
+00:04:23.185 --> 00:04:27.621
+É o mesmo contrato JSON do módulo um, agora no backend.
+
+95
+00:04:27.621 --> 00:04:28.826
+O ritual.
+
+96
+00:04:28.826 --> 00:04:31.006
+Prompt versionado no Git.
+
+97
+00:04:31.006 --> 00:04:34.740
+Artefato gerado na pasta que o curso já usa.
+
+98
+00:04:34.740 --> 00:04:38.506
+Uma frase do que a inteligência artificial não fez.
+
+99
+00:04:38.506 --> 00:04:42.454
+Sem essa frase, o módulo vira gerador de tela.
+
+100
+00:04:42.454 --> 00:04:44.420
+Um teste de honestidade.
+
+101
+00:04:44.420 --> 00:04:46.295
+O comprovante existe.
+
+102
+00:04:46.295 --> 00:04:48.993
+O cancelamento depois, nem sempre.
+
+103
+00:04:48.993 --> 00:04:54.359
+Se o aplicativo só tem o caminho feliz, você comprou a primeira geração.
+
+104
+00:04:54.359 --> 00:04:59.237
+No CFP, mudança sem arquivo de contrato não aconteceu.
+
+105
+00:04:59.237 --> 00:05:05.243
+No BragBot, saída sem campo útil é conversa fiada com um endereço na rede.
+
+106
+00:05:05.243 --> 00:05:06.448
+O projeto.
+
+107
+00:05:06.448 --> 00:05:09.588
+Pix, ou CFP, ou BragBot.
+
+108
+00:05:09.588 --> 00:05:11.524
+Problema em uma frase.
+
+109
+00:05:11.524 --> 00:05:13.231
+Prompt versionado.
+
+110
+00:05:13.231 --> 00:05:14.161
+Print.
+
+111
+00:05:14.161 --> 00:05:16.859
+Curadoria explícita.
+
+112
+00:05:17.092 --> 00:05:22.118
+No módulo sete, o mesmo músculo vira copiloto de requisitos.
+
+113
+00:05:22.068 --> 00:05:23.973
+Transcrição de frota.
+
+114
+00:05:23.973 --> 00:05:25.635
+Mesma disciplina.
+
+115
+00:05:25.635 --> 00:05:26.931
+Outro caso.
+
+116
+00:05:26.931 --> 00:05:29.202
+Não misture os entregáveis.
+
+117
+00:05:29.202 --> 00:05:31.809
+Até lá, abra o briefing bruto.
+
+118
+00:05:31.809 --> 00:05:34.903
+Anote três buracos com a sua cabeça.
+
+119
+00:05:34.903 --> 00:05:37.327
+Só então rode o refinamento.
+
+120
+00:05:37.327 --> 00:05:38.379
+Compare.
+
+121
+00:05:38.379 --> 00:05:40.056
+Salve o Markdown.
+
+122
+00:05:40.056 --> 00:05:45.437
+Escolha um componente, ou uma mudança de contrato, ou um brag seu da pós.
+
+123
+00:05:45.437 --> 00:05:48.897
+A competência de saída não é a tela bonita.
+
+124
+00:05:48.897 --> 00:05:53.699
+É o critério de pronto que sobrevive sem o chat aberto.

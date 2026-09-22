@@ -2,7 +2,7 @@
 
 Este diretório é o **ponto de entrada oficial** da pós-graduação neste repositório. Os módulos, labs e exemplos já existiam; aqui eles viram uma trilha ensinável, com ordem, critérios e mapa do que o aluno faz em cada pasta.
 
-Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~3,5–4 min por módulo, voz `pt-BR-FranciscaNeural`) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — uso para estudo, sem uso comercial.
+Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~5,5–6 min por módulo, voz `pt-BR-FranciscaNeural`, rate `-18%`, com legendas WebVTT) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — uso para estudo, sem uso comercial.
 
 ## Mídia
 

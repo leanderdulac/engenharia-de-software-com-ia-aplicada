@@ -1,0 +1,577 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:00.949
+Olá.
+
+2
+00:00:00.899 --> 00:00:04.725
+Seja bem-vinda, seja bem-vindo ao módulo sete.
+
+3
+00:00:04.725 --> 00:00:06.051
+RouteWise.
+
+4
+00:00:06.051 --> 00:00:07.728
+Conecta Cargas.
+
+5
+00:00:07.728 --> 00:00:10.076
+Cento e quarenta veículos.
+
+6
+00:00:10.076 --> 00:00:11.783
+Dez ferramentas.
+
+7
+00:00:11.783 --> 00:00:13.551
+Um quadro que evolui.
+
+8
+00:00:13.551 --> 00:00:19.207
+Gestão com inteligência artificial, neste curso, não é o modelo virar gerente.
+
+9
+00:00:19.207 --> 00:00:23.124
+É um encadeamento de artefatos, com curadoria humana.
+
+10
+00:00:23.124 --> 00:00:26.661
+Transcrição vira backlog INVEST e Gherkin.
+
+11
+00:00:26.661 --> 00:00:29.085
+O backlog ganha pontuação.
+
+12
+00:00:29.085 --> 00:00:31.859
+O cronograma respeita capacidade.
+
+13
+00:00:31.859 --> 00:00:35.076
+O prazo ganha estimativa de três pontos.
+
+14
+00:00:35.076 --> 00:00:37.774
+O Monte Carlo roda em script.
+
+15
+00:00:37.774 --> 00:00:39.557
+O risco é de fluxo.
+
+16
+00:00:39.557 --> 00:00:42.436
+A ata e o status mudam de voz.
+
+17
+00:00:42.436 --> 00:00:45.335
+Conformidade entra no pull request.
+
+18
+00:00:45.335 --> 00:00:47.210
+A frase vira cartão.
+
+19
+00:00:47.210 --> 00:00:52.682
+Objetivos e resultados-chave, os OKRs, passam por um placar.
+
+20
+00:00:52.682 --> 00:00:57.347
+Ao final, você não precisa das dez atividades em PDF.
+
+21
+00:00:57.347 --> 00:00:59.999
+Precisa do músculo de curadoria.
+
+22
+00:00:59.999 --> 00:01:02.301
+Histórias que você cortaria.
+
+23
+00:01:02.301 --> 00:01:06.935
+Três notas das quais discorda, ou um número saído do script.
+
+24
+00:01:06.935 --> 00:01:10.137
+Um pull request que falha e outro que passa.
+
+25
+00:01:10.137 --> 00:01:13.292
+Um objetivo válido e um de vaidade.
+
+26
+00:01:13.292 --> 00:01:14.512
+E a frase.
+
+27
+00:01:14.512 --> 00:01:16.463
+Onde o modelo alucinou.
+
+28
+00:01:16.463 --> 00:01:18.048
+O que você cortou.
+
+29
+00:01:18.048 --> 00:01:20.060
+O rito é sempre o mesmo.
+
+30
+00:01:20.060 --> 00:01:23.231
+Prompt nas instruções de sistema do estúdio.
+
+31
+00:01:23.231 --> 00:01:25.213
+Temperatura do arquivo.
+
+32
+00:01:25.213 --> 00:01:26.737
+Dado da pasta.
+
+33
+00:01:26.737 --> 00:01:29.176
+Comparar com a saída de exemplo.
+
+34
+00:01:29.176 --> 00:01:31.021
+A diferença é a aula.
+
+35
+00:01:31.021 --> 00:01:34.893
+Atividade em PDF, ou ponto de verificação.
+
+36
+00:01:34.893 --> 00:01:36.189
+Uma nota só.
+
+37
+00:01:36.189 --> 00:01:38.536
+O exemplo ensina o formato.
+
+38
+00:01:38.536 --> 00:01:40.503
+Não é a sua curadoria.
+
+39
+00:01:40.503 --> 00:01:45.060
+Você já treinou prompt estruturado no módulo um e no Pix.
+
+40
+00:01:45.060 --> 00:01:47.256
+Aqui o destinatário muda.
+
+41
+00:01:47.256 --> 00:01:48.307
+O quadro.
+
+42
+00:01:48.307 --> 00:01:49.771
+O patrocinador.
+
+43
+00:01:49.771 --> 00:01:50.990
+O auditor.
+
+44
+00:01:50.990 --> 00:01:56.615
+Um percentil oitenta e cinco inventado pelo modelo vira compromisso de contrato.
+
+45
+00:01:56.615 --> 00:01:59.085
+Por isso o Monte Carlo é código.
+
+46
+00:01:59.085 --> 00:02:01.341
+Vamos às ideias centrais.
+
+47
+00:02:01.341 --> 00:02:05.487
+A transcrição de descoberta é barulhenta de propósito.
+
+48
+00:02:05.487 --> 00:02:07.256
+História duplicada.
+
+49
+00:02:07.256 --> 00:02:08.963
+Aceite implícito.
+
+50
+00:02:08.963 --> 00:02:11.219
+A gente precisa de um mapa.
+
+51
+00:02:11.219 --> 00:02:12.545
+Você corta.
+
+52
+00:02:12.545 --> 00:02:14.496
+INVEST não é slogan.
+
+53
+00:02:14.496 --> 00:02:15.929
+Independente.
+
+54
+00:02:15.929 --> 00:02:17.408
+Negociável.
+
+55
+00:02:17.408 --> 00:02:18.643
+Valiosa.
+
+56
+00:02:18.643 --> 00:02:19.847
+Estimável.
+
+57
+00:02:19.847 --> 00:02:20.853
+Pequena.
+
+58
+00:02:20.853 --> 00:02:22.012
+Testável.
+
+59
+00:02:22.012 --> 00:02:24.192
+Gherkin amarra o aceite.
+
+60
+00:02:24.192 --> 00:02:26.128
+Dado, quando, então.
+
+61
+00:02:26.128 --> 00:02:30.853
+Como gestor, quero um painel bonito para ser feliz” não é história.
+
+62
+00:02:30.853 --> 00:02:32.118
+É cartaz.
+
+63
+00:02:32.118 --> 00:02:35.106
+Importar a planilha no Jira é opcional.
+
+64
+00:02:35.106 --> 00:02:36.631
+Não é bloqueio.
+
+65
+00:02:36.631 --> 00:02:39.283
+No pontuador, acenda a bandeira.
+
+66
+00:02:39.283 --> 00:02:40.914
+Confiança baixa.
+
+67
+00:02:40.914 --> 00:02:42.881
+Esforço subestimado.
+
+68
+00:02:42.881 --> 00:02:44.862
+Iniciativa política.
+
+69
+00:02:44.862 --> 00:02:46.676
+Discorde de três.
+
+70
+00:02:46.676 --> 00:02:49.908
+Concordar com o gabarito não é laboratório.
+
+71
+00:02:49.908 --> 00:03:00.137
+RICE, alcance, impacto, confiança e esforço, e WSJF, o custo de atraso ponderado, estão nos links da raiz.
+
+72
+00:03:00.137 --> 00:03:01.783
+O modelo calcula.
+
+73
+00:03:01.783 --> 00:03:03.856
+Você decide o trimestre.
+
+74
+00:03:03.856 --> 00:03:05.106
+Cronograma.
+
+75
+00:03:05.106 --> 00:03:06.463
+Dependência.
+
+76
+00:03:06.463 --> 00:03:08.246
+Trabalho em progresso.
+
+77
+00:03:08.246 --> 00:03:09.024
+E se.
+
+78
+00:03:09.024 --> 00:03:12.012
+E se a telemetria atrasar duas sprints.
+
+79
+00:03:12.012 --> 00:03:16.021
+A Conecta Cargas não ganha gente porque o prompt pediu.
+
+80
+00:03:16.021 --> 00:03:18.429
+Estimativa é a linha vermelha.
+
+81
+00:03:18.429 --> 00:03:23.185
+O modelo ajuda a montar o otimista, o provável e o pessimista.
+
+82
+00:03:23.185 --> 00:03:26.341
+Quem sorteia os percentis é o script.
+
+83
+00:03:26.341 --> 00:03:30.060
+O percentil cinquenta não é a data do cronograma.
+
+84
+00:03:30.060 --> 00:03:34.070
+É o percentual de simulações que terminaram até ali.
+
+85
+00:03:34.070 --> 00:03:40.518
+Entregar o cinquenta como se fosse o noventa e cinco é temperatura um, com multa de contrato.
+
+86
+00:03:40.518 --> 00:03:44.893
+Se o chat e o script coincidirem demais, desconfie.
+
+87
+00:03:44.893 --> 00:03:46.814
+O modelo não simulou.
+
+88
+00:03:46.814 --> 00:03:49.954
+O monitor de risco é AIOps de projeto.
+
+89
+00:03:49.954 --> 00:03:51.417
+Envelhecimento.
+
+90
+00:03:51.417 --> 00:03:52.332
+Fila.
+
+91
+00:03:52.332 --> 00:03:54.085
+O quadro adoecendo.
+
+92
+00:03:54.085 --> 00:03:56.204
+Não é o pod do Nexus.
+
+93
+00:03:56.204 --> 00:03:58.292
+Vocabulário diferente.
+
+94
+00:03:58.292 --> 00:04:00.045
+Pastas diferentes.
+
+95
+00:04:00.045 --> 00:04:05.929
+O resumo da revisão de sprint e o relatório de status partem da mesma verdade.
+
+96
+00:04:05.929 --> 00:04:07.621
+Três audiências.
+
+97
+00:04:07.621 --> 00:04:08.475
+Time.
+
+98
+00:04:08.475 --> 00:04:09.664
+Liderança.
+
+99
+00:04:09.664 --> 00:04:11.051
+Patrocinador.
+
+100
+00:04:11.051 --> 00:04:14.481
+Se os três textos forem iguais, recomece.
+
+101
+00:04:14.481 --> 00:04:19.039
+Jargão de Jira no e-mail da diretoria é defeito de produto.
+
+102
+00:04:19.039 --> 00:04:20.381
+Governança.
+
+103
+00:04:20.381 --> 00:04:22.271
+Um checklist em prosa.
+
+104
+00:04:22.271 --> 00:04:24.039
+O Danger em código.
+
+105
+00:04:24.039 --> 00:04:25.426
+Dois mocks.
+
+106
+00:04:25.426 --> 00:04:27.332
+Um pull request passa.
+
+107
+00:04:27.332 --> 00:04:28.414
+Um falha.
+
+108
+00:04:28.414 --> 00:04:30.198
+Rode em modo local.
+
+109
+00:04:30.198 --> 00:04:36.173
+O submódulo da demonstração de integração contínua só se for essa demonstração.
+
+110
+00:04:36.173 --> 00:04:37.957
+Frase para fluxo.
+
+111
+00:04:37.957 --> 00:04:40.015
+Make, ou o robô Node.
+
+112
+00:04:40.015 --> 00:04:41.646
+Slack é cenário.
+
+113
+00:04:41.646 --> 00:04:46.417
+Sem Make a nota não morre, se o analisador demonstrar o cartão.
+
+114
+00:04:46.417 --> 00:04:49.847
+O alinhador de OKR tem três partes.
+
+115
+00:04:49.847 --> 00:04:51.814
+Validar o objetivo.
+
+116
+00:04:51.814 --> 00:04:53.490
+Ligar o backlog.
+
+117
+00:04:53.490 --> 00:04:55.259
+Placar de portfólio.
+
+118
+00:04:55.259 --> 00:04:58.734
+RouteWise, fintech, comércio eletrônico.
+
+119
+00:04:58.734 --> 00:05:01.189
+Derrube OKR de vaidade.
+
+120
+00:05:01.189 --> 00:05:03.216
+O projeto é um dossiê.
+
+121
+00:05:03.216 --> 00:05:04.512
+Transcrição.
+
+122
+00:05:04.512 --> 00:05:05.853
+Prioridade.
+
+123
+00:05:05.853 --> 00:05:07.896
+Um número de Monte Carlo.
+
+124
+00:05:07.896 --> 00:05:09.466
+OKRs.
+
+125
+00:05:09.466 --> 00:05:12.530
+Onde a inteligência artificial alucinou.
+
+126
+00:05:12.530 --> 00:05:14.847
+O que você cortou.
+
+127
+00:05:15.076 --> 00:05:19.507
+Curadoria, na prática, é um comentário no Markdown gerado.
+
+128
+00:05:19.457 --> 00:05:25.387
+Rejeitei a história tal porque a transcrição só menciona isso uma vez, como desejo.
+
+129
+00:05:25.387 --> 00:05:31.454
+Sem esse comentário, o avaliador não distingue o seu olho da temperatura do Gemini.
+
+130
+00:05:31.454 --> 00:05:33.832
+O quadro é o estado do caso.
+
+131
+00:05:33.832 --> 00:05:36.073
+O modelo não estava na daily.
+
+132
+00:05:36.073 --> 00:05:40.707
+No próximo módulo, a mesma recusa vira portão de aprovação.
+
+133
+00:05:40.707 --> 00:05:42.110
+TrialForge.
+
+134
+00:05:42.110 --> 00:05:43.847
+Documento clínico.
+
+135
+00:05:43.847 --> 00:05:47.003
+A arquiteta também não entrega o critério.
+
+136
+00:05:47.003 --> 00:05:49.150
+Até lá, cole o prompt.
+
+137
+00:05:49.150 --> 00:05:50.966
+Jogue a transcrição.
+
+138
+00:05:50.966 --> 00:05:53.177
+Marque o que você cortaria.
+
+139
+00:05:53.177 --> 00:05:57.658
+Rode o script de Monte Carlo, ou discorde do pontuador.
+
+140
+00:05:57.658 --> 00:06:00.082
+Mostre o pull request que quebra.
+
+141
+00:06:00.082 --> 00:06:02.872
+Escreva o parágrafo de alucinação.
+
+142
+00:06:02.872 --> 00:06:06.241
+Frameworks clássicos continuam no volante.
+
+143
+00:06:06.241 --> 00:06:07.780
+O modelo redige.
+
+144
+00:06:07.780 --> 00:06:10.997
+Você corta o cartão inventado.

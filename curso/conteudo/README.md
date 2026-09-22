@@ -12,7 +12,7 @@ Cada módulo tem três camadas. Elas contam a **mesma** história, em profundida
 | --- | --- | --- | --- |
 | Texto da aula | `modulo-0N/aula.md` | Ler com calma, com caminhos reais, armadilhas e exercício | 1.500–3.000 palavras (~10–20 min de leitura) |
 | Roteiro falado | `modulo-0N/roteiro-narracao.md` | Gravar áudio ou vídeo; português falado, frases curtas | ~450–700 palavras (3–5 min) |
-| Narração TTS | [`media/audios/tts/modulo-0N-narracao.mp3`](../media/audios/tts/) | Ouvir o roteiro (Azure TTS, `pt-BR-FranciscaNeural`, rate `-5%`) | ~3,5–4 min |
+| Narração TTS | [`media/audios/tts/modulo-0N-narracao.mp3`](../media/audios/tts/) | Ouvir o roteiro (Azure TTS, `pt-BR-FranciscaNeural`, rate `-18%`, pitch `-2Hz`; legenda [`modulo-0N-narracao.vtt`](../media/audios/tts/)) | ~5,5–6 min |
 | Metadados | `modulo-0N/meta.json` | Título, duração, caso âncora, capa | — |
 | Guia operacional | [`modulos/0N.md`](../modulos/01.md) | Objetivos, mapa de labs, checklist, projeto | Não é aula: é o “o que fazer” |
 | Vídeo HeyGen | IDs em [`media/videos/heygen-ids.json`](../media/videos/heygen-ids.json) | Abertura visual do módulo (fora do Git) | peça curta de abertura |

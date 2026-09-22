@@ -239,19 +239,26 @@ async function handleTtsAudios(_req, res) {
     }
 
     const audios = items.map((item) => {
-      const modulo = String(item.modulo || "").padStart(2, "0");
+      const modulo = String(item.modulo || "").replace(/^modulo-/, "").padStart(2, "0");
       const file = path.basename(item.file || `modulo-${modulo}-narracao.mp3`);
       if (!/^modulo-\d{2}-narracao\.mp3$/.test(file)) {
         throw new Error(`Arquivo TTS inválido no manifesto: ${file}`);
+      }
+      const vtt = path.basename(item.vtt || `modulo-${modulo}-narracao.vtt`);
+      if (!/^modulo-\d{2}-narracao\.vtt$/.test(vtt)) {
+        throw new Error(`Legenda VTT inválida no manifesto: ${vtt}`);
       }
       return {
         modulo,
         title: MODULE_TITLES[modulo] || `Módulo ${modulo}`,
         file,
         src: `/media/audios/tts/${file}`,
+        vtt,
+        vtt_src: `/media/audios/tts/${vtt}`,
         source_path: toPreviewPath(item.source_path),
         voice: item.voice || data.voice || "pt-BR-FranciscaNeural",
-        rate: item.rate || data.rate || "-5%",
+        rate: item.rate || data.rate || "-18%",
+        pitch: item.pitch || data.pitch || "-2Hz",
         duration_seconds: item.duration_seconds ?? null,
         bytes: item.bytes ?? null,
         status: item.status || null,
@@ -261,7 +268,8 @@ async function handleTtsAudios(_req, res) {
     res.json({
       source: "Azure Neural TTS",
       voice: data.voice || "pt-BR-FranciscaNeural",
-      rate: data.rate || "-5%",
+      rate: data.rate || "-18%",
+      pitch: data.pitch || "-2Hz",
       audios,
     });
   } catch (err) {
@@ -280,12 +288,19 @@ app.get("/api/page", handlePage);
 app.get("/api/grok-videos", handleGrokVideos);
 app.get("/api/tts-audios", handleTtsAudios);
 
+express.static.mime.define({ "text/vtt": ["vtt"] });
+
 app.use(
   "/media",
   express.static(MEDIA_DIR, {
     index: false,
     dotfiles: "deny",
     fallthrough: false,
+    setHeaders(res, filePath) {
+      if (path.extname(filePath).toLowerCase() === ".vtt") {
+        res.setHeader("Content-Type", "text/vtt; charset=utf-8");
+      }
+    },
   })
 );
 

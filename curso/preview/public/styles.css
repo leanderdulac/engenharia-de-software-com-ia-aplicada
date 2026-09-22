@@ -395,6 +395,11 @@ pre {
   font-size: 0.85rem;
 }
 
+.tts-caption-link {
+  margin: 0.55rem 0 0;
+  font-size: 0.85rem;
+}
+
 .tts-lesson {
   margin: 1rem 0 1.4rem;
 }
