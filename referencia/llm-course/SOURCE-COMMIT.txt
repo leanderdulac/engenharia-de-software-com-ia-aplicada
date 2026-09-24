@@ -1,0 +1,4 @@
+acb0a265045a72e62f817efa6a8c3b87c29ace47
+https://github.com/lucianoon/llm-course
+https://github.com/leanderdulac/curso-de-engenharia-de-IA
+fork clone date: 2026-09-24

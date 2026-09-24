@@ -17,6 +17,7 @@ Legenda: **T** = template (trabalhe aqui); **Z** = gabarito; **S** = snapshot cu
 | [`embaixadores/`](../embaixadores/) | Vazio (`.gitkeep`) |
 | [`.github/workflows/ci_test-skills.yml`](../.github/workflows/ci_test-skills.yml) | CI da skill windowsfy |
 | [`.gitmodules`](../.gitmodules) | Submódulo Danger demo do RouteWise |
+| [`referencia/llm-course/`](../referencia/llm-course/) | Vendor Apache-2.0 (RAG/LoRA/produção + `auditar_dataset`); ver [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md) |
 
 ---
 
@@ -186,7 +187,7 @@ Companions de disciplina na **raiz** da pasta (não dentro dos submódulos).
 | Pasta / arquivo | O aluno faz |
 | --- | --- |
 | `modulo-01-decision-framework/` | 4 perguntas + AHP/NPV; `amplitude-seguros-casos.json` |
-| `modulo-02-preparacao-datasets/` | OCR/JSONL/PII; imagens em `documentos-brutos/` |
+| `modulo-02-preparacao-datasets/` | OCR/JSONL/PII; imagens em `documentos-brutos/`; [README](../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-02-preparacao-datasets/README.md) aponta o vendor `auditar_dataset` |
 | `modulo-03-fine-tuning-via-api/` | Vertex; `gcp-setup-companion.md`; dataset 200 linhas |
 | `modulo-04-lora-e-peft/` | MLX ou Colab; ranks 4/8/16; pesos **não** estão no Git |
 | `modulo-05-avaliacao-modelos/` | Harness A/B + estresse |

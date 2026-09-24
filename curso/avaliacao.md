@@ -163,9 +163,38 @@ Integração opcional (os 10%): por exemplo, usar o Requirements Copilot (M07) n
 - Pasta `modulo04-agentes-autonomos/` (legado): **não existe** aqui.
 - Qualidade gráfica de slides Nexus vs. execução dos labs.
 
+## Protocolo de avaliação (aprofundamento)
+
+Além das rubricas e dos IDs C01–C09, use este protocolo quando o entregável **comparar sistemas** (RAG, agente, fine-tune, gateway, judge). O texto é redação própria desta pós. As ideias de hipótese, baseline, intervalo quando a métrica for amostral, análise de erro e evidência reproduzível vêm do curso companheiro [lucianoon/llm-course](https://github.com/lucianoon/llm-course) (Apache-2.0, Luciano de Oliveira Nunes; fork [leanderdulac/curso-de-engenharia-de-IA](https://github.com/leanderdulac/curso-de-engenharia-de-IA)). Cópia isolada: [`referencia/llm-course/docs/PROTOCOLO-DE-AVALIACAO.md`](../referencia/llm-course/docs/PROTOCOLO-DE-AVALIACAO.md). Crédito: [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md).
+
+**Não substitui** pesos, checkpoints nem a missão “Atividade PDF **ou** artefato”. Não cole o arquivo de B no LMS: adapte ao caso âncora (Amplitude, TrialForge, OpsPilot).
+
+### Hipótese antes do número
+
+Escreva o que deve mudar, em qual subgrupo, e o que contaria como falha. “O LoRA ficou melhor” não é hipótese. “No JSONL só-Saúde, o adapter reduz erro de formato sem piorar Auto no harness” é. No M08: “o cache do gateway corta p95 sem cair o hit do RAG no conjunto lacrado”.
+
+### Baseline
+
+Compare com o caminho mais simples que o lab já tem: prompt+RAG sem adapter, regra no `decision-framework`, modelo base, gateway sem cache, juiz sem rubrica. Sem baseline, o ganho é teatro — a rubrica genérica já pune afirmação sem evidência (nota 5–6).
+
+Separe **desenvolvimento** (mexer em prompt, rank, k) de **teste lacrado** (o número que entra no C08.4 / C09.4). O conjunto de teste não escolhe hiperparâmetro.
+
+### Intervalo de confiança quando fizer sentido
+
+Com dezenas de casos (120 Auto, 80 Saúde, 20–40 no protocolo de B), um ponto percentual sozinho mente. Se o harness ou o eval gate devolver média, anote **n** e, quando a métrica for amostral, um intervalo (bootstrap) ou pelo menos min/max e dispersão. Não exija p-valor de paper; exija honestidade sobre a amostra. NPV do M09 confronta projetado versus **medido** — o intervalo é o antidoto ao slide.
+
+### Análise de erro
+
+Cinco acertos e cinco falhas, com subgrupo (domínio, idioma, dificuldade, “devia abster”). O companion de LLM-as-judge no M09 e o audit-trail do M08 já pedem isso em espírito: não entregue só a média. Casos de recusa/formato/PII entram na fatia de segurança/regressão.
+
+### Evidência reproduzível
+
+Comando, seed quando houver, caminho do JSONL, commit ou log de job — o suficiente para o instrutor **repetir o veredito**. Print sem comando = teto 5–6 na coluna “rastreio”. Labs Python opcionais em [`referencia/llm-course/`](../referencia/llm-course/) podem ilustrar o protocolo; a nota continua nos artefatos do tronco.
+
 ## Feedback rápido (instrutor)
 
 1. O artefato aponta para uma **pasta que existe**?
 2. Rodou no **template** quando havia template?
 3. Há **diff consciente** em relação ao gabarito/exemplo?
 4. A decisão (modelo, HITL, fine-tune) está **justificada com o caso âncora**?
+5. Se houve comparação de sistemas: há hipótese, baseline e um número reproduzível (seção acima)?

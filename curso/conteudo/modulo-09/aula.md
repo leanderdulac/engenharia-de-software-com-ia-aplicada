@@ -46,6 +46,20 @@ JSONL: um JSON por linha, schema estável. Sem schema, o harness do M5 vira teat
 
 Não misture no mesmo arquivo linha de Auto (`placa`) com linha de Saúde (`procedimento`) sem um campo `linha` discriminador. O harness depois parte os sets (`amplitude-auto-only-120.jsonl`, `amplitude-saude-only-80.jsonl`) exatamente para pegar regressão cruzada. Schema frouxo hoje é métrica mentirosa amanhã.
 
+### Governança de dados (checklist antes do treino)
+
+O gate da Amplitude (PII, schema, dedup, DPA no JSON da pasta 01) é o tronco. O curso companheiro de engenharia de LLMs (Luciano de Oliveira Nunes, Apache-2.0; recorte em [`referencia/llm-course/`](../../../referencia/llm-course/)) formaliza o mesmo portão como **manifesto**: origem, licença, finalidade, checksum, retenção, split por entidade. Não é lab novo da pós — é a lista que o C09.2 já cobrava, dita em voz de auditoria.
+
+Feche isto **antes** de Vertex ou LoRA:
+
+1. **PII** — `pii-scrubbing-gate-tool` na pasta 02. Scanner regex (e-mail, CPF, telefone) é defesa rasa; nome solto, saúde e quase-identificador pedem regra de domínio e olho humano. O companion `privacy-preserving-finetuning-companion.md` aprofunda; a tool vendored `auditar_dataset.py` gera o JSON de manifesto sem espalhar Apache nesta pasta.
+2. **Provenance** — de onde veio, com que licença, para que finalidade. “Estava na pasta” não é base legal. Sintético também declara professor, prompt e filtro.
+3. **Manifesto** — checksum e transformações (OCR vs multimodal, MinHash, balanceamento). Sem isso o harness do M5 não sabe o que mediu.
+4. **Splits** — por segurado, apólice, documento ou tempo. Shuffle de linhas mistura a mesma pessoa em treino e teste.
+5. **Leakage** — teste de sobreposição; Auto e Saúde não se avaliam no mesmo saco sem o campo `linha`.
+
+Checklist operacional: [`modulo-02-preparacao-datasets/README.md`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-02-preparacao-datasets/README.md). Texto Apache isolado: [`referencia/llm-course/docs/GOVERNANCA-DE-DADOS.md`](../../../referencia/llm-course/docs/GOVERNANCA-DE-DADOS.md).
+
 ### 9.3 — Fine-tuning via API (Vertex)
 
 [`modulo-03-fine-tuning-via-api/`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-03-fine-tuning-via-api/)

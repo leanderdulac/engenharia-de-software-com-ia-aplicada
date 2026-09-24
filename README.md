@@ -31,7 +31,7 @@ Licença: [CC BY-NC-ND 4.0](./LICENSE.md). Vídeos **não** vêm neste Git. Prob
 | 08 | Arquitetura de sistemas com IA | [`modulo08-arquitetura-de-sistemas-com-ia/`](./modulo08-arquitetura-de-sistemas-com-ia/) | **TrialForge** |
 | 09 | Dados e fine-tuning | [`modulo09-processamento-de-dados-e-fine-tuning-de-modelos/`](./modulo09-processamento-de-dados-e-fine-tuning-de-modelos/) | **Amplitude Seguros** |
 
-Complementos: [`lives/`](./lives/) (MCP/Skills, Spec-Driven Development, Safer). A pasta `modulo04-agentes-autonomos/` (gravação antiga) **não está neste clone** — use a pasta `-novo` acima.
+Complementos: [`lives/`](./lives/) (MCP/Skills, Spec-Driven Development, Safer). Aprofundamento LLM em Python (opcional, Apache isolado): [`referencia/llm-course/`](./referencia/llm-course/) — crédito em [`curso/ATRIBUICOES-llm-course.md`](./curso/ATRIBUICOES-llm-course.md). A pasta `modulo04-agentes-autonomos/` (gravação antiga) **não está neste clone** — use a pasta `-novo` acima.
 
 ---
 

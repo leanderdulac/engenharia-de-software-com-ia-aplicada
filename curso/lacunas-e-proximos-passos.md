@@ -68,3 +68,7 @@ O código é usável; a **documentação interna mente**.
 3. Alinhar README do M05 aos nomes de pasta.
 
 Este pacote `curso/` **não** corrige código de exemplo (pedido explícito do trabalho). Só documenta e aponta.
+
+## Material complementar agora no disco
+
+Há um recorte Apache-2.0 em [`referencia/llm-course/`](../referencia/llm-course/) (RAG/LoRA/produção + `auditar_dataset`). **Não** são os 19 módulos do curso companheiro. Labs Amplitude/TrialForge/MCP **não** foram alterados. Ver [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md).
