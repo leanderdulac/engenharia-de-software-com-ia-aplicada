@@ -64,3 +64,9 @@ The full legal text of this license is available at:
 ---
 
 © 2026 [**Unipds Educação**](https://unipds.com.br/org-pos-ia/). All rights reserved.
+
+---
+
+## Companion material (Apache-2.0)
+
+Files under [`referencia/llm-course/`](./referencia/llm-course/) are a **selective vendor** of *Engenharia e Customização de LLMs em Português* by Luciano de Oliveira Nunes ([lucianoon/llm-course](https://github.com/lucianoon/llm-course), Apache License 2.0). They are **not** relicensed as CC BY-NC-ND 4.0. Keep `LICENSE` and `NOTICE` in that directory intact. Attribution: [`curso/ATRIBUICOES-llm-course.md`](./curso/ATRIBUICOES-llm-course.md).

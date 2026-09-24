@@ -100,6 +100,7 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [guia-do-aluno.md](./guia-do-aluno.md) | Setup, ritmo, estudo, troubleshooting |
 | [glossario.md](./glossario.md) | Termos-chave da trilha |
 | [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md) | O que falta no material (honesto) |
+| [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md) | Crédito e licença do aprofundamento Python (llm-course) |
 | [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Guia ensinável de cada módulo |
 | [conteudo/README.md](./conteudo/README.md) | Texto das aulas, roteiros de narração e `meta.json` |
 | [media/README.md](./media/README.md) | Capas, narrações TTS (`media/audios/tts/`), intros Grok Imagine (`media/videos/grok/`) e IDs HeyGen |
@@ -126,4 +127,5 @@ Links extras de aula (vídeos, papers, ferramentas) continuam no [README da raiz
 - Lives: [`lives/2026-02-24/`](../lives/2026-02-24/) (MCP e Agent Skills), [`lives/2026-05-27/`](../lives/2026-05-27/) (Spec-Driven Development), [`lives/2026-07-28/`](../lives/2026-07-28/) (Safer).
 - Troubleshooting: [`troubleshooting/`](../troubleshooting/).
 - Skill Windows: [`skills/windowsfy/`](../skills/windowsfy/).
+- Aprofundamento LLM em Python (opcional, Apache-2.0 isolado): [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md) → [`referencia/llm-course/`](../referencia/llm-course/).
 - `embaixadores/` está vazia neste clone (só `.gitkeep`).

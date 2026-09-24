@@ -72,6 +72,8 @@ Amplitude Seguros: decision framework (AHP/NPV); dataset JSONL, PII, OCR vs mult
 
 Lives em [`lives/`](../lives/) (MCP/skills, SDD, Safer). Não entram na nota salvo o instrutor decidir (ver [avaliacao.md](./avaliacao.md)).
 
+Aprofundamento Python opcional (curso companheiro Apache-2.0, **não** fundido no tronco): [trilha](./trilha-aprendizado.md#aprofundamento-llm-python-opcional), [atribuições](./ATRIBUICOES-llm-course.md), recorte em [`referencia/llm-course/`](../referencia/llm-course/).
+
 ## Metodologia
 
 - **Aprender no código do repo.** Cada aula aponta para pasta `*-template` ou snapshot `UNIDADE.md` / lab `.py` / `*-prompt.md` / canvas.
@@ -99,6 +101,7 @@ Só o que já está citado no material do repo. Completar com os links do [READM
 - Gestão: RICE (Intercom), WSJF (SAFe), MoSCoW, PERT, Planning Fallacy (Kahneman & Tversky).
 - Arquitetura: CAP theorem; [A2A Protocol](https://a2a-protocol.org/); RAND *Why AI Projects Fail* (M08).
 - Fine-tuning: companions na raiz do M09 (`casos-de-mercado-fine-tuning-companion.md`, `historico-fine-tuning-companion.md`, *Bestiário do Zoo*).
+- Curso companheiro (opcional): Nunes, Luciano de Oliveira — *Engenharia e Customização de LLMs em Português* ([lucianoon/llm-course](https://github.com/lucianoon/llm-course), Apache-2.0). Recorte e crédito em [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md).
 - IBM Cost of a Data Breach Report 2025 (M07 M8).
 - Saaty — Analytic Hierarchy Process (M09 M1).
 

@@ -160,3 +160,28 @@ Quem não for usar Vertex: faça 9.1–9.2 + 9.4 (MLX/Colab) + harness local de 
 - **Só plataforma:** M01 Grafana/Ollama → M04 U2–U7 → M06 → M08 M5.
 
 Se uma pasta `*-template` estiver vazia de README, o guia do módulo descreve o que o código faz — confie no guia, não no README copiado (há vários desatualizados; ver [lacunas-e-proximos-passos.md](./lacunas-e-proximos-passos.md)).
+
+## Aprofundamento LLM (Python, opcional)
+
+Fora das **240 h** obrigatórias. Não funde os 19 módulos do curso companheiro no tronco desta pós: o eixo continua TypeScript + casos âncora (OpsPilot, Nexus, RouteWise, TrialForge, Amplitude).
+
+Fonte completa (clone à parte, se quiser a trilha inteira):
+
+- Upstream Apache-2.0: [lucianoon/llm-course](https://github.com/lucianoon/llm-course) (Luciano de Oliveira Nunes)
+- Fork: [leanderdulac/curso-de-engenharia-de-IA](https://github.com/leanderdulac/curso-de-engenharia-de-IA)
+
+Recorte vendored neste repo (labs CPU + tools + docs curtos): [`referencia/llm-course/`](../referencia/llm-course/). Crédito e o que **não** veio: [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md).
+
+**Rota essencial sugerida** (leia B ou o vendor; não copie os 19 módulos para o entregável da pós):
+
+| Etapa | No companheiro (B) | Onde encaixa nesta pós |
+| --- | --- | --- |
+| Fundamentos | tokens, attention, MiniGPT (módulos 01–03 de B) | Vocabulário do M01; não substitui TF.js / Web AI |
+| Dados | qualidade, formato, leakage (módulo 04 de B) | Amplitude M2 + [`docs/GOVERNANCA-DE-DADOS.md`](../referencia/llm-course/docs/GOVERNANCA-DE-DADOS.md) |
+| SFT / LoRA | SFT + LoRA CPU (módulos 05–06 de B) | Amplitude M3–M4; lab vendored [`modulo-06-lora/`](../referencia/llm-course/modulo-06-lora/) |
+| RAG | BM25 / denso / RRF (módulo 13 de B) | M01 Neo4j + TrialForge M4; lab [`modulo-13-rag/`](../referencia/llm-course/modulo-13-rag/) |
+| Eval | baseline, IC, erro (módulo 14 + protocolo de B) | [avaliacao.md](./avaliacao.md) + harness Amplitude M5 |
+| Agentes | módulo 15 de B | Eixo obrigatório: OpsPilot (M04), não o lab Python de B |
+| Produção | serving, custo, disjuntor (módulo 19 de B) | TrialForge M5; lab [`modulo-19-producao/`](../referencia/llm-course/modulo-19-producao/) |
+
+Quem já fechou M08+M09 e quer Python “de baixo para cima” segue essa ordem. Quem está no meio da pós **não** atrasa checkpoint para terminar B.
