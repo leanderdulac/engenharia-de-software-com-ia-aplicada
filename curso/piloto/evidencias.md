@@ -101,6 +101,9 @@ Saída JSON (gerada pelo script, não inventada): [`evidencias-smoke.json`](./ev
 | m07-monte-carlo | **PASS** exit=0 (P50 12.5 semanas, 10.000 simulações) |
 | m09-decision-framework | **PASS** exit=0 (29/29 testes) |
 | c-colab-verificar | **PASS** exit=0 (11/11) |
+| m02-langchain-intro | **PASS** exit=0 (`npm test` 3/3, sem `.env`) |
+| m09-grpo-math | **PASS** exit=0 (10 testes de matemática offline; rollout Ollama falhou sem runtime e o script ainda sai 0) |
+| c052-a11y-static | **PASS** exit=0 (templates Pix; **não** é WCAG) |
 | m01-exemplo-11-header | **SKIP** inspect_only |
 | m06-nexus | **SKIP** blocked_secrets |
 | m08-react-ollama | **SKIP** blocked_runtime |
@@ -108,11 +111,29 @@ Saída JSON (gerada pelo script, não inventada): [`evidencias-smoke.json`](./ev
 | m09-vertex | **SKIP** blocked_secrets |
 | companion-rag-cpu | **SKIP** blocked_model_download |
 | m04-opspilot | **SKIP** blocked_secrets |
-| m02-langgraph-intro | **SKIP** blocked_install |
+| m02-openrouter-labs | **SKIP** blocked_secrets |
 | m03-mcp | **SKIP** blocked_docker |
 | m05-bragbot | **SKIP** blocked_secrets |
 
 Labs **não** foram removidos para o smoke passar.
+
+## Rodada 2 — fontes oficiais (revisão documental, não execução)
+
+Conferido em 7 nov. 2026. **Não** baixámos modelos. **Não** abrimos o Inspector. **Não** é parecer jurídico.
+
+| Afirmação | Fonte | O que **não** fizemos |
+| --- | --- | --- |
+| `gemma4:e2b` existe; tamanho 4,6–7,5 GB | [ollama.com/library/gemma4](https://ollama.com/library/gemma4) | `ollama pull` |
+| `nomic-embed-text` 274 MB | [ollama.com/library/nomic-embed-text](https://ollama.com/library/nomic-embed-text) | download |
+| Inspector: `npx @modelcontextprotocol/inspector`; UI `CLIENT_PORT` 6274 | [docs](https://modelcontextprotocol.io/docs/tools/inspector); [env](https://github.com/modelcontextprotocol/inspector/blob/main/docs/environment-variables.md) | abrir UI |
+| Site MCP: Node ≥22.19.0. Pacote 2.14.0 `engines`: `^22.23.4 \|\| ^24.22.1 \|\| >=26.12.1` | mesmo docs; [package.json](https://github.com/modelcontextprotocol/inspector/blob/main/package.json) | instalar o Inspector |
+| Dado pessoal sensível inclui saúde | [LGPD Lei 13.709/2018 Art. 5º II](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm) | parecer / DPA real |
+| Supervised fine-tuning Gemini cotado em USD / 1.000 tokens | [pricing Google Cloud](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing) | job Vertex |
+| GRPO demo: math offline 10/10; papers DeepSeekMath / R1 | arXiv:2402.03300, 2501.12948; `node grpo-verifiable-reward-demo.js` | treino de pesos / rollout Ollama |
+
+e2e Chrome (após cleanup `rmSync` com retry): home, hash M01, aula+reload, Apache isolado. Residual `/tmp` do perfil Chrome **não** falha o teste.
+
+C05.2: `node curso/piloto/check-a11y-c052.mjs` — lang, skip-link, labels, Escape no modal, `aria-hidden` em ícones. Angular **não** compilado; CFP **não** executado.
 
 ## O que isto não prova
 

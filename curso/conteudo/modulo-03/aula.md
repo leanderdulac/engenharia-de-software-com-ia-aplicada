@@ -6,7 +6,7 @@
 
 Guia: [`curso/modulos/03.md`](../../modulos/03.md). Pasta: [`modulo03-mcp-na-pratica/`](../../../modulo03-mcp-na-pratica/). Carga: ~24 h. Complemento: live [`lives/2026-02-24/`](../../../lives/2026-02-24/) (`base-teorica/mcp-model-context-protocol.md` e os textos de Agent Skills).
 
-READMEs de `customers-mcp` que repetem o texto do CipherSuite: **ignore**. O CipherSuite (AES) está no lab 05. Customers é CRUD de clientes no lab 06.
+READMEs de `customers-mcp` descrevem o CRUD (não CipherSuite). O CipherSuite (AES) está no lab 05. Customers é o lab 06.
 
 ---
 
@@ -40,7 +40,7 @@ Transporte, neste material, é sobretudo o processo local que o Inspector e o `.
 
 Em [`01-multiple-mcp-tools-template/`](../../../modulo03-mcp-na-pratica/01-multiple-mcp-tools-template/) a função `getMCPTools()` **devolve array vazio**. O gabarito [`01-multiple-mcp-tools-z/`](../../../modulo03-mcp-na-pratica/01-multiple-mcp-tools-z/) liga `fsTool`, `mongodbTool` e escreve `reports/`. Há `docker-compose.yaml` (Mongo + Express). O `package.json` pode mencionar SerpAPI: o código é **vendas em `data/sales.csv`**. Pergunta honesta de lab: “quais os top produtos?”. Se o agente responder sem tool, você não ligou o MCP — só o chat.
 
-[`02-google-trends-agent/`](../../../modulo03-mcp-na-pratica/02-google-trends-agent/) é o lab que **de fato** usa SerpAPI (`SERPAPI_API_KEY`), Fastify `/chat`, tool `google_trends`. README interno errado. Scripts de teste sem pasta `tests/` visível. **Opcional** se não houver chave — o guia autoriza pular.
+[`02-google-trends-agent/`](../../../modulo03-mcp-na-pratica/02-google-trends-agent/) é o lab que **de fato** usa SerpAPI (`SERPAPI_API_KEY`), Fastify `/chat`, tool `google_trends`. Scripts de teste sem pasta `tests/` visível. **Opcional** se não houver chave — o guia autoriza pular.
 
 ### Instructions e Skills não são servidor MCP
 
@@ -113,7 +113,7 @@ Projeto do módulo: **Customers MCP autenticado** — API do lab 07 (template ev
 - **Colocar JWT no system prompt.** O lab 07 recusa na API. O modelo não é o enforcement.
 - **SERPAPI como bloqueio do módulo.** Lab 02 é opcional.
 - **Publicar no npm público “para testar”.** O exercício é Verdaccio local `:4873`.
-- **Node do CipherSuite.** O README do 05-z cita engine v24+; o restante da pós pede Node 22. Se o Inspector falhar por engine, documente a versão — não invente outro servidor.
+- **Node do CipherSuite.** `package.json` engines = `v24.14.0`; a trilha pede Node 22. Inspector v2: `npx @modelcontextprotocol/inspector`, UI **6274**. Site MCP ≥22.19.0; npm 2.14.0 pede `^22.23.4 || ^24.22.1 || >=26.12.1`. Conflito possível com `v24.14.0` do lab — documente a versão; não invente outro servidor. Inspector **não** foi aberto nesta VM.
 
 ---
 

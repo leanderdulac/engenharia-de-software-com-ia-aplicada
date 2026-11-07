@@ -104,7 +104,7 @@ Siga os snapshots **na ordem**. Cada pasta é o projeto **ao final** da unidade.
 
 ### Módulo 05 — 20 h — [guia](./modulos/05.md)
 
-Pastas reais: `modulo-01/` … `modulo-05/` (os nomes longos do README interno **não existem** no disco).
+Pastas reais: `modulo-01/` … `modulo-05/`.
 
 | # | Pasta | Horas |
 | --- | --- | --- |

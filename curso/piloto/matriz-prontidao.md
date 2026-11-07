@@ -21,14 +21,15 @@ Build estático (`páginas=52 pdfs=45`) e smoke: [evidencias.md](./evidencias.md
 | Links internos `curso/` | Markdown do pacote | **testado** | `npm run check --prefix curso/preview` | — |
 | C-COLAB | Verificador + fixtures | **testado** | 11 testes; vazamento PII → `reprovado_falha_critica` | — |
 | M01 | C01.1 pasta/template | **inspeção** + patches | `.env.example` no ex. 11; curl MIME; e-commerce :3000; `test:docker` no alumnus. `exemplo-00-z` **não testado** (tfjs-node nativo). Web AI **bloqueado** (Chrome flags + hardware) | Instrutor: `npm start` no `exemplo-00-z` na máquina da sala |
-| M02 | C02.1 lab 02 (sem LLM) | **bloqueado** (install) | Precisa `npm ci` na pasta; não instalámos o monorepo. Labs com OpenRouter **bloqueado** (segredo) | `npm ci` em `02-langchain-intro`; chave só se a instituição fornecer |
-| M03 | Inspector / token | **bloqueado** (Docker) | Mongo/Inspector. CipherSuite pode pedir Node ≠ 22 | Monitor com Docker; fallback documentado |
+| M02 | C02.1 lab 02 (sem LLM) | **testado** | `npm --prefix modulo02-integracao-apis-llms/02-langchain-intro test` — 3/3, sem `.env`, sem API. Labs OpenRouter **bloqueado** (segredo) | Chave só se a instituição fornecer |
+| M03 | Inspector / token | **inspeção** + **bloqueado** (Docker) | Comando oficial `npx @modelcontextprotocol/inspector` (porta 6274). Site MCP ≥22.19.0; npm 2.14.0 `engines` `^22.23.4 \|\| ^24.22.1 \|\| >=26.12.1`. CipherSuite `v24.14.0`. Inspector **não** foi aberto nesta VM | Monitor com Docker; documentar engine |
 | M04 | OpsPilot | **bloqueado** (segredo) | `.env.example` em U2–U5. Sem chamada OpenRouter | Instituição decide chave `:free` |
-| M05 | C05.1 pasta | **inspeção** | README do módulo avisado; BragBot `.env.example`. Genkit **bloqueado** (chave) | Pix/CFP sem chave no recorte mínimo |
+| M05 | C05.1 pasta | **inspeção** | README do módulo com `modulo-01/` … `modulo-05/`. BragBot `.env.example`. Genkit **bloqueado** (chave) | Pix/CFP sem chave no recorte mínimo |
 | M06 | Nexus | **bloqueado** (segredo) | `GROQ_API_KEY`; Prometheus/Jaeger **simulados**. `.env.example` na raiz do módulo | Não chamar Groq no smoke; C06.4 só com chave institucional |
 | M07 | Monte Carlo | **testado** (script) | `node monte-carlo-routewise.js` no smoke | PDFs Atividade: servidos no preview `/arquivos/` |
-| M08 | ReAct / Ollama | **bloqueado** (runtime) | `gemma4:e2b` pode não existir; pago = segredo. C-COLAB cobre HITL sem Ollama | `provedores-pagos` documentado **ou** saltar C08.2 no recorte |
-| M09 | Decision tool | **testado** (CPU, sem treino) | `node decision-framework-tool.js`. LoRA/Vertex/Colab **bloqueado** (GPU/segredo/pesos fora do Git) | C09.3 só com Colab institucional; não baixar modelos aqui |
+| M08 | ReAct / Ollama | **bloqueado** (runtime) | Tag `gemma4:e2b` **existe** no catálogo oficial (4,6–7,5 GB); **não** puxámos o modelo. Sem Ollama nesta VM. C-COLAB cobre HITL sem Ollama | `ollama pull` na máquina da sala **ou** `provedores-pagos` |
+| M09 | Decision tool + GRPO math | **testado** (CPU) | `decision-framework-tool.js` (29/29). GRPO: 10 testes de matemática **pass**; rollout Ollama **bloqueado**. Vertex **bloqueado** (segredo). LGPD: revisão documental da lei, não execução | C09.3 Colab institucional; não baixar modelos aqui |
+| C05.2 Pix a11y | templates HTML | **testado** (estático) | `node curso/piloto/check-a11y-c052.mjs`. Não é WCAG; Angular **não** compilado; CFP **não** executado | Instrutor: teclado real no browser da sala |
 | Companion Apache | RAG CPU | **bloqueado** (download) | `lab_cpu.py` pede torch + e5-small | Não misturar com o tronco; opcional depois |
 
 ## Não validado neste PR (escopo residual)
@@ -39,4 +40,6 @@ Build estático (`páginas=52 pdfs=45`) e smoke: [evidencias.md](./evidencias.md
 - GitHub Pages **publicado** (settings da conta + bloqueio jurídico ND).
 - Autorização dos titulares para redistribuir adaptações.
 - Submódulo `routewise-danger-demo`.
-- READMEs mentirosos de pastas M02/M03 (guia prevalece; não reescritos em massa).
+- Angular Pix/CFP compilados e leitores de ecrã.
+- Inspector MCP e Ollama `gemma4:e2b` **em execução** (só catálogo/comandos verificados).
+- Autorização ND / Pages público.

@@ -85,7 +85,7 @@ Projeto âncora do módulo = **C04.3 + (C04.4 ou C04.5)** sobre o snapshot corre
 | ID | Evidência |
 | --- | --- |
 | C05.1 | Backlog/relatório a partir de `modulo-01/` (prompt + JSON ou Markdown gerado) |
-| C05.2 | Tela Pix **ou** fluxo CFP (M2–M4) com print, o prompt de handoff usado, e **uma linha de acessibilidade** (contraste, teclado, ou o prompt `a11y` da pasta). Objetivo 4 (E2E/MCP no CFP) é formativo se C05.2 for só Pix |
+| C05.2 | Tela Pix **ou** fluxo CFP (M2–M4) com print, o prompt de handoff, e evidência de a11y **mínima**: `lang`, skip-link ou labels nos campos, e teclado (Escape no modal Pix). Prompt `pix-app/prompts/a11y-component-generator.md` conta como handoff, **não** como auditoria WCAG. Objectivo 4 (E2E/MCP no CFP) é formativo se C05.2 for só Pix. Checagem estática desta VM: `node curso/piloto/check-a11y-c052.mjs` (templates Pix; não certifica aprendizagem nem WCAG) |
 | C05.3 | BragBot: um “brag document” gerado via Genkit |
 
 ### M06 — Nexus

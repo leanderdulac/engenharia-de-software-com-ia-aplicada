@@ -6,26 +6,24 @@ Inventário **honesto** do que o clone atual não entrega, para o pacote `curso/
 
 | Item | Impacto | Como o curso contorna hoje |
 | --- | --- | --- |
-| README curto na raiz de M01, M02, M03 (só aponta ao guia) | Aluno ainda pode cair em README interno mentiroso | Guias [`modulos/01.md`](./modulos/01.md)–[`03.md`](./modulos/03.md) prevalecem |
+| README curto na raiz de M01, M02, M03 | Já apontam ao guia; labs M02/M03 têm README por pasta alinhado ao disco nesta estabilização | Manter os READMEs se o código mudar |
 | Pasta `modulo04-agentes-autonomos/` (gravação antiga) **não existe** neste clone | Não há material legado para abrir | Só [`modulo04-criacao-de-agentes-autonomos-novo/`](../modulo04-criacao-de-agentes-autonomos-novo/) |
 | Planos `unidade-N-plano-de-aula.html` (M04) ausentes | Instrutor sem roteiro minuto a minuto | `UNIDADE.md` em cada snapshot |
 | `embaixadores/` vazio | Nada a ensinar | Ignorar |
 | Vídeos fora do Git | Curso incompleto sem a plataforma da pós | Labs + este pacote |
 
-## Módulos 02 e 03 (mais finos / docs quebradas)
+## Módulos 02 e 03 (docs das pastas)
 
-O código é usável; a **documentação interna mente**.
+READMEs das pastas foram **reescritos para o disco** nesta rodada (comandos, env, testes existentes ou não). Residual:
 
-- READMEs copiados de um “Prompt Chaining Article Generator” em: `03-medical-appointment-*`, `06-rag-neo4j-students-template`, `02-google-trends-agent`, vários `customers-mcp-*` (texto CipherSuite em MCP de customers).
-- `package.json` do medical ainda se chama `prompt-chaining-article-generator`.
-- Labs sem par template/gabarito: M02 `01`, `02`, `07`; M03 `02`, `08`, `09`.
-- M02 `07-doc-analysis`: scripts de teste sem pasta `tests/`; PDF referenciado **não** está em `docs/`.
-- M02 `05-…-template`: README promete testes que não existem.
-- M03 `01`: description do `package.json` fala SerpAPI; o lab é CSV de vendas + Mongo MCP.
-- M03 `07-…-template` contém subpastas nomeadas `*-z` — confunde.
-- M03 `03-dev-instructions-agents` e `04-skills`: material curto, sem app.
-
-**Próximo passo (manutenção do repo):** um README verdadeiro por lab (propósito, env, comando, o que o template deixa vazio). Até lá, o guia do módulo prevalece sobre o README da pasta.
+- `package.json` do lab médico **ainda** se chama `prompt-chaining-article-generator` (description corrigida).
+- Labs sem par template/gabarito: M02 `01`, `02`, `07`; M03 `02`, `08`, `09` — é o desenho do material, não um README mentiroso.
+- M02 `07-doc-analysis`: PDF **existe** em `docs/` (~434K); pasta `tests/` **não**.
+- M02 `05`: sem `tests/` e sem script `npm test` (README agora diz isso).
+- M03 `01`: description do `package.json` corrigida; código = CSV de vendas.
+- M03 `07-…-template` contém subpastas nomeadas `*-z` — README do lab 07 explica a armadilha.
+- M03 `03` / `04`: material curto, sem app (README próprio).
+- Inspector/Node: documentado no README do M03 (site ≥22.19.0; npm 2.14.0 `engines` `^22.23.4 || ^24.22.1 || >=26.12.1`; CipherSuite `v24.14.0`; UI 6274). **Não executámos** o Inspector nesta VM (precisa do servidor MCP + browser).
 
 ## Módulo 01
 
@@ -43,11 +41,11 @@ O código é usável; a **documentação interna mente**.
 
 ## Módulo 05
 
-- README lista `modulo-01-discovery-refinement/` etc.; disco = `modulo-01/` … `modulo-05/`.
+- README do módulo lista `modulo-01/` … `modulo-05/` (alinhado ao disco).
 - Só `modulo-01/README.md` é pedagógico; 02–05 são README de Angular/Nx.
-- Firebase citado; BragBot usa Genkit + `@genkit-ai/google-genai`.
+- Firebase citado no texto antigo do README; BragBot usa Genkit + `@genkit-ai/google-genai`.
 - Typo `cfp-plataform_v1`.
-- `.env.example` no BragBot (`GEMINI_API_KEY` / `GOOGLE_GENAI_API_KEY`). Sem chamada paga no smoke. README do módulo M05 ainda lista nomes de pasta longos — aviso no topo aponta `modulo-01/` … `modulo-05/`.
+- `.env.example` no BragBot (`GEMINI_API_KEY` / `GOOGLE_GENAI_API_KEY`). Sem chamada paga no smoke.
 
 ## Módulos 06–09
 
@@ -61,13 +59,14 @@ O código é usável; a **documentação interna mente**.
 - Lives são complemento. `2026-07-28` assume Claude Code mas o README lista agentes alternativos.
 - CI do repo: `skills/` **e** `ci-curso-piloto.yml` (preview, C-COLAB, links internos, smoke offline). Labs com API/GPU continuam fora do verde.
 
-## Prioridade se alguém for melhorar o material (não este PR)
+## Prioridade residual (não fingir que está certificado)
 
-1. README de verdade em cada lab M02/M03 (corrige a maior fonte de abandono).
-2. Revisão humana especialista: nomes do MCP Inspector / engine Node; tags Ollama `gemma4`; LGPD/Vertex/GRPO no M09; a11y C05.2.
-3. Alinhar README interno do M05 (ainda lista nomes longos; o aviso no topo aponta `modulo-01/` … `modulo-05/`). `.env.example` do BragBot e do exemplo 11 já estão no disco.
+1. Execução real de Inspector + Docker Mongo + Ollama na máquina da sala (aqui: **bloqueado**).
+2. Revisão jurídica humana de LGPD/DPA (texto da lei citado; **não** há parecer).
+3. WCAG completa / leitores de ecrã no Pix e CFP (aqui: checagem **estática** de templates Pix).
+4. READMEs internos de M02 `04-song` snapshots se o código passar a LibSQL de novo.
 
-A estabilização do piloto **corrigiu blockers pontuais** (preview, rubrica C-COLAB, `.env.example`, typo MIME, `test:docker`, README âncora M01–M03). Não reescreveu READMEs mentirosos de M02/M03 por completo — o guia do módulo prevalece.
+A estabilização **reescreveu** os READMEs M02/M03 alinhados ao disco; Inspector/Ollama/LGPD/Vertex/GRPO/C05.2 atualizados com fontes oficiais. Não certifica aprendizagem.
 
 Publicação pública (Pages) e autorização de titulares: [licencas/LEIA-ME.md](./licencas/LEIA-ME.md). Piloto: [piloto/protocolo.md](./piloto/protocolo.md).
 

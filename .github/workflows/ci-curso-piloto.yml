@@ -36,8 +36,14 @@ jobs:
       - name: Static GitHub Pages build (no deploy)
         run: npm --prefix curso/preview run build
 
+      - name: Install LangGraph intro (offline tests)
+        run: npm --prefix modulo02-integracao-apis-llms/02-langchain-intro ci --ignore-scripts
+
       - name: Smoke labs offline
         run: node curso/piloto/smoke-labs.mjs
+
+      - name: C05.2 Pix a11y static
+        run: node curso/piloto/check-a11y-c052.mjs
 
       - name: Preview e2e (Chrome if present; SKIP exit 0)
         run: npm --prefix curso/preview run e2e

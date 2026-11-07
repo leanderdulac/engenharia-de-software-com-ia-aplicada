@@ -265,8 +265,26 @@ async function main() {
     failures.push(`chrome: ${err.message}`);
     console.error(`FAIL  chrome: ${err.message}`);
   } finally {
-    if (chromeProc) chromeProc.kill("SIGKILL");
-    if (chromeProfile) rmSync(chromeProfile, { recursive: true, force: true });
+    if (chromeProc) {
+      try {
+        chromeProc.kill("SIGKILL");
+      } catch {
+        /* already gone */
+      }
+      await new Promise((r) => setTimeout(r, 300));
+    }
+    if (chromeProfile) {
+      try {
+        rmSync(chromeProfile, {
+          recursive: true,
+          force: true,
+          maxRetries: 8,
+          retryDelay: 100,
+        });
+      } catch {
+        // residual em /tmp não falha o e2e
+      }
+    }
     await new Promise((resolve) => server.close(resolve));
   }
 

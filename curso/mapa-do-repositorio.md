@@ -56,7 +56,7 @@ README curto na raiz da pasta aponta para o guia. O índice de aulas continua no
 
 ## Módulo 02 — `modulo02-integracao-apis-llms/`
 
-Sem README de módulo. Vários READMEs internos estão **errados** (texto de “article generator”); o código manda.
+READMEs das pastas alinhados ao disco nesta estabilização. O `package.json` do lab 03 ainda pode chamar-se gerador de artigos.
 
 | Pasta | Tipo | O aluno faz |
 | --- | --- | --- |
@@ -117,7 +117,7 @@ Planos HTML `unidade-N-plano-de-aula.html` são citados no README do módulo e *
 
 ## Módulo 05 — `modulo05-ferramentas-de-IA-para-UI-UX/`
 
-README interno lista nomes de pasta que **não batem** com o disco. Use esta tabela.
+Árvore do README do módulo alinhada a `modulo-01/` … `modulo-05/`. Use esta tabela.
 
 | Pasta real | O aluno faz |
 | --- | --- |
@@ -178,7 +178,7 @@ Fluxo padrão: `*-prompt.md` no AI Studio → dados de entrada → comparar `out
 | Pasta | O aluno faz |
 | --- | --- |
 | `modulo-01-fundamentos-ai-first/` | Canvas + `decision-framework-tool.js` / `decision_framework_tool.py` |
-| `modulo-02-single-agent/` | Protótipo ReAct (Ollama `gemma4:e2b`) |
+| `modulo-02-single-agent/` | Protótipo ReAct (Ollama `gemma4:e2b`, tag oficial 4,6–7,5 GB) |
 | `modulo-03-multi-agent/` | Fila de mensagens + seletor de padrão |
 | `modulo-04-padroes-ai-especificos/` | Gateway + `audit-trail.jsonl` |
 | `modulo-05-arquitetura-enterprise/` | Tiering, eval gate, guardrail; `audit-trail-tiering.jsonl` |

@@ -20,7 +20,7 @@ Os vídeos não estão no Git. Sua função em sala é: **ordenar demos**, **imp
 | Bloco | Ênfase em sala | Não enfatize |
 | --- | --- | --- |
 | M01 | Browser vs Node vs API; MCP como *contrato*; RAG como retrieval + geração | Treinar YOLO do zero; teoria profunda de transformers |
-| M02 | Grafo como máquina de estados; guardrail **antes** do tool | LangSmith (opcional); README “article generator” |
+| M02 | Grafo como máquina de estados; guardrail **antes** do tool | LangSmith (opcional); lab 02 sem LLM |
 | M03 | MCP server vs client vs Inspector; token na API legado | Publicar no npmjs público |
 | M04 | Spec antes do agente; trace; autonomia **com** HITL | Fidelidade 100% ao roteiro HTML (não está no clone; `UNIDADE.md` registra desvios) |
 | M05 | Prompt estruturado → artefato versionado; nomes reais de pasta | Firebase como se o BragBot usasse Hosting (usa Genkit) |
@@ -122,7 +122,7 @@ Se a turma usar o [guia](./guia-checkpoint-colaboracao.md) no lugar do cruzament
 | Prompt API some | M01 03–05 | `troubleshooting/google.md`; aceite fallback Ollama |
 | `tfjs-node` no Windows | M01 00 | WSL ou skip para o 01 (browser) |
 | `docker-compose` hífen | M01–M03 | `docker compose` |
-| README “article generator” | M02 03/06, M03 02, vários MCP | Ignore; siga o guia `curso/modulos/` |
+| Nome herdado no `package.json` do lab médico | M02 03 | README da pasta descreve o grafo real |
 | Sem `.env.example` | M01 OpenRouter; M04 U2–U5 | Copie de U6+ ou de `exemplo-12-template` |
 | Template 05 sem `tests/` | M02 safeguard | Avalie pelos scripts `chat:*` |
 | Lab 07 M02 sem PDF | `07-doc-analysis` | Aluno traz PDF próprio |

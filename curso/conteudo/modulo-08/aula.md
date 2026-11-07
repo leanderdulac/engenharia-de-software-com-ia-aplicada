@@ -8,7 +8,7 @@ Guia: [`curso/modulos/08.md`](../../modulos/08.md). Pasta: [`modulo08-arquitetur
 
 Caso de **referência**: **TrialForge** / Vitalis Pharma — geração de documentos clínicos regulatórios (ICF, Protocolo, CSR). Os canvases devem ser preenchidos com **caso próprio**. Copiar o PDF já preenchido da Vitalis não é o C08.1.
 
-Paridade JS/Python nos protótipos. Padrão do módulo: Ollama local (`gemma4:e2b`, ~7 GB) — baixe **antes** da semana. Alternativas pagas: `provedores-pagos.js` / `provedores_pagos.py`. M4.5/M5.4 pedem também `nomic-embed-text` e `gemma4` maior. A tabela local versus pago está no README do módulo: custo, dado, rate limit, qualidade, disco. Cite-a na entrega.
+Paridade JS/Python nos protótipos. Padrão do módulo: Ollama local (`gemma4:e2b`). A tag **existe** no catálogo oficial (4,6–7,5 GB; [ollama.com/library/gemma4:e2b](https://ollama.com/library/gemma4:e2b), 7 nov. 2026) — não puxar nesta VM. Alternativas pagas: `provedores-pagos.js` / `provedores_pagos.py`. M4.5/M5.4: `nomic-embed-text` (274 MB) e `gemma4` maior. Tabela local versus pago no README do módulo. Sem Ollama = bloqueado.
 
 Missão: `Atividade N - Módulo N.pdf` **ou** checkpoint — uma nota só.
 

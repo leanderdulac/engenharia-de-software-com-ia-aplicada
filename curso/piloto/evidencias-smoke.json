@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-11-07T03:40:17.719Z",
+  "gerado_em": "2026-11-07T03:54:12.293Z",
   "node": "v22.23.4",
   "aviso": "Smoke offline. Mock ≠ integração real. Sem dados de alunos.",
   "modulos": {
@@ -55,7 +55,7 @@
         "P50 (cenario provavel):        12.5 semanas",
         "P85 (compromisso com cliente): 13.1 semanas",
         "P95 (conservador):             13.4 semanas",
-        "Media:                         12.5 semanas",
+        "Media:                         12.6 semanas",
         "=================================================="
       ]
     },
@@ -92,7 +92,55 @@
         "# cancelled 0",
         "# skipped 0",
         "# todo 0",
-        "# duration_ms 53.738699"
+        "# duration_ms 57.079145"
+      ]
+    },
+    {
+      "id": "m02-langchain-intro",
+      "modulo": "02",
+      "status": "pass",
+      "cwd": "modulo02-integracao-apis-llms/02-langchain-intro",
+      "exit": 0,
+      "sinal": null,
+      "tail": [
+        "# tests 3",
+        "# suites 0",
+        "# pass 3",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 414.045155"
+      ]
+    },
+    {
+      "id": "m09-grpo-math",
+      "modulo": "09",
+      "status": "pass",
+      "cwd": "modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-01-decision-framework",
+      "exit": 0,
+      "sinal": null,
+      "tail": [
+        "Total: 10 teste(s), 10 passou(passaram), 0 falhou(falharam).",
+        "",
+        "== Amostragem real de grupo (o passo que o GRPO chama de 'rollout') ==",
+        "Modelo: gemma4:e2b  |  tamanho do grupo G=6  |  temperatura=1",
+        "Mesma pergunta, G respostas reais e independentes, geradas agora, sem cache.",
+        "",
+        "Não foi possível conectar ao Ollama local em http://localhost:11434/api/generate: fetch failed",
+        "Rode 'ollama serve' e confirme que o modelo 'gemma4:e2b' está disponível ('ollama list')."
+      ]
+    },
+    {
+      "id": "c052-a11y-static",
+      "modulo": "05",
+      "status": "pass",
+      "cwd": ".",
+      "exit": 0,
+      "sinal": null,
+      "tail": [
+        "OK    C05.2 estático (Pix templates): lang, skip-link, labels, modal Escape, ícones",
+        "Isto não certifica WCAG nem aprendizagem. CFP não foi compilado aqui."
       ]
     },
     {
@@ -114,7 +162,7 @@
       "modulo": "08",
       "status": "blocked_runtime",
       "cwd": "modulo08-arquitetura-de-sistemas-com-ia/modulo-02-single-agent",
-      "motivo": "ReAct pede Ollama (gemma4:e2b pode não existir no catálogo) ou provedor pago."
+      "motivo": "Tag gemma4:e2b existe no catálogo oficial (4,6–7,5 GB) mas Ollama não está nesta VM; não puxar o modelo. Fallback pago = segredo."
     },
     {
       "id": "m09-lora-mlx",
@@ -145,11 +193,11 @@
       "motivo": "OPENROUTER_API_KEY nas unidades. .env.example em U2–U5 acrescentado para setup; smoke não chama a API."
     },
     {
-      "id": "m02-langgraph-intro",
+      "id": "m02-openrouter-labs",
       "modulo": "02",
-      "status": "blocked_install",
-      "cwd": "modulo02-integracao-apis-llms/02-langchain-intro",
-      "motivo": "npm test exige node_modules; não instalamos o monorepo inteiro neste smoke. Lab 02 não chama LLM (keyword). Instrutor: npm ci na pasta."
+      "status": "blocked_secrets",
+      "cwd": "modulo02-integracao-apis-llms/01-smart-model-router-gateway",
+      "motivo": "Labs 01/03/05/06/07 chamam OpenRouter (e 04/06 Docker). Sem chave nesta VM. Lab 02 keyword já corre em m02-langchain-intro."
     },
     {
       "id": "m03-mcp",

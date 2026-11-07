@@ -4,7 +4,7 @@
 
 **Narração (áudio + legenda):** [`modulo-05-narracao.mp3`](../../media/audios/tts/modulo-05-narracao.mp3) · [`modulo-05-narracao.vtt`](../../media/audios/tts/modulo-05-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
 
-Guia: [`curso/modulos/05.md`](../../modulos/05.md). Pasta: [`modulo05-ferramentas-de-IA-para-UI-UX/`](../../../modulo05-ferramentas-de-IA-para-UI-UX/). README do módulo: [`README.md`](../../../modulo05-ferramentas-de-IA-para-UI-UX/README.md) — a árvore com nomes longos (`modulo-01-discovery-refinement/` etc.) **não existe** neste clone. Use `modulo-01/` … `modulo-05/`. Professor no README: Alvaro Camillo Neto. Carga: ~20 h. Live Safer: [`lives/2026-07-28/`](../../../lives/2026-07-28/).
+Guia: [`curso/modulos/05.md`](../../modulos/05.md). Pasta: [`modulo05-ferramentas-de-IA-para-UI-UX/`](../../../modulo05-ferramentas-de-IA-para-UI-UX/). README do módulo: [`README.md`](../../../modulo05-ferramentas-de-IA-para-UI-UX/README.md) — pastas `modulo-01/` … `modulo-05/`. Professor no README: Alvaro Camillo Neto. Carga: ~20 h. Live Safer: [`lives/2026-07-28/`](../../../lives/2026-07-28/).
 
 Firebase aparece no README do módulo; o BragBot **não** usa Firebase Hosting. Não bloqueie o lab por isso. Jules e Antigravity estão nos links da raiz e **não** têm pasta aqui.
 

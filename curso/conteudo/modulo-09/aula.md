@@ -20,7 +20,7 @@ Fine-tuning, nesta pós, não começa no GPU. Começa em **não treinar**.
 
 A Amplitude tem três casos no JSON da pasta 01. Extração de orçamento de oficina (Auto) tem saída fixa, volume, estabilidade — candidato. Recibo de saúde tem dado sensível (LGPD) e volume ainda baixo. Atendimento ao cliente — negociar contestação em conversa aberta — é o caso que o framework **reprova**: tarefa aberta, política que muda, RAG+HITL já cobrem o rotina. Se o seu entregável “fine-tuna tudo”, você não leu a tool.
 
-Jobs Vertex na gravação da disciplina ficaram entre **R$ 0,86 e R$ 41,40**. Continua sendo billing real. Nomes de modelo no código (`gemini-2.5-flash`, etc.) valiam na gravação; o companion de risco de validade existe porque provedor aposenta versão. Crédito gratuito de cloud **não** é garantia para IA generativa — o README do módulo fala isso sem rodeio.
+Jobs Vertex **na gravação** ficaram entre R$ 0,86 e R$ 41,40 — snapshot de turma, **não** cotação oficial. A tabela vigente de supervised fine-tuning Gemini está em USD por 1.000 tokens de treino ([pricing](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing)). Nomes no código (`gemini-2.5-flash`, etc.) valiam na gravação; ver `risco-validade-modelo-companion.md`. Crédito gratuito de cloud **não** cobre automaticamente IA generativa. Sem GCP = C09.3 via LoRA/Colab.
 
 Ao final: framework nos 3 casos (com um reprovado), JSONL + PII, um treino real (Vertex 200 **ou** LoRA rank 4), um número de harness, ADR próprio. Se o NPV medido matar o fine-tune, isso **é** nota alta — desde que o número venha do harness.
 
@@ -32,7 +32,7 @@ Ao final: framework nos 3 casos (com um reprovado), JSONL + PII, um treino real 
 
 [`modulo-01-decision-framework/`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-01-decision-framework/)
 
-Rode `decision-framework-tool.js` ou `.py` com [`amplitude-seguros-casos.json`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-01-decision-framework/amplitude-seguros-casos.json). Há `limiarVerde`, matriz AHP de Saaty (pesos **não** chutados a dedo) e um **gate binário de governança** antes da conta: dado sensível + DPA. Saúde Empresarial testa esse gate (Art. 5º, II da LGPD no comentário do JSON). Atendimento pinta scores baixos em p1 (tarefa aberta) e p4 (instabilidade regulatória) de propósito.
+Rode `decision-framework-tool.js` ou `.py` com [`amplitude-seguros-casos.json`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-01-decision-framework/amplitude-seguros-casos.json). Há `limiarVerde`, matriz AHP de Saaty e um **gate binário pedagógico** (dado sensível + DPA) **antes** do AHP. Saúde Empresarial liga `dadoSensivelLGPD` citando a definição de dado pessoal sensível no [Art. 5º, II da Lei 13.709/2018](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm) (inclui dado referente à saúde). Isto **não** é parecer jurídico nem certificado de conformidade: é um bloqueador didático no JSON. DPA no material = contrato pedagógico, não DPA assinado com titular real.
 
 Também na pasta: `grpo-verifiable-reward-demo`, `fine-tuning-types-cheatsheet.md` (tipos e requisito de dado/hardware), `fine-tuning-zoo-poster.html`, checklist. Papers LoRA e QLoRA estão no syllabus (`2106.09685`, `2305.14314`). Você não precisa treinar QLoRA neste clone; precisa saber **quando** full FT é overkill.
 

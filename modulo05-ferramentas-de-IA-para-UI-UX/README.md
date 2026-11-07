@@ -1,6 +1,6 @@
 # 🚀 Ferramentas de IA para UX & UI
 
-> **Pastas reais neste clone:** `modulo-01/` … `modulo-05/` (não os nomes longos da árvore abaixo). Guia oficial da pós: [`curso/modulos/05.md`](../curso/modulos/05.md). Firebase Hosting **não** é o stack do BragBot (Genkit). `.env.example` do BragBot: `modulo-05/brag-bot/.env.example`.
+> **Pastas reais neste clone:** `modulo-01/` … `modulo-05/` (árvore abaixo). Guia oficial da pós: [`curso/modulos/05.md`](../curso/modulos/05.md). Firebase Hosting **não** é o stack do BragBot (Genkit). `.env.example` do BragBot: `modulo-05/brag-bot/.env.example`.
 
 Este repositório centraliza os projetos, artefatos e automações desenvolvidos durante a disciplina de **IA Aplicada a UX e UI**. O foco central é a aplicação da Inteligência Artificial como uma camada de **Engenharia de Software**, otimizando o Discovery, a Prototipação e o Desenvolvimento Front-End.
 
@@ -14,11 +14,11 @@ O curso é organizado em módulos que acompanham a evolução de um produto digi
 
 ```bash
 .
-├── modulo-01-discovery-refinement/ # Refinamento de Requisitos e Data Discovery
-├── modulo-02-prototyping-ui/     # Figma to Code e Firebase Studio
-├── modulo-03-agents-cli/         # Gemini CLI e Agentes de Refatoração
-├── modulo-04-automation-mcp/     # Testes E2E e Automação com MCP
-└── modulo-05-ai-integration/     # Firebase AI Logic e Integração de APIs
+├── modulo-01/   # discovery / prompts (não modulo-01-discovery-refinement/)
+├── modulo-02/   # pix-app
+├── modulo-03/   # cfp-platform
+├── modulo-04/   # cfp-plataform_v1 (typo no nome da pasta, é assim no disco)
+└── modulo-05/   # brag-bot (Genkit; não Firebase Hosting)
 ```
 
 ---
