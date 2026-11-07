@@ -64,14 +64,13 @@ const OK_ATTR = new Set([
   "height",
 ]);
 
-function safeUrl(value) {
-  const v = String(value || "").trim();
-  if (!v) return "";
-  if (v.startsWith("#") || v.startsWith("/") || v.startsWith("./") || v.startsWith("../")) {
-    if (/^(javascript|vbscript|data):/i.test(v)) return "";
-    return v;
-  }
-  if (/^https?:\/\//i.test(v) || /^mailto:/i.test(v)) return v;
+function safeUrl(value, kind) {
+  const v = String(value || "").replace(/[\u0000-\u001F\u007F\s]/g, "");
+  if (!v || v.length > 500 || v.startsWith("//") || v.includes("\\")) return "";
+  const lower = v.toLowerCase();
+  if (lower.startsWith("javascript:") || lower.startsWith("vbscript:") || lower.startsWith("data:")) return "";
+  if (v.startsWith("#") || v.startsWith("/") || v.startsWith("./") || v.startsWith("../")) return v;
+  if (kind === "href" && (/^https?:\/\//i.test(v) || /^mailto:/i.test(v))) return v;
   return "";
 }
 
@@ -98,7 +97,7 @@ export function sanitizeHtml(html) {
       if (!OK_ATTR.has(attr)) continue;
       let val = m[3] ?? m[4] ?? m[5] ?? "";
       if (URL_ATTR.has(attr)) {
-        val = safeUrl(val);
+        val = safeUrl(val, attr === "href" ? "href" : "src");
         if (!val) continue;
         if (attr === "href" && /^https?:/i.test(val)) {
           kept.push(`rel="noopener noreferrer"`);

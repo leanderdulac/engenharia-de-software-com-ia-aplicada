@@ -16,6 +16,7 @@ Topologia suportada: **um processo Node + um ficheiro SQLite num disco que sobre
 | `HOST` | omissão `127.0.0.1` (só esta máquina). `0.0.0.0` só se um proxy privado na mesma rede for mesmo o destino |
 | `PORT` | o da plataforma (`$PORT`) |
 | `EAD_TRUST_PROXY` | `1` se houver proxy (Render, nginx) |
+| `EAD_ALLOWED_HOSTS` | omissão `127.0.0.1,localhost,[::1]`. Um nome atrás do proxy tem de entrar aqui; Host ou Origin fora da lista é recusado |
 
 Auto-registo fica **fechado**. Abra só com `EAD_OPEN_SIGNUP=1` se a turma for mesmo pública na rede privada. Fechar o registo **não** protege ficheiros: `/media` e `/arquivos` da sala exigem sessão. O preview, noutro processo, só fica fechado com `PREVIEW_REQUIRE_AUTH=1` e a **mesma** base (`EAD_DATA_DIR` ou `PREVIEW_AUTH_DB`). Em `NODE_ENV=production` o preview recusa arrancar sem isso. CSS e JS do casco do preview não contêm o material; páginas, API, markdown, mídia e PDF sim.
 

@@ -11,7 +11,10 @@ A sala usa `node:sqlite` (`DatabaseSync` e `backup()`, incluindo a opção `rate
 | | Versão |
 | --- | --- |
 | Mínimo da API que este código importa | **22.16.0** |
-| Versão em que o pacote foi extraído, instalado e fumado | **22.23.4** |
+| Versão em que o pacote foi extraído, instalado e fumado | **22.23.4** e, na mesma árvore, testes em **24.22.1** |
+| Máquina do operador (informada) | Darwin, Node **24.19**, npm **11.17** — dentro do intervalo `>=22.16.0`. O `npm ci` usa o lock; não depende de npm 10. |
+
+O processo só responde a `Host` `127.0.0.1`, `localhost` ou `[::1]`, salvo `EAD_ALLOWED_HOSTS`. Cookie `ead_sid` é `HttpOnly` e `SameSite=Lax`. `Secure` só com `EAD_SECURE_COOKIES=1` (HTTPS). Em HTTP de localhost o `Secure` ficaria de fora de propósito: o browser descartaria o cookie.
 
 Confirme com `node -v`. O script recusa arrancar abaixo de 22.16.0.
 

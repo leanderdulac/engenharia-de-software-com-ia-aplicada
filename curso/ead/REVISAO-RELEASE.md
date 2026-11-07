@@ -41,20 +41,28 @@ O repositório é público. O workflow `pages-preview.yml` só corre por `workfl
 
 Integrar na branch default ainda coloca o diff (incluindo código que lê o material e ficheiros de adaptação) no GitHub público. Isso é decisão do coordenador, não deste registo. Recomendação desta rodada: **NO-GO para merge em `main`**. O pacote localhost abaixo não substitui essa decisão e não foi anexado ao pull request, porque o repositório é público e o arquivo contém o material.
 
+## Segurança desta rodada (não é pentest)
+
+Audit npm em 2026-11-07T16:23:12Z, `npm ci` limpo só com `package.json` + lock:
+
+| Escopo | Antes | Depois | Notas |
+| --- | --- | --- | --- |
+| `curso/preview` runtime (70 prod) | high `body-parser` &lt;1.20.9 ([GHSA-27r3-jxmh-p828](https://github.com/advisories/GHSA-27r3-jxmh-p828), DoS de corpo comprimido); moderate `qs` 6.16.0 ([GHSA-6pq8-jhm2-2vcw](https://github.com/advisories/GHSA-6pq8-jhm2-2vcw), `stringify` com `arrayFormat: comma`) | 0 conhecidas | `body-parser@1.20.9`, `qs@6.16.2`, ambos transitivos de `express@4.22.3`. Sem `--force` e sem override. O `qs` vulnerável não era chamado pelo formulário (`extended: false`); o `body-parser` sim, no POST. |
+| `curso/ead` runtime (70 prod) | 0 conhecidas no mesmo instante | 0 conhecidas | Já estava em 1.20.9 / 6.16.2 |
+
+SBOM CycloneDX: `curso/preview/sbom.cdx.json` e `curso/ead/sbom.cdx.json` (npm 10.9.9). Zero avisos conhecidos nesse instante não significa ausência de falhas.
+
+Controles novos no processo: `Host` limitado a loopback (ou `EAD_ALLOWED_HOSTS`), `Origin` cruzada recusada em POST, sem CORS aberto, `next` só caminho local, HTML de markdown sem `javascript:`/`data:`/URL `//`, CSV com prefixo de fórmula, realpath contra symlink, `.env`/sqlite/log não servidos, `/readyz` só `ok`+`service`, comprovante público sem nome/e-mail, instrutor não emite token de outro staff, scrypt N=32768 com teto de parâmetros, base e backup `0600`/`0700`, rate limit de login/reset/registo/submissão/verificação. Suítes: preview 24/24 e sala 21/21 em Node 22.23.4 e 24.22.1.
+
 ## Pacote localhost (sem hospedagem)
 
-Arquivos para copiar ao computador do operador, não para abrir a partir desta VM:
+O arquivo localhost não entra no GitHub. A cópia privada vai no store do agente; as partes de no máximo 20 MB são só o plano B de transferência. Checksums desta montagem, calculados depois do smoke:
 
-- `/opt/cursor/artifacts/lms-localhost.tar.gz`
-- `/opt/cursor/artifacts/lms-localhost.zip`
+- tar.gz `a5a6b217da597b91e65742c26f115cc78da61fc532f94e1d114333d47d6df7a8`
+- zip `4da78d7e835681daeb598679468196e3f1ac7ee3ca0f6e2d0712a254414db2fe`
 
-SHA-256 (gerados depois do portão de restore):
+O processo por omissão escuta `127.0.0.1`. O guia no pacote é `README-LOCAL.md`. Não há senha de administrador dentro do arquivo. Depois da actualização de `body-parser` e `qs`, o `npm ci` limpo dos dois prefixos reportou 0 vulnerabilidades conhecidas em 2026-11-07T16:23:12Z.
 
-- `2af438de8543df66dffb5c6bab5ae336393bb8ae8f3822b2980e66f9914e0976` tar.gz
-- `5c2cd55999960f6a7d03a8cc090dbc87c8832138baed50ee5bddec740e928d33` zip
+Smoke anterior, do arquivo já substituído, em `/tmp/lms-smoke3` (Node 22.23.4, porta de teste 3858): também leu o MP3 de 2 067 840 bytes e recusou restore de caminho inexistente.
 
-O smoke funcional correu no mesmo software. Estes hashes são o arquivo final, que só acrescenta uma frase no guia sobre `EAD_DATA_DIR` já definido na sessão.
-
-O processo por omissão escuta `127.0.0.1`. O guia no pacote é `README-LOCAL.md`. Não há senha de administrador dentro do arquivo. `npm ci` do preview, neste ambiente, reportou 2 avisos de `npm audit` (1 moderate, 1 high); não foi aplicado `npm audit fix`.
-
-Smoke do arquivo extraído em `/tmp/lms-smoke3` (Node 22.23.4): `npm ci` nos dois prefixos, migração schema 2, admin criado por variável de ambiente, escuta confirmada em `127.0.0.1:3858` (porta de teste, não a 3850 do guia). Anónimo em `/media/.../curso-capa-hero.png` → 401. Depois do login: `/aula/m01-aula` 200 com o título do módulo 01 (21 057 bytes de HTML), capa PNG 244 684 bytes, áudio MP3 2 067 840 bytes. Backup gravado, processo parado, restore de caminho inexistente recusado, restore do backup com 1 utilizador. Esse endereço só existiu nesta máquina de verificação.
+Smoke deste arquivo em `/tmp/lms-sec` (Node 22.23.4, porta de teste 3861, só nesta VM): o tar não trazia `node_modules`, `.git`, `.env` nem sqlite. `subir.sh` fez `npm ci` nos dois prefixos, migrou o schema 2 e escutou `127.0.0.1`. Anónimo na capa → 401. Depois do login: `/aula/m01-aula` 200 com o título do módulo 01 (21 057 bytes), PNG 244 684 bytes, backup gravado, processo parado. A senha desse admin ficou só na variável da sessão e não foi impressa. Esse endereço não é o computador do operador.

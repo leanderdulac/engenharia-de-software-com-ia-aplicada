@@ -3,7 +3,7 @@ import { copyFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { backup } from "node:sqlite";
 import { dbFile, dataDir } from "./config.mjs";
-import { openDb } from "./db.mjs";
+import { openDb, tightenData } from "./db.mjs";
 import { schemaVersion } from "./migrate.mjs";
 import { integrityOk, issueReset } from "./ops.mjs";
 import { assertBootConfig } from "./runtime.mjs";
@@ -39,6 +39,7 @@ if (cmd === "migrate") {
   database.exec("PRAGMA wal_checkpoint(PASSIVE);");
   const abs = path.resolve(dest);
   await backup(database, abs, { rate: 100 });
+  tightenData(abs);
   console.log("backup", abs);
 } else if (cmd === "restore") {
   const src = process.argv[3];
@@ -56,6 +57,7 @@ if (cmd === "migrate") {
   }
   mkdirSync(dataDir(), { recursive: true });
   copyFileSync(path.resolve(src), dbFile());
+  tightenData(dbFile());
   console.log("restaurado", dbFile(), "schema", version);
 } else if (cmd === "create-admin") {
   const email = process.env.EAD_ADMIN_EMAIL;

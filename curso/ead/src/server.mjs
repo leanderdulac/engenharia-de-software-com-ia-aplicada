@@ -14,6 +14,7 @@ import {
   loginAllowed,
   newToken,
   parseCookies,
+  rateOk,
   recordLoginFail,
   requireCsrf,
   validEmail,
@@ -47,7 +48,8 @@ import {
   riskFlag,
   unlockedModules,
 } from "./progress.mjs";
-import { securityHeaders, postRateLimit, requestLog } from "./httpguard.mjs";
+import { safeInside } from "./filesafe.mjs";
+import { hitLimit, hostGuard, postRateLimit, requestLog, securityHeaders } from "./httpguard.mjs";
 import { audit, consumeReset, enrollmentWindow, integrityOk, isoDay, issueReset, putSetting, setting } from "./ops.mjs";
 import { assertBootConfig, signupOpen, trustProxy } from "./runtime.mjs";
 import { schemaVersion } from "./migrate.mjs";
@@ -71,6 +73,12 @@ function sendHtml(res, html, status = 200) {
 
 function redirect(res, to) {
   res.redirect(303, to);
+}
+
+function safeNext(value) {
+  const v = String(value || "");
+  if (!/^\/[A-Za-z0-9/_\-.]*$/.test(v) || v.includes("//") || v.includes("..")) return "/dashboard";
+  return v;
 }
 
 function attachSession(req, res, db) {
@@ -176,16 +184,18 @@ function page(req, title, body, status) {
 export function createApp({ db, catalog }) {
   const app = express();
   app.disable("x-powered-by");
+  app.set("query parser", "simple");
   if (trustProxy()) app.set("trust proxy", 1);
+  app.use(hostGuard);
   app.use(securityHeaders);
   app.use(requestLog);
   app.use(postRateLimit);
-  app.use(express.urlencoded({ extended: false, limit: "200kb" }));
+  app.use(express.urlencoded({ extended: false, limit: "64kb", inflate: false, parameterLimit: 100 }));
   app.use((req, res, next) => {
     attachSession(req, res, db);
     const q = req.query || {};
-    if (q.ok) req.flash = { type: "ok", text: String(q.ok) };
-    if (q.erro) req.flash = { type: "erro", text: String(q.erro) };
+    if (q.ok) req.flash = { type: "ok", text: String(q.ok).slice(0, 180) };
+    if (q.erro) req.flash = { type: "erro", text: String(q.erro).slice(0, 180) };
     next();
   });
   app.use("/ead.css", express.static(path.join(PUBLIC_DIR, "ead.css")));
@@ -199,7 +209,7 @@ export function createApp({ db, catalog }) {
         res.status(503).json({ ok: false, service: "curso-ead" });
         return;
       }
-      res.json({ ok: true, service: "curso-ead", schema: version });
+      res.json({ ok: true, service: "curso-ead" });
     } catch {
       res.status(503).json({ ok: false, service: "curso-ead" });
     }
@@ -210,17 +220,13 @@ export function createApp({ db, catalog }) {
       res.status(401).type("text/plain; charset=utf-8").send("Autenticação necessária.");
       return;
     }
-    const rel = decodeURIComponent(req.path.replace(/^\/media\//, ""));
-    const abs = path.resolve(path.join(CURSO_ROOT, "media"), rel);
-    if (!isInsideRoot(abs, path.join(CURSO_ROOT, "media"))) {
-      res.status(403).send("Fora da pasta de mídia.");
-      return;
+    try {
+      const rel = req.path.replace(/^\/media\//, "");
+      const abs = safeInside(path.join(CURSO_ROOT, "media"), rel);
+      res.sendFile(abs);
+    } catch (err) {
+      res.status(err.status || 400).type("text/plain; charset=utf-8").send(err.status === 404 ? "Mídia não encontrada." : "Caminho recusado.");
     }
-    if (!existsSync(abs)) {
-      res.status(404).send("Mídia não encontrada.");
-      return;
-    }
-    res.sendFile(abs);
   });
 
   app.get("/arquivos/*", (req, res) => {
@@ -295,12 +301,13 @@ export function createApp({ db, catalog }) {
     const password = String(bodyOf(req).password || "");
     const ip = req.ip || "0";
     const key = `${email}|${ip}`;
-    if (!loginAllowed(db, key)) {
+    if (!loginAllowed(db, key) || !rateOk(db, `ip|${ip}`, 20)) {
       return sendHtml(res, page(req, "Entrar", errorPage("Demasiadas tentativas. Espere alguns minutos.")), 429);
     }
     const user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
     if (!user || !verifyPassword(password, user.password_hash)) {
       recordLoginFail(db, key);
+      recordLoginFail(db, `ip|${ip}`);
       return sendHtml(res, page(req, "Entrar", errorPage("E-mail ou senha incorrectos.")), 401);
     }
     if (user.disabled) {
@@ -309,8 +316,7 @@ export function createApp({ db, catalog }) {
     const sess = createSession(db, user.id);
     audit(db, { actorId: user.id, action: "login", target: user.role });
     setSessionCookie(res, sess.token);
-    const next = String(bodyOf(req).next || "/dashboard");
-    redirect(res, next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard");
+    redirect(res, safeNext(bodyOf(req).next));
   });
 
   app.get("/registar", (req, res) => {
@@ -334,6 +340,11 @@ export function createApp({ db, catalog }) {
 
   app.post("/registar", (req, res) => {
     if (!needCsrf(req, res)) return;
+    const ip = req.ip || "0";
+    if (!rateOk(db, `reg|${ip}`, 8)) {
+      return sendHtml(res, page(req, "Criar conta", errorPage("Demasiadas tentativas. Espere alguns minutos.")), 429);
+    }
+    recordLoginFail(db, `reg|${ip}`);
     if (!signupOpen()) {
       return sendHtml(
         res,
@@ -789,6 +800,11 @@ export function createApp({ db, catalog }) {
 
   app.post("/atividade/:id", (req, res) => {
     if (!needAuth(req, res) || !needCsrf(req, res)) return;
+    if (!rateOk(db, `sub|${req.session.user.id}`, 30)) {
+      recordLoginFail(db, `sub|${req.session.user.id}`);
+      return sendHtml(res, page(req, "Actividade", errorPage("Demasiadas submissões. Espere alguns minutos.")), 429);
+    }
+    recordLoginFail(db, `sub|${req.session.user.id}`);
     const cp = catalog.checkpoints.find((c) => c.id === req.params.id);
     if (!cp) return sendHtml(res, page(req, "Actividade", errorPage("Checkpoint inexistente.")), 404);
     const body_text = String(bodyOf(req).body_text || "").slice(0, TEXT_MAX);
@@ -1220,7 +1236,10 @@ export function createApp({ db, catalog }) {
   });
 
   app.get("/verificar/:code?", (req, res) => {
-    const code = String(req.params.code || req.query.code || "").trim();
+    const code = String(req.params.code || req.query.code || "").trim().slice(0, 80);
+    if (hitLimit(`ver|${req.ip || "0"}`, 40)) {
+      return sendHtml(res, page(req, "Verificar", errorPage("Demasiadas verificações. Espere um minuto.")), 429);
+    }
     if (!code) {
       return sendHtml(
         res,
@@ -1244,8 +1263,8 @@ export function createApp({ db, catalog }) {
         req,
         "Verificar",
         `<h1>Comprovante válido nesta instalação</h1>
-        <p>${row.demo ? "DEMONSTRAÇÃO/TESTE · " : ""}${escapeHtml(row.name)}</p>
-        <p>Emitido ${escapeHtml(row.issued_at)}. Código ${escapeHtml(row.code)}.</p>
+        <p>${row.demo ? "Registo de demonstração. " : ""}Emitido ${escapeHtml(String(row.issued_at).slice(0, 40))}.</p>
+        <p>O código confere com um comprovante desta instalação. Nome e e-mail não são mostrados aqui.</p>
         <p><strong>Não</strong> constitui reconhecimento MEC, diploma ou acreditação externa.</p>`
       )
     );
@@ -1362,6 +1381,10 @@ export function createApp({ db, catalog }) {
 
   app.post("/redefinir", (req, res) => {
     if (!needCsrf(req, res)) return;
+    const ip = req.ip || "0";
+    if (!rateOk(db, `reset|${ip}`, 8)) {
+      return sendHtml(res, page(req, "Redefinir", errorPage("Demasiadas tentativas. Espere alguns minutos.")), 429);
+    }
     const token = String(bodyOf(req).token || "").trim();
     const password = String(bodyOf(req).password || "");
     if (!validPassword(password)) {
@@ -1369,6 +1392,7 @@ export function createApp({ db, catalog }) {
     }
     const userId = consumeReset(db, token);
     if (!userId) {
+      recordLoginFail(db, `reset|${ip}`);
       return sendHtml(res, page(req, "Redefinir", errorPage("Token inválido, usado ou expirado.")), 400);
     }
     db.prepare("UPDATE users SET password_hash = ?, password_changed_at = ? WHERE id = ?").run(
@@ -1417,8 +1441,8 @@ export function createApp({ db, catalog }) {
     if (!needStaff(req, res) || !needCsrf(req, res)) return;
     const id = Number(req.params.id);
     const user = db.prepare("SELECT id, role, email, demo FROM users WHERE id = ?").get(id);
-    if (!user || user.role === "admin") {
-      return sendHtml(res, page(req, "Token", errorPage("Não se emite token para administração por este formulário.")), 403);
+    if (!user || user.role === "admin" || (user.role !== "aluno" && req.session.user.role !== "admin")) {
+      return sendHtml(res, page(req, "Token", errorPage("Este formulário só emite token de aluno. Staff não redefine outro staff.")), 403);
     }
     const token = issueReset(db, id);
     audit(db, { actorId: req.session.user.id, action: "token_senha", target: String(id) });
@@ -1484,11 +1508,25 @@ export function createApp({ db, catalog }) {
     );
   });
 
+  app.use((err, req, res, next) => {
+    if (res.headersSent) return next(err);
+    console.log(
+      JSON.stringify({
+        t: new Date().toISOString(),
+        msg: "error",
+        name: err?.name || "Error",
+        path: String(req.path || "").replace(/[\r\n]/g, "").slice(0, 200),
+      })
+    );
+    res.status(500).type("text/plain; charset=utf-8").send("Erro interno.");
+  });
+
   return app;
 }
 
 function csv(v) {
-  const s = String(v ?? "");
+  let s = String(v ?? "");
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   if (/[",\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
   return s;
 }

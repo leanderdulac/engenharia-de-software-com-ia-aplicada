@@ -11,6 +11,14 @@ test("remove script e handlers do markdown", () => {
   assert.match(clean, /<p>ok<\/p>/);
 });
 
+test("recusa javascript, data e URL protocol-relative em href/src", () => {
+  const dirty = `<a href="//evil.example/x">a</a><img src="https://evil.example/t.png"><img src="data:text/html,hi"><a href="javascript:alert(1)">j</a>`;
+  const clean = sanitizeHtml(dirty);
+  assert.equal(clean.includes("evil.example"), false);
+  assert.equal(clean.includes("data:"), false);
+  assert.equal(clean.includes("javascript:"), false);
+});
+
 test("URL http(s) só", () => {
   assert.equal(safeHttpUrl("https://example.com/a"), "https://example.com/a");
   assert.equal(safeHttpUrl("javascript:alert(1)"), "");

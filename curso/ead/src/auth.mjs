@@ -4,20 +4,23 @@ import { nowIso } from "./db.mjs";
 
 export function hashPassword(password) {
   const salt = randomBytes(16).toString("hex");
-  const key = scryptSync(password, salt, 32, { N: 16384, r: 8, p: 1 }).toString("hex");
-  return `scrypt$16384$8$1$${salt}$${key}`;
+  const key = scryptSync(password, salt, 32, { N: 32768, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }).toString("hex");
+  return `scrypt$32768$8$1$${salt}$${key}`;
 }
 
 export function verifyPassword(password, stored) {
   const parts = String(stored || "").split("$");
   if (parts.length !== 6 || parts[0] !== "scrypt") return false;
   const [, n, r, p, salt, key] = parts;
+  const N = Number(n);
+  if (N !== 16384 && N !== 32768) return false;
   let derived;
   try {
     derived = scryptSync(password, salt, 32, {
-      N: Number(n),
+      N,
       r: Number(r),
       p: Number(p),
+      maxmem: 64 * 1024 * 1024,
     });
   } catch {
     return false;
@@ -72,10 +75,14 @@ export function clearCookie(name, secure) {
   return `${name}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure ? "; Secure" : ""}`;
 }
 
-export function loginAllowed(db, key, now = Date.now()) {
+export function rateOk(db, key, max = LOGIN_MAX, now = Date.now()) {
   db.prepare("DELETE FROM login_attempts WHERE at < ?").run(now - LOGIN_WINDOW_MS);
   const rows = db.prepare("SELECT COUNT(*) AS n FROM login_attempts WHERE key = ?").get(key);
-  return (rows?.n || 0) < LOGIN_MAX;
+  return (rows?.n || 0) < max;
+}
+
+export function loginAllowed(db, key, now = Date.now()) {
+  return rateOk(db, key, LOGIN_MAX, now);
 }
 
 export function recordLoginFail(db, key, now = Date.now()) {

@@ -75,4 +75,46 @@ describe("portão do preview", () => {
       db.close();
     }
   });
+
+  it("Host alheio e path codificado não contornam o portão", async () => {
+    const http = await import("node:http");
+    const dir = mkdtempSync(path.join(tmpdir(), "preview-host-"));
+    const dbPath = path.join(dir, "ead.sqlite");
+    process.env.PREVIEW_REQUIRE_AUTH = "1";
+    process.env.PREVIEW_AUTH_DB = dbPath;
+    resetPreviewGate();
+    const db = openDb(dbPath);
+    const info = db
+      .prepare(
+        "INSERT INTO users (email, password_hash, name, role, demo, diagnostic_done, created_at) VALUES (?, ?, ?, 'aluno', 0, 0, ?)"
+      )
+      .run("gate2@local.test", hashPassword("Aluno-Gate-teste-10"), "Gate", nowIso());
+    const { token } = createSession(db, Number(info.lastInsertRowid));
+    const app = createApp();
+    const server = await new Promise((resolve) => {
+      const httpd = app.listen(0, "127.0.0.1", () => resolve(httpd));
+    });
+    const port = server.address().port;
+    try {
+      const status = await new Promise((resolve, reject) => {
+        const req = http.request({ hostname: "127.0.0.1", port, path: "/api/page?path=README.md", headers: { host: "evil.example" } }, (res) => {
+          res.resume();
+          resolve(res.statusCode);
+        });
+        req.on("error", reject);
+        req.end();
+      });
+      assert.equal(status, 421);
+      const bypass = await fetch(`http://127.0.0.1:${port}/api/page?path=%2e%2e/package.json`, {
+        headers: { cookie: `ead_sid=${token}` },
+      });
+      assert.notEqual(bypass.status, 200);
+      const body = await bypass.text();
+      assert.equal(body.includes("scrypt"), false);
+      assert.equal(body.includes("EAD_ADMIN"), false);
+    } finally {
+      await new Promise((resolve) => server.close(resolve));
+      db.close();
+    }
+  });
 });
