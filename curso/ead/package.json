@@ -1,8 +1,8 @@
 {
   "name": "curso-ead",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Plataforma EaD local da pós Engenharia de Software com IA Aplicada. Não é o preview estático; não publica o material.",
+  "description": "LMS de uma instalação privada da pós Engenharia de Software com IA Aplicada. Não publica o material.",
   "type": "module",
   "engines": {
     "node": ">=22.23.4"
@@ -13,6 +13,8 @@
     "migrate": "node src/cli.mjs migrate",
     "seed": "node src/cli.mjs seed",
     "create-admin": "node src/cli.mjs create-admin",
+    "check": "node src/cli.mjs check",
+    "backup": "node src/cli.mjs backup",
     "test": "node --test tests/*.test.mjs",
     "e2e": "node tests/e2e.mjs",
     "a11y": "node --test tests/a11y.test.mjs"

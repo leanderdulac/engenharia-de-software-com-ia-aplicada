@@ -1,6 +1,8 @@
-# Sala de aula local (EaD)
+# Sala de aula (LMS de uma instalação)
 
-Plataforma **funcional** desta pós, no mesmo repositório. Lê o pacote em `curso/` (módulos, capas, TTS, VTT, intros Grok, checkpoints de `avaliacao.md`). Não é o preview estático; não é GitHub Pages; não cobra matrícula.
+Plataforma desta pós, no mesmo repositório. Lê o pacote em `curso/` (módulos, capas, TTS, VTT, intros Grok, checkpoints de `avaliacao.md`). Não é o preview estático; não é GitHub Pages; não cobra matrícula.
+
+Em `NODE_ENV=production` é um LMS de **uma instância privada**: migrações versionadas, backup, janela de turma, contas desactiváveis, token de senha sem e-mail, auditoria e healthcheck. Não é cluster nem SaaS. Deploy: [DEPLOY-PRIVADO.md](./DEPLOY-PRIVADO.md).
 
 Código desta pasta ≠ direitos sobre o material didáctico. Ver [DIREITOS.md](./DIREITOS.md).
 
@@ -12,9 +14,9 @@ Código desta pasta ≠ direitos sobre o material didáctico. Ver [DIREITOS.md](
 | Progresso, notas, fila de correção, comprovante interno | Diploma MEC / acreditação |
 | Diagnóstico do pré-teste oficial | Gráficos de desempenho inventados |
 | C-COLAB verificado no backend | Execução de código enviado pelo aluno |
-| Dev/teste sem conta externa | SMTP, SSO, billing, streaming premium |
+| Instalação privada com disco, backup e `/readyz` | Várias réplicas, SMTP, SSO, billing |
 
-**Auth:** senha local (scrypt) + cookie HttpOnly + CSRF. Sem recuperação por e-mail (SMTP desligado). Instrutor/admin **não** se registam pelo browser — só CLI.
+**Auth:** senha local (scrypt) + cookie HttpOnly + CSRF + sessão invalidada ao mudar a senha. Redefinição por token de uso único (30 min), emitido pelo instrutor ou pela CLI — **sem e-mail**. Em produção o auto-registo fecha. Instrutor/admin não nascem do formulário público.
 
 ## Arranque limpo
 
@@ -53,11 +55,13 @@ npm run a11y      # smoke de labels/skip-link; não certifica WCAG
 npm run e2e       # Chrome, se existir; screenshots em /opt/cursor/artifacts
 ```
 
-## Deploy privado
+## Instalação privada
 
-Bind `0.0.0.0:$PORT` (Render/VPS). Disco persistente no caminho `EAD_DATA_DIR`. **Não** publicar o material CC BY-NC-ND 4.0. Esta app **não** corre em GitHub Pages.
+Procedimento, variáveis que o modo produção recusa, backup e restore: [DEPLOY-PRIVADO.md](./DEPLOY-PRIVADO.md).
 
-Adaptadores SMTP/SSO/billing existem só como ausência documentada — não há botão que finja envio.
+Bind `0.0.0.0:$PORT`. Disco persistente em `EAD_DATA_DIR`. **Não** publicar o material CC BY-NC-ND 4.0. Esta app **não** corre em GitHub Pages e **não** traz `render.yaml` na raiz (isso publicaria o curso).
+
+SMTP, SSO e billing continuam desligados — não há botão que finja envio.
 
 ## Dependência
 

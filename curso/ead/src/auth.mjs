@@ -97,7 +97,7 @@ export function loadSession(db, token, now = Date.now()) {
     .prepare(
       `SELECT s.csrf, s.expires_at, u.id, u.email, u.name, u.role, u.demo, u.diagnostic_done
        FROM sessions s JOIN users u ON u.id = s.user_id
-       WHERE s.token_hash = ?`
+       WHERE s.token_hash = ? AND u.disabled = 0`
     )
     .get(hashToken(token));
   if (!row || row.expires_at < now) return null;
@@ -117,6 +117,10 @@ export function loadSession(db, token, now = Date.now()) {
 export function destroySession(db, token) {
   if (!token) return;
   db.prepare("DELETE FROM sessions WHERE token_hash = ?").run(hashToken(token));
+}
+
+export function destroyUserSessions(db, userId) {
+  db.prepare("DELETE FROM sessions WHERE user_id = ?").run(userId);
 }
 
 export function requireCsrf(session, submitted) {

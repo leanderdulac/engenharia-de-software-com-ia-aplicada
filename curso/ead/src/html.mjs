@@ -18,18 +18,20 @@ export function layout({ title, user, csrf, flash, body, wide }) {
       <a href="/glossario">Glossário</a>
       <a href="/duvidas">Dúvidas</a>
       <a href="/certificado">Comprovante</a>
+      <a href="/conta">Conta</a>
       <a href="/ajuda">Ajuda</a>
       <a href="/privacidade">Privacidade</a>`
     : `
       <a href="/">Início</a>
       <a href="/entrar">Entrar</a>
       <a href="/registar">Criar conta local</a>
+      <a href="/redefinir">Redefinir senha</a>
       <a href="/ajuda">Ajuda</a>
       <a href="/privacidade">Privacidade</a>
       <a href="/verificar">Verificar comprovante</a>`;
   const navStaff =
     role === "instrutor" || role === "admin"
-      ? `<a href="/admin">Turma</a><a href="/admin/fila">Fila de correção</a><a href="/admin/avisos">Avisos</a>`
+      ? `<a href="/admin">Turma</a><a href="/admin/fila">Fila de correção</a><a href="/admin/avisos">Avisos</a><a href="/admin/auditoria">Auditoria</a>`
       : "";
   const who = user
     ? `<span class="who">${escapeHtml(user.name)} · ${escapeHtml(user.role)}</span>

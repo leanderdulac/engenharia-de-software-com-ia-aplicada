@@ -8,6 +8,7 @@ import {
   cookieHeader,
   createSession,
   destroySession,
+  destroyUserSessions,
   hashPassword,
   loadSession,
   loginAllowed,
@@ -46,6 +47,10 @@ import {
   riskFlag,
   unlockedModules,
 } from "./progress.mjs";
+import { securityHeaders, postRateLimit, requestLog } from "./httpguard.mjs";
+import { audit, consumeReset, enrollmentWindow, integrityOk, isoDay, issueReset, putSetting, setting } from "./ops.mjs";
+import { assertBootConfig, signupOpen, trustProxy } from "./runtime.mjs";
+import { schemaVersion } from "./migrate.mjs";
 import { escapeHtml, safeHttpUrl, sanitizeHtml } from "./sanitize.mjs";
 import { createAdmin, seedDemo } from "./seed.mjs";
 import {
@@ -171,6 +176,10 @@ function page(req, title, body, status) {
 export function createApp({ db, catalog }) {
   const app = express();
   app.disable("x-powered-by");
+  if (trustProxy()) app.set("trust proxy", 1);
+  app.use(securityHeaders);
+  app.use(requestLog);
+  app.use(postRateLimit);
   app.use(express.urlencoded({ extended: false, limit: "200kb" }));
   app.use((req, res, next) => {
     attachSession(req, res, db);
@@ -182,6 +191,19 @@ export function createApp({ db, catalog }) {
   app.use("/ead.css", express.static(path.join(PUBLIC_DIR, "ead.css")));
   app.use("/ead.js", express.static(path.join(PUBLIC_DIR, "ead.js")));
   app.get("/healthz", (_req, res) => res.json({ ok: true, service: "curso-ead" }));
+  app.get("/readyz", (_req, res) => {
+    try {
+      const ping = db.prepare("SELECT 1 AS ok").get();
+      const version = schemaVersion(db);
+      if (!ping?.ok || !integrityOk(db) || version < 2) {
+        res.status(503).json({ ok: false, service: "curso-ead" });
+        return;
+      }
+      res.json({ ok: true, service: "curso-ead", schema: version });
+    } catch {
+      res.status(503).json({ ok: false, service: "curso-ead" });
+    }
+  });
 
   app.get("/media/*", (req, res) => {
     const rel = decodeURIComponent(req.path.replace(/^\/media\//, ""));
@@ -253,7 +275,7 @@ export function createApp({ db, catalog }) {
           ${csrfInput(req.csrf)}
           <button type="submit">Entrar</button>
         </form>
-        <p>Ainda não tem conta? <a href="/registar">Registo local</a>. Recuperação por e-mail <strong>não</strong> está ligada (SMTP desligado).</p>`
+        <p>Ainda não tem conta? <a href="/registar">Registo local</a>. Sem SMTP: o instrutor emite um <a href="/redefinir">token de redefinição</a> (uso único, 30 min).</p>`
       )
     );
   });
@@ -272,7 +294,11 @@ export function createApp({ db, catalog }) {
       recordLoginFail(db, key);
       return sendHtml(res, page(req, "Entrar", errorPage("E-mail ou senha incorrectos.")), 401);
     }
+    if (user.disabled) {
+      return sendHtml(res, page(req, "Entrar", errorPage("Conta desactivada. Fale com o instrutor.")), 403);
+    }
     const sess = createSession(db, user.id);
+    audit(db, { actorId: user.id, action: "login", target: user.role });
     setSessionCookie(res, sess.token);
     const next = String(bodyOf(req).next || "/dashboard");
     redirect(res, next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard");
@@ -292,13 +318,20 @@ export function createApp({ db, catalog }) {
           ${csrfInput(req.csrf)}
           <button type="submit">Criar conta</button>
         </form>
-        <p>O papel é sempre <strong>aluno</strong>. Instrutor/admin só via CLI no servidor. Não há verificação de e-mail.</p>`
+        <p>O papel é sempre <strong>aluno</strong>. Instrutor/admin só via CLI no servidor. Não há verificação de e-mail. Em produção o auto-registo fica fechado salvo <code>EAD_OPEN_SIGNUP=1</code>.</p>`
       )
     );
   });
 
   app.post("/registar", (req, res) => {
     if (!needCsrf(req, res)) return;
+    if (!signupOpen()) {
+      return sendHtml(
+        res,
+        page(req, "Criar conta", errorPage("Auto-registo fechado nesta instalação. Peça a conta ao instrutor.")),
+        403
+      );
+    }
     const name = String(bodyOf(req).name || "").trim().slice(0, NAME_MAX);
     const email = String(bodyOf(req).email || "").trim().toLowerCase();
     const password = String(bodyOf(req).password || "");
@@ -423,6 +456,10 @@ export function createApp({ db, catalog }) {
     if (!needAuth(req, res) || !needCsrf(req, res)) return;
     if (req.session.user.role !== "aluno" && !staff(req.session.user)) {
       return sendHtml(res, page(req, "Matrícula", errorPage("Só contas de aluno se matriculam.")), 403);
+    }
+    const window = enrollmentWindow(db);
+    if (!window.open && req.session.user.role === "aluno") {
+      return sendHtml(res, page(req, "Matrícula", errorPage(window.reason)), 403);
     }
     try {
       db.prepare("INSERT INTO enrollments (user_id, status, enrolled_at) VALUES (?, 'ativa', ?)").run(
@@ -955,7 +992,7 @@ export function createApp({ db, catalog }) {
   app.get("/admin", (req, res) => {
     if (!needStaff(req, res)) return;
     const alunos = db
-      .prepare("SELECT id, email, name, demo FROM users WHERE role = 'aluno' ORDER BY id")
+      .prepare("SELECT id, email, name, demo, disabled FROM users WHERE role = 'aluno' ORDER BY id")
       .all();
     const rows = alunos
       .map((a) => {
@@ -970,7 +1007,12 @@ export function createApp({ db, catalog }) {
           <td>${enr ? escapeHtml(enr.status) : "sem matrícula"}</td>
           <td>${doneN}/9</td>
           <td>${escapeHtml(risk || "—")}</td>
-          <td><a href="/duvidas?aluno=${a.id}">dúvidas</a></td>
+          <td>${a.disabled ? "desactivada" : "activa"} · <a href="/duvidas?aluno=${a.id}">dúvidas</a>
+            <form method="post" action="/admin/conta/${a.id}/estado" class="inline">${csrfInput(req.session.csrf)}
+              <button type="submit">${a.disabled ? "Reactivar" : "Desactivar"}</button></form>
+            <form method="post" action="/admin/conta/${a.id}/reset" class="inline">${csrfInput(req.session.csrf)}
+              <button type="submit">Token de senha</button></form>
+          </td>
         </tr>`;
       })
       .join("");
@@ -980,7 +1022,18 @@ export function createApp({ db, catalog }) {
         req,
         "Turma",
         `<h1>Turma</h1>
-        <p><a href="/admin/export.csv">Exportar CSV</a> (sem hashes de senha).</p>
+        <p><a href="/admin/export.csv">Exportar CSV</a> (sem hashes de senha). <a href="/admin/auditoria">Auditoria</a></p>
+        <section class="card">
+          <h2>Janela da turma</h2>
+          <p>${escapeHtml(setting(db, "cohort_name") || "Sem nome")} · ${escapeHtml(setting(db, "cohort_starts") || "sem início")} → ${escapeHtml(setting(db, "cohort_ends") || "sem fim")}</p>
+          <form method="post" action="/admin/turma">
+            ${csrfInput(req.session.csrf)}
+            ${field("Nome da turma", "cohort_name", { value: setting(db, "cohort_name") })}
+            ${field("Início (AAAA-MM-DD, vazio = já aberta)", "cohort_starts", { value: setting(db, "cohort_starts") })}
+            ${field("Fim (AAAA-MM-DD, vazio = sem prazo)", "cohort_ends", { value: setting(db, "cohort_ends") })}
+            <button type="submit">Guardar janela</button>
+          </form>
+        </section>
         <table class="table"><thead><tr><th>Origem</th><th>Nome</th><th>E-mail</th><th>Matrícula</th><th>Módulos</th><th>Risco</th><th></th></tr></thead><tbody>${
           rows || `<tr><td colspan="7">Sem alunos.</td></tr>`
         }</tbody></table>`
@@ -1076,6 +1129,7 @@ export function createApp({ db, catalog }) {
     db.prepare(
       "UPDATE submissions SET status = 'corrigida', score = ?, feedback = ?, grader_id = ?, graded_at = ? WHERE id = ?"
     ).run(score, feedback, req.session.user.id, new Date().toISOString(), id);
+    audit(db, { actorId: req.session.user.id, action: "nota", target: String(id) });
     redirect(res, "/admin/fila?ok=" + encodeURIComponent("Nota publicada. O aluno vê no checkpoint."));
   });
 
@@ -1202,9 +1256,10 @@ export function createApp({ db, catalog }) {
         </ol>
         <h2>Maturidade da autenticação</h2>
         <ul>
-          <li>Senha local com scrypt; sessão HttpOnly; CSRF em POST.</li>
-          <li>Recuperação de senha / SMTP / SSO / OAuth: <strong>não ligados</strong>.</li>
+          <li>Senha local com scrypt; sessão HttpOnly; CSRF em POST; cabeçalhos de segurança; conta desactivável.</li>
+          <li>Redefinição: token local de uso único (30 min), mostrado uma vez ao instrutor. SMTP continua desligado — nenhum e-mail é enviado.</li>
           <li>Papéis no servidor: aluno, instrutor, admin. Endpoints /admin exigem instrutor|admin.</li>
+          <li>Produção (<code>NODE_ENV=production</code>) exige <code>EAD_SECURE_COOKIES=1</code>, <code>EAD_DATA_DIR</code> e recusa seed de demonstração. Uma instância, um SQLite.</li>
         </ul>
         <h2>Adaptadores desligados</h2>
         <p>SMTP, SSO, billing e streaming premium não têm botão de “sucesso”. Esta sala não cobra matrícula.</p>
@@ -1226,10 +1281,182 @@ export function createApp({ db, catalog }) {
           <li>Conta: nome, e-mail, hash de senha, papel.</li>
           <li>Progresso, notas privadas, marcadores, submissões (texto/URL), mensagens aluno↔instrutor.</li>
           <li>Não pedimos CPF, saúde, biometria nem cartão.</li>
-          <li>Sem analytics de terceiros. Logs de aplicação não devem incluir senhas.</li>
+          <li>Sem analytics de terceiros. O log JSON tem método, caminho e estado — sem senha, cookie ou token.</li>
+          <li>Auditoria interna: login, nota, aviso, desactivação, token de senha, janela da turma. Sem o conteúdo da senha.</li>
           <li>CSV da turma: nome, e-mail, módulos, média — só para instrutor autenticado.</li>
           <li>C-COLAB: o JSON é avaliado no servidor; o gabarito não vai para o cliente.</li>
         </ul>`
+      )
+    );
+  });
+
+  app.get("/conta", (req, res) => {
+    if (!needAuth(req, res)) return;
+    sendHtml(
+      res,
+      page(
+        req,
+        "Conta",
+        `<h1>Conta</h1>
+        <p>${escapeHtml(req.session.user.name)} · ${escapeHtml(req.session.user.email)}</p>
+        <form method="post" action="/conta/senha" class="card">
+          ${csrfInput(req.session.csrf)}
+          ${field("Senha actual", "current", { type: "password", required: true, autocomplete: "current-password" })}
+          ${field("Senha nova (mín. 10)", "next", { type: "password", required: true, autocomplete: "new-password" })}
+          <button type="submit">Alterar senha</button>
+        </form>
+        <p class="muted">Alterar a senha encerra as outras sessões desta conta. Não envia e-mail.</p>`
+      )
+    );
+  });
+
+  app.post("/conta/senha", (req, res) => {
+    if (!needAuth(req, res) || !needCsrf(req, res)) return;
+    const current = String(bodyOf(req).current || "");
+    const next = String(bodyOf(req).next || "");
+    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(req.session.user.id);
+    if (!user || !verifyPassword(current, user.password_hash)) {
+      return sendHtml(res, page(req, "Conta", errorPage("Senha actual incorrecta.")), 401);
+    }
+    if (!validPassword(next) || next === current) {
+      return sendHtml(res, page(req, "Conta", errorPage("A senha nova precisa de 10–128 caracteres e ser diferente da actual.")), 400);
+    }
+    db.prepare("UPDATE users SET password_hash = ?, password_changed_at = ? WHERE id = ?").run(
+      hashPassword(next),
+      new Date().toISOString(),
+      user.id
+    );
+    destroyUserSessions(db, user.id);
+    audit(db, { actorId: user.id, action: "senha_alterada", target: String(user.id) });
+    const sess = createSession(db, user.id);
+    setSessionCookie(res, sess.token);
+    redirect(res, "/conta?ok=" + encodeURIComponent("Senha alterada. As outras sessões foram encerradas."));
+  });
+
+  app.get("/redefinir", (req, res) => {
+    sendHtml(
+      res,
+      page(
+        req,
+        "Redefinir senha",
+        `<h1>Redefinir senha</h1>
+        <p>Cole o token que o instrutor lhe mostrou. Não há e-mail. O token vale 30 minutos e só uma vez.</p>
+        <form method="post" action="/redefinir" class="card">
+          ${csrfInput(req.csrf)}
+          ${field("Token", "token", { required: true, autocomplete: "one-time-code" })}
+          ${field("Senha nova", "password", { type: "password", required: true, autocomplete: "new-password" })}
+          <button type="submit">Definir senha</button>
+        </form>`
+      )
+    );
+  });
+
+  app.post("/redefinir", (req, res) => {
+    if (!needCsrf(req, res)) return;
+    const token = String(bodyOf(req).token || "").trim();
+    const password = String(bodyOf(req).password || "");
+    if (!validPassword(password)) {
+      return sendHtml(res, page(req, "Redefinir", errorPage("Senha: 10 a 128 caracteres.")), 400);
+    }
+    const userId = consumeReset(db, token);
+    if (!userId) {
+      return sendHtml(res, page(req, "Redefinir", errorPage("Token inválido, usado ou expirado.")), 400);
+    }
+    db.prepare("UPDATE users SET password_hash = ?, password_changed_at = ? WHERE id = ?").run(
+      hashPassword(password),
+      new Date().toISOString(),
+      userId
+    );
+    destroyUserSessions(db, userId);
+    audit(db, { actorId: userId, action: "senha_redefinida", target: String(userId) });
+    redirect(res, "/entrar?ok=" + encodeURIComponent("Senha actualizada. Entre com a senha nova."));
+  });
+
+  app.post("/admin/turma", (req, res) => {
+    if (!needStaff(req, res) || !needCsrf(req, res)) return;
+    const name = String(bodyOf(req).cohort_name || "").trim().slice(0, 80);
+    const starts = isoDay(bodyOf(req).cohort_starts);
+    const ends = isoDay(bodyOf(req).cohort_ends);
+    if (starts === null || ends === null) {
+      return sendHtml(res, page(req, "Turma", errorPage("Datas no formato AAAA-MM-DD, ou vazias.")), 400);
+    }
+    if (starts && ends && ends < starts) {
+      return sendHtml(res, page(req, "Turma", errorPage("A data de fim é anterior ao início.")), 400);
+    }
+    putSetting(db, "cohort_name", name);
+    putSetting(db, "cohort_starts", starts);
+    putSetting(db, "cohort_ends", ends);
+    audit(db, { actorId: req.session.user.id, action: "janela_turma", target: `${starts || "aberta"}..${ends || "sem-fim"}` });
+    redirect(res, "/admin?ok=" + encodeURIComponent("Janela da turma guardada."));
+  });
+
+  app.post("/admin/conta/:id/estado", (req, res) => {
+    if (!needStaff(req, res) || !needCsrf(req, res)) return;
+    const id = Number(req.params.id);
+    const user = db.prepare("SELECT id, role, disabled FROM users WHERE id = ?").get(id);
+    if (!user || user.role !== "aluno") {
+      return sendHtml(res, page(req, "Turma", errorPage("Só contas de aluno se desactivam aqui.")), 404);
+    }
+    const next = user.disabled ? 0 : 1;
+    db.prepare("UPDATE users SET disabled = ? WHERE id = ?").run(next, id);
+    if (next) destroyUserSessions(db, id);
+    audit(db, { actorId: req.session.user.id, action: next ? "conta_desactivada" : "conta_reactivada", target: String(id) });
+    redirect(res, "/admin?ok=" + encodeURIComponent(next ? "Conta desactivada." : "Conta reactivada."));
+  });
+
+  app.post("/admin/conta/:id/reset", (req, res) => {
+    if (!needStaff(req, res) || !needCsrf(req, res)) return;
+    const id = Number(req.params.id);
+    const user = db.prepare("SELECT id, role, email, demo FROM users WHERE id = ?").get(id);
+    if (!user || user.role === "admin") {
+      return sendHtml(res, page(req, "Token", errorPage("Não se emite token para administração por este formulário.")), 403);
+    }
+    const token = issueReset(db, id);
+    audit(db, { actorId: req.session.user.id, action: "token_senha", target: String(id) });
+    sendHtml(
+      res,
+      page(
+        req,
+        "Token de senha",
+        `<h1>Token de uso único</h1>
+        <p>${user.demo ? "DEMONSTRAÇÃO/TESTE · " : ""}${escapeHtml(user.email)}</p>
+        <p>Mostre este token à pessoa. Não é enviado por e-mail. Expira em 30 minutos e não volta a aparecer.</p>
+        <p><code>${escapeHtml(token)}</code></p>
+        <p><a href="/admin">Voltar à turma</a></p>`
+      )
+    );
+  });
+
+  app.get("/admin/auditoria", (req, res) => {
+    if (!needStaff(req, res)) return;
+    const rows = db
+      .prepare(
+        `SELECT a.action, a.target, a.created_at, u.email AS actor
+         FROM audit_log a LEFT JOIN users u ON u.id = a.actor_id
+         ORDER BY a.id DESC LIMIT 100`
+      )
+      .all();
+    sendHtml(
+      res,
+      page(
+        req,
+        "Auditoria",
+        `<h1>Auditoria</h1>
+        <p>Últimos 100 eventos desta instalação. Sem senhas nem tokens.</p>
+        <table class="table"><thead><tr><th>Quando</th><th>Quem</th><th>Acção</th><th>Alvo</th></tr></thead><tbody>
+        ${
+          rows.length
+            ? rows
+                .map(
+                  (r) =>
+                    `<tr><td>${escapeHtml(r.created_at)}</td><td>${escapeHtml(r.actor || "—")}</td><td>${escapeHtml(
+                      r.action
+                    )}</td><td>${escapeHtml(r.target)}</td></tr>`
+                )
+                .join("")
+            : `<tr><td colspan="4">Sem eventos.</td></tr>`
+        }
+        </tbody></table>`
       )
     );
   });
@@ -1267,11 +1494,34 @@ export function boot({ dbPath, seedDemoPasswords, createAdminOpts } = {}) {
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const { app } = boot();
+  assertBootConfig();
+  const { app, db } = boot();
   const host = listenHost();
   const port = listenPort();
-  app.listen(port, host, () => {
-    console.log(`EaD local em http://${host === "0.0.0.0" ? "127.0.0.1" : host}:${port}/`);
-    console.log("GitHub Pages não serve esta aplicação. Auth: senha local, sem SMTP.");
+  const server = app.listen(port, host, () => {
+    console.log(
+      JSON.stringify({
+        t: new Date().toISOString(),
+        msg: "ead-listen",
+        host,
+        port,
+        schema: schemaVersion(db),
+        production: process.env.NODE_ENV === "production",
+      })
+    );
   });
+  const stop = (signal) => {
+    console.log(JSON.stringify({ t: new Date().toISOString(), msg: "ead-shutdown", signal }));
+    server.close(() => {
+      try {
+        db.close();
+      } catch {
+        /* ignore */
+      }
+      process.exit(0);
+    });
+    setTimeout(() => process.exit(1), 10_000).unref();
+  };
+  process.on("SIGTERM", () => stop("SIGTERM"));
+  process.on("SIGINT", () => stop("SIGINT"));
 }
