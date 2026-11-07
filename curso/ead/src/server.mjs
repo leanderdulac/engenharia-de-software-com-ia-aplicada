@@ -21,7 +21,8 @@ import {
   validPassword,
   verifyPassword,
 } from "./auth.mjs";
-import { indexContent, lessonById, loadCatalog, moduleById, neighbors } from "./catalog.mjs";
+import { aulasDoModulo, indexContent, lessonById, loadCatalog, moduleById, neighbors } from "./catalog.mjs";
+import { apoioDoModulo, apoioPorId, caminhoApoio, contentDisposition } from "./apoio.mjs";
 import {
   CURSO_ROOT,
   PUBLIC_DIR,
@@ -40,8 +41,10 @@ import { csrfInput, emptyState, errorPage, field, layout } from "./html.mjs";
 import {
   certificateCriteria,
   completedLessons,
+  conjuntoAntigoCompleto,
   enrollmentOf,
   lastLesson,
+  moduleComplete,
   moduleGate,
   moduleStats,
   pendingSubmissions,
@@ -150,7 +153,10 @@ function needCsrf(req, res) {
 function lessonMarkdown(lesson) {
   if (lesson.md) {
     const { abs, rel } = resolveMarkdownPath(lesson.md);
-    const markdown = readFileSync(abs, "utf8");
+    let markdown = readFileSync(abs, "utf8");
+    if (Number.isInteger(lesson.start)) {
+      markdown = markdown.split("\n").slice(lesson.start, lesson.end).join("\n");
+    }
     const page = renderMarkdownPage(markdown, rel);
     return { ...page, html: sanitizeHtml(page.html) };
   }
@@ -213,6 +219,73 @@ function meter(done, total) {
   const pct = total ? Math.round((done / total) * 100) : 0;
   const step = Math.round(pct / 10) * 10;
   return `<div class="meter" role="img" aria-label="${done} de ${total} aulas"><i class="w${step}"></i></div>`;
+}
+
+function textoHumano(s) {
+  return String(s || "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/`/g, "");
+}
+
+function cargaGuia(horas) {
+  return horas ? `Cerca de ${horas} h no guia do módulo (estimativa, não é carga credenciada).` : "";
+}
+
+function proximoPasso(catalog, { enrolled, done, lastId }) {
+  if (!enrolled) {
+    return {
+      href: "/trilha",
+      rotulo: "Fazer a matrícula",
+      detalhe: "Nenhum módulo abre antes da matrícula. O diagnóstico não substitui esse passo.",
+    };
+  }
+  const last = lastId ? lessonById(catalog, lastId) : null;
+  if (last?.percurso && !done.has(last.id) && !conjuntoAntigoCompleto(done, last.modulo)) {
+    const aulas = aulasDoModulo(catalog, last.modulo);
+    return {
+      href: `/aula/${encodeURIComponent(last.id)}`,
+      rotulo: "Continuar estudos",
+      detalhe: `Módulo ${last.modulo}, aula ${last.numero} de ${aulas.length}: ${last.titulo}`,
+    };
+  }
+  for (const mod of catalog.modules) {
+    if (mod.optional) continue;
+    const gate = moduleGate(catalog, mod, { enrolled: true, doneSet: done });
+    if (!gate.open || moduleComplete(catalog, done, mod.id)) continue;
+    const aulas = aulasDoModulo(catalog, mod.id);
+    const pendente = aulas.find((a) => !done.has(a.id));
+    if (pendente) {
+      return {
+        href: `/aula/${encodeURIComponent(pendente.id)}`,
+        rotulo: last ? "Continuar estudos" : "Começar os estudos",
+        detalhe: `Módulo ${mod.id}, aula ${pendente.numero} de ${aulas.length}: ${pendente.titulo}`,
+      };
+    }
+  }
+  if (last?.legado) {
+    const aulas = aulasDoModulo(catalog, last.modulo);
+    const primeira = aulas[0];
+    if (primeira) {
+      return {
+        href: `/aula/${encodeURIComponent(primeira.id)}`,
+        rotulo: "Continuar estudos",
+        detalhe: `Você parou na versão anterior do módulo ${last.modulo}. A primeira aula numerada é ${primeira.titulo}.`,
+      };
+    }
+  }
+  return { href: "/trilha", rotulo: "Ver a trilha", detalhe: "Não há aula pendente nos módulos abertos." };
+}
+
+function blocoApoio(modulo) {
+  if (!/^\d{2}$/.test(String(modulo))) return "";
+  const item = apoioDoModulo(modulo);
+  if (item?.disponivel) {
+    return `<section class="card"><h2>Material de apoio</h2>
+      <p><a class="btn" href="/apoio/${encodeURIComponent(item.id)}">${escapeHtml(item.titulo)}</a></p>
+      <p class="muted">PDF deste módulo. Não é o documento de missão do laboratório.</p></section>`;
+  }
+  return `<section class="card"><h2>Material de apoio</h2>
+    <p>A apostila deste módulo ainda não foi publicada. Quando o PDF chegar, o download aparece aqui.</p></section>`;
 }
 
 function closedSignupBody() {
@@ -291,6 +364,41 @@ export function createApp({ db, catalog }) {
     }
   });
 
+  app.get("/apoio/:id", (req, res) => {
+    if (!req.session?.user) {
+      res.status(401).type("text/plain; charset=utf-8").send("Autenticação necessária.");
+      return;
+    }
+    if (!/^[a-z0-9-]{1,40}$/.test(req.params.id)) {
+      res.status(404).type("text/plain; charset=utf-8").send("Material não publicado.");
+      return;
+    }
+    const item = apoioPorId(req.params.id);
+    if (!item) {
+      res.status(404).type("text/plain; charset=utf-8").send("Material não publicado.");
+      return;
+    }
+    if (item.modulo && req.session.user.role === "aluno") {
+      const mod = moduleById(catalog, item.modulo);
+      const enr = enrollmentOf(db, req.session.user.id);
+      const done = new Set(completedLessons(db, req.session.user.id));
+      const gate = mod ? moduleGate(catalog, mod, { enrolled: Boolean(enr), doneSet: done }) : { open: false, detail: "Módulo inexistente." };
+      if (!gate.open) {
+        res.status(403).type("text/plain; charset=utf-8").send(gate.detail || "Módulo fechado.");
+        return;
+      }
+    }
+    const abs = caminhoApoio(item);
+    if (!abs) {
+      res.status(404).type("text/plain; charset=utf-8").send("Material não publicado.");
+      return;
+    }
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Content-Disposition", contentDisposition(item.arquivo));
+    res.sendFile(abs);
+  });
+
   app.get("/preview-pacote", (req, res) => {
     if (!needAuth(req, res)) return;
     sendHtml(
@@ -321,7 +429,7 @@ export function createApp({ db, catalog }) {
         req,
         "Sala de aula local",
         `<div class="landing">
-          <p class="kicker">Pós-graduação · uma instalação</p>
+          <p class="kicker">Curso · uma instalação</p>
           <h1 class="hero-title">Sala de aula local desta pós</h1>
           <p class="lede">Oficina é o lugar onde esta turma estuda: nove módulos, aulas, evidências e um comprovante interno. Sem checkout. Sem e-mail. O texto do curso só abre depois de entrar.</p>
           <p class="hero-actions">${
@@ -529,12 +637,11 @@ export function createApp({ db, catalog }) {
         const gate = aluno ? moduleGate(catalog, m, { enrolled: Boolean(enr), doneSet: done }) : { open: true, reason: m.optional ? "opcional" : "disponivel", detail: "Equipa: a trilha não fecha este módulo." };
         const label = aluno ? gateLabel(gate) : m.optional ? "Opcional" : "Aberto";
         return `<article class="mod-card ${gate.open ? "" : "locked"}">
-          <img src="${escapeHtml(m.capa)}" alt="">
           <p class="pill ${gate.open ? "" : "pill-wait"}">${escapeHtml(label)}</p>
           <h2>${m.optional ? "Opcional · " : ""}M${escapeHtml(m.id)} — ${escapeHtml(m.titulo)}</h2>
           <p>${escapeHtml(m.caso || "")}</p>
-          <p class="muted">${m.horas ? m.horas + " h · " : ""}${escapeHtml(gate.detail || "")}</p>
-          ${gate.open ? `<p><a class="btn" href="/modulo/${m.id}">Abrir</a></p>` : `<p>${escapeHtml(label)}</p>`}
+          <p class="muted">${escapeHtml(cargaGuia(m.horas))} ${escapeHtml(gate.detail || "")}</p>
+          ${gate.open ? `<p><a class="btn" href="/modulo/${m.id}">Abrir módulo</a></p>` : `<p>${escapeHtml(label)}. ${escapeHtml(gate.detail || "")}</p>`}
         </article>`;
       })
       .join("");
@@ -600,19 +707,23 @@ export function createApp({ db, catalog }) {
     const last = lastLesson(db, uid);
     const pending = pendingSubmissions(db, uid).filter((s) => s.status === "enviada");
     const avisos = db.prepare("SELECT title, body, created_at FROM announcements ORDER BY id DESC LIMIT 5").all();
-    const continueLink = last ? `/aula/${encodeURIComponent(last.lesson_id)}` : "/modulo/01";
+    const passo = proximoPasso(catalog, {
+      enrolled: true,
+      done: new Set(completedLessons(db, uid)),
+      lastId: last?.lesson_id,
+    });
     sendHtml(
       res,
       page(
         req,
         "Painel",
         `<p class="kicker">Painel</p>
-        <h1>Continuar</h1>
+        <h1>Continuar estudos</h1>
         <section class="continue">
-          <p class="muted">${last ? "A última aula vista nesta conta." : "Ainda não há aula vista. O começo é o Módulo 01."}</p>
-          <p><a class="btn" href="${continueLink}">${last ? "Retomar a última aula" : "Começar o Módulo 01"}</a></p>
+          <p>${escapeHtml(passo.detalhe)}</p>
+          <p><a class="btn" href="${escapeHtml(passo.href)}">${escapeHtml(passo.rotulo)}</a></p>
         </section>
-        <section><h2>Progresso real por módulo</h2>
+        <section><h2>Progresso por módulo</h2>
           <ul class="progress-list">${stats
             .map(
               (s) => `<li>
@@ -660,17 +771,18 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Trilha",
-        `<p class="kicker">Ordem oficial</p>
-        <h1>Trilha dos 9 módulos + Python opcional</h1>
-        ${enr ? `<p>Matrícula <strong>${escapeHtml(enr.status)}</strong>. Um módulo abre quando os pré-requisitos têm as aulas concluídas. O Python é opcional e não substitui a trilha.</p>` : enrollCallout(req, db)}
+        `<p class="kicker">Ordem do curso</p>
+        <h1>Trilha</h1>
+        ${enr ? `<p>Matrícula <strong>${escapeHtml(enr.status)}</strong>. Um módulo abre quando as aulas do pré-requisito estão concluídas. O Python é opcional e não substitui a trilha.</p>` : enrollCallout(req, db)}
         <ol class="path-list">${catalog.modules
           .map((m) => {
             const gate = moduleGate(catalog, m, { enrolled: Boolean(enr), doneSet: done });
             const title = escapeHtml(m.titulo);
             const head = gate.open ? `<a href="/modulo/${m.id}">${title}</a>` : title;
-            return `<li class="${gate.open ? "" : "locked"}"><span class="num">M${escapeHtml(m.id)}</span><span>${head} <span class="pill ${
+            const horas = m.horas ? `<span class="muted">${escapeHtml(cargaGuia(m.horas))}</span>` : "";
+            return `<li class="${gate.open ? "" : "locked"}"><span class="num">${m.optional ? "Opc." : "M" + escapeHtml(m.id)}</span><span>${head} <span class="pill ${
               gate.open ? "" : "pill-wait"
-            }">${escapeHtml(gateLabel(gate))}</span> <span class="muted">${escapeHtml(gate.detail)}</span></span></li>`;
+            }">${escapeHtml(gateLabel(gate))}</span> <span class="muted">${escapeHtml(gate.detail)}</span> ${horas}</span></li>`;
           })
           .join("")}</ol>
         <h2>Plano de estudo local</h2>
@@ -708,29 +820,49 @@ export function createApp({ db, catalog }) {
       const gate = moduleGate(catalog, mod, { enrolled: Boolean(enr), doneSet: done });
       if (!gate.open) return denyModule(req, res, "Módulo", gate);
     }
-    const aulas = catalog.lessons.filter((l) => l.modulo === mod.id);
+    const aulas = aulasDoModulo(catalog, mod.id);
+    const atividade = aulas.find((l) => l.kind === "atividade");
+    const pendente = aulas.find((l) => !done.has(l.id));
+    const antigo = conjuntoAntigoCompleto(done, mod.id);
+    const soAulaAntiga = done.has(`m${mod.id}-aula`) && !antigo;
     const cps = catalog.checkpoints.filter((c) => c.modulo === mod.id || (mod.id === "08" && c.modulo === "colab"));
+    const guia = lessonById(catalog, `m${mod.id}-guia`);
+    const passoModulo = antigo
+      ? "Este módulo já está concluído na versão anterior (aula única, guia e roteiro). Nada foi apagado."
+      : pendente
+        ? `Próxima aula: ${pendente.numero}. ${pendente.titulo}`
+        : "As aulas deste módulo estão marcadas como concluídas.";
     sendHtml(
       res,
       page(
         req,
         `Módulo ${mod.id}`,
-        `<h1>M${escapeHtml(mod.id)} — ${escapeHtml(mod.titulo)}</h1>
-        ${mod.video ? `<video controls preload="metadata" src="${escapeHtml(mod.video)}"></video>` : ""}
+        `<p class="kicker">${mod.optional ? "Opcional · não substitui a trilha" : `Módulo ${escapeHtml(mod.id)} de 9`}</p>
+        <h1>${escapeHtml(mod.titulo)}</h1>
+        <p class="muted">${escapeHtml(cargaGuia(mod.horas))}</p>
+        <section class="continue"><p>${escapeHtml(passoModulo)}</p>
+          ${pendente && !antigo ? `<p><a class="btn" href="/aula/${encodeURIComponent(pendente.id)}">Abrir esta aula</a></p>` : ""}
+        </section>
+        ${soAulaAntiga ? `<p class="muted">A aula única antiga está concluída nesta conta. As partes abaixo são o mesmo texto e ainda não foram marcadas no lugar dela.</p>` : ""}
+        <h2>Aulas</h2>
+        <ol class="aula-lista">${aulas
+          .map((l) => {
+            const estado = done.has(l.id) ? "Concluída" : antigo ? "Concluída na versão anterior" : "Por fazer";
+            return `<li><span class="num">${String(l.numero).padStart(2, "0")}</span><a href="/aula/${encodeURIComponent(l.id)}">${escapeHtml(l.titulo)}</a><span class="muted">${estado}</span></li>`;
+          })
+          .join("")}</ol>
+        ${atividade ? `<p><a href="/aula/${encodeURIComponent(atividade.id)}">Atividade deste módulo</a></p>` : ""}
+        ${blocoApoio(mod.id)}
         ${
-          mod.audio
-            ? `<audio controls preload="metadata" src="${escapeHtml(mod.audio)}">${
-                mod.vtt ? `<track kind="subtitles" src="${escapeHtml(mod.vtt)}" srclang="pt" label="Português" default>` : ""
-              }</audio>`
+          guia
+            ? `<p class="muted">Roteiro do laboratório, à parte das aulas: <a href="/aula/${encodeURIComponent(guia.id)}">${escapeHtml(guia.titulo)}</a>.</p>`
             : ""
         }
-        <h2>Aulas</h2>
-        <ol>${aulas.map((l) => `<li><a href="/aula/${encodeURIComponent(l.id)}">${escapeHtml(l.titulo)}</a>${done.has(l.id) ? " · concluída" : ""}</li>`).join("")}</ol>
-        <h2>Checkpoints (avaliação.md)</h2>
-        <ul>${cps.map((c) => `<li><a href="/atividade/${encodeURIComponent(c.id)}">${escapeHtml(c.id)}</a> — ${escapeHtml(c.evidencia)}</li>`).join("")}</ul>
+        <h2>Avaliação</h2>
+        <ul>${cps.map((c) => `<li><a href="/atividade/${encodeURIComponent(c.id)}">${escapeHtml(c.id)}</a> — ${escapeHtml(textoHumano(c.evidencia))}</li>`).join("") || "<li>Sem checkpoint neste módulo.</li>"}</ul>
         ${
           mod.pdfs?.length
-            ? `<h2>PDFs de missão no repositório</h2><ul>${mod.pdfs
+            ? `<h2>Documentos de missão do laboratório</h2><p class="muted">Não são a apostila do módulo.</p><ul>${mod.pdfs
                 .map((p) => `<li><a href="/arquivos/${p.split("/").map(encodeURIComponent).join("/")}">${escapeHtml(path.basename(p))}</a></li>`)
                 .join("")}</ul>`
             : ""
@@ -763,38 +895,64 @@ export function createApp({ db, catalog }) {
     const note = db.prepare("SELECT body FROM notes WHERE user_id = ? AND lesson_id = ?").get(req.session.user.id, lesson.id);
     const book = db.prepare("SELECT 1 FROM bookmarks WHERE user_id = ? AND lesson_id = ?").get(req.session.user.id, lesson.id);
     const mod = moduleById(catalog, lesson.modulo);
+    const aulas = aulasDoModulo(catalog, lesson.modulo);
+    const pos = lesson.percurso ? `Aula ${lesson.numero} de ${aulas.length}` : "Versão anterior";
+    const sumario = aulas
+      .map(
+        (l) =>
+          `<a href="/aula/${encodeURIComponent(l.id)}"${l.id === lesson.id ? ' aria-current="page"' : ""}><span>${String(l.numero).padStart(2, "0")}</span> ${escapeHtml(l.titulo)}</a>`
+      )
+      .join("");
+    const media =
+      lesson.kind === "intro" && (mod?.video || mod?.audio)
+        ? `<aside class="media-sec"><h2>Vídeo e narração</h2><p>O vídeo é curto. A narração é a introdução falada, com legenda. Nenhuma das duas substitui o texto das aulas.</p>
+          ${mod.video ? `<video controls preload="metadata" aria-label="Vídeo curto de abertura" src="${escapeHtml(mod.video)}"></video>` : ""}
+          ${
+            mod.audio
+              ? `<audio controls preload="metadata" aria-label="Narração da introdução">${
+                  mod.vtt ? `<track default kind="captions" srclang="pt" label="Português" src="${escapeHtml(mod.vtt)}">` : ""
+                }<source src="${escapeHtml(mod.audio)}" type="audio/mpeg"></audio>`
+              : ""
+          }
+          ${mod.vtt ? `<p><a href="${escapeHtml(mod.vtt)}">Ler a transcrição</a></p>` : ""}</aside>`
+        : "";
+    const avisoLegado = lesson.legado
+      ? `<p class="muted">Este endereço é a versão anterior. O percurso atual está nas <a href="/modulo/${escapeHtml(lesson.modulo)}">aulas numeradas do módulo</a>. A marcação antiga continua guardada.</p>`
+      : "";
     sendHtml(
       res,
       page(
         req,
-        rendered.title,
-        `<nav class="crumbs" aria-label="Percurso"><a href="/catalogo">Curso</a> · <a href="/modulo/${lesson.modulo}">M${escapeHtml(lesson.modulo)}</a></nav>
-        ${mod?.capa ? `<figure class="hero"><img src="${escapeHtml(mod.capa)}" alt=""></figure>` : ""}
-        ${mod?.video && lesson.kind === "aula" ? `<video controls preload="metadata" src="${escapeHtml(mod.video)}"></video>` : ""}
-        ${
-          mod?.audio && lesson.kind === "aula"
-            ? `<audio controls preload="metadata" src="${escapeHtml(mod.audio)}">${
-                mod.vtt ? `<track default kind="subtitles" srclang="pt" label="Português" src="${escapeHtml(mod.vtt)}">` : ""
-              }</audio>`
-            : ""
-        }
-        <article class="md">${rendered.html}</article>
-        <div class="lesson-tools">
-        <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/concluir" class="inline">
-          ${csrfInput(req.session.csrf)}
-          <button type="submit">${done.has(lesson.id) ? "Já concluída (registar de novo)" : "Marcar conclusão"}</button>
-        </form>
-        <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/marcador" class="inline">
-          ${csrfInput(req.session.csrf)}
-          <button type="submit">${book ? "Remover marcador" : "Marcar para voltar"}</button>
-        </form>
-        <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/nota" class="card">
-          ${csrfInput(req.session.csrf)}
-          <label for="nota">Nota privada (só você)</label>
-          <textarea id="nota" name="body" maxlength="${TEXT_MAX}">${escapeHtml(note?.body || "")}</textarea>
-          <button type="submit">Guardar nota</button>
-        </form>
-        <p class="pager">${prev ? `<a href="/aula/${prev.id}">Anterior</a>` : ""} ${next ? `<a href="/aula/${next.id}">Seguinte</a>` : ""}</p>
+        lesson.titulo,
+        `<nav class="crumbs" aria-label="Percurso"><a href="/catalogo">Curso</a> · <a href="/modulo/${lesson.modulo}">Módulo ${escapeHtml(lesson.modulo)}</a> · <span>${escapeHtml(pos)}</span></nav>
+        <div class="lesson-layout">
+          <nav class="sumario" aria-label="Aulas deste módulo">${sumario}</nav>
+          <div class="lesson-body">
+            <p class="kicker">${escapeHtml(pos)}</p>
+            <h1>${escapeHtml(lesson.titulo)}</h1>
+            ${avisoLegado}
+            ${media}
+            <article class="md">${rendered.html}</article>
+            <div class="lesson-tools">
+            <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/concluir" class="inline">
+              ${csrfInput(req.session.csrf)}
+              <button type="submit">${done.has(lesson.id) ? "Concluída — registrar de novo" : "Marcar como concluída"}</button>
+            </form>
+            <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/marcador" class="inline">
+              ${csrfInput(req.session.csrf)}
+              <button type="submit" class="btn-ghost">${book ? "Remover marcador" : "Marcar para voltar"}</button>
+            </form>
+            <p class="pager">${prev ? `<a href="/aula/${encodeURIComponent(prev.id)}">Aula anterior</a>` : "<span></span>"} ${
+              next ? `<a class="btn" href="/aula/${encodeURIComponent(next.id)}">Próxima aula</a>` : `<a class="btn" href="/modulo/${lesson.modulo}">Voltar ao módulo</a>`
+            }</p>
+            <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/nota" class="card">
+              ${csrfInput(req.session.csrf)}
+              <label for="nota">Nota privada (só você)</label>
+              <textarea id="nota" name="body" maxlength="${TEXT_MAX}">${escapeHtml(note?.body || "")}</textarea>
+              <button type="submit">Salvar nota</button>
+            </form>
+            </div>
+          </div>
         </div>`,
         200,
         "read"
