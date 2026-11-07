@@ -31,16 +31,46 @@ export function moduleComplete(catalog, doneSet, modulo) {
   return ids.every((id) => doneSet.has(id));
 }
 
+/** Estado de um módulo para um aluno. Staff não usa isto. */
+export function moduleGate(catalog, mod, { enrolled, doneSet }) {
+  const deps = mod.optional ? [] : mod.deps || DEPS[mod.id] || [];
+  const missing = deps.filter((d) => !moduleComplete(catalog, doneSet, d));
+  if (!enrolled) {
+    const after = mod.optional
+      ? "É opcional, não substitui a trilha e não tem pré-requisito."
+      : missing.length
+        ? `Depois da matrícula, ainda pede as aulas de ${missing.map((d) => "M" + d).join(", ")}.`
+        : "Depois da matrícula abre sem pré-requisito.";
+    return { open: false, reason: "sem-matricula", missing, detail: `Aguardando matrícula. ${after}` };
+  }
+  if (mod.optional) {
+    return {
+      open: true,
+      reason: "opcional",
+      missing: [],
+      detail: "Opcional. Não substitui os módulos da trilha e não tem pré-requisito.",
+    };
+  }
+  if (missing.length) {
+    return {
+      open: false,
+      reason: "pre-requisito",
+      missing,
+      detail: `Pré-requisito pendente: concluir as aulas de ${missing.map((d) => "M" + d).join(", ")}.`,
+    };
+  }
+  return {
+    open: true,
+    reason: "disponivel",
+    missing: [],
+    detail: deps.length ? `Pré-requisito concluído: ${deps.map((d) => "M" + d).join(", ")}.` : "Disponível. Sem pré-requisito.",
+  };
+}
+
 export function unlockedModules(catalog, doneSet, enrolled) {
   const out = new Set();
-  if (!enrolled) return out;
   for (const mod of catalog.modules) {
-    if (mod.optional) {
-      out.add(mod.id);
-      continue;
-    }
-    const deps = DEPS[mod.id] || [];
-    if (deps.every((d) => moduleComplete(catalog, doneSet, d))) out.add(mod.id);
+    if (moduleGate(catalog, mod, { enrolled, doneSet }).open) out.add(mod.id);
   }
   return out;
 }

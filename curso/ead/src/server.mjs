@@ -42,11 +42,10 @@ import {
   completedLessons,
   enrollmentOf,
   lastLesson,
-  moduleComplete,
+  moduleGate,
   moduleStats,
   pendingSubmissions,
   riskFlag,
-  unlockedModules,
 } from "./progress.mjs";
 import { safeInside } from "./filesafe.mjs";
 import { hitLimit, hostGuard, postRateLimit, requestLog, securityHeaders } from "./httpguard.mjs";
@@ -181,6 +180,33 @@ function page(req, title, body, _status, variant) {
     variant,
     body,
   });
+}
+
+function gateLabel(gate) {
+  if (gate.reason === "sem-matricula") return "Aguardando matrícula";
+  if (gate.reason === "pre-requisito") return "Pré-requisito pendente";
+  if (gate.reason === "opcional") return "Opcional";
+  return "Disponível";
+}
+
+function enrollCallout(req, db) {
+  const window = enrollmentWindow(db);
+  if (!window.open) {
+    return `<section class="card"><h2>Matrícula fechada</h2><p>${escapeHtml(window.reason)}</p><p>O diagnóstico não substitui a matrícula e não abre o Módulo 01.</p></section>`;
+  }
+  return `<section class="card"><h2>Próximo passo: matrícula</h2>
+    <p>Esta conta ainda não tem matrícula nesta instalação. Sem ela, nenhum módulo abre — nem o Módulo 01, que não tem pré-requisito. O diagnóstico inicial é opcional e não é exigido.</p>
+    <form method="post" action="/matricular">${csrfInput(req.session.csrf)}<button type="submit">Matricular-me (sem pagamento)</button></form>
+  </section>`;
+}
+
+function denyModule(req, res, title, gate) {
+  const msg =
+    gate.reason === "sem-matricula"
+      ? "Esta conta ainda não tem matrícula. O diagnóstico não abre o módulo."
+      : gate.detail;
+  const next = gate.reason === "sem-matricula" ? `<p><a href="/trilha">Fazer a matrícula na trilha</a></p>` : `<p><a href="/trilha">Ver a trilha</a></p>`;
+  return sendHtml(res, page(req, title, errorPage(msg) + next), 403);
 }
 
 function meter(done, total) {
@@ -491,28 +517,24 @@ export function createApp({ db, catalog }) {
     const uid = req.session.user.id;
     const enr = enrollmentOf(db, uid);
     const done = new Set(completedLessons(db, uid));
-    const unlocked = unlockedModules(catalog, done, Boolean(enr));
     const answers = db.prepare("SELECT item_id, score FROM diagnostic_answers WHERE user_id = ?").all(uid);
     const low = answers.filter((a) => a.score === 0).map((a) => a.item_id);
     const orient =
       answers.length === 0
-        ? `<p><a href="/onboarding">Fazer o diagnóstico inicial</a> (pré-teste). Sem isso o painel não inventa desempenho.</p>`
-        : `<p>Itens em 0 no diagnóstico: ${low.length ? low.join(", ") : "nenhum"}. Siga a trilha oficial; o diagnóstico não substitui C01–C09.</p>`;
+        ? `<p><a href="/onboarding">Diagnóstico inicial</a>, se quiser uma orientação. Ele não entra na média e não abre nem fecha módulos.</p>`
+        : `<p>Itens em 0 no diagnóstico: ${low.length ? low.join(", ") : "nenhum"}. O diagnóstico não substitui C01–C09 nem a matrícula.</p>`;
     const aluno = req.session.user.role === "aluno";
     const cards = catalog.modules
       .map((m) => {
-        const lock = aluno && (!enr || !unlocked.has(m.id));
-        const why = !enr ? "matricule-se para abrir" : "bloqueado até concluir pré-requisito";
-        const href = lock ? "#" : `/modulo/${m.id}`;
-        return `<article class="mod-card ${lock ? "locked" : ""}">
+        const gate = aluno ? moduleGate(catalog, m, { enrolled: Boolean(enr), doneSet: done }) : { open: true, reason: m.optional ? "opcional" : "disponivel", detail: "Equipa: a trilha não fecha este módulo." };
+        const label = aluno ? gateLabel(gate) : m.optional ? "Opcional" : "Aberto";
+        return `<article class="mod-card ${gate.open ? "" : "locked"}">
           <img src="${escapeHtml(m.capa)}" alt="">
-          <p class="pill ${lock ? "pill-wait" : ""}">${lock ? "Fechado" : m.optional ? "Opcional" : "Aberto"}</p>
+          <p class="pill ${gate.open ? "" : "pill-wait"}">${escapeHtml(label)}</p>
           <h2>${m.optional ? "Opcional · " : ""}M${escapeHtml(m.id)} — ${escapeHtml(m.titulo)}</h2>
           <p>${escapeHtml(m.caso || "")}</p>
-          <p class="muted">${m.horas ? m.horas + " h · " : ""}pré-requisito: ${
-            (m.deps || []).map((d) => "M" + d).join(", ") || "nenhum"
-          }${lock ? " · " + why : ""}</p>
-          ${lock ? `<p>${escapeHtml(why)}</p>` : `<p><a class="btn" href="${href}">Abrir</a></p>`}
+          <p class="muted">${m.horas ? m.horas + " h · " : ""}${escapeHtml(gate.detail || "")}</p>
+          ${gate.open ? `<p><a class="btn" href="/modulo/${m.id}">Abrir</a></p>` : `<p>${escapeHtml(label)}</p>`}
         </article>`;
       })
       .join("");
@@ -527,7 +549,7 @@ export function createApp({ db, catalog }) {
         ${
           enr
             ? `<p>Matrícula <strong>${escapeHtml(enr.status)}</strong> em ${escapeHtml(enr.enrolled_at.slice(0, 10))}.</p>`
-            : `<form method="post" action="/matricular">${csrfInput(req.session.csrf)}<button type="submit">Matricular-me (sem pagamento)</button></form>`
+            : enrollCallout(req, db)
         }
         <div class="grid">${cards}</div>`
       )
@@ -567,14 +589,10 @@ export function createApp({ db, catalog }) {
           `<p class="kicker">Painel</p>` +
           emptyState(
             "Ainda não há progresso para mostrar",
-            "Conclua o diagnóstico e a matrícula. Não inventamos gráficos de desempenho."
+            "A matrícula ainda não foi feita. Não inventamos gráficos de desempenho."
           ) +
-          `<ol class="steps">
-            <li><span class="step-n">01</span><a href="/onboarding">Diagnóstico</a><p class="muted">Autoavaliação. Não entra na média.</p></li>
-            <li><span class="step-n">02</span><a href="/catalogo">Matrícula</a><p class="muted">Sem pagamento, nesta instalação.</p></li>
-            <li><span class="step-n">03</span><strong>Módulo 01</strong><p class="muted">Abre depois da matrícula.</p></li>
-            <li><span class="step-n">04</span><a href="/certificado">Comprovante</a><p class="muted">Só quando os critérios reais fecham.</p></li>
-          </ol>`
+          enrollCallout(req, db) +
+          `<p class="muted">O <a href="/onboarding">diagnóstico inicial</a> é opcional. Não é exigido para abrir o Módulo 01.</p>`
         )
       );
     }
@@ -636,7 +654,6 @@ export function createApp({ db, catalog }) {
     const uid = req.session.user.id;
     const enr = enrollmentOf(db, uid);
     const done = new Set(completedLessons(db, uid));
-    const unlocked = unlockedModules(catalog, done, Boolean(enr));
     const plan = db.prepare("SELECT * FROM study_plans WHERE user_id = ?").get(uid);
     sendHtml(
       res,
@@ -645,16 +662,15 @@ export function createApp({ db, catalog }) {
         "Trilha",
         `<p class="kicker">Ordem oficial</p>
         <h1>Trilha dos 9 módulos + Python opcional</h1>
-        <p>Um módulo da lista abre quando a matrícula existe e os pré-requisitos têm as aulas concluídas.</p>
+        ${enr ? `<p>Matrícula <strong>${escapeHtml(enr.status)}</strong>. Um módulo abre quando os pré-requisitos têm as aulas concluídas. O Python é opcional e não substitui a trilha.</p>` : enrollCallout(req, db)}
         <ol class="path-list">${catalog.modules
           .map((m) => {
-            const ok = unlocked.has(m.id);
-            const deps = (m.deps || []).map((d) => "M" + d).join(", ");
-            return `<li class="${ok ? "" : "locked"}"><span class="num">M${escapeHtml(m.id)}</span><span><a href="${
-              ok ? "/modulo/" + m.id : "#"
-            }">${escapeHtml(m.titulo)}</a> ${m.optional ? "(opcional)" : ""} ${
-              deps ? `<span class="muted">depois de ${escapeHtml(deps)}</span>` : ""
-            } ${ok ? "" : "— bloqueado"}</span></li>`;
+            const gate = moduleGate(catalog, m, { enrolled: Boolean(enr), doneSet: done });
+            const title = escapeHtml(m.titulo);
+            const head = gate.open ? `<a href="/modulo/${m.id}">${title}</a>` : title;
+            return `<li class="${gate.open ? "" : "locked"}"><span class="num">M${escapeHtml(m.id)}</span><span>${head} <span class="pill ${
+              gate.open ? "" : "pill-wait"
+            }">${escapeHtml(gateLabel(gate))}</span> <span class="muted">${escapeHtml(gate.detail)}</span></span></li>`;
           })
           .join("")}</ol>
         <h2>Plano de estudo local</h2>
@@ -688,8 +704,9 @@ export function createApp({ db, catalog }) {
     if (!mod) return sendHtml(res, page(req, "Módulo", errorPage("Módulo inexistente.")), 404);
     const enr = enrollmentOf(db, req.session.user.id);
     const done = new Set(completedLessons(db, req.session.user.id));
-    if (!unlockedModules(catalog, done, Boolean(enr)).has(mod.id) && req.session.user.role === "aluno") {
-      return sendHtml(res, page(req, "Módulo", errorPage("Este módulo ainda está bloqueado pelos pré-requisitos da trilha.")), 403);
+    if (req.session.user.role === "aluno") {
+      const gate = moduleGate(catalog, mod, { enrolled: Boolean(enr), doneSet: done });
+      if (!gate.open) return denyModule(req, res, "Módulo", gate);
     }
     const aulas = catalog.lessons.filter((l) => l.modulo === mod.id);
     const cps = catalog.checkpoints.filter((c) => c.modulo === mod.id || (mod.id === "08" && c.modulo === "colab"));
@@ -728,8 +745,10 @@ export function createApp({ db, catalog }) {
     if (!lesson) return sendHtml(res, page(req, "Aula", errorPage("Aula inexistente.")), 404);
     const enr = enrollmentOf(db, req.session.user.id);
     const done = new Set(completedLessons(db, req.session.user.id));
-    if (req.session.user.role === "aluno" && !unlockedModules(catalog, done, Boolean(enr)).has(lesson.modulo)) {
-      return sendHtml(res, page(req, "Aula", errorPage("Módulo bloqueado.")), 403);
+    if (req.session.user.role === "aluno") {
+      const modGate = moduleById(catalog, lesson.modulo);
+      const gate = moduleGate(catalog, modGate, { enrolled: Boolean(enr), doneSet: done });
+      if (!gate.open) return denyModule(req, res, "Aula", gate);
     }
     let rendered;
     try {
