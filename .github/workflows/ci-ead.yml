@@ -22,7 +22,9 @@ jobs:
           cache: npm
           cache-dependency-path: curso/ead/package-lock.json
       - name: Install
-        run: npm --prefix curso/ead ci
+        run: |
+          npm --prefix curso/preview ci
+          npm --prefix curso/ead ci
       - name: Testes HTTP / isolamento / a11y estática
         run: npm --prefix curso/ead test
       - name: e2e Chrome (SKIP se não houver browser)

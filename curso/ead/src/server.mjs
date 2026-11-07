@@ -206,6 +206,10 @@ export function createApp({ db, catalog }) {
   });
 
   app.get("/media/*", (req, res) => {
+    if (!req.session?.user) {
+      res.status(401).type("text/plain; charset=utf-8").send("Autenticação necessária.");
+      return;
+    }
     const rel = decodeURIComponent(req.path.replace(/^\/media\//, ""));
     const abs = path.resolve(path.join(CURSO_ROOT, "media"), rel);
     if (!isInsideRoot(abs, path.join(CURSO_ROOT, "media"))) {
@@ -220,6 +224,10 @@ export function createApp({ db, catalog }) {
   });
 
   app.get("/arquivos/*", (req, res) => {
+    if (!req.session?.user) {
+      res.status(401).type("text/plain; charset=utf-8").send("Autenticação necessária.");
+      return;
+    }
     try {
       const raw = req.path.replace(/^\/arquivos\//, "");
       const { abs } = arquivosRelFromRequest(raw);
@@ -230,15 +238,16 @@ export function createApp({ db, catalog }) {
   });
 
   app.get("/preview-pacote", (req, res) => {
+    if (!needAuth(req, res)) return;
     sendHtml(
       res,
       page(
         req,
         "Preview estático",
-        `<h1>Preview markdown (sem login)</h1>
-        <p>A sala EaD não substitui o preview. Noutro terminal:</p>
-        <pre>cd curso/preview && npm start</pre>
-        <p>Por omissão: <code>http://127.0.0.1:3847/</code>. GitHub Pages, se um dia for ligado, também é só esse preview estático — <strong>não</strong> esta plataforma.</p>`
+        `<h1>Preview markdown</h1>
+        <p>A sala não substitui o leitor de markdown. No mesmo host, com o cookie desta sessão:</p>
+        <pre>PREVIEW_REQUIRE_AUTH=1 EAD_DATA_DIR=… npm --prefix curso/preview start</pre>
+        <p>Sem <code>PREVIEW_REQUIRE_AUTH=1</code> o leitor fica aberto — isso só é aceitável na máquina de desenvolvimento. <code>NODE_ENV=production</code> recusa arrancar o preview sem o portão. GitHub Pages continua desligado.</p>`
       )
     );
   });

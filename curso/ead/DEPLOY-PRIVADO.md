@@ -13,17 +13,38 @@ Topologia suportada: **um processo Node + um ficheiro SQLite num disco que sobre
 | `EAD_SECURE_COOKIES` | `1` (TLS na borda; o processo escuta HTTP) |
 | `EAD_DATA_DIR` | directório persistente, fora do disco efémero do contentor |
 | `EAD_SEED_DEMO` | ausente. Seed de demonstração não corre em produção |
-| `HOST` | `0.0.0.0` |
+| `HOST` | omissão `127.0.0.1` (só esta máquina). `0.0.0.0` só se um proxy privado na mesma rede for mesmo o destino |
 | `PORT` | o da plataforma (`$PORT`) |
 | `EAD_TRUST_PROXY` | `1` se houver proxy (Render, nginx) |
 
-Auto-registo fica **fechado**. Abra só com `EAD_OPEN_SIGNUP=1` se a turma for mesmo pública na rede privada.
+Auto-registo fica **fechado**. Abra só com `EAD_OPEN_SIGNUP=1` se a turma for mesmo pública na rede privada. Fechar o registo **não** protege ficheiros: `/media` e `/arquivos` da sala exigem sessão. O preview, noutro processo, só fica fechado com `PREVIEW_REQUIRE_AUTH=1` e a **mesma** base (`EAD_DATA_DIR` ou `PREVIEW_AUTH_DB`). Em `NODE_ENV=production` o preview recusa arrancar sem isso. CSS e JS do casco do preview não contêm o material; páginas, API, markdown, mídia e PDF sim.
+
+## Dependências exactas para subir os dois processos
+
+Node **≥ 22.23.4** (o workflow usa 22.23.4; o Inspector do módulo 3 usa 24.22.1 à parte). Sem SMTP, sem serviço cloud criado por este repositório.
+
+```bash
+npm --prefix curso/preview ci
+npm --prefix curso/ead ci
+```
+
+O render de aulas importa `marked` a partir de `curso/preview/lib`. Sem `npm ci` no preview, a sala responde 500 nas aulas mesmo com as dependências do EaD instaladas.
+
+Preview no mesmo host (cookie `ead_sid` não é por porta):
+
+```bash
+NODE_ENV=production PREVIEW_REQUIRE_AUTH=1 EAD_DATA_DIR=/var/ead \
+  HOST=0.0.0.0 PORT=3847 npm --prefix curso/preview start
+```
+
+HTTPS fica na borda (nginx/Caddy). O processo escuta HTTP. Não use a VM do agente como disco durável: `EAD_DATA_DIR` tem de ser um volume que o operador controla.
 
 ## Operação
 
 ```bash
+npm --prefix curso/preview ci
+npm --prefix curso/ead ci
 cd curso/ead
-npm ci
 NODE_ENV=production EAD_SECURE_COOKIES=1 EAD_DATA_DIR=/var/ead \
   EAD_ADMIN_EMAIL=admin@local.test EAD_ADMIN_PASSWORD='…' npm run create-admin
 NODE_ENV=production EAD_SECURE_COOKIES=1 EAD_DATA_DIR=/var/ead \

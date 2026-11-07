@@ -14,9 +14,10 @@ import {
   resolveMarkdownPath,
   stripHomeHeroDuplicate,
 } from "./lib/markdown.mjs";
+import { assertPreviewListen, previewContentGate } from "./lib/gate.mjs";
 
 const PORT = Number.parseInt(process.env.PORT, 10) || 3847;
-const HOST = process.env.HOST || "0.0.0.0";
+const HOST = process.env.HOST || "127.0.0.1";
 
 const GROK_MANIFEST = path.join(MEDIA_DIR, "videos", "grok", "manifest.json");
 const TTS_MANIFEST = path.join(MEDIA_DIR, "audios", "tts", "manifest.json");
@@ -237,6 +238,7 @@ async function handleMarkdownFile(req, res, next) {
 export function createApp() {
   const app = express();
   app.disable("x-powered-by");
+  app.use(previewContentGate);
 
   app.get("/api/page", handlePage);
   app.get("/api/grok-videos", handleGrokVideos);
@@ -302,6 +304,12 @@ export function createApp() {
 export { extractTitle, stripHomeHeroDuplicate, CURSO_ROOT };
 
 function start() {
+  try {
+    assertPreviewListen();
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
   const app = createApp();
   const server = app.listen(PORT, HOST, () => {
     const shownHost = HOST === "0.0.0.0" ? "localhost" : HOST;

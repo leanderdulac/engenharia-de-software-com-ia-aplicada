@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { copyFileSync, mkdirSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { backup } from "node:sqlite";
 import { dbFile, dataDir } from "./config.mjs";
@@ -42,8 +42,8 @@ if (cmd === "migrate") {
   console.log("backup", abs);
 } else if (cmd === "restore") {
   const src = process.argv[3];
-  if (!src) {
-    console.error("Pare o servidor antes. Uso: node src/cli.mjs restore <backup.sqlite>");
+  if (!src || !existsSync(path.resolve(src))) {
+    console.error("Ficheiro de backup inexistente. Restore recusado (a base actual não foi alterada).");
     process.exit(1);
   }
   const probe = openDb(path.resolve(src));

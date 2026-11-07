@@ -16,7 +16,7 @@ export function dbFile(dir = dataDir()) {
 }
 
 export function listenHost() {
-  return process.env.HOST || "0.0.0.0";
+  return process.env.HOST || "127.0.0.1";
 }
 
 export function listenPort() {
