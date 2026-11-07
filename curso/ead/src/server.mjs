@@ -171,15 +171,22 @@ function lessonMarkdown(lesson) {
   throw Object.assign(new Error("Aula sem fonte."), { status: 404 });
 }
 
-function page(req, title, body, status) {
+function page(req, title, body, _status, variant) {
   return layout({
     title,
     user: req.session?.user,
     csrf: req.csrf,
     flash: req.flash,
     signup: signupOpen(),
+    variant,
     body,
   });
+}
+
+function meter(done, total) {
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const step = Math.round(pct / 10) * 10;
+  return `<div class="meter" role="img" aria-label="${done} de ${total} aulas"><i class="w${step}"></i></div>`;
 }
 
 function closedSignupBody() {
@@ -207,6 +214,14 @@ export function createApp({ db, catalog }) {
   });
   app.use("/ead.css", express.static(path.join(PUBLIC_DIR, "ead.css")));
   app.use("/ead.js", express.static(path.join(PUBLIC_DIR, "ead.js")));
+  app.get("/favicon.svg", (_req, res) => {
+    res
+      .type("image/svg+xml")
+      .send(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#f4efe6"/><rect x="6" y="9" width="20" height="3" fill="#1c1712"/><rect x="6" y="15" width="14" height="3" fill="#9a3412"/><rect x="6" y="21" width="9" height="3" fill="#1c1712"/></svg>`
+      );
+  });
+  app.get("/favicon.ico", (_req, res) => res.redirect(302, "/favicon.svg"));
   app.get("/healthz", (_req, res) => res.json({ ok: true, service: "curso-ead" }));
   app.get("/readyz", (_req, res) => {
     try {
@@ -267,27 +282,44 @@ export function createApp({ db, catalog }) {
 
   app.get("/", (req, res) => {
     if (req.session?.user) return redirect(res, "/dashboard");
+    const mods = catalog.modules
+      .filter((m) => !m.optional)
+      .map(
+        (m) =>
+          `<li><span class="num">M${escapeHtml(m.id)}</span><span>${escapeHtml(m.titulo)}</span></li>`
+      )
+      .join("");
     sendHtml(
       res,
       page(
         req,
         "Sala de aula local",
-        `<article class="hero-card">
-          <p class="kicker">Engenharia de Software com IA Aplicada</p>
-          <h1>Sala de aula local desta pós</h1>
-          <p>Nove módulos do repositório, narrações TTS, intros Grok, PDFs de missão e o checkpoint C-COLAB. Sem checkout. Sem e-mail. Contas só neste servidor.</p>
-          <p>${
-            signupOpen()
-              ? `<a class="btn" href="/registar">Criar conta de aluno</a> `
-              : ""
-          }<a class="btn btn-ghost" href="/entrar">Entrar</a></p>
+        `<div class="landing">
+          <p class="kicker">Pós-graduação · uma instalação</p>
+          <h1 class="hero-title">Sala de aula local desta pós</h1>
+          <p class="lede">Oficina é o lugar onde esta turma estuda: nove módulos, aulas, evidências e um comprovante interno. Sem checkout. Sem e-mail. O texto do curso só abre depois de entrar.</p>
+          <p class="hero-actions">${
+            signupOpen() ? `<a class="btn" href="/registar">Criar conta de aluno</a> ` : ""
+          }<a class="btn" href="/entrar">Entrar na sala</a></p>
           ${
             signupOpen()
               ? ""
               : `<p class="muted">Auto-registo público fechado. A conta de aluno é criada no servidor.</p>`
           }
-          <p class="muted">O preview markdown em <code>curso/preview</code> continua a ser a leitura estática. Esta sala guarda progresso e notas no SQLite.</p>
-        </article>`
+          <ol class="steps">
+            <li><span class="step-n">01</span><strong>Entrar</strong><p class="muted">A conta já existe neste computador. A página pública não entrega aula nem mídia.</p></li>
+            <li><span class="step-n">02</span><strong>Diagnosticar</strong><p class="muted">O pré-teste orienta a trilha. Não entra na média.</p></li>
+            <li><span class="step-n">03</span><strong>Percorrer</strong><p class="muted">Matrícula sem pagamento. Cada módulo abre quando o anterior da trilha fecha.</p></li>
+            <li><span class="step-n">04</span><strong>Entregar</strong><p class="muted">Checkpoints e C-COLAB ficam no servidor. O comprovante não é diploma MEC.</p></li>
+          </ol>
+          <section class="path">
+            <h2>Os nove módulos</h2>
+            <ol class="path-list">${mods}</ol>
+            <p class="muted">Há um aprofundamento Python opcional, fora desta lista. Os ficheiros abrem na sala, não nesta página.</p>
+          </section>
+        </div>`,
+        200,
+        "landing"
       )
     );
   });
@@ -298,7 +330,9 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Entrar",
-        `<h1>Entrar</h1>
+        `<section class="gate">
+        <p class="kicker">Oficina</p>
+        <h1>Entrar na sala</h1>
         <form method="post" action="/entrar" class="card">
           <input type="hidden" name="next" value="${escapeHtml(req.query.next || "/dashboard")}">
           ${field("E-mail", "email", { type: "email", required: true, autocomplete: "username" })}
@@ -310,7 +344,8 @@ export function createApp({ db, catalog }) {
           signupOpen()
             ? `Ainda não tem conta? <a href="/registar">Registo local</a>. `
             : ""
-        }Sem SMTP: o instrutor emite um <a href="/redefinir">token de redefinição</a> (uso único, 30 min).</p>`
+        }Sem SMTP: o instrutor emite um <a href="/redefinir">token de redefinição</a> (uso único, 30 min).</p>
+        </section>`
       )
     );
   });
@@ -463,18 +498,21 @@ export function createApp({ db, catalog }) {
       answers.length === 0
         ? `<p><a href="/onboarding">Fazer o diagnóstico inicial</a> (pré-teste). Sem isso o painel não inventa desempenho.</p>`
         : `<p>Itens em 0 no diagnóstico: ${low.length ? low.join(", ") : "nenhum"}. Siga a trilha oficial; o diagnóstico não substitui C01–C09.</p>`;
+    const aluno = req.session.user.role === "aluno";
     const cards = catalog.modules
       .map((m) => {
-        const lock = enr && !unlocked.has(m.id);
+        const lock = aluno && (!enr || !unlocked.has(m.id));
+        const why = !enr ? "matricule-se para abrir" : "bloqueado até concluir pré-requisito";
         const href = lock ? "#" : `/modulo/${m.id}`;
         return `<article class="mod-card ${lock ? "locked" : ""}">
           <img src="${escapeHtml(m.capa)}" alt="">
+          <p class="pill ${lock ? "pill-wait" : ""}">${lock ? "Fechado" : m.optional ? "Opcional" : "Aberto"}</p>
           <h2>${m.optional ? "Opcional · " : ""}M${escapeHtml(m.id)} — ${escapeHtml(m.titulo)}</h2>
           <p>${escapeHtml(m.caso || "")}</p>
-          <p class="muted">${m.horas ? m.horas + " h · " : ""}deps: ${
-            (m.deps || []).join(", ") || "—"
-          }${lock ? " · bloqueado até concluir pré-requisito" : ""}</p>
-          ${lock ? "<p>Bloqueado</p>" : `<p><a class="btn" href="${href}">Abrir</a></p>`}
+          <p class="muted">${m.horas ? m.horas + " h · " : ""}pré-requisito: ${
+            (m.deps || []).map((d) => "M" + d).join(", ") || "nenhum"
+          }${lock ? " · " + why : ""}</p>
+          ${lock ? `<p>${escapeHtml(why)}</p>` : `<p><a class="btn" href="${href}">Abrir</a></p>`}
         </article>`;
       })
       .join("");
@@ -483,7 +521,8 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Catálogo",
-        `<h1>O curso neste repositório</h1>
+        `<p class="kicker">Percurso</p>
+        <h1>O curso neste repositório</h1>
         ${orient}
         ${
           enr
@@ -525,10 +564,17 @@ export function createApp({ db, catalog }) {
         page(
           req,
           "Painel",
+          `<p class="kicker">Painel</p>` +
           emptyState(
             "Ainda não há progresso para mostrar",
             "Conclua o diagnóstico e a matrícula. Não inventamos gráficos de desempenho."
-          ) + `<p><a class="btn" href="/onboarding">Diagnóstico</a> <a class="btn" href="/catalogo">Catálogo</a></p>`
+          ) +
+          `<ol class="steps">
+            <li><span class="step-n">01</span><a href="/onboarding">Diagnóstico</a><p class="muted">Autoavaliação. Não entra na média.</p></li>
+            <li><span class="step-n">02</span><a href="/catalogo">Matrícula</a><p class="muted">Sem pagamento, nesta instalação.</p></li>
+            <li><span class="step-n">03</span><strong>Módulo 01</strong><p class="muted">Abre depois da matrícula.</p></li>
+            <li><span class="step-n">04</span><a href="/certificado">Comprovante</a><p class="muted">Só quando os critérios reais fecham.</p></li>
+          </ol>`
         )
       );
     }
@@ -542,15 +588,21 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Painel",
-        `<h1>Continuar</h1>
-        <p><a class="btn" href="${continueLink}">${last ? "Retomar a última aula" : "Começar o Módulo 01"}</a></p>
+        `<p class="kicker">Painel</p>
+        <h1>Continuar</h1>
+        <section class="continue">
+          <p class="muted">${last ? "A última aula vista nesta conta." : "Ainda não há aula vista. O começo é o Módulo 01."}</p>
+          <p><a class="btn" href="${continueLink}">${last ? "Retomar a última aula" : "Começar o Módulo 01"}</a></p>
+        </section>
         <section><h2>Progresso real por módulo</h2>
           <ul class="progress-list">${stats
             .map(
-              (s) =>
-                `<li>M${escapeHtml(s.id)} — ${escapeHtml(s.titulo)}: ${s.done}/${s.total} aulas ${
-                  s.complete ? "(completo)" : ""
-                }</li>`
+              (s) => `<li>
+                <div class="meter-row"><span>M${escapeHtml(s.id)} — ${escapeHtml(s.titulo)}</span><span>${s.done}/${s.total} aulas${
+                  s.complete ? " (completo)" : ""
+                }</span></div>
+                ${meter(s.done, s.total)}
+              </li>`
             )
             .join("")}</ul>
         </section>
@@ -591,14 +643,18 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Trilha",
-        `<h1>Trilha dos 9 módulos + Python opcional</h1>
-        <p>Pré-requisitos: ${escapeHtml(JSON.stringify(catalog.modules.filter((m) => !m.optional).map((m) => ({ m: m.id, deps: m.deps }))))}</p>
-        <ol class="trilha">${catalog.modules
+        `<p class="kicker">Ordem oficial</p>
+        <h1>Trilha dos 9 módulos + Python opcional</h1>
+        <p>Um módulo da lista abre quando a matrícula existe e os pré-requisitos têm as aulas concluídas.</p>
+        <ol class="path-list">${catalog.modules
           .map((m) => {
             const ok = unlocked.has(m.id);
-            return `<li class="${ok ? "" : "locked"}"><a href="${ok ? "/modulo/" + m.id : "#"}">M${escapeHtml(
-              m.id
-            )} ${escapeHtml(m.titulo)}</a> ${m.optional ? "(opcional)" : ""} ${ok ? "" : "— bloqueado"}</li>`;
+            const deps = (m.deps || []).map((d) => "M" + d).join(", ");
+            return `<li class="${ok ? "" : "locked"}"><span class="num">M${escapeHtml(m.id)}</span><span><a href="${
+              ok ? "/modulo/" + m.id : "#"
+            }">${escapeHtml(m.titulo)}</a> ${m.optional ? "(opcional)" : ""} ${
+              deps ? `<span class="muted">depois de ${escapeHtml(deps)}</span>` : ""
+            } ${ok ? "" : "— bloqueado"}</span></li>`;
           })
           .join("")}</ol>
         <h2>Plano de estudo local</h2>
@@ -693,8 +749,7 @@ export function createApp({ db, catalog }) {
       page(
         req,
         rendered.title,
-        `<nav class="crumbs" aria-label="Percurso"><a href="/modulo/${lesson.modulo}">M${escapeHtml(lesson.modulo)}</a></nav>
-        <h1>${escapeHtml(rendered.title)}</h1>
+        `<nav class="crumbs" aria-label="Percurso"><a href="/catalogo">Curso</a> · <a href="/modulo/${lesson.modulo}">M${escapeHtml(lesson.modulo)}</a></nav>
         ${mod?.capa ? `<figure class="hero"><img src="${escapeHtml(mod.capa)}" alt=""></figure>` : ""}
         ${mod?.video && lesson.kind === "aula" ? `<video controls preload="metadata" src="${escapeHtml(mod.video)}"></video>` : ""}
         ${
@@ -705,6 +760,7 @@ export function createApp({ db, catalog }) {
             : ""
         }
         <article class="md">${rendered.html}</article>
+        <div class="lesson-tools">
         <form method="post" action="/aula/${encodeURIComponent(lesson.id)}/concluir" class="inline">
           ${csrfInput(req.session.csrf)}
           <button type="submit">${done.has(lesson.id) ? "Já concluída (registar de novo)" : "Marcar conclusão"}</button>
@@ -719,7 +775,10 @@ export function createApp({ db, catalog }) {
           <textarea id="nota" name="body" maxlength="${TEXT_MAX}">${escapeHtml(note?.body || "")}</textarea>
           <button type="submit">Guardar nota</button>
         </form>
-        <p>${prev ? `<a href="/aula/${prev.id}">Anterior</a>` : ""} ${next ? `<a href="/aula/${next.id}">Seguinte</a>` : ""}</p>`
+        <p class="pager">${prev ? `<a href="/aula/${prev.id}">Anterior</a>` : ""} ${next ? `<a href="/aula/${next.id}">Seguinte</a>` : ""}</p>
+        </div>`,
+        200,
+        "read"
       )
     );
   });
@@ -892,7 +951,8 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Caderno",
-        `<h1>Caderno privado</h1>
+        `<p class="kicker">Só nesta conta</p>
+        <h1>Caderno privado</h1>
         <h2>Marcadores</h2>
         ${
           marks.length
@@ -966,8 +1026,9 @@ export function createApp({ db, catalog }) {
       page(
         req,
         "Glossário",
-        `<h1>Glossário do repositório</h1>
-        <dl>${catalog.glossario
+        `<p class="kicker">Vocabulário</p>
+        <h1>Glossário do repositório</h1>
+        <dl class="gloss">${catalog.glossario
           .map(
             (g) =>
               `<dt>${escapeHtml(g.termo)}</dt><dd>${escapeHtml(g.significado)} <span class="muted">${escapeHtml(
@@ -1237,7 +1298,7 @@ export function createApp({ db, catalog }) {
       })</li>
       </ul><p>Os critérios vêm de <code>curso/avaliacao.md</code>. Não emitimos comprovante fictício.</p>`;
     }
-    sendHtml(res, page(req, "Comprovante", `<h1>Comprovante interno</h1>${extra}`));
+    sendHtml(res, page(req, "Comprovante", `<p class="kicker">Interno</p><h1>Comprovante interno</h1>${extra}`));
   });
 
   app.post("/certificado", (req, res) => {

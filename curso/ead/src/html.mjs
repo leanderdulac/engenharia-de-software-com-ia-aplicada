@@ -1,45 +1,69 @@
 import { escapeHtml } from "./sanitize.mjs";
 
-export function layout({ title, user, csrf, flash, body, wide, signup = false }) {
+function mark() {
+  return `<span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>`;
+}
+
+export function layout({ title, user, csrf, flash, body, signup = false, variant }) {
   const role = user?.role;
+  const mode = variant || (user ? "app" : "gate");
+  const home = user ? "/dashboard" : "/";
   const demo = user?.demo
     ? `<p class="banner-demo" role="status">Conta <strong>DEMONSTRAÇÃO/TESTE</strong> — dados sintéticos, não é aluno real.</p>`
     : "";
   const flashHtml = flash
     ? `<p class="flash flash-${escapeHtml(flash.type || "info")}" role="status">${escapeHtml(flash.text)}</p>`
     : "";
-  const navAluno = user
-    ? `
+  const brand = `<a class="brand-link" href="${home}">
+      ${mark()}
+      <span class="brand-text">
+        <span class="brand-name">Oficina</span>
+        <span class="brand-course">Engenharia de Software com IA Aplicada</span>
+      </span>
+    </a>`;
+  const who = user
+    ? `<span class="who">${escapeHtml(user.name)}<span class="who-role">${escapeHtml(user.role)}</span></span>
+       <form method="post" action="/sair" class="inline">
+         <input type="hidden" name="csrf" value="${escapeHtml(csrf || "")}">
+         <button type="submit" class="btn btn-ghost">Sair</button>
+       </form>`
+    : `<a class="btn" href="/entrar">Entrar</a>`;
+  const nav = user
+    ? `<p class="nav-label">Estudar</p>
       <a href="/dashboard">Painel</a>
       <a href="/catalogo">Curso</a>
       <a href="/trilha">Trilha</a>
+      <p class="nav-label">Na aula</p>
       <a href="/caderno">Caderno</a>
       <a href="/busca">Busca</a>
       <a href="/glossario">Glossário</a>
+      <p class="nav-label">Turma</p>
       <a href="/duvidas">Dúvidas</a>
       <a href="/certificado">Comprovante</a>
+      <p class="nav-label">Conta</p>
       <a href="/conta">Conta</a>
       <a href="/ajuda">Ajuda</a>
-      <a href="/privacidade">Privacidade</a>`
-    : `
-      <a href="/">Início</a>
-      <a href="/entrar">Entrar</a>
+      <a href="/privacidade">Privacidade</a>
+      ${
+        role === "instrutor" || role === "admin"
+          ? `<p class="nav-label">Equipa</p>
+             <a href="/admin">Turma</a>
+             <a href="/admin/fila">Fila de correção</a>
+             <a href="/admin/avisos">Avisos</a>
+             <a href="/admin/auditoria">Auditoria</a>`
+          : ""
+      }`
+    : `<a href="/entrar">Entrar</a>
       ${signup ? `<a href="/registar">Criar conta local</a>` : ""}
       <a href="/redefinir">Redefinir senha</a>
+      <a href="/verificar">Verificar comprovante</a>
       <a href="/ajuda">Ajuda</a>
-      <a href="/privacidade">Privacidade</a>
-      <a href="/verificar">Verificar comprovante</a>`;
-  const navStaff =
-    role === "instrutor" || role === "admin"
-      ? `<a href="/admin">Turma</a><a href="/admin/fila">Fila de correção</a><a href="/admin/avisos">Avisos</a><a href="/admin/auditoria">Auditoria</a>`
-      : "";
-  const who = user
-    ? `<span class="who">${escapeHtml(user.name)} · ${escapeHtml(user.role)}</span>
-       <form method="post" action="/sair" class="inline">
-         <input type="hidden" name="csrf" value="${escapeHtml(csrf || "")}">
-         <button type="submit">Sair</button>
-       </form>`
-    : "";
+      <a href="/privacidade">Privacidade</a>`;
+
+  const sidebar =
+    mode === "landing"
+      ? ""
+      : `<nav class="nav" id="nav-principal" aria-label="Principal">${nav}</nav>`;
 
   return `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -47,33 +71,27 @@ export function layout({ title, user, csrf, flash, body, wide, signup = false })
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} — Engenharia de Software com IA Aplicada</title>
-  <meta name="description" content="Sala de aula local da pós Engenharia de Software com IA Aplicada. Sem pagamento. Sem envio de e-mail.">
+  <meta name="description" content="Oficina: sala de aula local da pós Engenharia de Software com IA Aplicada. Sem pagamento. Sem envio de e-mail.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/ead.css">
 </head>
-<body>
+<body class="theme-oficina is-${escapeHtml(mode)}">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   ${demo}
   <header class="top">
-    <div class="brand">
-      <p class="kicker">Pós-graduação · sala local</p>
-      <a href="${user ? "/dashboard" : "/"}" class="brand-link">Engenharia de Software com IA Aplicada</a>
-    </div>
-    <button type="button" class="menu-btn" id="menu-btn" aria-controls="nav-principal" aria-expanded="false">Menu</button>
+    ${brand}
+    ${mode === "landing" ? "" : `<button type="button" class="menu-btn" id="menu-btn" aria-controls="nav-principal" aria-expanded="false">Menu</button>`}
     <div class="session">${who}</div>
   </header>
-  <div class="shell ${wide ? "shell-wide" : ""}">
-    <nav class="nav" id="nav-principal" aria-label="Principal">
-      ${navAluno}
-      ${navStaff}
-      <a href="/preview-pacote">Preview markdown (estático)</a>
-    </nav>
+  <div class="shell">
+    ${sidebar}
     <main id="conteudo">
       ${flashHtml}
       ${body}
     </main>
   </div>
   <footer class="foot">
-    <p>Material do curso: CC BY-NC-ND 4.0. Código desta sala: ver <a href="/ajuda">ajuda</a>. GitHub Pages não hospeda este backend. Comprovante interno ≠ reconhecimento MEC.</p>
+    <p>Oficina é a sala local desta pós. Material do curso: CC BY-NC-ND 4.0. Comprovante interno não é reconhecimento MEC.</p>
   </footer>
   <script src="/ead.js" defer></script>
 </body>
