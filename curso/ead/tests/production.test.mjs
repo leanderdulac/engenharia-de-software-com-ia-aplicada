@@ -34,8 +34,11 @@ test("produção recusa config insegura e seed de demonstração", () => {
     ["secure-cookies", "data-dir", "sem-seed-demo"]
   );
   assert.equal(signupOpen({ NODE_ENV: "production" }), false);
+  assert.equal(signupOpen({ NODE_ENV: "production", EAD_OPEN_SIGNUP: "0" }), false);
   assert.equal(signupOpen({ NODE_ENV: "production", EAD_OPEN_SIGNUP: "1" }), true);
-  assert.equal(signupOpen({ NODE_ENV: "development" }), true);
+  assert.equal(signupOpen({ NODE_ENV: "development" }), false);
+  assert.equal(signupOpen({ NODE_ENV: "development", EAD_OPEN_SIGNUP: "0" }), false);
+  assert.equal(signupOpen({ NODE_ENV: "development", EAD_OPEN_SIGNUP: "1" }), true);
 });
 
 test("backup SQLite reabre com o mesmo esquema e a mesma conta", async () => {

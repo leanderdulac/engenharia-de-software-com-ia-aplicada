@@ -7,9 +7,17 @@ export function isProduction(env = process.env) {
   return env.NODE_ENV === "production";
 }
 
+/**
+ * Auto-registo HTTP (GET e POST /registar).
+ * Precedência, a mesma com NODE_ENV=production, development ou ausente:
+ *   EAD_OPEN_SIGNUP=1     abre (único opt-in)
+ *   EAD_OPEN_SIGNUP=0     fecha
+ *   ausente, vazio ou outro valor  fecha
+ * NODE_ENV não reabre o formulário. create-admin, create-user e o seed
+ * de demonstração não passam por aqui.
+ */
 export function signupOpen(env = process.env) {
-  if (isProduction(env)) return env.EAD_OPEN_SIGNUP === "1";
-  return env.EAD_OPEN_SIGNUP !== "0";
+  return env.EAD_OPEN_SIGNUP === "1";
 }
 
 export function trustProxy(env = process.env) {

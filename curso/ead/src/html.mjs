@@ -1,6 +1,6 @@
 import { escapeHtml } from "./sanitize.mjs";
 
-export function layout({ title, user, csrf, flash, body, wide }) {
+export function layout({ title, user, csrf, flash, body, wide, signup = false }) {
   const role = user?.role;
   const demo = user?.demo
     ? `<p class="banner-demo" role="status">Conta <strong>DEMONSTRAÇÃO/TESTE</strong> — dados sintéticos, não é aluno real.</p>`
@@ -24,7 +24,7 @@ export function layout({ title, user, csrf, flash, body, wide }) {
     : `
       <a href="/">Início</a>
       <a href="/entrar">Entrar</a>
-      <a href="/registar">Criar conta local</a>
+      ${signup ? `<a href="/registar">Criar conta local</a>` : ""}
       <a href="/redefinir">Redefinir senha</a>
       <a href="/ajuda">Ajuda</a>
       <a href="/privacidade">Privacidade</a>

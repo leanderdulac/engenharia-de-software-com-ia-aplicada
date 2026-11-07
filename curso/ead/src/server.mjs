@@ -177,8 +177,15 @@ function page(req, title, body, status) {
     user: req.session?.user,
     csrf: req.csrf,
     flash: req.flash,
+    signup: signupOpen(),
     body,
   });
+}
+
+function closedSignupBody() {
+  return `<h1>Auto-registo fechado</h1>
+        <p>Esta instalação não aceita conta nova por esta página. O instrutor cria a conta no servidor, com <code>create-user</code>.</p>
+        <p><a class="btn" href="/entrar">Entrar</a></p>`;
 }
 
 export function createApp({ db, catalog }) {
@@ -269,7 +276,16 @@ export function createApp({ db, catalog }) {
           <p class="kicker">Engenharia de Software com IA Aplicada</p>
           <h1>Sala de aula local desta pós</h1>
           <p>Nove módulos do repositório, narrações TTS, intros Grok, PDFs de missão e o checkpoint C-COLAB. Sem checkout. Sem e-mail. Contas só neste servidor.</p>
-          <p><a class="btn" href="/registar">Criar conta de aluno</a> <a class="btn btn-ghost" href="/entrar">Entrar</a></p>
+          <p>${
+            signupOpen()
+              ? `<a class="btn" href="/registar">Criar conta de aluno</a> `
+              : ""
+          }<a class="btn btn-ghost" href="/entrar">Entrar</a></p>
+          ${
+            signupOpen()
+              ? ""
+              : `<p class="muted">Auto-registo público fechado. A conta de aluno é criada no servidor.</p>`
+          }
           <p class="muted">O preview markdown em <code>curso/preview</code> continua a ser a leitura estática. Esta sala guarda progresso e notas no SQLite.</p>
         </article>`
       )
@@ -290,7 +306,11 @@ export function createApp({ db, catalog }) {
           ${csrfInput(req.csrf)}
           <button type="submit">Entrar</button>
         </form>
-        <p>Ainda não tem conta? <a href="/registar">Registo local</a>. Sem SMTP: o instrutor emite um <a href="/redefinir">token de redefinição</a> (uso único, 30 min).</p>`
+        <p>${
+          signupOpen()
+            ? `Ainda não tem conta? <a href="/registar">Registo local</a>. `
+            : ""
+        }Sem SMTP: o instrutor emite um <a href="/redefinir">token de redefinição</a> (uso único, 30 min).</p>`
       )
     );
   });
@@ -320,6 +340,9 @@ export function createApp({ db, catalog }) {
   });
 
   app.get("/registar", (req, res) => {
+    if (!signupOpen()) {
+      return sendHtml(res, page(req, "Criar conta", closedSignupBody()), 403);
+    }
     sendHtml(
       res,
       page(
@@ -333,18 +356,13 @@ export function createApp({ db, catalog }) {
           ${csrfInput(req.csrf)}
           <button type="submit">Criar conta</button>
         </form>
-        <p>O papel é sempre <strong>aluno</strong>. Instrutor/admin só via CLI no servidor. Não há verificação de e-mail. Em produção o auto-registo fica fechado salvo <code>EAD_OPEN_SIGNUP=1</code>.</p>`
+        <p>O papel é sempre <strong>aluno</strong>. Instrutor/admin só via CLI no servidor. Não há verificação de e-mail. Este formulário só existe com <code>EAD_OPEN_SIGNUP=1</code>.</p>`
       )
     );
   });
 
   app.post("/registar", (req, res) => {
     if (!needCsrf(req, res)) return;
-    const ip = req.ip || "0";
-    if (!rateOk(db, `reg|${ip}`, 8)) {
-      return sendHtml(res, page(req, "Criar conta", errorPage("Demasiadas tentativas. Espere alguns minutos.")), 429);
-    }
-    recordLoginFail(db, `reg|${ip}`);
     if (!signupOpen()) {
       return sendHtml(
         res,
@@ -352,6 +370,11 @@ export function createApp({ db, catalog }) {
         403
       );
     }
+    const ip = req.ip || "0";
+    if (!rateOk(db, `reg|${ip}`, 8)) {
+      return sendHtml(res, page(req, "Criar conta", errorPage("Demasiadas tentativas. Espere alguns minutos.")), 429);
+    }
+    recordLoginFail(db, `reg|${ip}`);
     const name = String(bodyOf(req).name || "").trim().slice(0, NAME_MAX);
     const email = String(bodyOf(req).email || "").trim().toLowerCase();
     const password = String(bodyOf(req).password || "");
@@ -1287,6 +1310,7 @@ export function createApp({ db, catalog }) {
           <li>Senha local com scrypt; sessão HttpOnly; CSRF em POST; cabeçalhos de segurança; conta desactivável.</li>
           <li>Redefinição: token local de uso único (30 min), mostrado uma vez ao instrutor. SMTP continua desligado — nenhum e-mail é enviado.</li>
           <li>Papéis no servidor: aluno, instrutor, admin. Endpoints /admin exigem instrutor|admin.</li>
+          <li>Auto-registo HTTP só com <code>EAD_OPEN_SIGNUP=1</code>. <code>0</code>, ausente ou outro valor fecha GET e POST, em localhost e em produção. <code>create-admin</code> e <code>create-user</code> não usam essa página.</li>
           <li>Produção (<code>NODE_ENV=production</code>) exige <code>EAD_SECURE_COOKIES=1</code>, <code>EAD_DATA_DIR</code> e recusa seed de demonstração. Uma instância, um SQLite.</li>
         </ul>
         <h2>Adaptadores desligados</h2>

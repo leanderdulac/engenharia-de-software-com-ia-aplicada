@@ -16,7 +16,7 @@ Código desta pasta ≠ direitos sobre o material didáctico. Ver [DIREITOS.md](
 | C-COLAB verificado no backend | Execução de código enviado pelo aluno |
 | Instalação privada com disco, backup e `/readyz` | Várias réplicas, SMTP, SSO, billing |
 
-**Auth:** senha local (scrypt) + cookie HttpOnly + CSRF + sessão invalidada ao mudar a senha. Redefinição por token de uso único (30 min), emitido pelo instrutor ou pela CLI — **sem e-mail**. Em produção o auto-registo fecha. Instrutor/admin não nascem do formulário público.
+**Auth:** senha local (scrypt) + cookie HttpOnly + CSRF + sessão invalidada ao mudar a senha. Redefinição por token de uso único (30 min), emitido pelo instrutor ou pela CLI — **sem e-mail**. O auto-registo HTTP só abre com `EAD_OPEN_SIGNUP=1`. Valor `0`, ausente ou inválido fecha GET e POST, com ou sem `NODE_ENV=production`. Instrutor/admin não nascem do formulário público.
 
 ## Arranque limpo
 
@@ -28,7 +28,7 @@ EAD_ADMIN_EMAIL=admin@local.test EAD_ADMIN_PASSWORD='…escolha local…' npm ru
 HOST=127.0.0.1 PORT=3850 npm start
 ```
 
-Abra `http://127.0.0.1:3850/`. Crie a conta de aluno no browser (papel aluno). Matricule-se sem pagamento.
+Abra `http://127.0.0.1:3850/`. A conta de aluno sai de `create-user` (papel aluno). O formulário `/registar` só aparece com `EAD_OPEN_SIGNUP=1`. Matrícula sem pagamento.
 
 Seed **DEMONSTRAÇÃO/TESTE** (opcional, só laboratório):
 

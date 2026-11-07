@@ -22,7 +22,7 @@ Fechar o auto-registo não protegia mídia nem o preview.
 - CSS e JS do casco do preview não carregam o texto do curso. Desligar o flag volta ao comportamento anterior.
 - Não houve mudança de Express/SQLite nem serviço cloud.
 
-Rotas que continuam sem sessão, de propósito: `/`, `/entrar`, `/registar` (fechado em produção), `/redefinir`, `/ajuda`, `/privacidade`, `/healthz`, `/readyz`, `/verificar/:code` (nome e código, sem markdown nem ficheiro).
+Rotas que continuam sem sessão, de propósito: `/`, `/entrar`, `/registar` (fechado salvo `EAD_OPEN_SIGNUP=1` exacto; `0`, ausente ou outro valor recusam GET e POST), `/redefinir`, `/ajuda`, `/privacidade`, `/healthz`, `/readyz`, `/verificar/:code` (código, sem nome, e-mail, markdown nem ficheiro).
 
 ## CI que estava vermelho
 
@@ -53,6 +53,14 @@ Audit npm em 2026-11-07T16:23:12Z, `npm ci` limpo só com `package.json` + lock:
 SBOM CycloneDX: `curso/preview/sbom.cdx.json` e `curso/ead/sbom.cdx.json` (npm 10.9.9). Zero avisos conhecidos nesse instante não significa ausência de falhas.
 
 Controles novos no processo: `Host` limitado a loopback (ou `EAD_ALLOWED_HOSTS`), `Origin` cruzada recusada em POST, sem CORS aberto, `next` só caminho local, HTML de markdown sem `javascript:`/`data:`/URL `//`, CSV com prefixo de fórmula, realpath contra symlink, `.env`/sqlite/log não servidos, `/readyz` só `ok`+`service`, comprovante público sem nome/e-mail, instrutor não emite token de outro staff, scrypt N=32768 com teto de parâmetros, base e backup `0600`/`0700`, rate limit de login/reset/registo/submissão/verificação. Suítes: preview 24/24 e sala 21/21 em Node 22.23.4 e 24.22.1.
+
+## Auto-registo (correcção depois do pacote a5a6b217)
+
+No pacote `a5a6b217`, com `EAD_OPEN_SIGNUP=0` e `NODE_ENV` ausente, GET `/registar` respondia 200 e mostrava nome, e-mail e senha, com texto a dizer que o fecho era só em produção. POST com CSRF válido respondia 403 e não criava conta, mas gravava uma linha em `login_attempts`. Sem a variável, em development, o POST criava o aluno (303).
+
+Agora só `EAD_OPEN_SIGNUP=1` abre GET e POST. `0`, ausente ou qualquer outro valor fecha os dois, antes de escrever na base, em development, sem `NODE_ENV` e em production. Não há rota `/api/registar`. `create-admin`, `create-user` e o seed continuam na CLI. A base instalada continua em `curso/ead/data/ead.sqlite`.
+
+Pacote seguinte, sem a base: tar `d89b7f04bcd68b7e7186a6f8e1d06edc502d0e3f07798a6b4c370b2e884b200d`, zip `6de9b7fede356809377a9f74a4100d650db9364c25777a4c0ea673af07c3154d`. Overlay para quem já instalou o `a5a6b217`: `lms-signup-patch-a5a6b217.tar.gz` com SHA-256 `62a36d5f204f507df91fddd45a2696c1f3d11e5854a5c6c092c01af339105919`. Smoke deste arquivo em `127.0.0.1:3863`, `NODE_ENV` ausente: GET e POST `/registar` 403, sem formulário, 1 admin, 0 tentativas, login do admin a abrir o painel. A senha desse smoke não foi impressa.
 
 ## Pacote localhost (sem hospedagem)
 

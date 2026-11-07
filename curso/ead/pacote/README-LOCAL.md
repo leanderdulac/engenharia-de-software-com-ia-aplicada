@@ -50,7 +50,7 @@ unset EAD_ADMIN_PASSWORD
 
 O script força `HOST=127.0.0.1` e a porta `3850` (mude com `PORT=3851` se a 3850 estiver ocupada). Se `EAD_DATA_DIR` já estiver definido na sessão, a base vai para essa pasta em vez de `curso/ead/data`. Abra no navegador **deste** computador: `http://127.0.0.1:3850/`.
 
-Entre com o e-mail e a senha que acabou de definir. Auto-registo fica fechado quando `NODE_ENV=production`. Para esta máquina, o script **não** define produção: o registo público da página inicial continua desligado se exportar `EAD_OPEN_SIGNUP=0`. O script exporta `EAD_OPEN_SIGNUP=0`.
+Entre com o e-mail e a senha que acabou de definir. O script exporta `EAD_OPEN_SIGNUP=0` e **não** define `NODE_ENV=production`. Com `0`, GET e POST `/registar` ficam fechados neste localhost. Sem a variável, ou com outro valor que não seja exactamente `1`, o auto-registo também fica fechado. `EAD_OPEN_SIGNUP=1` é o único opt-in, em desenvolvimento e em produção. A conta de administração e `create-user` não dependem dessa página.
 
 ## Parar
 
