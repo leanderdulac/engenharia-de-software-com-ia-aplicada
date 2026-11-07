@@ -197,12 +197,12 @@ function ttsPlayerHtml(audio, { compact = false } = {}) {
 function ttsGalleryHtml(payload) {
   const audios = payload.audios || [];
   const cards = audios.map((audio) => ttsPlayerHtml(audio)).join("\n");
-  const voice = payload.voice || "pt-BR-FranciscaNeural";
-  const rate = payload.rate || "-18%";
-  const pitch = payload.pitch || "-2Hz";
+  const voice = payload.voice || "luna";
+  const rate = payload.rate || "1.0";
+  const pitch = payload.pitch ? `, pitch <code>${payload.pitch}</code>` : "";
   return `<section class="tts-gallery" aria-label="Narrações TTS">
   <h2>Narrações TTS</h2>
-  <p>MP3 e legendas WebVTT em <code>curso/media/audios/tts/</code>, voz <code>${voice}</code>, rate <code>${rate}</code>, pitch <code>${pitch}</code>. Servidos em <code>/media/audios/tts/modulo-0N-narracao.mp3</code> e <code>.vtt</code>. São a leitura falada do roteiro de cada módulo (~5,5–6 min).</p>
+  <p>MP3 e legendas WebVTT em <code>curso/media/audios/tts/</code>, grok-tts, voz <code>${voice}</code>, velocidade <code>${rate}</code>${pitch}. Servidos em <code>/media/audios/tts/modulo-0N-narracao.mp3</code> e <code>.vtt</code>. São a leitura falada do roteiro de cada módulo (~4,5–5 min).</p>
   <div class="tts-grid">${cards}</div>
 </section>`;
 }

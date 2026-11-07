@@ -2,7 +2,7 @@
 
 Este diretório é o **ponto de entrada oficial** da pós-graduação neste repositório. Os módulos, labs e exemplos já existiam; aqui eles viram uma trilha ensinável, com ordem, critérios e mapa do que o aluno faz em cada pasta.
 
-Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~5,5–6 min por módulo, voz `pt-BR-FranciscaNeural`, rate `-18%`, com legendas WebVTT) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — estudo, sem uso comercial, **sem distribuir adaptações** até autorização dos titulares. Leitura operacional: [licencas/LEIA-ME.md](./licencas/LEIA-ME.md). A ilha Apache em `referencia/llm-course/` **não** libera o tronco.
+Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~4,5–5 min por módulo, grok-tts, voz `luna`, português do Brasil, velocidade `1.0`, com legendas WebVTT) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — estudo, sem uso comercial, **sem distribuir adaptações** até autorização dos titulares. Leitura operacional: [licencas/LEIA-ME.md](./licencas/LEIA-ME.md). A ilha Apache em `referencia/llm-course/` **não** libera o tronco.
 
 ## Mídia
 
