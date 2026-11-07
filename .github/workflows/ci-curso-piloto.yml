@@ -56,7 +56,14 @@ jobs:
           npm --prefix modulo03-mcp-na-pratica/06-your-legacy-api-as-mcp/nodejs-fastify-mongodb-crud ci --ignore-scripts
           npm --prefix modulo03-mcp-na-pratica/06-your-legacy-api-as-mcp/customers-mcp-z ci --ignore-scripts
           npm --prefix modulo05-ferramentas-de-IA-para-UI-UX/modulo-02/pix-app ci --ignore-scripts
-          npm --prefix modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-08-governanca-e-compliance/routewise-danger-demo ci --ignore-scripts
+          # O submódulo routewise-danger-demo versiona package.json sem package-lock.
+          # npm ci falha (EUSAGE) nesse checkout; install --ignore-scripts desbloqueia o smoke.
+          rw=modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-08-governanca-e-compliance/routewise-danger-demo
+          if [ -f "$rw/package-lock.json" ]; then
+            npm --prefix "$rw" ci --ignore-scripts
+          else
+            npm --prefix "$rw" install --ignore-scripts
+          fi
 
       - name: Contratos (TESTE LOCAL ≠ integração)
         run: node curso/piloto/check-contratos.mjs
