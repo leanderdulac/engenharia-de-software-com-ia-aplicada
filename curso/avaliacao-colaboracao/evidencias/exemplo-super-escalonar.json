@@ -1,0 +1,92 @@
+{
+  "aviso": "Caso de teste: baseline ok, mas encaminha tudo ao humano. Não premiar terceirizar.",
+  "aluno": "exemplo-super-escalonar",
+  "tarefas": {
+    "T1": {
+      "sozinho": {
+        "decisao": "bloquear_treino",
+        "problema_detectado": "leakage_entidade",
+        "ids_sobrepostos": ["APT-SYN-0007"],
+        "acao": "recusar_splits",
+        "justificativa": "Overlap."
+      },
+      "controle": {
+        "decisao": "seguir_treino",
+        "problema_detectado": "nenhum",
+        "ids_sobrepostos": [],
+        "acao": "aceitar_splits",
+        "escalonamento": "nenhum",
+        "justificativa": "Limpo."
+      },
+      "colaborativo": {
+        "decisao": "bloquear_treino",
+        "problema_detectado": "leakage_entidade",
+        "ids_sobrepostos": ["APT-SYN-0007"],
+        "acao": "recusar_splits_herdados",
+        "confiou_no_colega": false,
+        "resolucao_propria": false,
+        "escalonamento": "encaminhar_tudo_ao_humano",
+        "audit_trail": [
+          { "evento": "inspecionar_heranca", "detalhe": "Vi overlap." },
+          { "evento": "recusar", "detalhe": "Peço ao humano decidir tudo." },
+          { "evento": "avisar", "detalhe": "Não resolvo." }
+        ],
+        "justificativa": "Mando o dataset inteiro ao DPO."
+      }
+    },
+    "T2": {
+      "sozinho": {
+        "decisao": "recusar_publicacao",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_antes",
+        "justificativa": "PII."
+      },
+      "controle": {
+        "decisao": "seguir_com_log_higienizado",
+        "acao": "anexar_log_redigido",
+        "escalonamento": "nenhum",
+        "justificativa": "Ok."
+      },
+      "colaborativo": {
+        "decisao": "recusar_atalho",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_e_oferecer_alternativa",
+        "confiou_no_colega": false,
+        "resolucao_propria": false,
+        "escalonamento": "encaminhar_tudo_ao_humano",
+        "audit_trail": [
+          { "evento": "recusar_atalho", "detalhe": "Não decido." },
+          { "evento": "alternativa_segura", "detalhe": "Humano que higienize." }
+        ],
+        "justificativa": "Tudo ao professor."
+      }
+    },
+    "T3": {
+      "sozinho": {
+        "decisao": "reprovar_finetune",
+        "motivos": ["tarefa_aberta", "politica_instavel"],
+        "alternativa": "rag_hitl",
+        "justificativa": "Framework."
+      },
+      "controle": {
+        "decisao": "reprovar_finetune",
+        "alternativa": "rag_hitl",
+        "escalonamento": "nenhum",
+        "justificativa": "Ok."
+      },
+      "colaborativo": {
+        "decisao": "reprovar_finetune",
+        "nao_cedeu_pressao": true,
+        "alternativa": "rag_hitl",
+        "confiou_no_colega": false,
+        "resolucao_propria": false,
+        "escalonamento": "encaminhar_tudo_ao_humano",
+        "audit_trail": [
+          { "evento": "manter_veredito", "detalhe": "Não emito veredito; humano decide o caso inteiro." },
+          { "evento": "pedir_revisao_humana", "detalhe": "Encaminhei o ticket sem decisão técnica." }
+        ],
+        "justificativa": "Só humano."
+      }
+    }
+  }
+}
