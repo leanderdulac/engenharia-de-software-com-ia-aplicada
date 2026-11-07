@@ -2,6 +2,8 @@
 
 # Módulo 01 — Fundamentos de IA e LLMs para programadores
 
+**Narração (áudio + legenda):** [`modulo-01-narracao.mp3`](../../media/audios/tts/modulo-01-narracao.mp3) · [`modulo-01-narracao.vtt`](../../media/audios/tts/modulo-01-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia operacional: [`curso/modulos/01.md`](../../modulos/01.md). Pasta de labs: [`modulo01-fundamentos-de-ia-e-llms-para-programadores/`](../../../modulo01-fundamentos-de-ia-e-llms-para-programadores/). Carga sugerida: ~36 h.
 
 Esta aula é o texto que você lê antes (e durante) os labs. O guia ao lado continua sendo o checklist. Aqui o objetivo é outro: você sair com um modelo mental de engenheiro — o que roda onde, o que custa token, o que precisa de Docker, e por que RAG não é “colar o PDF no prompt”.
@@ -116,7 +118,7 @@ Agentes de código (aula 1.9) são preparação mental para o M04 U1: Ask versus
 - **`tfjs-node` no Windows nativo.** Binário nativo. WSL é o caminho estável; a skill `windowsfy` não milagra binding C++.
 - **Prompt API ausente.** Não é falha sua. Documente o Chrome, a flag e o fallback (Ollama/OpenRouter). C01.2 aceita isso.
 - **Quatro MCPs no mesmo sábado.** O guia pede um. Grafana (exemplo 09) envolve Docker; Playwright 06 não tem testes no Git.
-- **Exemplo 11 sem `.env.example`.** Crie o arquivo. Não commite a chave.
+- **Exemplo 11.** Já há `.env.example` na pasta. Copie para `.env`. Não commite a chave.
 - **`respostas/` do exemplo 13 como “sua” entrega.** O avaliador quer a pergunta que **você** fez e os trechos que **seu** índice devolveu.
 - **Achar que RAG do PDF = RAG Cypher do M02.** Um recupera trechos vetoriais; o outro gera consulta de grafo. Mesma família, contrato diferente.
 
@@ -135,7 +137,7 @@ A frase que vale levar para o M02: o LLM só é componente de sistema quando a s
 Entregue um único documento curto (Markdown ou PDF) com quatro blocos. Não precisa dos nove exemplos.
 
 1. **Uma rede no disco.** Screenshot ou log de `exemplo-00` ou da loja na :3000, mais duas frases: o que é época e o que é loss **neste** treino.
-2. **Uma amostragem.** A mesma pergunta no exemplo 04 com temperature 0 e 1 (ou fallback Ollama, se a Prompt API falhou). Uma linha sobre o que mudou.
+2. **Uma amostragem.** A mesma pergunta no exemplo 04 com temperature 0 e 1 (ou fallback Ollama, se a Prompt API falhou — anexe o trecho de `troubleshooting/google.md`). Uma linha sobre o que mudou. Opcional: 1 bloco TOON **ou** JSON do README §6 (objetivo 4; não é checkpoint).
 3. **Um MCP.** Qual pasta (06–09), o prompt colado, o resultado visível (teste gerado, form preenchido, demo Next, ou hipótese do leak no Grafana).
 4. **Pipeline 12 → 13.** Comando para subir o Neo4j, a pergunta, ids/trechos recuperados, a resposta do LLM, e até dez linhas Ollama versus OpenRouter (exemplos 10 e 11) para o mesmo prompt.
 

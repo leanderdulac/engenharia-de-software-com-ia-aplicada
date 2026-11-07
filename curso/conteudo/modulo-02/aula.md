@@ -2,9 +2,11 @@
 
 # Módulo 02 — Integração de APIs de LLMs
 
+**Narração (áudio + legenda):** [`modulo-02-narracao.mp3`](../../media/audios/tts/modulo-02-narracao.mp3) · [`modulo-02-narracao.vtt`](../../media/audios/tts/modulo-02-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/02.md`](../../modulos/02.md). Pasta: [`modulo02-integracao-apis-llms/`](../../../modulo02-integracao-apis-llms/). Carga: ~24 h.
 
-Aviso que o guia já dá e esta aula repete de propósito: **não há README de módulo**, e vários READMEs de pasta falam de um “gerador de artigos” que não é este código. O `package.json` do lab médico ainda pode se chamar `prompt-chaining-article-generator`. Spec é o guia, o `plan.md` do lab 06, e os arquivos em `src/`.
+READMEs das pastas descrevem o disco. O `package.json` do lab médico ainda pode chamar-se `prompt-chaining-article-generator` (description corrigida). Spec = guia + `plan.md` do lab 06 + `src/`.
 
 ---
 
@@ -48,7 +50,7 @@ O lab médico é o primeiro grafo de negócio:
 
 Nós em `src/graph/nodes/`. O arquivo `identifyIntentNode.ts` no template **devolve o state quase intacto**. Há um `try/catch` e um log. Não há chamada ao modelo. Seu trabalho é ligar o prompt em `src/prompts/v1/identifyIntent.ts` ao nó, preencher `intent`, e deixar o grafo seguir para `schedulerNode`, `cancellerNode` ou `messageGeneratorNode`. O serviço de domínio é `appointmentService`. Structured output: o modelo não “conversa sobre medicina”; ele **classifica intenção** para um código TypeScript decidir o próximo passo.
 
-Ignore o README “article generator”. Os testes E2E pedem chave real. O checkpoint C02.2 é este template, não um print do `-z`.
+Os testes E2E pedem chave real. O checkpoint C02.2 é este template, não um print do `-z`.
 
 No `src/prompts/v1/identifyIntent.ts` o contrato é intenção enumerada, não prosa. No gabarito você vai ver o modelo devolver algo que o TypeScript consegue ligar a `schedulerNode` ou `cancellerNode`. Se a sua implementação colocar a frase inteira do paciente em `intent`, o grafo não ramifica — só “conversa”. O `appointmentService` é o efeito colateral (agendar de verdade). Structured output sem efeito no serviço é demo de chatbot, não o lab.
 
@@ -97,7 +99,7 @@ Projeto do módulo: **uma** API LangGraph (médico **ou** Cypher) a partir do te
 
 ## Armadilhas
 
-- **Seguir o README “article generator”.** Documentado em [`curso/lacunas-e-proximos-passos.md`](../../lacunas-e-proximos-passos.md). O código manda.
+- **Confiar só no nome do `package.json` do lab 03.** O pacote ainda se chama gerador de artigos; o código é agendamento. README da pasta descreve o disco.
 - **Entregar o `-z` como se fosse o template.** C02.2 é explícito: medical no template.
 - **LangGraph = sempre LLM.** O lab 02 existe para impedir essa frase na prova.
 - **Um único usuário no lab 04.** Sem Ana versus Erick você não demonstrou persistência de perfil.
@@ -120,8 +122,8 @@ O Módulo 03 vai expor **tools** com o mesmo rigor: o agente não lê o Mongo �
 
 Escolha **um** eixo e entregue evidência. Não precisa dos sete labs no zip.
 
-**Opção A — Gateway + médico.** `curl` do `POST /chat` do router (incluindo um modelo inválido) + E2E do template médico verde + o `identifyIntent` preenchido (trecho ou print). Parágrafo: o que o `-z` fez que você não fez.
+**Opção A — Gateway + médico.** `curl` do `POST /chat` do router (incluindo um modelo inválido) **ou** evidência do lab 02 (`langgraph:serve`, sem LLM) para C02.1 + E2E do template médico verde + o `identifyIntent` preenchido. Parágrafo: o que o `-z` fez que você não fez.
 
-**Opção B — Safeguard + Cypher.** Output do membro bloqueado e do caso privilegiado + Cypher gerado de uma pergunta de ranking (seed rodado). Uma frase: por que o texto do usuário não autoriza leitura de arquivo.
+**Opção B — Safeguard + Cypher.** Output do membro bloqueado e do caso privilegiado + Cypher gerado de uma pergunta de ranking (seed rodado). Uma frase: por que o texto do usuário não autoriza leitura de arquivo. C02.4 também fecha com PDF **próprio** no lab 07.
 
 Em ambos os casos, um README de 20 linhas da API que você escolheu como projeto do módulo.

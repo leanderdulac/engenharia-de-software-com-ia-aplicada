@@ -16,14 +16,18 @@ To report errors or ask questions, please use the recommended channels.
 
 ### What students can do
 
-- **Fork** this repository to keep a personal copy for study purposes.
+- **Fork** this repository to keep a **personal** copy for study purposes. A private fork is not the same as publishing a modified course.
 - **Clone** or download the materials for local, offline reference.
-- **Share** the original repository link with fellow students.
+- **Share** the **original** repository link with fellow students (unmodified work, with attribution).
 
 ### What students cannot do
 
-- Use or distribute the materials for commercial purposes.
-- Present the materials as their own without proper attribution.
+- Use or distribute the materials for commercial purposes (**NonCommercial**).
+- Present the materials as their own without proper attribution (**Attribution**).
+- **Distribute adapted material** (translated, rewritten, HTML preview of modified guides, public GitHub Pages of a remix, paid republication). The **NoDerivatives** term of CC BY-NC-ND 4.0 is what the licensor published here. Attribution is **not** permission to redistribute derivatives. This paragraph is **not** legal advice; rights holders and counsel decide edge cases (private classroom use vs public website).
+- Treat the Apache-2.0 companion under `referencia/llm-course/` as a license for the UniPDS trunk. Isolation is not relicensing.
+
+Operational reading for this package: [`curso/licencas/LEIA-ME.md`](./curso/licencas/LEIA-ME.md).
 
 ---
 

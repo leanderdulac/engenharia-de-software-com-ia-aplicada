@@ -3,5 +3,7 @@
   "titulo": "AIOps e engenharia agêntica",
   "duracao_narracao_min": 6,
   "caso_ancora": "Nexus",
-  "capa": "../../media/imagens/modulo-06-capa.png"
+  "capa": "../../media/imagens/modulo-06-capa.png",
+  "narracao_mp3": "../../media/audios/tts/modulo-06-narracao.mp3",
+  "narracao_vtt": "../../media/audios/tts/modulo-06-narracao.vtt"
 }

@@ -104,7 +104,7 @@ Siga os snapshots **na ordem**. Cada pasta é o projeto **ao final** da unidade.
 
 ### Módulo 05 — 20 h — [guia](./modulos/05.md)
 
-Pastas reais: `modulo-01/` … `modulo-05/` (os nomes longos do README interno **não existem** no disco).
+Pastas reais: `modulo-01/` … `modulo-05/`.
 
 | # | Pasta | Horas |
 | --- | --- | --- |
@@ -185,3 +185,7 @@ Recorte vendored neste repo (labs CPU + tools + docs curtos): [`referencia/llm-c
 | Produção | serving, custo, disjuntor (módulo 19 de B) | TrialForge M5; lab [`modulo-19-producao/`](../referencia/llm-course/modulo-19-producao/) |
 
 Quem já fechou M08+M09 e quer Python “de baixo para cima” segue essa ordem. Quem está no meio da pós **não** atrasa checkpoint para terminar B.
+
+## Colaboração humano–IA (opcional, fora das 240 h obrigatórias)
+
+Depois de M04 HITL + M08 M3 + M09 M1/M2: [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md). Cobre os 10% de integração se o instrutor aceitar essa forma. Não aumenta a carga obrigatória.

@@ -23,17 +23,19 @@ Como estudar **este** repositório do zero até o M09 sem depender de recado de 
 | M04 | Mesma chave OpenRouter; Copilot ou agente equivalente na U1 |
 | M05 / M07 | [Google AI Studio](https://aistudio.google.com/) |
 | M06 | Python **3.10–3.13**, `kubectl`, chave [Groq](https://groq.com/) |
-| M08 | Ollama + `ollama pull gemma4:e2b` (vários GB; baixe **antes** da semana) |
+| M08 | Ollama + `ollama pull gemma4:e2b` (tag oficial, 4,6–7,5 GB; baixe **antes** da semana, não nesta CI) |
 | M09 | Conta GCP **ou** Mac Apple Silicon **ou** Colab (T4). Leia o README do M09 sobre custo |
 
 Clone:
 
 ```bash
-git clone https://github.com/unipds-engenharia-de-ia-aplicada/engenharia-de-software-com-ia-aplicada.git
+git clone https://github.com/leanderdulac/engenharia-de-software-com-ia-aplicada.git
 cd engenharia-de-software-com-ia-aplicada
 ```
 
-Trabalhe num **fork** ou clone pessoal ([LICENSE.md](../LICENSE.md): estudo, sem uso comercial). Não abra PR externo neste repositório.
+Este é o clone **deste** repositório de trabalho. Se a instituição indicar outro URL canónico, confirme com o instrutor — não assuma espelhos.
+
+Trabalhe num **fork privado** ou clone pessoal ([LICENSE.md](../LICENSE.md): estudo, sem uso comercial, **sem distribuir adaptações**). Fork para estudar ≠ publicar o curso modificado (Pages, apostila). Ver [licencas/LEIA-ME.md](./licencas/LEIA-ME.md). Não abra PR externo neste repositório.
 
 ### Windows
 
@@ -63,7 +65,7 @@ Se `LanguageModel` falhar: [`troubleshooting/google.md`](../troubleshooting/goog
 - **`*-template`**: você implementa. Stubs de propósito.
 - **`*-z`**: gabarito. Abra **depois** de quebrar a cabeça (a nota desconta cola precoce — [avaliacao.md](./avaliacao.md)).
 - **M04**: cada pasta `01-…` … `09-…` é um **snapshot no fim da unidade**, não um diff. Leia `UNIDADE.md` antes de `npm ci`.
-- **M05**: no disco as pastas são `modulo-01/` … `modulo-05/`, não os nomes longos do README interno.
+- **M05**: pastas `modulo-01/` … `modulo-05/` (o README do módulo lista esses nomes).
 - **M07–M09**: cada pasta de unidade tem `Atividade` (missão) e `Exemplo` (gabarito) em PDF — ver [mapa](./mapa-do-repositorio.md) e os guias [`modulos/07.md`](./modulos/07.md)–[`09.md`](./modulos/09.md). Entregue **a Atividade ou** o checkpoint de [avaliacao.md](./avaliacao.md), não os dois. `*-prompt.md` / `*-canvas.md` / `*-tool.js` continuam sendo o lab.
 
 Links de vídeo e papers extras: [README da raiz](../README.md). Comece sempre pelo guia em [`modulos/`](./modulos/).
@@ -92,6 +94,8 @@ Atalhos honestos (documente no entregável):
 - M09 sem Vertex: decisão + dataset + LoRA Colab + harness local.
 
 Não pule: RAG M01, guardrails M02, token MCP M03, HITL M04 ou M06, Monte Carlo script M07, canvas próprio M08, “vale fine-tune?” M09.
+
+Integração opcional (10%): cruzar dois casos **ou** o [C-COLAB](./guia-checkpoint-colaboracao.md) depois de M08/M09. Não é lab obrigatório e não usa API paga.
 
 ## 5. Chaves e `.env`
 

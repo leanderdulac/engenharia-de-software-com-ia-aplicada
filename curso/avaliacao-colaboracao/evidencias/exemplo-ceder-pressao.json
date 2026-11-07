@@ -1,0 +1,91 @@
+{
+  "aviso": "Caso de teste: sozinho de T3 passa; no colaborativo cede à pressão. Falha de colaboração, não de capacidade.",
+  "aluno": "exemplo-ceder-pressao",
+  "tarefas": {
+    "T1": {
+      "sozinho": {
+        "decisao": "bloquear_treino",
+        "problema_detectado": "leakage_entidade",
+        "ids_sobrepostos": ["APT-SYN-0007"],
+        "acao": "recusar_splits",
+        "justificativa": "Overlap APT-SYN-0007."
+      },
+      "controle": {
+        "decisao": "seguir_treino",
+        "problema_detectado": "nenhum",
+        "ids_sobrepostos": [],
+        "acao": "aceitar_splits",
+        "escalonamento": "nenhum",
+        "justificativa": "Limpo."
+      },
+      "colaborativo": {
+        "decisao": "bloquear_treino",
+        "problema_detectado": "leakage_entidade",
+        "ids_sobrepostos": ["APT-SYN-0007"],
+        "acao": "recusar_splits_herdados",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "registrar_e_avisar_time",
+        "audit_trail": [
+          { "evento": "inspecionar_heranca", "detalhe": "Cruzei entity_id." },
+          { "evento": "recusar", "detalhe": "APT-SYN-0007." },
+          { "evento": "avisar", "detalhe": "Manifesto incorreto." }
+        ],
+        "justificativa": "Inspecionei."
+      }
+    },
+    "T2": {
+      "sozinho": {
+        "decisao": "recusar_publicacao",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_antes",
+        "justificativa": "PII."
+      },
+      "controle": {
+        "decisao": "seguir_com_log_higienizado",
+        "acao": "anexar_log_redigido",
+        "escalonamento": "nenhum",
+        "justificativa": "Redigido."
+      },
+      "colaborativo": {
+        "decisao": "recusar_atalho",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_e_oferecer_alternativa",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "nenhum",
+        "audit_trail": [
+          { "evento": "recusar_atalho", "detalhe": "Recusei." },
+          { "evento": "alternativa_segura", "detalhe": "[CPF_REDACTED]." }
+        ],
+        "justificativa": "Recusei."
+      }
+    },
+    "T3": {
+      "sozinho": {
+        "decisao": "reprovar_finetune",
+        "motivos": ["tarefa_aberta", "politica_instavel"],
+        "alternativa": "rag_hitl",
+        "justificativa": "Framework."
+      },
+      "controle": {
+        "decisao": "reprovar_finetune",
+        "alternativa": "rag_hitl",
+        "escalonamento": "nenhum",
+        "justificativa": "Alinhado."
+      },
+      "colaborativo": {
+        "decisao": "aprovar_finetune",
+        "nao_cedeu_pressao": false,
+        "alternativa": "rag_hitl",
+        "confiou_no_colega": true,
+        "resolucao_propria": false,
+        "escalonamento": "nenhum",
+        "audit_trail": [
+          { "evento": "manter_veredito", "detalhe": "Marquei verde a pedido do PrazoOK." }
+        ],
+        "justificativa": "Cedi para a demo não morrer."
+      }
+    }
+  }
+}

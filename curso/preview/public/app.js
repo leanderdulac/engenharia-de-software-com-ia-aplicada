@@ -5,9 +5,12 @@ const NAV = [
   { path: "trilha-aprendizado.md", label: "Trilha" },
   { path: "mapa-do-repositorio.md", label: "Mapa" },
   { path: "avaliacao.md", label: "Avaliação" },
+  { path: "guia-checkpoint-colaboracao.md", label: "C-COLAB" },
   { path: "guia-do-aluno.md", label: "Guia do aluno" },
   { path: "guia-do-instrutor.md", label: "Guia do instrutor" },
   { path: "glossario.md", label: "Glossário" },
+  { path: "licencas/LEIA-ME.md", label: "Licenças" },
+  { path: "piloto/protocolo.md", label: "Piloto" },
   { path: "lacunas-e-proximos-passos.md", label: "Lacunas" },
   { path: "media/README.md", label: "Mídia" },
   { path: "videos/grok", label: "Intros Grok", kind: "grok" },
@@ -31,6 +34,24 @@ const heroEl = document.getElementById("hero");
 const sidebarEl = document.getElementById("sidebar");
 const menuBtn = document.getElementById("menu-btn");
 const backdropEl = document.getElementById("backdrop");
+const PREVIEW = window.__PREVIEW__ || { mode: "live" };
+
+function assetUrl(rel) {
+  const clean = String(rel || "").replace(/^\//, "");
+  return new URL(clean, document.baseURI).href;
+}
+
+function rebasePreviewUrls(root) {
+  for (const el of root.querySelectorAll("[src], [href]")) {
+    for (const attr of ["src", "href"]) {
+      const value = el.getAttribute(attr);
+      if (!value) continue;
+      if (value.startsWith("/media/") || value.startsWith("/arquivos/")) {
+        el.setAttribute(attr, assetUrl(value.replace(/^\//, "")));
+      }
+    }
+  }
+}
 
 function currentPath() {
   const raw = decodeURIComponent(location.hash.replace(/^#\/?/, "")).trim();
@@ -88,8 +109,8 @@ function grokGalleryHtml(payload) {
       return `<article class="grok-card">
   <h3>Módulo ${video.modulo} — ${video.title}</h3>
   <p class="grok-meta">${duration} · Grok Imagine · <code>${video.file}</code></p>
-  <video class="grok-player" controls preload="metadata" src="${video.src}">
-    Seu navegador não reproduz este MP4. <a href="${video.src}">Baixar ${video.file}</a>
+  <video class="grok-player" controls preload="metadata" src="${assetUrl(video.src)}">
+    Seu navegador não reproduz este MP4. <a href="${assetUrl(video.src)}">Baixar ${video.file}</a>
   </video>
 </article>`;
     })
@@ -102,12 +123,21 @@ function grokGalleryHtml(payload) {
 </section>`;
 }
 
-async function loadGrokGallery() {
-  const res = await fetch("/api/grok-videos");
+async function fetchApi(livePath, staticFile) {
+  const url =
+    PREVIEW.mode === "static"
+      ? assetUrl(staticFile)
+      : assetUrl(livePath.replace(/^\//, ""));
+  const res = await fetch(url);
   const data = await res.json();
   if (!res.ok || data.error) {
     throw new Error(data.message || `Falha HTTP ${res.status}`);
   }
+  return data;
+}
+
+async function loadGrokGallery() {
+  const data = await fetchApi("/api/grok-videos", "api/grok-videos.json");
   return grokGalleryHtml(data);
 }
 
@@ -115,11 +145,7 @@ let ttsPayloadCache = null;
 
 async function loadTtsPayload() {
   if (ttsPayloadCache) return ttsPayloadCache;
-  const res = await fetch("/api/tts-audios");
-  const data = await res.json();
-  if (!res.ok || data.error) {
-    throw new Error(data.message || `Falha HTTP ${res.status}`);
-  }
+  const data = await fetchApi("/api/tts-audios", "api/tts-audios.json");
   ttsPayloadCache = data;
   return data;
 }
@@ -149,7 +175,7 @@ function ttsPlayerHtml(audio, { compact = false } = {}) {
     ? ` · <a href="#/${audio.source_path}">roteiro</a>`
     : "";
   const pitch = audio.pitch ? ` · pitch ${audio.pitch}` : "";
-  const vttSrc = audio.vtt_src || "";
+  const vttSrc = audio.vtt_src ? assetUrl(audio.vtt_src) : "";
   const track = vttSrc
     ? `<track kind="captions" srclang="pt-BR" label="Português (Brasil)" src="${vttSrc}" default>`
     : "";
@@ -160,9 +186,9 @@ function ttsPlayerHtml(audio, { compact = false } = {}) {
   ${heading}
   <p class="tts-meta">${duration} · ${audio.voice} · rate ${audio.rate}${pitch} · <code>${audio.file}</code>${roteiro}</p>
   <audio class="tts-player" controls preload="metadata">
-    <source src="${audio.src}" type="audio/mpeg">
+    <source src="${assetUrl(audio.src)}" type="audio/mpeg">
     ${track}
-    Seu navegador não reproduz este MP3. <a href="${audio.src}">Baixar ${audio.file}</a>
+    Seu navegador não reproduz este MP3. <a href="${assetUrl(audio.src)}">Baixar ${audio.file}</a>
   </audio>
   ${vttLink}
 </article>`;
@@ -223,12 +249,25 @@ async function loadPage() {
       return;
     }
 
-    const res = await fetch(`/api/page?path=${encodeURIComponent(path)}`);
-    const data = await res.json();
-    if (!res.ok || data.error) {
-      throw new Error(data.message || `Falha HTTP ${res.status}`);
+    if (path.startsWith("fora:")) {
+      const repoPath = path.slice("fora:".length);
+      articleEl.innerHTML = `<p class="error">Este arquivo está no repositório, fora do pacote <code>curso/</code>: <code>${repoPath}</code>. Abra no clone local. O preview não mistura labs com o pacote ensinável.</p>`;
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    let data;
+    if (PREVIEW.mode === "static") {
+      const jsonRel = `pages/${path.replace(/\.md$/i, "")}.json`;
+      data = await fetchApi(jsonRel, jsonRel);
+    } else {
+      data = await fetchApi(
+        `api/page?path=${encodeURIComponent(path)}`,
+        `pages/${path.replace(/\.md$/i, "")}.json`
+      );
     }
     articleEl.innerHTML = data.html;
+    rebasePreviewUrls(articleEl);
     if (path === "media/README.md") {
       try {
         articleEl.insertAdjacentHTML("beforeend", await loadGrokGallery());
@@ -261,6 +300,10 @@ menuBtn.addEventListener("click", () => {
 });
 
 backdropEl.addEventListener("click", closeMenu);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeMenu();
+});
 
 articleEl.addEventListener("click", (event) => {
   const anchor = event.target.closest("a");

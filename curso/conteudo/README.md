@@ -46,7 +46,7 @@ Caminhos de lab neste índice e nas aulas são relativos à **raiz do repositór
 ## Convenções deste material
 
 - **Português brasileiro.** Tom profissional e próximo, como aula de pós — não manual de API e não post de blog.
-- **Pastas reais.** Só citamos o que existe neste clone. Se o README interno de um lab contradiz o disco (isso acontece nos Módulos 02, 03 e 05), o guia em `curso/modulos/` e esta aula prevalecem. Não inventamos `tests/`, PDFs ou subpastas ausentes.
+- **Pastas reais.** Só citamos o que existe neste clone. READMEs das pastas M02/M03 foram alinhados ao disco nesta estabilização; se o código mudar, atualize o README da pasta. Não inventamos `tests/` ou subpastas ausentes.
 - **Template vs gabarito (M01–M03).** Trabalhe em `*-template`. Abra `*-z` depois da tentativa. Nos Módulos 04–09 o padrão muda: snapshots cumulativos (OpsPilot), labs Python (Nexus), prompts/canvas (RouteWise, TrialForge, Amplitude).
 - **Caso âncora.** OpsPilot, Nexus, RouteWise, TrialForge e Amplitude Seguros carregam o módulo inteiro. Não misture casos no mesmo entregável.
 - **Links externos.** Só os que já estão no [README da raiz](../../README.md), no [syllabus](../syllabus.md) ou nos READMEs dos módulos. Se um paper ou ferramenta não estiver lá, trate como fora de escopo.
@@ -59,6 +59,6 @@ Caminhos de lab neste índice e nas aulas são relativos à **raiz do repositór
 - Não é ementa ([syllabus.md](../syllabus.md)).
 - Não é rubrica ([avaliacao.md](../avaliacao.md)).
 - Não é mapa pasta→lab ([mapa-do-repositorio.md](../mapa-do-repositorio.md)).
-- Não é lista de lacunas ([lacunas-e-proximos-passos.md](../lacunas-e-proximos-passos.md)) — mas as aulas **avisam** as armadilhas documentadas lá (README “article generator”, pasta `modulo04-agentes-autonomos/` inexistente, pesos LoRA fora do Git, etc.).
+- Não é lista de lacunas ([lacunas-e-proximos-passos.md](../lacunas-e-proximos-passos.md)) — mas as aulas **avisam** armadilhas (nome herdado no `package.json` médico, pasta `modulo04-agentes-autonomos/` inexistente, pesos LoRA fora do Git, etc.).
 
 Se um termo da aula parecer novo, consulte o [glossário](../glossario.md). Se o ambiente quebrar, [`troubleshooting/`](../../troubleshooting/) e o [guia do aluno](../guia-do-aluno.md).

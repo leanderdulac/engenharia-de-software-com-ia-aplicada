@@ -1,7 +1,7 @@
 {
   "name": "prompt-chaining-article-generator",
   "version": "1.0.0",
-  "description": "Technical article generator using LangChain prompt chaining with reusable templates",
+  "description": "LangGraph medical appointment (nome do pacote é herdado; não é gerador de artigos)",
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
