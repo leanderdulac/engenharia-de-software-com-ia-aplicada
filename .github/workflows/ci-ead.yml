@@ -1,0 +1,33 @@
+name: CI — sala EaD
+
+on:
+  pull_request:
+  push:
+    paths:
+      - "curso/ead/**"
+      - "curso/preview/lib/**"
+      - "curso/avaliacao-colaboracao/**"
+      - ".github/workflows/ci-ead.yml"
+  workflow_dispatch:
+
+jobs:
+  ead:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.23.4"
+          cache: npm
+          cache-dependency-path: curso/ead/package-lock.json
+      - name: Install
+        run: |
+          npm --prefix curso/preview ci
+          npm --prefix curso/ead ci
+      - name: Testes HTTP / isolamento / a11y estática
+        run: npm --prefix curso/ead test
+      - name: e2e Chrome (SKIP se não houver browser)
+        run: npm --prefix curso/ead run e2e
+        env:
+          EAD_ARTIFACTS: /tmp/ead-artifacts

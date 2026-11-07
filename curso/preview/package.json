@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node --test markdown.test.mjs server.test.mjs",
+    "test": "node --test markdown.test.mjs server.test.mjs gate.test.mjs",
     "build": "node build.mjs",
     "check": "node check.mjs",
     "check:external": "node check.mjs --external",

@@ -1,3 +1,4 @@
+import { existsSync, realpathSync } from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
 import {
@@ -33,7 +34,7 @@ export function resolveMarkdownPath(rawPath, cursoRoot = CURSO_ROOT) {
   }
 
   const trimmed = rawPath.trim();
-  if (trimmed.includes("\0")) {
+  if (trimmed.includes("\0") || trimmed.includes("\\") || /%2e|%2f|%5c|%00/i.test(trimmed)) {
     const err = new Error("Caminho inválido.");
     err.status = 400;
     throw err;
@@ -58,8 +59,20 @@ export function resolveMarkdownPath(rawPath, cursoRoot = CURSO_ROOT) {
     throw err;
   }
 
+  let abs = resolved;
+  if (existsSync(resolved)) {
+    const real = realpathSync(resolved);
+    const rootReal = realpathSync(cursoRoot);
+    if (!isInsideRoot(real, rootReal) || path.basename(real).startsWith(".env")) {
+      const err = new Error("Caminho fora do pacote do curso.");
+      err.status = 403;
+      throw err;
+    }
+    abs = real;
+  }
+
   return {
-    abs: resolved,
+    abs,
     rel: toPosix(path.relative(cursoRoot, resolved)),
   };
 }
@@ -179,11 +192,18 @@ export function arquivosRelFromRequest(raw) {
     err.status = 400;
     throw err;
   }
+  if (/%2e|%2f|%5c|%00/i.test(raw)) {
+    const err = new Error("Caminho de arquivo inválido.");
+    err.status = 400;
+    throw err;
+  }
   let decoded = raw;
   try {
     decoded = decodeURIComponent(raw);
   } catch {
-    /* keep raw */
+    const err = new Error("Caminho de arquivo inválido.");
+    err.status = 400;
+    throw err;
   }
   decoded = decoded.replace(/^\/+/, "");
   if (path.isAbsolute(decoded) || /^[a-zA-Z]:[\\/]/.test(decoded)) {
@@ -191,7 +211,7 @@ export function arquivosRelFromRequest(raw) {
     err.status = 403;
     throw err;
   }
-  const abs = path.resolve(REPO_ROOT, decoded);
+  let abs = path.resolve(REPO_ROOT, decoded);
   if (!isInsideRoot(abs, REPO_ROOT)) {
     const err = new Error("Caminho fora do repositório.");
     err.status = 403;
@@ -202,6 +222,17 @@ export function arquivosRelFromRequest(raw) {
     const err = new Error("Apenas PDF do repositório é servido em /arquivos/.");
     err.status = 400;
     throw err;
+  }
+  if (existsSync(abs)) {
+    const real = realpathSync(abs);
+    const rootReal = realpathSync(REPO_ROOT);
+    const base = path.basename(real);
+    if (!isInsideRoot(real, rootReal) || base === ".env" || base.startsWith(".env.") || base.endsWith(".sqlite")) {
+      const err = new Error("Caminho fora do repositório.");
+      err.status = 403;
+      throw err;
+    }
+    abs = real;
   }
   return {
     abs,

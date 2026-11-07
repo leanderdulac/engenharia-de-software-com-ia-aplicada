@@ -1,0 +1,26 @@
+{
+  "name": "curso-ead",
+  "version": "0.2.0",
+  "private": true,
+  "description": "LMS de uma instalação privada da pós Engenharia de Software com IA Aplicada. Não publica o material.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node src/server.mjs",
+    "migrate": "node src/cli.mjs migrate",
+    "seed": "node src/cli.mjs seed",
+    "create-admin": "node src/cli.mjs create-admin",
+    "check": "node src/cli.mjs check",
+    "backup": "node src/cli.mjs backup",
+    "test": "node --test tests/*.test.mjs",
+    "e2e": "node tests/e2e.mjs",
+    "a11y": "node --test tests/a11y.test.mjs"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "marked": "^15.0.12"
+  }
+}
