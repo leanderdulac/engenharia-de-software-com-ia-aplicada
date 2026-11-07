@@ -50,7 +50,7 @@ READMEs das pastas foram **reescritos para o disco** nesta rodada (comandos, env
 ## Módulos 06–09
 
 - M06: sem rubrica de nota; Prometheus/Jaeger simulados; `.env.example` na raiz do módulo (`GROQ_API_KEY=`). Smoke **não** chama Groq.
-- M07: submódulo git `routewise-danger-demo` (`.gitmodules`) — clone com `--recurse-submodules` se a demo CI for usada. Missões `Atividade - Módulo N.pdf` e gabaritos `Exemplo - Módulo N.pdf` estão em cada pasta `modulo-01-` … `modulo-10-`. Não há `jira-estado-board.md` em `modulo-08-governanca-e-compliance/` nem em `modulo-09-automacao-de-ecossistema/` (existe em 01–07 e 10).
+- M07: submódulo `routewise-danger-demo` inicializado neste clone (`7c52d76`); `npm test` Jest 12/12. Python Danger (`danger-config-routewise.py`) **não** está no submódulo. Missões PDF em `modulo-01-` … `modulo-10-`. Sem `jira-estado-board.md` em 08/09.
 - M08/M09: cada submódulo tem `Atividade N - Módulo N.pdf` e `Exemplo - Módulo N.pdf` (M08 M1 também tem os canvases PDF e o cheat sheet de clouds).
 - M09: `adapters.safetensors` propositalmente fora do Git; nomes de modelo Gemini envelhecem (`risco-validade-modelo-companion.md`).
 

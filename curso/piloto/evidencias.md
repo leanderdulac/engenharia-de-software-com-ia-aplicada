@@ -135,10 +135,49 @@ e2e Chrome (após cleanup `rmSync` com retry): home, hash M01, aula+reload, Apac
 
 C05.2: `node curso/piloto/check-a11y-c052.mjs` — lang, skip-link, labels, Escape no modal, `aria-hidden` em ícones. Angular **não** compilado; CFP **não** executado.
 
+## Rodada 3 — execução real (gargalo técnico)
+
+Instalações nesta VM (gratuitas, sem contas pagas, bind local):
+
+| Runtime | Versão / evidência |
+| --- | --- |
+| Node trilha | v22.23.4 (`/exec-daemon/node`) |
+| Node Inspector/M03 | v24.22.1 (`~/.nvm/versions/node/v24.22.1`) |
+| Docker | 29.1.3; `dockerd` arrancado à mão (sem systemd). `docker` sem grupo → `permission denied` no sock; `sudo docker` OK. `hello-world` OK. |
+| Mongo | `mongo:8` `piloto-mongo` em `127.0.0.1:27017` (root/example) |
+| Verdaccio | `verdaccio/verdaccio:6` `piloto-verdaccio` `127.0.0.1:4873` HTTP 200 |
+| Ollama | 0.40.15; `nomic-embed-text` (768 dims) + `tinyllama` handshake `num_predict:8`. **Não** puxámos `gemma4:e2b` (~5 GB+) |
+| Chrome | e2e preview PASS |
+
+Comandos e resultados (reexecução após correções):
+
+```
+npm --prefix curso/preview test          # 21/21
+npm --prefix curso/preview run check     # fail=0 warn=0 ok=13
+npm --prefix curso/preview run e2e       # PASS
+node curso/piloto/check-a11y-c052.mjs    # PASS (não WCAG)
+node curso/piloto/check-contratos.mjs    # PASS (TESTE LOCAL ≠ integração)
+CipherSuite npm test (Node 22 e 24)      # 4/4; EBADENGINE 24.22.1 vs engines v24.14.0 (aviso)
+Inspector CLI tools/list                 # encrypt_message / decrypt_message
+customers-mcp npm test (API :9999)       # 6/6
+CRUD npm test (Mongo)                    # 9/9
+Pix ng build + vitest                    # build OK; 4/4 (specs corrigidos)
+nx build frontend + nx build api         # OK (lockfile CFP sincronizado)
+RouteWise submodule npm test             # 12/12 em 7c52d76
+nomic embed                              # nomic_dims 768
+tinyllama generate                       # tinyllama_handshake_ok
+GRPO math                                # 10/10; rollout gemma4 404 (modelo não puxado)
+```
+
+Python `danger-config-routewise.py` **não** está no submódulo; **não** foi executado.
+
+Daemon Docker: não contornámos cgroup/seccomp. `usermod -aG docker` não renovou o grupo nesta sessão; smoke usa `sudo -n docker info`.
+
 ## O que isto não prova
 
-- Aprendizagem de alunos (ninguém recrutado).
-- Autorização jurídica dos titulares (não enviámos pedidos).
-- Preview remoto persistente (sem URL).
-- Integração paga / GPU / Ollama / Docker de serviço.
-- Qualidade de áudio TTS ou vídeo Grok/HeyGen (não ouvimos; evidência = roteiro + VTT no disco).
+- Integração OpenRouter / Groq / Gemini / Vertex (contratos herméticos só).
+- GPU / MLX / LoRA `adapters.safetensors` / treino GRPO de pesos / paridade `gemma4:e2b`.
+- UI Inspector na porta 6274 (handshake foi CLI).
+- Python Danger da disciplina; qualidade TTS/vídeo (evidência = ficheiros no disco).
+- Aprendizagem de alunos ou autorização jurídica (fora do gargalo técnico desta rodada).
+- Preview remoto persistente (Pages não ligado).

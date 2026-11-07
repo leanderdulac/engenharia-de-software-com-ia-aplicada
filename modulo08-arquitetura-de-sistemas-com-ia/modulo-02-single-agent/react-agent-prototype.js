@@ -30,7 +30,7 @@ const ollama = require('ollama').default;
 
 const MAX_ITERACOES = 4;
 // Em Mac com Apple Silicon, 'gemma4:e2b-mlx' é mais rápido e mais leve (testado e funcionando).
-const MODELO = 'gemma4:e2b';
+const MODELO = process.env.OLLAMA_MODEL || 'gemma4:e2b';
 
 // Ferramenta tipada (Módulo 2.4): schema explícito, nunca texto livre
 const buscarClausulaRegulatoria = {

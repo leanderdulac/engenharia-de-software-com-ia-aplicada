@@ -207,8 +207,8 @@ fastify.addHook('preHandler', (req, res, done) => {
 
 if (!isTestEnv) {
     const serverInfo = await fastify.listen({
-        port: process.env.PORT || 9999,
-        host: '::',
+        port: Number(process.env.PORT || 9999),
+        host: process.env.HOST || '127.0.0.1',
     })
 
     console.log(`server is running at ${serverInfo}`)

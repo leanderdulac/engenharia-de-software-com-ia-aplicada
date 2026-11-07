@@ -24,8 +24,8 @@
 const assert = require('assert').strict;
 
 const OLLAMA_URL = 'http://localhost:11434/api/generate';
-const MODELO = 'gemma4:e2b';
-const TAMANHO_GRUPO = 6; // G no paper original (DeepSeekMath usa G=64; aqui, G pequeno pra demo ao vivo)
+const MODELO = process.env.OLLAMA_MODEL || 'gemma4:e2b';
+const TAMANHO_GRUPO = Number(process.env.OLLAMA_GROUP_SIZE || 6); // G no paper original (DeepSeekMath usa G=64; aqui, G pequeno pra demo ao vivo)
 const TEMPERATURA = 1.0;
 const EPS = 1e-4; // guarda contra divisão por zero quando o grupo empata (std=0)
 
@@ -64,6 +64,7 @@ const GABARITO = {
  * -------------------------------------------------------------------------- */
 
 async function chamarOllama(prompt, temperatura) {
+  const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS || 60000);
   const resposta = await fetch(OLLAMA_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -73,6 +74,7 @@ async function chamarOllama(prompt, temperatura) {
       stream: false,
       options: { temperature: temperatura },
     }),
+    signal: AbortSignal.timeout(timeoutMs),
   });
   if (!resposta.ok) {
     throw new Error(`Ollama respondeu ${resposta.status} ${resposta.statusText}`);
@@ -224,7 +226,7 @@ async function main() {
     await chamarOllama('teste de conexao', 0.1);
   } catch (erro) {
     console.log(`Não foi possível conectar ao Ollama local em ${OLLAMA_URL}: ${erro.message}`);
-    console.log("Rode 'ollama serve' e confirme que o modelo 'gemma4:e2b' está disponível ('ollama list').");
+    console.log("Rode 'ollama serve' e o modelo (padrão gemma4:e2b). Opcional: OLLAMA_MODEL=tinyllama só para handshake CPU — não substitui o lab nem alega paridade.");
     return;
   }
 

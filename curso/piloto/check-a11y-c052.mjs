@@ -43,9 +43,17 @@ if (!/aria-hidden="true"/.test(history)) FAIL.push("pix-history: ícone decorati
 const receipt = read("app/pix-receipt/pix-receipt.html");
 if (!/aria-hidden="true"/.test(receipt)) FAIL.push("pix-receipt: ícones decorativos sem aria-hidden");
 
+const distIndex = join(PIX, "../dist/pix-app/browser/index.html");
+try {
+  const built = readFileSync(distIndex, "utf8");
+  if (!/lang="pt-BR"/.test(built)) FAIL.push("dist index.html: lang pt-BR perdido no build");
+} catch {
+  console.log("SKIP  dist Pix não compilado nesta corrida (ng build gera dist/pix-app/browser)");
+}
+
 if (FAIL.length) {
   for (const f of FAIL) console.error(`FAIL  ${f}`);
   process.exit(1);
 }
 console.log("OK    C05.2 estático (Pix templates): lang, skip-link, labels, modal Escape, ícones");
-console.log("Isto não certifica WCAG nem aprendizagem. CFP não foi compilado aqui.");
+console.log("Isto não certifica WCAG nem leitor de ecrã. CFP é build separado.");
