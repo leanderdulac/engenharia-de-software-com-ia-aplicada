@@ -2,6 +2,8 @@
 
 # Módulo 03 — MCP na prática
 
+**Narração (áudio + legenda):** [`modulo-03-narracao.mp3`](../../media/audios/tts/modulo-03-narracao.mp3) · [`modulo-03-narracao.vtt`](../../media/audios/tts/modulo-03-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/03.md`](../../modulos/03.md). Pasta: [`modulo03-mcp-na-pratica/`](../../../modulo03-mcp-na-pratica/). Carga: ~24 h. Complemento: live [`lives/2026-02-24/`](../../../lives/2026-02-24/) (`base-teorica/mcp-model-context-protocol.md` e os textos de Agent Skills).
 
 READMEs de `customers-mcp` que repetem o texto do CipherSuite: **ignore**. O CipherSuite (AES) está no lab 05. Customers é CRUD de clientes no lab 06.
@@ -129,7 +131,7 @@ O OpsPilot, no M04 U3, vai expor **ele mesmo** como servidor MCP (`npm run mcp`)
 
 Três evidências, uma página:
 
-1. **Inspector ou CRUD.** Print ou log de `list_tools` do CipherSuite **ou** um `create` de customer refletido no Mongo.
+1. **Inspector ou CRUD.** Print ou log das tools no Inspector / `mcp:inspect` do CipherSuite **ou** um `create` de customer refletido no Mongo.
 2. **Token.** Chamada MCP sem `SERVICE_TOKEN` (erro) e com token (sucesso). Mascarar o segredo.
 3. **Uma frase de vocabulário.** “O host é ___; o servidor MCP é ___; quem autentica o CRUD é ___.”
 

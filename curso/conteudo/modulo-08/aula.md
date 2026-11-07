@@ -2,6 +2,8 @@
 
 # Módulo 08 — Arquitetura de sistemas com IA (TrialForge)
 
+**Narração (áudio + legenda):** [`modulo-08-narracao.mp3`](../../media/audios/tts/modulo-08-narracao.mp3) · [`modulo-08-narracao.vtt`](../../media/audios/tts/modulo-08-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/08.md`](../../modulos/08.md). Pasta: [`modulo08-arquitetura-de-sistemas-com-ia/`](../../../modulo08-arquitetura-de-sistemas-com-ia/). README: [`README.md`](../../../modulo08-arquitetura-de-sistemas-com-ia/README.md). Carga: ~20 h.
 
 Caso de **referência**: **TrialForge** / Vitalis Pharma — geração de documentos clínicos regulatórios (ICF, Protocolo, CSR). Os canvases devem ser preenchidos com **caso próprio**. Copiar o PDF já preenchido da Vitalis não é o C08.1.
@@ -122,7 +124,7 @@ Pacote mínimo:
 1. Canvas M1 do seu sistema (não a Vitalis) + output da decision tool em dois fluxos.
 2. Trace de um loop ReAct (Ollama ou pago, com a tabela de trade-off citada).
 3. Padrão multiagente escolhido + uma frase de falha distribuída.
-4. Um jsonl seu (gateway ou tiering) e o que diferiu da referência.
+4. Um jsonl seu (gateway ou tiering) e o que diferiu da referência. Escreva a hipótese e o baseline **antes** do número ([avaliacao.md](../../avaliacao.md) § Protocolo).
 5. ADR de meia página: Approval Gate e eval gate.
 
 Se o seu caso “não tem o que aprovar”, escolha outro fluxo — ou justifique regra pura com a tool. Justificativa vazia não fecha o C08.1.

@@ -1,0 +1,169 @@
+{
+  "gerado_em": "2026-11-07T03:40:17.719Z",
+  "node": "v22.23.4",
+  "aviso": "Smoke offline. Mock ≠ integração real. Sem dados de alunos.",
+  "modulos": {
+    "01": {
+      "pasta": "modulo01-fundamentos-de-ia-e-llms-para-programadores",
+      "entradas": 18
+    },
+    "02": {
+      "pasta": "modulo02-integracao-apis-llms",
+      "entradas": 12
+    },
+    "03": {
+      "pasta": "modulo03-mcp-na-pratica",
+      "entradas": 13
+    },
+    "04": {
+      "pasta": "modulo04-criacao-de-agentes-autonomos-novo",
+      "entradas": 10
+    },
+    "05": {
+      "pasta": "modulo05-ferramentas-de-IA-para-UI-UX",
+      "entradas": 6
+    },
+    "06": {
+      "pasta": "modulo06-aiops-engenharia-agentica",
+      "entradas": 18
+    },
+    "07": {
+      "pasta": "modulo07-ferramentas-de-ia-para-gestao-de-projetos",
+      "entradas": 11
+    },
+    "08": {
+      "pasta": "modulo08-arquitetura-de-sistemas-com-ia",
+      "entradas": 6
+    },
+    "09": {
+      "pasta": "modulo09-processamento-de-dados-e-fine-tuning-de-modelos",
+      "entradas": 11
+    }
+  },
+  "smokes": [
+    {
+      "id": "m07-monte-carlo",
+      "modulo": "07",
+      "status": "pass",
+      "cwd": "modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-04-estimativas-e-previsoes",
+      "exit": 0,
+      "sinal": null,
+      "tail": [
+        "==================================================",
+        "Monte Carlo RouteWise — 10.000 simulacoes",
+        "==================================================",
+        "P50 (cenario provavel):        12.5 semanas",
+        "P85 (compromisso com cliente): 13.1 semanas",
+        "P95 (conservador):             13.4 semanas",
+        "Media:                         12.5 semanas",
+        "=================================================="
+      ]
+    },
+    {
+      "id": "m09-decision-framework",
+      "modulo": "09",
+      "status": "pass",
+      "cwd": "modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-01-decision-framework",
+      "exit": 0,
+      "sinal": null,
+      "tail": [
+        "  [OK] comitê não muda o veredito de nenhum dos 3 casos reais",
+        "",
+        "  --- Teste de regressão: comitê de 1 avaliador reproduz o resultado original ---",
+        "  [OK] comitê de 1 avaliador reproduz exatamente os pesos do AHP de matriz única",
+        "  [OK] a matriz agregada do comitê ainda é reciprocamente válida (a[j][i] = 1/a[i][j])",
+        "  [OK] os pesos agregados do comitê somam 1.0",
+        "",
+        "Total geral: 29 teste(s), 29 passou(passaram), 0 falhou(falharam)."
+      ]
+    },
+    {
+      "id": "c-colab-verificar",
+      "modulo": "08-09",
+      "status": "pass",
+      "cwd": ".",
+      "exit": 0,
+      "sinal": null,
+      "tail": [
+        "# tests 11",
+        "# suites 3",
+        "# pass 11",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 53.738699"
+      ]
+    },
+    {
+      "id": "m01-exemplo-11-header",
+      "modulo": "01",
+      "status": "inspect_only",
+      "cwd": "modulo01-fundamentos-de-ia-e-llms-para-programadores/exemplo-11-openrouter",
+      "motivo": "request.sh contém Content-Type application/json"
+    },
+    {
+      "id": "m06-nexus",
+      "modulo": "06",
+      "status": "blocked_secrets",
+      "cwd": "modulo06-aiops-engenharia-agentica",
+      "motivo": "GROQ_API_KEY + CrewAI; Prometheus/Jaeger simulados. Sem chamada paga neste smoke."
+    },
+    {
+      "id": "m08-react-ollama",
+      "modulo": "08",
+      "status": "blocked_runtime",
+      "cwd": "modulo08-arquitetura-de-sistemas-com-ia/modulo-02-single-agent",
+      "motivo": "ReAct pede Ollama (gemma4:e2b pode não existir no catálogo) ou provedor pago."
+    },
+    {
+      "id": "m09-lora-mlx",
+      "modulo": "09",
+      "status": "blocked_gpu",
+      "cwd": "modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-04-lora-e-peft",
+      "motivo": "adapters.safetensors fora do Git; MLX/Colab/GPU. Não baixar modelos enormes."
+    },
+    {
+      "id": "m09-vertex",
+      "modulo": "09",
+      "status": "blocked_secrets",
+      "cwd": "modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-03-fine-tuning-via-api",
+      "motivo": "GCP/Vertex. Caminho Colab documentado no guia; não é integração real aqui."
+    },
+    {
+      "id": "companion-rag-cpu",
+      "modulo": "ref",
+      "status": "blocked_model_download",
+      "cwd": "referencia/llm-course/modulo-13-rag",
+      "motivo": "lab_cpu.py importa torch e embeddings e5-small — não descarregar nesta máquina."
+    },
+    {
+      "id": "m04-opspilot",
+      "modulo": "04",
+      "status": "blocked_secrets",
+      "cwd": "modulo04-criacao-de-agentes-autonomos-novo",
+      "motivo": "OPENROUTER_API_KEY nas unidades. .env.example em U2–U5 acrescentado para setup; smoke não chama a API."
+    },
+    {
+      "id": "m02-langgraph-intro",
+      "modulo": "02",
+      "status": "blocked_install",
+      "cwd": "modulo02-integracao-apis-llms/02-langchain-intro",
+      "motivo": "npm test exige node_modules; não instalamos o monorepo inteiro neste smoke. Lab 02 não chama LLM (keyword). Instrutor: npm ci na pasta."
+    },
+    {
+      "id": "m03-mcp",
+      "modulo": "03",
+      "status": "blocked_docker",
+      "cwd": "modulo03-mcp-na-pratica",
+      "motivo": "Mongo/Inspector/Verdaccio. Sem Docker de produção neste smoke."
+    },
+    {
+      "id": "m05-bragbot",
+      "modulo": "05",
+      "status": "blocked_secrets",
+      "cwd": "modulo05-ferramentas-de-IA-para-UI-UX/modulo-05/brag-bot",
+      "motivo": "Genkit + chave Gemini. .env.example acrescentado; não é integração real."
+    }
+  ]
+}

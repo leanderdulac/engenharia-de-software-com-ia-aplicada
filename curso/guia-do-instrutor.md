@@ -9,7 +9,7 @@ Os vídeos não estão no Git. Sua função em sala é: **ordenar demos**, **imp
 ## Antes da primeira aula
 
 1. Clone fresco; confirme que `modulo04-agentes-autonomos/` **não** existe — só `modulo04-criacao-de-agentes-autonomos-novo/`.
-2. Suba um “lab canário”: `exemplo-00-z`, Ollama `exemplo-10`, e `python3 -c "import sys; print(sys.version)"` 3.10–3.13 para o M06.
+2. Suba um “lab canário”: `exemplo-00-z`, Ollama `exemplo-10`, e `python3 -c "import sys; print(sys.version)"` 3.10–3.13 para o M06. Antes da turma: `npm test --prefix curso/preview` e `node --test curso/avaliacao-colaboracao/verificar.test.mjs` ([piloto](./piloto/protocolo.md)).
 3. Avise chaves: OpenRouter (M01–M04), Groq (M06), AI Studio (M05/M07), SerpAPI (M03 lab 02, opcional), GCP (M09, opcional), Chrome flags (M01 Web AI).
 4. Windows: aponte WSL + [`troubleshooting/windows/`](../troubleshooting/windows/) + skill [`windowsfy`](../skills/windowsfy/SKILL.md). Não improvise `tfjs-node` no PowerShell 5 no primeiro dia.
 5. Docker: `docker compose` com espaço ([`troubleshooting/docker.md`](../troubleshooting/docker.md)).

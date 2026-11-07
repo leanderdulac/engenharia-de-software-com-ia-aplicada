@@ -2,6 +2,8 @@
 
 # Módulo 07 — Ferramentas de IA para gestão de projetos (RouteWise)
 
+**Narração (áudio + legenda):** [`modulo-07-narracao.mp3`](../../media/audios/tts/modulo-07-narracao.mp3) · [`modulo-07-narracao.vtt`](../../media/audios/tts/modulo-07-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/07.md`](../../modulos/07.md). Pasta: [`modulo07-ferramentas-de-ia-para-gestao-de-projetos/`](../../../modulo07-ferramentas-de-ia-para-gestao-de-projetos/). README: [`README.md`](../../../modulo07-ferramentas-de-ia-para-gestao-de-projetos/README.md). Professor no README: Dr. José Ahirton Batista Lopes Filho. Carga: ~20 h.
 
 Caso único: **RouteWise**, gestão de frota da Conecta Cargas, **140 veículos**. Dez ferramentas, uma pasta cada. O board evolui: leia `jira-estado-board.md` **quando o arquivo existir** (está em 01–07 e 10; **ausente** em 08 e 09).
@@ -146,4 +148,4 @@ Dossiê de uma página + anexos mínimos:
 4. Um OKR validado e um OKR de vaidade que o Aligner (ou você) derrubou.
 5. Parágrafo de alucinação: “O modelo inventou ___; eu cortei porque ___.”
 
-Caso próprio é bem-vindo se o pipeline for o mesmo. Não misture com TrialForge neste entregável.
+Caso próprio é bem-vindo se o pipeline for o mesmo. Não misture com TrialForge neste entregável. M3/M6/M7/M9 ficam de fora deste dossiê mínimo (trilha completa ≠ C07.x). A missão da unidade é a `Atividade - Módulo N.pdf` **ou** o checkpoint — não os dois.

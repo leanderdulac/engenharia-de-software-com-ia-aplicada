@@ -3,5 +3,7 @@
   "titulo": "Processamento de dados e fine-tuning",
   "duracao_narracao_min": 6,
   "caso_ancora": "Amplitude Seguros",
-  "capa": "../../media/imagens/modulo-09-capa.png"
+  "capa": "../../media/imagens/modulo-09-capa.png",
+  "narracao_mp3": "../../media/audios/tts/modulo-09-narracao.mp3",
+  "narracao_vtt": "../../media/audios/tts/modulo-09-narracao.vtt"
 }

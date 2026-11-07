@@ -1,0 +1,43 @@
+name: CI — curso piloto
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  curso:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: curso/preview/package-lock.json
+
+      - name: Install preview deps
+        run: npm --prefix curso/preview ci
+
+      - name: C-COLAB tests
+        run: node --test curso/avaliacao-colaboracao/verificar.test.mjs
+
+      - name: Preview unit + HTTP tests
+        run: npm --prefix curso/preview test
+
+      - name: Internal links + helpers
+        run: npm --prefix curso/preview run check
+
+      - name: Static GitHub Pages build (no deploy)
+        run: npm --prefix curso/preview run build
+
+      - name: Smoke labs offline
+        run: node curso/piloto/smoke-labs.mjs
+
+      - name: Preview e2e (Chrome if present; SKIP exit 0)
+        run: npm --prefix curso/preview run e2e

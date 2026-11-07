@@ -2,6 +2,8 @@
 
 # Módulo 02 — Integração de APIs de LLMs
 
+**Narração (áudio + legenda):** [`modulo-02-narracao.mp3`](../../media/audios/tts/modulo-02-narracao.mp3) · [`modulo-02-narracao.vtt`](../../media/audios/tts/modulo-02-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/02.md`](../../modulos/02.md). Pasta: [`modulo02-integracao-apis-llms/`](../../../modulo02-integracao-apis-llms/). Carga: ~24 h.
 
 Aviso que o guia já dá e esta aula repete de propósito: **não há README de módulo**, e vários READMEs de pasta falam de um “gerador de artigos” que não é este código. O `package.json` do lab médico ainda pode se chamar `prompt-chaining-article-generator`. Spec é o guia, o `plan.md` do lab 06, e os arquivos em `src/`.
@@ -120,8 +122,8 @@ O Módulo 03 vai expor **tools** com o mesmo rigor: o agente não lê o Mongo �
 
 Escolha **um** eixo e entregue evidência. Não precisa dos sete labs no zip.
 
-**Opção A — Gateway + médico.** `curl` do `POST /chat` do router (incluindo um modelo inválido) + E2E do template médico verde + o `identifyIntent` preenchido (trecho ou print). Parágrafo: o que o `-z` fez que você não fez.
+**Opção A — Gateway + médico.** `curl` do `POST /chat` do router (incluindo um modelo inválido) **ou** evidência do lab 02 (`langgraph:serve`, sem LLM) para C02.1 + E2E do template médico verde + o `identifyIntent` preenchido. Parágrafo: o que o `-z` fez que você não fez.
 
-**Opção B — Safeguard + Cypher.** Output do membro bloqueado e do caso privilegiado + Cypher gerado de uma pergunta de ranking (seed rodado). Uma frase: por que o texto do usuário não autoriza leitura de arquivo.
+**Opção B — Safeguard + Cypher.** Output do membro bloqueado e do caso privilegiado + Cypher gerado de uma pergunta de ranking (seed rodado). Uma frase: por que o texto do usuário não autoriza leitura de arquivo. C02.4 também fecha com PDF **próprio** no lab 07.
 
 Em ambos os casos, um README de 20 linhas da API que você escolheu como projeto do módulo.

@@ -1,0 +1,40 @@
+NOTICE — Engenharia de Software com IA Aplicada
+================================================
+
+This repository contains more than one copyrighted work. Attribution is not
+permission. This file is not a legal opinion.
+
+1) Course trunk (UniPDS)
+   Paths: curso/ (except notices pointing elsewhere), modulo01–modulo09,
+   lives/, skills/, troubleshooting/, and the root README.
+   License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0
+   International (CC BY-NC-ND 4.0). See LICENSE.md.
+   Copyright © 2026 Unipds Educação.
+
+   Sharing the unmodified original is what CC BY-NC-ND allows (with
+   attribution, non-commercial). Distributing adaptations of that material
+   may be forbidden by the NoDerivatives term until the rights holders say
+   otherwise. A private fork for study is not the same as public
+   redistribution of a modified copy.
+
+2) Companion island (Apache-2.0)
+   Path: referencia/llm-course/
+   License: Apache License 2.0 (keep LICENSE and NOTICE in that directory).
+   Author: Luciano de Oliveira Nunes.
+   Source: https://github.com/lucianoon/llm-course
+   Isolation of this tree does NOT relicense the UniPDS trunk, and does NOT
+   authorize commercial use or derivative distribution of the CC BY-NC-ND
+   material.
+
+3) Third-party snippets inside labs (Duck Hunt, Fastify templates, etc.)
+   Keep any LICENSE files next to those copies. Do not treat them as
+   UniPDS-owned or as Apache-licensed by proximity.
+
+4) Generated media in curso/media/
+   TTS (Azure Neural), Grok Imagine intros, HeyGen IDs, and cover images
+   are listed in curso/media/README.md. Third-party generator terms may
+   apply in addition to the trunk license. They were not regenerated in the
+   stabilization work.
+
+Internal permission-request templates (not sent): curso/licencas/modelos-pedido-permissao.md
+Substitution plan for original replacements: curso/licencas/plano-conteudos-originais.md

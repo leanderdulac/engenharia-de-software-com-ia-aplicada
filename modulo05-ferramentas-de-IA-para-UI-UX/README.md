@@ -1,5 +1,7 @@
 # 🚀 Ferramentas de IA para UX & UI
 
+> **Pastas reais neste clone:** `modulo-01/` … `modulo-05/` (não os nomes longos da árvore abaixo). Guia oficial da pós: [`curso/modulos/05.md`](../curso/modulos/05.md). Firebase Hosting **não** é o stack do BragBot (Genkit). `.env.example` do BragBot: `modulo-05/brag-bot/.env.example`.
+
 Este repositório centraliza os projetos, artefatos e automações desenvolvidos durante a disciplina de **IA Aplicada a UX e UI**. O foco central é a aplicação da Inteligência Artificial como uma camada de **Engenharia de Software**, otimizando o Discovery, a Prototipação e o Desenvolvimento Front-End.
 
 **Professor:** [Alvaro Camillo Neto](https://github.com/alvarocamilloneto)

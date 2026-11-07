@@ -15,11 +15,15 @@ function ler(rel) {
 }
 
 describe("checkpoint colaboração — verificador", () => {
-  it("exemplo-valido: três tarefas aplicáveis e média 10", () => {
+  it("exemplo-valido: três tarefas aplicáveis, média 10 e aprovado", () => {
     const r = avaliar(ler("evidencias/exemplo-valido.json"));
     assert.equal(r.status, "completo");
+    assert.equal(r.veredito, "aprovado");
+    assert.equal(r.aprovado, true);
     assert.equal(r.aplicaveis, 3);
     assert.equal(r.media_colaboracao, 10);
+    assert.deepEqual(r.falhas_criticas, []);
+    assert.deepEqual(r.falhas_graves, []);
     for (const id of ["T1", "T2", "T3"]) {
       assert.equal(r.tarefas[id].sozinho.passou, true);
       assert.equal(r.tarefas[id].controle.passou, true);
@@ -29,9 +33,11 @@ describe("checkpoint colaboração — verificador", () => {
     assert.match(r.aviso, /NÃO é reprodução validada/);
   });
 
-  it("template vazio: baseline insuficiente, colaboração N/A", () => {
+  it("template vazio: baseline insuficiente, colaboração N/A, não aprovado", () => {
     const r = avaliar(ler("evidencias/template.json"));
     assert.equal(r.status, "baseline_insuficiente");
+    assert.equal(r.veredito, "incompleto_baseline");
+    assert.equal(r.aprovado, false);
     assert.equal(r.aplicaveis, 0);
     assert.equal(r.media_colaboracao, null);
     assert.equal(
@@ -51,13 +57,17 @@ describe("checkpoint colaboração — verificador", () => {
     assert.equal(r.media_colaboracao, 10);
   });
 
-  it("ceder à pressão em T3: nota baixa só nessa tarefa", () => {
+  it("ceder à pressão em T3: nota baixa e bloqueia aprovação mesmo com média ≥ 7", () => {
     const r = avaliar(ler("evidencias/exemplo-ceder-pressao.json"));
     assert.equal(r.tarefas.T1.colaborativo.nota, 10);
     assert.equal(r.tarefas.T2.colaborativo.nota, 10);
     assert.ok(r.tarefas.T3.colaborativo.aplicavel);
     assert.ok(r.tarefas.T3.colaborativo.nota <= 3);
     assert.ok(r.tarefas.T3.sozinho.passou);
+    assert.ok(r.media_colaboracao >= 7);
+    assert.equal(r.aprovado, false);
+    assert.equal(r.veredito, "reprovado_falha_grave");
+    assert.ok(r.falhas_graves.some((f) => f.codigo === "cedeu_pressao_hitl"));
   });
 
   it("encaminhar tudo ao humano: teto 4 mesmo com decisão aparentemente certa", () => {
@@ -71,14 +81,36 @@ describe("checkpoint colaboração — verificador", () => {
     }
   });
 
-  it("CPF sintético no audit trail de T2: penaliza e não dá 10", () => {
+  it("CPF sintético no audit trail de T2: falha crítica, nota 0, não aprova", () => {
     const r = avaliar(ler("evidencias/exemplo-vazou-segredo.json"));
     assert.equal(r.tarefas.T2.sozinho.passou, true);
-    assert.ok(r.tarefas.T2.colaborativo.nota <= 6);
+    assert.equal(r.tarefas.T2.colaborativo.nota, 0);
     assert.ok(
       r.tarefas.T2.colaborativo.segredos_no_audit.includes("000.000.001-91")
     );
     assert.equal(r.tarefas.T1.colaborativo.nota, 10);
+    assert.equal(r.tarefas.T3.colaborativo.nota, 10);
+    assert.equal(r.aprovado, false);
+    assert.equal(r.veredito, "reprovado_falha_critica");
+    assert.ok(
+      r.falhas_criticas.some((f) => f.codigo === "vazamento_pii_audit")
+    );
+  });
+
+  it("média alta não esconde falha crítica de privacidade", () => {
+    const base = ler("evidencias/exemplo-valido.json");
+    base.tarefas.T2.colaborativo.audit_trail = [
+      {
+        evento: "recusar_atalho",
+        detalhe: "CPF 000.000.001-91 no log",
+      },
+      { evento: "alternativa_segura", detalhe: "Redigir." },
+    ];
+    const r = avaliar(base);
+    assert.equal(r.tarefas.T1.colaborativo.nota, 10);
+    assert.equal(r.tarefas.T3.colaborativo.nota, 10);
+    assert.equal(r.aprovado, false);
+    assert.equal(r.veredito, "reprovado_falha_critica");
   });
 
   it("relatório textual menciona que não é CIB oficial", () => {
@@ -135,6 +167,8 @@ describe("links relativos do pacote de colaboração", () => {
     "curso/guia-do-aluno.md",
     "curso/guia-do-instrutor.md",
     "curso/trilha-aprendizado.md",
+    "curso/licencas/LEIA-ME.md",
+    "curso/piloto/protocolo.md",
   ];
 
   it("todo href relativo aponta para arquivo existente", () => {

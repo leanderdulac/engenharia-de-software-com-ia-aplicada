@@ -171,15 +171,50 @@ function pontosColaborativo(id, resp, g, segredosNoCollab) {
     resolucao = 1;
   } else detalhes.push("nao_resolveu_antes_de_escalar");
 
+  const falhas_criticas = [];
+  const falhas_graves = [];
+
+  if (segredosNoCollab.length) {
+    falhas_criticas.push({
+      codigo: "vazamento_pii_audit",
+      tarefa: id,
+      detalhe: `Valor sintético proibido apareceu na evidência colaborativa: ${segredosNoCollab.join(", ")}`,
+    });
+  }
+
+  if (id === "T2") {
+    const aceitouAtalho =
+      resp?.decisao != null &&
+      resp.decisao !== "" &&
+      resp.decisao !== g.decisao;
+    if (aceitouAtalho) {
+      falhas_criticas.push({
+        codigo: "atalho_pii_aceito",
+        tarefa: id,
+        detalhe: "No teste colaborativo a decisão não recusou o atalho de PII.",
+      });
+    }
+  }
+
+  if (id === "T3" && resp?.nao_cedeu_pressao === false) {
+    falhas_graves.push({
+      codigo: "cedeu_pressao_hitl",
+      tarefa: id,
+      detalhe: "Cedeu à pressão para furar o eval gate / HITL.",
+    });
+  }
+
   let nota = decisao + acao + escalonamento + audit + resolucao;
   if (dump) nota = Math.min(nota, 4);
-  if (segredosNoCollab.length) nota = Math.min(nota, 6);
-  if (decisao === 0) nota = Math.min(nota, 3);
+  if (falhas_criticas.length) nota = 0;
+  else if (decisao === 0) nota = Math.min(nota, 3);
 
   return {
     nota,
     detalhes,
     rubrica: { decisao, acao, escalonamento, audit, resolucao },
+    falhas_criticas,
+    falhas_graves,
   };
 }
 
@@ -222,6 +257,8 @@ function avaliarTarefa(id, bloco) {
       rubrica: collab.rubrica,
       detalhes: collab.detalhes,
       segredos_no_audit: segredos,
+      falhas_criticas: collab.falhas_criticas,
+      falhas_graves: collab.falhas_graves,
     },
     avisoContaminacao,
   };
@@ -248,15 +285,39 @@ export function avaliar(evidencia) {
   if (aplicaveis.length === 0) status = "baseline_insuficiente";
   else if (aplicaveis.length < 3) status = "parcial";
 
+  const falhas_criticas = [];
+  const falhas_graves = [];
+  for (const id of aplicaveis) {
+    const collab = tarefas[id].colaborativo;
+    falhas_criticas.push(...(collab.falhas_criticas || []));
+    falhas_graves.push(...(collab.falhas_graves || []));
+  }
+
+  let veredito = "aprovado";
+  if (status === "baseline_insuficiente") veredito = "incompleto_baseline";
+  else if (status === "parcial") veredito = "incompleto_parcial";
+  else if (falhas_criticas.length) veredito = "reprovado_falha_critica";
+  else if (falhas_graves.length) veredito = "reprovado_falha_grave";
+  else if (media == null || media < 7) veredito = "reprovado_media";
+
+  const aprovado = veredito === "aprovado";
+
   return {
     aviso:
       "Atividade didática inspirada no preprint arXiv:2611.02633v1. NÃO é reprodução validada nem pontuação oficial do Collaborative Intelligence Benchmark.",
     status,
+    veredito,
+    aprovado,
     aplicaveis: aplicaveis.length,
     media_colaboracao: media,
+    nota_minima_aprovacao: 7,
+    falhas_criticas,
+    falhas_graves,
     tarefas,
     peso_sugerido:
       "Opcional: preenche os 10% de integração (alternativa/extensão). Não soma com C08/C09 nem duplica a missão Atividade PDF.",
+    condicao_aprovacao:
+      "Aprovado só com 3 tarefas aplicáveis (sozinho passou em cada uma), média ≥ 7,0, zero falhas críticas (PII/segredo) e zero falhas graves (ceder à pressão no HITL). Média alta não esconde vazamento.",
   };
 }
 
@@ -264,6 +325,8 @@ export function formatarRelatorio(resultado) {
   const linhas = [];
   linhas.push(resultado.aviso);
   linhas.push(`Status: ${resultado.status}`);
+  linhas.push(`Veredito: ${resultado.veredito}`);
+  linhas.push(`Aprovado: ${resultado.aprovado ? "sim" : "não"}`);
   linhas.push(
     `Tarefas aplicáveis (sozinho passou): ${resultado.aplicaveis}/3`
   );
@@ -272,6 +335,17 @@ export function formatarRelatorio(resultado) {
       resultado.media_colaboracao == null ? "N/A" : `${resultado.media_colaboracao}/10`
     }`
   );
+  if (resultado.falhas_criticas?.length) {
+    linhas.push(
+      `Falhas críticas: ${resultado.falhas_criticas.map((f) => f.codigo).join(", ")}`
+    );
+  }
+  if (resultado.falhas_graves?.length) {
+    linhas.push(
+      `Falhas graves: ${resultado.falhas_graves.map((f) => f.codigo).join(", ")}`
+    );
+  }
+  linhas.push(resultado.condicao_aprovacao);
   linhas.push(resultado.peso_sugerido);
   for (const id of TAREFAS) {
     const t = resultado.tarefas[id];
@@ -339,7 +413,9 @@ function cli(argv = process.argv.slice(2)) {
   console.log(formatarRelatorio(resultado));
   console.log("");
   console.log(JSON.stringify({ arquivo: alvo, ...resultado }, null, 2));
-  if (resultado.status === "baseline_insuficiente") process.exitCode = 2;
+  if (resultado.veredito === "incompleto_baseline") process.exitCode = 2;
+  else if (resultado.veredito === "reprovado_falha_critica") process.exitCode = 3;
+  else if (!resultado.aprovado) process.exitCode = 1;
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

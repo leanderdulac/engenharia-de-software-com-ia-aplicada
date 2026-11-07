@@ -10,7 +10,7 @@ Pós-graduação. Material prático neste repositório; aulas em vídeo fora do 
 | Natureza | Pós-graduação lato sensu (disciplina / trilha completa) |
 | Carga horária | 240 h de estudo dirigido (ver [trilha-aprendizado.md](./trilha-aprendizado.md)) |
 | Linguagens | TypeScript/Node (eixo), Python (paridade nos M06–M09 e labs Nexus) |
-| Licença do material | [CC BY-NC-ND 4.0](../LICENSE.md) |
+| Licença do material | [CC BY-NC-ND 4.0](../LICENSE.md) — ver [licencas/LEIA-ME.md](./licencas/LEIA-ME.md) |
 
 ## Objetivos gerais
 

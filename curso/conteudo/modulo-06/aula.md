@@ -2,6 +2,8 @@
 
 # Módulo 06 — AIOps e engenharia agêntica (Nexus)
 
+**Narração (áudio + legenda):** [`modulo-06-narracao.mp3`](../../media/audios/tts/modulo-06-narracao.mp3) · [`modulo-06-narracao.vtt`](../../media/audios/tts/modulo-06-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/06.md`](../../modulos/06.md). Pasta: [`modulo06-aiops-engenharia-agentica/`](../../../modulo06-aiops-engenharia-agentica/). README operacional: [`README.md`](../../../modulo06-aiops-engenharia-agentica/README.md). Carga: ~28 h, **12 labs**. Teoria extra em [`slides/`](../../../modulo06-aiops-engenharia-agentica/slides/).
 
 O Nexus é o caso âncora de operação: agentes CrewAI + Groq (Llama) geram IaC, diagnosticam pod, falam no “Slack”, triam CVE, caçam zumbi de nuvem e fecham um incidente **multidomínio** com relatório executivo. Prometheus e Jaeger, neste material, são **simulados** no lab 4. Ollama no cluster (`k8s/ollama.yaml`) é complementar, não pré-requisito.

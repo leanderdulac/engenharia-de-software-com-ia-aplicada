@@ -3,5 +3,7 @@
   "titulo": "MCP na prática",
   "duracao_narracao_min": 6,
   "caso_ancora": "CipherSuite MCP, customers MCP",
-  "capa": "../../media/imagens/modulo-03-capa.png"
+  "capa": "../../media/imagens/modulo-03-capa.png",
+  "narracao_mp3": "../../media/audios/tts/modulo-03-narracao.mp3",
+  "narracao_vtt": "../../media/audios/tts/modulo-03-narracao.vtt"
 }

@@ -29,11 +29,13 @@ Como estudar **este** repositório do zero até o M09 sem depender de recado de 
 Clone:
 
 ```bash
-git clone https://github.com/unipds-engenharia-de-ia-aplicada/engenharia-de-software-com-ia-aplicada.git
+git clone https://github.com/leanderdulac/engenharia-de-software-com-ia-aplicada.git
 cd engenharia-de-software-com-ia-aplicada
 ```
 
-Trabalhe num **fork** ou clone pessoal ([LICENSE.md](../LICENSE.md): estudo, sem uso comercial). Não abra PR externo neste repositório.
+Este é o clone **deste** repositório de trabalho. Se a instituição indicar outro URL canónico, confirme com o instrutor — não assuma espelhos.
+
+Trabalhe num **fork privado** ou clone pessoal ([LICENSE.md](../LICENSE.md): estudo, sem uso comercial, **sem distribuir adaptações**). Fork para estudar ≠ publicar o curso modificado (Pages, apostila). Ver [licencas/LEIA-ME.md](./licencas/LEIA-ME.md). Não abra PR externo neste repositório.
 
 ### Windows
 

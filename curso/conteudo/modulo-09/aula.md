@@ -2,6 +2,8 @@
 
 # Módulo 09 — Processamento de dados e fine-tuning (Amplitude Seguros)
 
+**Narração (áudio + legenda):** [`modulo-09-narracao.mp3`](../../media/audios/tts/modulo-09-narracao.mp3) · [`modulo-09-narracao.vtt`](../../media/audios/tts/modulo-09-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/09.md`](../../modulos/09.md). Pasta: [`modulo09-processamento-de-dados-e-fine-tuning-de-modelos/`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/). README (custo, env, paridade JS/Python): [`README.md`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/README.md). Carga: ~28 h.
 
 Caso: **Amplitude Seguros** — linhas **Auto** e **Saúde Empresarial**. Há caminho **sem Vertex**: M1–M2 + LoRA MLX/Colab (M4) + harness local (M5.4) + capstone `--local` (M6.2). Documente a escolha.
@@ -135,7 +137,7 @@ Três recusas legítimas que ainda valem nota: (1) Atendimento fora do fine-tune
 Ciclo fechado, Amplitude ou seu domínio no mesmo molde:
 
 1. Print da tool com os 3 casos e o reprovado visível.
-2. Amostra JSONL (poucas linhas) + evidência do gate PII numa imagem de `documentos-brutos/`.
+2. Amostra JSONL (poucas linhas) + evidência do gate PII numa imagem de `documentos-brutos/` + 1 linha OCR vs multimodal. Manifesto/provenance: 3 campos preenchidos (checklist de governança do guia).
 3. Log de **um** treino (Vertex ou LoRA/Colab) — sem colar chave.
 4. Um número do harness (A/B, formato, ou NPV).
 5. ADR de 8 decisões. Se a decisão 8 for “não promover”, justifique com o item 4.

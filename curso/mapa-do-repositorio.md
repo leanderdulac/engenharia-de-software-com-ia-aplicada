@@ -11,6 +11,9 @@ Legenda: **T** = template (trabalhe aqui); **Z** = gabarito; **S** = snapshot cu
 | [`curso/`](./README.md) | Pacote ensinável (você está aqui) |
 | [`README.md`](../README.md) | Links de aula por submódulo |
 | [`LICENSE.md`](../LICENSE.md) | CC BY-NC-ND 4.0 |
+| [`NOTICE`](../NOTICE) | Duas árvores de licença (tronco + Apache isolado) |
+| [`curso/licencas/`](./licencas/LEIA-ME.md) | Adaptação vs distribuição; modelos internos de permissão |
+| [`curso/piloto/`](./piloto/protocolo.md) | Protocolo do piloto acompanhado |
 | [`troubleshooting/`](../troubleshooting/) | Docker, Chrome/Web AI, Windows/WSL |
 | [`skills/windowsfy/`](../skills/windowsfy/) | Skill para adaptar scripts Unix → Windows |
 | [`lives/`](../lives/) | Três lives (MCP, SDD, Safer) |
@@ -25,7 +28,7 @@ Legenda: **T** = template (trabalhe aqui); **Z** = gabarito; **S** = snapshot cu
 
 ## Módulo 01 — `modulo01-fundamentos-de-ia-e-llms-para-programadores/`
 
-Não há README na raiz desta pasta. O índice de aulas é o README da raiz do repo.
+README curto na raiz da pasta aponta para o guia. O índice de aulas continua no README da raiz do repo.
 
 | Pasta | Tipo | Aula (README raiz) | O aluno faz |
 | --- | --- | --- | --- |

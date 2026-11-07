@@ -3,5 +3,7 @@
   "titulo": "Integração de APIs de LLMs",
   "duracao_narracao_min": 6,
   "caso_ancora": "Gateway, consultas médicas, Cypher",
-  "capa": "../../media/imagens/modulo-02-capa.png"
+  "capa": "../../media/imagens/modulo-02-capa.png",
+  "narracao_mp3": "../../media/audios/tts/modulo-02-narracao.mp3",
+  "narracao_vtt": "../../media/audios/tts/modulo-02-narracao.vtt"
 }

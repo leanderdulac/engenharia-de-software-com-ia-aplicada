@@ -66,5 +66,13 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **Gabarito `-z`** | Solução da aula. | M01–M03 |
 | **Snapshot** | Cópia completa do OpsPilot no fim da unidade N. | M04 |
 | **Windowsfy** | Skill que sugere patches Unix→Windows nos `package.json`. | `skills/windowsfy/` |
+| **INVEST / Gherkin** | Critérios de história; cenários Given/When/Then. | M07 M1; M05 OpenSpec |
+| **Agent Skills** | Pacotes de instrução+scripts que o agente carrega (não são MCP servers). | M03 lab 04; live 2026-02-24 |
+| **Verdaccio** | Registry npm privado. | M03 lab 08 |
+| **SERVICE_TOKEN** | Segredo de serviço na API legado MCP; sem ele a tool recusa. | M03 labs 07 e 09 |
+| **JWT / RBAC** | Token de sessão e papéis na API do lab 07. | M03 lab 07 |
+| **GRPO** | Demo de recompensa verificável na pasta M09 M1 — **não** é entrega. | M09 `grpo-verifiable-reward-demo` |
+| **DPA / LGPD** | Contrato de tratamento de dados / lei brasileira; gate binário no framework Amplitude. Revisão humana especialista. | M09 M1 JSON dos casos |
+| **CC BY-NC-ND** | Licença do tronco: crédito, não comercial, sem distribuir derivados. | [LICENSE.md](../LICENSE.md); [licencas/LEIA-ME.md](./licencas/LEIA-ME.md) |
 
 Se um termo aparecer só em slide/vídeo e não nesta tabela, trate-o como opcional até existir pasta no repo.

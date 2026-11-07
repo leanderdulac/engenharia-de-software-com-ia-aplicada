@@ -1,0 +1,45 @@
+name: Pages preview (manual)
+
+# NÃO liga GitHub Pages na conta. NÃO corre em push.
+# Publicar adaptações pode ser bloqueado por CC BY-NC-ND — ver curso/licencas/LEIA-ME.md.
+# Coordenador: Settings → Pages → Source = GitHub Actions, só depois de revisão jurídica.
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy to GitHub Pages (requires Pages enabled AND legal OK)"
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: curso/preview/package-lock.json
+      - run: npm --prefix curso/preview ci
+      - run: GITHUB_PAGES=1 npm --prefix curso/preview run build
+      - uses: actions/upload-pages-artifact@v4
+        if: ${{ inputs.deploy }}
+        with:
+          path: curso/preview/dist
+
+  deploy:
+    if: ${{ inputs.deploy }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
