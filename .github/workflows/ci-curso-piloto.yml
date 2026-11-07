@@ -10,19 +10,9 @@ jobs:
   curso:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    services:
-      mongodb:
-        image: mongo:8
-        env:
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: example
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh -u root -p example --authenticationDatabase admin --quiet --eval 'db.adminCommand({ ping: 1 })'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
+    # mongo:8 recusa arranque em kernel Linux ≥ 6.19 (SERVER-121912).
+    # ubuntu-latest do GHA falhou com esse erro fatal — não contornámos o kernel.
+    # CRUD/customers no smoke SKIP sem Mongo; teste real fica no Docker local.
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -67,21 +57,6 @@ jobs:
           npm --prefix modulo03-mcp-na-pratica/06-your-legacy-api-as-mcp/customers-mcp-z ci --ignore-scripts
           npm --prefix modulo05-ferramentas-de-IA-para-UI-UX/modulo-02/pix-app ci --ignore-scripts
           npm --prefix modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-08-governanca-e-compliance/routewise-danger-demo ci --ignore-scripts
-
-      - name: Start customers API (Mongo local)
-        working-directory: modulo03-mcp-na-pratica/06-your-legacy-api-as-mcp/nodejs-fastify-mongodb-crud
-        env:
-          HOST: 127.0.0.1
-          PORT: "9999"
-          DB_NAME: customers
-        run: |
-          npm start &
-          for i in $(seq 1 20); do
-            curl -sf http://127.0.0.1:9999/v1/health && exit 0
-            sleep 1
-          done
-          echo "customers API não respondeu em :9999"
-          exit 1
 
       - name: Contratos (TESTE LOCAL ≠ integração)
         run: node curso/piloto/check-contratos.mjs

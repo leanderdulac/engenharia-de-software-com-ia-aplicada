@@ -173,6 +173,8 @@ Python `danger-config-routewise.py` **não** está no submódulo; **não** foi e
 
 Daemon Docker: não contornámos cgroup/seccomp. `usermod -aG docker` não renovou o grupo nesta sessão; smoke usa `sudo -n docker info`.
 
+CI GitHub Actions (`ubuntu-latest`): `mongo:8` **não arranca** — kernel ≥ 6.19, `SERVER-121912` ("MongoDB cannot start"). Serviço Mongo removido do workflow; smoke SKIP CRUD/customers no GHA com esse motivo. Teste Mongo continua a ser o Docker local desta VM.
+
 ## O que isto não prova
 
 - Integração OpenRouter / Groq / Gemini / Vertex (contratos herméticos só).
