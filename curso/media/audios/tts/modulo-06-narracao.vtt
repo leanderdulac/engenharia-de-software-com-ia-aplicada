@@ -1,489 +1,489 @@
 WEBVTT
 
 1
-00:00:00.100 --> 00:00:00.949
+00:00:00.080 --> 00:00:00.550
 Olá.
 
 2
-00:00:00.899 --> 00:00:04.725
+00:00:00.800 --> 00:00:03.750
 Seja bem-vinda, seja bem-vindo ao módulo seis.
 
 3
-00:00:04.725 --> 00:00:05.868
+00:00:04.020 --> 00:00:04.770
 Nexus.
 
 4
-00:00:05.868 --> 00:00:07.850
+00:00:05.000 --> 00:00:06.300
 Doze laboratórios.
 
 5
-00:00:07.850 --> 00:00:08.932
+00:00:06.480 --> 00:00:07.260
 Um caso.
 
 6
-00:00:08.932 --> 00:00:10.152
+00:00:07.460 --> 00:00:08.210
 Operação.
 
 7
-00:00:10.152 --> 00:00:13.170
+00:00:08.500 --> 00:00:10.760
 Você já viu o ReAct no OpsPilot.
 
 8
-00:00:13.170 --> 00:00:15.990
+00:00:10.980 --> 00:00:13.370
 Pensamento, ação, observação.
 
 9
-00:00:15.990 --> 00:00:19.512
+00:00:13.600 --> 00:00:16.500
 Agora o loop pensa e age em infraestrutura.
 
 10
-00:00:19.512 --> 00:00:23.414
+00:00:16.720 --> 00:00:19.860
 A fantasia é o agente apagar o banco de madrugada.
 
 11
-00:00:23.414 --> 00:00:25.167
+00:00:20.080 --> 00:00:21.380
 A aula é o contrário.
 
 12
-00:00:25.167 --> 00:00:26.432
+00:00:21.560 --> 00:00:22.380
 Auditoria.
 
 13
-00:00:26.432 --> 00:00:28.231
+00:00:22.580 --> 00:00:24.400
 Ensaio, o dry-run.
 
 14
-00:00:28.231 --> 00:00:29.786
+00:00:24.460 --> 00:00:25.540
 Senha de gestor.
 
 15
-00:00:29.786 --> 00:00:33.003
+00:00:25.740 --> 00:00:28.390
 E um gerente hierárquico que escreve relatório.
 
 16
-00:00:33.003 --> 00:00:35.533
+00:00:28.600 --> 00:00:30.520
 Não um botão vermelho sem dono.
 
 17
-00:00:35.533 --> 00:00:41.295
+00:00:30.800 --> 00:00:35.890
 O Nexus é o caso âncora de AIOps, operação com inteligência artificial.
 
 18
-00:00:41.295 --> 00:00:46.814
+00:00:36.100 --> 00:00:41.280
 Agentes CrewAI, com Llama pela Groq, geram infraestrutura como código.
 
 19
-00:00:46.814 --> 00:00:48.673
+00:00:41.480 --> 00:00:43.060
 Diagnosticam um pod.
 
 20
-00:00:48.673 --> 00:00:50.975
+00:00:43.300 --> 00:00:44.880
 Falam no teatro de Slack.
 
 21
-00:00:50.975 --> 00:00:53.003
+00:00:45.080 --> 00:00:46.590
 Triam vulnerabilidades.
 
 22
-00:00:53.003 --> 00:00:54.939
+00:00:46.760 --> 00:00:48.180
 Caçam zumbi de nuvem.
 
 23
-00:00:54.939 --> 00:00:58.155
+00:00:48.360 --> 00:00:50.760
 E fecham um incidente de vários domínios.
 
 24
-00:00:58.155 --> 00:01:01.798
+00:00:51.020 --> 00:00:54.170
 Ao final, você sai com infraestrutura auditável.
 
 25
-00:01:01.798 --> 00:01:04.664
+00:00:54.340 --> 00:00:56.810
 Um diagnóstico, ou um chat com freio.
 
 26
-00:01:04.664 --> 00:01:08.185
+00:00:57.000 --> 00:00:59.990
 Um artefato de segurança, custo ou runbook.
 
 27
-00:01:08.185 --> 00:01:14.146
+00:01:00.200 --> 00:01:04.810
 E o jogo do dia, com o parágrafo do que você não deixaria o gerente aplicar sozinho.
 
 28
-00:01:14.146 --> 00:01:17.728
+00:01:05.060 --> 00:01:07.990
 Python de 3.10 a 3.13.
 
 29
-00:01:17.728 --> 00:01:20.167
+00:01:08.060 --> 00:01:09.810
 Não use 3.14.
 
 30
-00:01:20.167 --> 00:01:23.506
+00:01:09.880 --> 00:01:12.520
 A chave da Groq vai na variável de ambiente.
 
 31
-00:01:23.506 --> 00:01:25.777
+00:01:12.700 --> 00:01:14.300
 Ative o ambiente virtual.
 
 32
-00:01:25.777 --> 00:01:29.344
+00:01:14.480 --> 00:01:17.360
 Sem ele, o erro é biblioteca não encontrada.
 
 33
-00:01:29.344 --> 00:01:31.097
+00:01:17.540 --> 00:01:18.770
 Não é o laboratório.
 
 34
-00:01:31.097 --> 00:01:33.475
+00:01:18.920 --> 00:01:20.580
 O menu dispara os agentes.
 
 35
-00:01:33.475 --> 00:01:35.426
+00:01:20.740 --> 00:01:22.090
 O painel é opcional.
 
 36
-00:01:35.426 --> 00:01:39.405
+00:01:22.260 --> 00:01:25.270
 Prometheus e Jaeger, neste material, são simulados.
 
 37
-00:01:39.405 --> 00:01:42.820
+00:01:25.520 --> 00:01:28.100
 Vamos à esteira, sem ler caminho de pasta.
 
 38
-00:01:42.820 --> 00:01:49.176
+00:01:28.320 --> 00:01:33.250
 Os dois primeiros laboratórios tratam de um balde de registros com regra de conformidade.
 
 39
-00:01:49.176 --> 00:01:50.716
+00:01:33.420 --> 00:01:34.390
 Criptografia.
 
 40
-00:01:50.716 --> 00:01:52.454
+00:01:34.560 --> 00:01:35.750
 Bloqueio de público.
 
 41
-00:01:52.454 --> 00:01:53.795
+00:01:35.900 --> 00:01:36.870
 Tag de dono.
 
 42
-00:01:53.795 --> 00:01:57.698
+00:01:37.040 --> 00:01:40.420
 O copiloto gera Terraform, e um auditor confere.
 
 43
-00:01:57.698 --> 00:02:00.731
+00:01:40.580 --> 00:01:42.820
 O copiloto não substitui o auditor.
 
 44
-00:02:00.731 --> 00:02:04.573
+00:01:43.000 --> 00:01:45.950
 O arquivo principal de infraestrutura fica no disco.
 
 45
-00:02:04.573 --> 00:02:11.371
+00:01:46.140 --> 00:01:51.640
 Se o código nascer sem bloquear o acesso público, e o auditor calar, o laboratório falhou.
 
 46
-00:02:11.371 --> 00:02:13.978
+00:01:51.840 --> 00:01:53.600
 Mesmo que o texto esteja bonito.
 
 47
-00:02:13.978 --> 00:02:17.317
+00:01:53.820 --> 00:01:56.480
 O terceiro laboratório é manifesto e canário.
 
 48
-00:02:17.317 --> 00:02:21.204
+00:01:56.640 --> 00:01:59.980
 GitOps, aqui, é a ideia de reconciliação.
 
 49
-00:02:21.204 --> 00:02:24.161
+00:02:00.160 --> 00:02:02.440
 O agrupamento tende ao que foi declarado.
 
 50
-00:02:24.161 --> 00:02:26.905
+00:02:02.600 --> 00:02:04.770
 Canário é métrica, não coragem.
 
 51
-00:02:26.905 --> 00:02:30.274
+00:02:04.960 --> 00:02:07.400
 Sem linha de base, cem por cento é chute.
 
 52
-00:02:30.274 --> 00:02:33.246
+00:02:07.620 --> 00:02:09.720
 O quarto é o irmão do OpsPilot.
 
 53
-00:02:33.246 --> 00:02:36.615
+00:02:09.900 --> 00:02:12.450
 Você aplica o deploy quebrado de propósito.
 
 54
-00:02:36.615 --> 00:02:40.289
+00:02:12.620 --> 00:02:15.310
 Depois o engenheiro de confiabilidade de plantão.
 
 55
-00:02:40.289 --> 00:02:41.920
+00:02:15.500 --> 00:02:16.650
 Reinício em loop.
 
 56
-00:02:41.920 --> 00:02:43.460
+00:02:16.860 --> 00:02:17.890
 Imagem errada.
 
 57
-00:02:43.460 --> 00:02:47.012
+00:02:18.040 --> 00:02:21.020
 Pensamento, ação, observação, correção.
 
 58
-00:02:47.012 --> 00:02:51.067
+00:02:21.240 --> 00:02:24.340
 Sem o pod no agrupamento, o diagnóstico é teatro.
 
 59
-00:02:51.067 --> 00:02:53.262
+00:02:24.460 --> 00:02:26.170
 Não cole a correção sem ler.
 
 60
-00:02:53.262 --> 00:03:03.323
+00:02:26.340 --> 00:02:34.770
 Se a causa no caderno for “faltou memória”, e o manifesto aponta imagem inexistente, você avaliou a prosa, não o arquivo de implantação.
 
 61
-00:03:03.323 --> 00:03:09.207
+00:02:35.030 --> 00:02:39.780
 O quinto traduz português em PromQL, a linguagem de consulta do Prometheus.
 
 62
-00:03:09.207 --> 00:03:11.570
+00:02:39.970 --> 00:02:41.700
 Alerta preditivo de disco.
 
 63
-00:03:11.570 --> 00:03:13.277
+00:02:41.870 --> 00:02:43.280
 Um JSON de Grafana.
 
 64
-00:03:13.277 --> 00:03:15.442
+00:02:43.430 --> 00:02:45.050
 O modelo ajusta uma reta.
 
 65
-00:03:15.442 --> 00:03:17.896
+00:02:45.210 --> 00:02:47.050
 Você decide se pagina alguém.
 
 66
-00:03:17.896 --> 00:03:24.496
+00:02:47.230 --> 00:02:52.400
 No módulo um você consumia Grafana pelo protocolo de contexto de modelo, o MCP.
 
 67
-00:03:24.496 --> 00:03:26.920
+00:02:52.670 --> 00:02:54.330
 Aqui você gera o artefato.
 
 68
-00:03:26.920 --> 00:03:28.826
+00:02:54.550 --> 00:02:56.020
 O sexto é ChatOps.
 
 69
-00:03:28.826 --> 00:03:31.128
+00:02:56.190 --> 00:02:57.790
 Peça para destruir o banco.
 
 70
-00:03:31.128 --> 00:03:34.984
+00:02:57.970 --> 00:03:00.980
 A senha é a frase didática de aprovação do gestor.
 
 71
-00:03:34.984 --> 00:03:37.057
+00:03:01.170 --> 00:03:02.670
 Sem senha, não passa.
 
 72
-00:03:37.057 --> 00:03:41.707
+00:03:02.830 --> 00:03:06.560
 É o código duzentos e dois do OpsPilot, com cara de Slack.
 
 73
-00:03:41.707 --> 00:03:47.088
+00:03:06.750 --> 00:03:10.730
 Não cole a frase no PDF da turma como se fosse segredo de produção.
 
 74
-00:03:47.088 --> 00:03:49.618
+00:03:10.910 --> 00:03:12.790
 O que vale é o fluxo de recusa.
 
 75
-00:03:49.618 --> 00:03:54.435
+00:03:13.030 --> 00:03:17.230
 Depois vêm segurança, integração contínua, dinheiro e runbook.
 
 76
-00:03:54.435 --> 00:03:57.317
+00:03:17.340 --> 00:03:19.900
 Trivy com um JSON de vulnerabilidades.
 
 77
-00:03:57.317 --> 00:04:01.280
+00:03:20.070 --> 00:03:23.150
 Uma vulnerabilidade conhecida, no espírito XZ.
 
 78
-00:04:01.280 --> 00:04:04.466
+00:03:23.410 --> 00:03:25.750
 Um fluxo lento para acelerar com cache.
 
 79
-00:04:04.466 --> 00:04:06.920
+00:03:25.930 --> 00:03:27.690
 Inventário com zumbi de nuvem.
 
 80
-00:04:06.920 --> 00:04:08.597
+00:03:27.850 --> 00:03:29.050
 Endereço e disco.
 
 81
-00:04:08.597 --> 00:04:10.442
+00:03:29.210 --> 00:03:30.420
 Retorno do corte.
 
 82
-00:04:10.442 --> 00:04:12.134
+00:03:30.590 --> 00:03:31.950
 Runbook em Markdown.
 
 83
-00:04:12.134 --> 00:04:16.920
+00:03:32.110 --> 00:03:36.130
 Geração aumentada por recuperação, o RAG, de remediação.
 
 84
-00:04:16.920 --> 00:04:20.472
+00:03:36.330 --> 00:03:39.300
 Sem citar o runbook, o comando é alucinação.
 
 85
-00:04:20.472 --> 00:04:21.432
+00:03:39.470 --> 00:03:40.110
 A pior.
 
 86
-00:04:21.432 --> 00:04:23.292
+00:03:40.290 --> 00:03:41.600
 Operação inventada.
 
 87
-00:04:23.292 --> 00:04:25.960
+00:03:41.870 --> 00:03:43.770
 O laboratório onze é o ensaio.
 
 88
-00:04:25.960 --> 00:04:27.393
+00:03:43.930 --> 00:03:44.650
 Sim ou não.
 
 89
-00:04:27.393 --> 00:04:30.533
+00:03:44.850 --> 00:03:47.230
 O agente sugere o comando no agrupamento.
 
 90
-00:04:30.533 --> 00:04:31.981
+00:03:47.390 --> 00:03:48.370
 Você autoriza.
 
 91
-00:04:31.981 --> 00:04:34.207
+00:03:48.630 --> 00:03:50.200
 O doze é o jogo do dia.
 
 92
-00:04:34.207 --> 00:04:36.631
+00:03:50.390 --> 00:03:52.140
 Checkout com erro quinhentos.
 
 93
-00:04:36.631 --> 00:04:38.231
+00:03:52.310 --> 00:03:53.470
 Porta dos fundos.
 
 94
-00:04:38.231 --> 00:04:40.533
+00:03:53.650 --> 00:03:55.410
 Custo mais quarenta por cento.
 
 95
-00:04:40.533 --> 00:04:43.551
+00:03:55.590 --> 00:03:57.970
 O gerente hierárquico escreve o relatório.
 
 96
-00:04:43.551 --> 00:04:46.067
+00:03:58.150 --> 00:03:59.970
 Engenharia de confiabilidade.
 
 97
-00:04:46.067 --> 00:04:47.393
+00:04:00.150 --> 00:04:00.930
 Segurança.
 
 98
-00:04:47.393 --> 00:04:50.457
+00:04:01.110 --> 00:04:03.480
 FinOps, o lado financeiro da nuvem.
 
 99
-00:04:50.457 --> 00:04:51.951
+00:04:03.650 --> 00:04:04.600
 Três papéis.
 
 100
-00:04:51.951 --> 00:04:53.307
+00:04:04.750 --> 00:04:05.690
 Três freios.
 
 101
-00:04:53.307 --> 00:04:59.969
+00:04:05.870 --> 00:04:11.170
 Se o texto misturar apagar um pod com corte de custo na mesma aplicação, o gerente falhou.
 
 102
-00:04:59.969 --> 00:05:01.295
+00:04:11.330 --> 00:04:12.160
 E você também.
 
 103
-00:05:01.295 --> 00:05:03.643
+00:04:12.410 --> 00:04:14.060
 O projeto é esse relatório.
 
 104
-00:05:03.643 --> 00:05:05.198
+00:04:14.210 --> 00:04:15.280
 E quinze linhas.
 
 105
-00:05:05.198 --> 00:05:08.810
+00:04:15.450 --> 00:04:17.970
 O que você não deixaria o gerente aplicar sozinho.
 
 106
-00:05:08.810 --> 00:05:11.432
+00:04:18.170 --> 00:04:20.040
 Nomeie uma ação de cada domínio.
 
 107
-00:05:11.432 --> 00:05:13.704
+00:04:20.230 --> 00:04:21.800
 Amarre no ensaio do onze.
 
 108
-00:05:13.704 --> 00:05:17.713
+00:04:22.030 --> 00:04:25.000
 Os slides da pasta de laboratório são opcionais.
 
 109
-00:05:17.713 --> 00:05:21.402
+00:04:25.190 --> 00:04:27.210
 Úteis se o script parecer mágica.
 
 110
-00:05:21.628 --> 00:05:25.114
+00:04:27.450 --> 00:04:30.040
 Autonomia continua um controle deslizante.
 
 111
-00:05:25.064 --> 00:05:29.012
+00:04:30.210 --> 00:04:33.660
 Na produção de verdade, o não é uma funcionalidade.
 
 112
-00:05:29.012 --> 00:05:32.290
+00:04:33.850 --> 00:04:36.300
 O RouteWise vai falar de risco de quadro.
 
 113
-00:05:32.290 --> 00:05:34.287
+00:04:36.470 --> 00:04:38.030
 Aqui o risco é produção.
 
 114
-00:05:34.287 --> 00:05:36.451
+00:04:38.230 --> 00:04:39.660
 Não misture os relatórios.
 
 115
-00:05:36.451 --> 00:05:39.485
+00:04:39.890 --> 00:04:42.110
 Até lá, ative o ambiente virtual.
 
 116
-00:05:39.485 --> 00:05:42.351
+00:04:42.310 --> 00:04:44.320
 Rode os dois primeiros laboratórios.
 
 117
-00:05:42.351 --> 00:05:45.674
+00:04:44.490 --> 00:04:47.030
 Guarde o Terraform e o parecer da auditoria.
 
 118
-00:05:45.674 --> 00:05:47.991
+00:04:47.210 --> 00:04:48.850
 Recuse uma vez no ensaio.
 
 119
-00:05:47.991 --> 00:05:50.842
+00:04:49.030 --> 00:04:51.200
 Aceite outra com o ensaio aprovado.
 
 120
-00:05:50.842 --> 00:05:53.448
+00:04:51.370 --> 00:04:53.240
 Depois escreva as quinze linhas.
 
 121
-00:05:53.448 --> 00:05:57.076
+00:04:53.430 --> 00:04:56.210
 Beleza de painel não é evidência de governança.
 
 122
-00:05:57.076 --> 00:05:59.454
+00:04:56.390 --> 00:04:57.590
 O não do onze é.
