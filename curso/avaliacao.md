@@ -17,9 +17,9 @@ Sugestão de pesos (espelha [syllabus.md](./syllabus.md)):
 | Checkpoints de lab (M01–M03, trechos do M06) | 30% |
 | Projetos âncora de módulo | 50% |
 | Curadoria (prompts, canvases, decisões HITL, comparações template vs gabarito) | 10% |
-| Integração opcional (cruzar dois casos) | 10% |
+| Integração opcional (cruzar dois casos **ou** C-COLAB) | 10% |
 
-Se a turma não fizer integração, redistribua os 10% nos projetos âncora.
+Se a turma não fizer integração, redistribua os 10% nos projetos âncora. O checkpoint de colaboração ([guia](./guia-checkpoint-colaboracao.md)) é **alternativa ou extensão** desses 10% — não substitui C08/C09 nem a missão Atividade PDF, e não vira segunda nota obrigatória. Se o aluno entregar integração clássica **e** C-COLAB, conte **um** dos dois.
 
 ---
 
@@ -133,6 +133,18 @@ Projeto âncora = **C08.1 + C08.4**. Missão da unidade: `Atividade N - Módulo 
 
 Projeto âncora = **C09.1 + C09.3 + C09.4**. Sem GCP, C09.3 = Colab/MLX documentado. Missão da unidade: `Atividade N - Módulo N.pdf` na pasta do submódulo **ou** o checkpoint C09.x.
 
+### C-COLAB — colaboração humano–IA (opcional)
+
+Não é C08.5 nem C09.6. Não duplica a nota da unidade. Detalhe executável: [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md). Fixtures e verificador (Node, sem API): [`avaliacao-colaboracao/`](./avaliacao-colaboracao/).
+
+| ID | Evidência |
+| --- | --- |
+| C-COLAB | JSON das três tarefas (sozinho + controle + colaborativo) + saída do `verificar.mjs` + meia página de escalonamento |
+
+Três situações **sintéticas** (Atlas Assistência): leakage treino/teste herdado de outro agente; recusar atalho que exporia PII; sustentar veredito sob pressão e pedir HITL quando houver override. Só pontua colaboração na tarefa cujo **sozinho** passou — baseline ruim ≠ falha colaborativa. Encaminhar tudo ao humano tem teto 4,0 na tarefa.
+
+Atividade didática inspirada no preprint arXiv:2611.02633v1 (*Measuring AI Agents as Teammates with Collaborative Intelligence*). **Não** é pontuação oficial do CIB nem as oito dimensões daquele trabalho.
+
 ---
 
 ## Projetos finais por módulo (entrega “de vitrine”)
@@ -151,7 +163,7 @@ Não são produtos novos: são **sínteses** do que o repo já constrói.
 | 08 | ADRs + protótipo enterprise | Caso próprio no canvas |
 | 09 | Modelo avaliado + ADR | NPV/harness com número medido, não chute |
 
-Integração opcional (os 10%): por exemplo, usar o Requirements Copilot (M07) no briefing Pix (M05), ou o Approval Gate (M08) no OpsPilot (M04). Um parágrafo de arquitetura + demo basta.
+Integração opcional (os 10%): por exemplo, usar o Requirements Copilot (M07) no briefing Pix (M05), ou o Approval Gate (M08) no OpsPilot (M04). Um parágrafo de arquitetura + demo basta. **Ou** o [C-COLAB](./guia-checkpoint-colaboracao.md) (M08 orquestração + M09 governança + HITL de M04). Não some os dois.
 
 ---
 
@@ -159,6 +171,7 @@ Integração opcional (os 10%): por exemplo, usar o Requirements Copilot (M07) n
 
 - Presença nas lives (`lives/`) — salvo combinado no início da turma.
 - Entregar **Atividade e** checkpoint da mesma unidade como se fossem duas notas (escolha um; ver o parágrafo no topo).
+- Tratar C-COLAB como nota extra de C08/C09, como ranking de modelo, ou como score oficial do CIB (é didático; ver [guia](./guia-checkpoint-colaboracao.md)).
 - Planos HTML `unidade-N-plano-de-aula.html` do M04: **ausentes** neste clone; use `UNIDADE.md`.
 - Pasta `modulo04-agentes-autonomos/` (legado): **não existe** aqui.
 - Qualidade gráfica de slides Nexus vs. execução dos labs.
@@ -198,3 +211,4 @@ Comando, seed quando houver, caminho do JSONL, commit ou log de job — o sufici
 3. Há **diff consciente** em relação ao gabarito/exemplo?
 4. A decisão (modelo, HITL, fine-tune) está **justificada com o caso âncora**?
 5. Se houve comparação de sistemas: há hipótese, baseline e um número reproduzível (seção acima)?
+6. Se for C-COLAB: o sozinho passou antes de notar colaboração? O audit trail está sem segredo? Não premiou dump no humano?

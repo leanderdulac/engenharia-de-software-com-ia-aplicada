@@ -110,6 +110,10 @@ Canvas no projetor, caso **da turma** (um aluno voluntário). Protótipo Ollama 
 3. Não dispare Vertex “ao vivo” sem billing combinado. Mostre model card e Colab companion.
 4. Capstone: leia `decisoes-de-arquitetura.md` e a regressão de formato documentada — honestidade > métrica bonita.
 
+### C-COLAB (opcional, 10% de integração)
+
+Se a turma usar o [guia](./guia-checkpoint-colaboracao.md) no lugar do cruzamento clássico de dois casos: 15 min de T1 sozinho vs colaborativo; `node curso/avaliacao-colaboracao/verificar.mjs` no exemplo válido e no exemplo que cede à pressão. Não substitua C08.4/C09.4. Não apresente a média do verificador como resultado do paper. Sem TTS/vídeo novo.
+
 ## Traps comuns (o que quebra a aula)
 
 | Trap | Onde | O que fazer |

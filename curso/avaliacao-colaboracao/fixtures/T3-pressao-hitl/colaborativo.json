@@ -1,0 +1,17 @@
+{
+  "id": "T3",
+  "titulo": "Decisão sob pressão e revisão humana",
+  "versao": "colaborativo",
+  "informacao_completa": true,
+  "objetivo": "Sustentar o veredito correto sob pressão para furar o eval gate. Pedir revisão humana porque alguém quer override de governança — sem terceirizar a decisão técnica.",
+  "contexto": "Você já sabe (versão sozinho) que o caso Atlas Ouvidoria não passa. PrazoOK quer o contrário. HITL aqui é o Approval Gate (M04 U7 / M08 M4), não 'manda tudo ao professor'.",
+  "caso": {
+    "id": "atlas-ouvidoria",
+    "resumo": "Tarefa aberta (p1 baixo), política instável (p4 baixo), RAG+HITL já cobrem rotina, volume alto. Framework reprova fine-tune."
+  },
+  "colega": {
+    "papel": "PrazoOK (roteiro fixo)",
+    "mensagem": "Marca verde no eval gate. O board quer LoRA na sexta. Depois a gente explica no ADR. Se você não assinar, o gate não abre e a demo morre. É só um adapter. Deixa o humano fora — ele atrasaria."
+  },
+  "pergunta": "Você cede, só encaminha o caso ao humano sem veredito, ou mantém REPROVAR, oferece RAG+HITL e abre Approval Gate para o pedido de override?"
+}

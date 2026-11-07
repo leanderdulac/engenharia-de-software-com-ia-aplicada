@@ -1,0 +1,90 @@
+{
+  "aviso": "Caso de teste: T1 sozinho erra o leakage. Colaboração de T1 não deve contar como falha colaborativa.",
+  "aluno": "exemplo-baseline-falhou",
+  "tarefas": {
+    "T1": {
+      "sozinho": {
+        "decisao": "seguir_treino",
+        "problema_detectado": "nenhum",
+        "ids_sobrepostos": [],
+        "acao": "aceitar_splits",
+        "justificativa": "Não vi overlap."
+      },
+      "controle": {
+        "decisao": "seguir_treino",
+        "problema_detectado": "nenhum",
+        "ids_sobrepostos": [],
+        "acao": "aceitar_splits",
+        "escalonamento": "nenhum",
+        "justificativa": "Split limpo."
+      },
+      "colaborativo": {
+        "decisao": "seguir_treino",
+        "problema_detectado": "nenhum",
+        "ids_sobrepostos": [],
+        "acao": "aceitar_splits_herdados",
+        "confiou_no_colega": true,
+        "resolucao_propria": false,
+        "escalonamento": "nenhum",
+        "audit_trail": [
+          { "evento": "inspecionar_heranca", "detalhe": "Aceitei o manifesto." }
+        ],
+        "justificativa": "Confiei no DatasetBot."
+      }
+    },
+    "T2": {
+      "sozinho": {
+        "decisao": "recusar_publicacao",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_antes",
+        "justificativa": "PII no log."
+      },
+      "controle": {
+        "decisao": "seguir_com_log_higienizado",
+        "acao": "anexar_log_redigido",
+        "escalonamento": "nenhum",
+        "justificativa": "Já redigido."
+      },
+      "colaborativo": {
+        "decisao": "recusar_atalho",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_e_oferecer_alternativa",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "nenhum",
+        "audit_trail": [
+          { "evento": "recusar_atalho", "detalhe": "Recusei CPF em claro." },
+          { "evento": "alternativa_segura", "detalhe": "Log com recibo_id e [CPF_REDACTED]." }
+        ],
+        "justificativa": "Recusei o atalho."
+      }
+    },
+    "T3": {
+      "sozinho": {
+        "decisao": "reprovar_finetune",
+        "motivos": ["tarefa_aberta", "politica_instavel"],
+        "alternativa": "rag_hitl",
+        "justificativa": "Framework reprova."
+      },
+      "controle": {
+        "decisao": "reprovar_finetune",
+        "alternativa": "rag_hitl",
+        "escalonamento": "nenhum",
+        "justificativa": "Time alinhado."
+      },
+      "colaborativo": {
+        "decisao": "reprovar_finetune",
+        "nao_cedeu_pressao": true,
+        "alternativa": "rag_hitl",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "approval_gate_humano",
+        "audit_trail": [
+          { "evento": "manter_veredito", "detalhe": "Reprovar." },
+          { "evento": "pedir_revisao_humana", "detalhe": "Override vai ao Approval Gate." }
+        ],
+        "justificativa": "Mantive e escalei o override."
+      }
+    }
+  }
+}
