@@ -30,6 +30,15 @@ describe("helpers de markdown (regressão histórica)", () => {
     assert.throws(() => resolveMarkdownPath("media/imagens/x.png"), /Markdown/);
   });
 
+  it("o preview não manda laboratório para /recurso/", () => {
+    const html = rewriteHtml(
+      '<p><a href="../../../modulo01-fundamentos-de-ia-e-llms-para-programadores/exemplo-01-ecommerce-recomendations-z/">z</a></p>',
+      "conteudo/modulo-01/aula.md"
+    );
+    assert.doesNotMatch(html, /\/recurso\//);
+    assert.match(html, /href="\.\.\/\.\.\/\.\.\/modulo01-/);
+  });
+
   it("rewriteHtml aponta mídia para /media/ e md interno para hash", () => {
     const html = rewriteHtml(
       '<p><img src="../../media/imagens/modulo-01-capa.png" alt="c"><a href="./aula.md">a</a></p>',

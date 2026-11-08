@@ -51,6 +51,7 @@ import {
   riskFlag,
 } from "./progress.mjs";
 import { safeInside } from "./filesafe.mjs";
+import { inspectRecurso, listRecurso, parseRecursoPath, readRecursoText, recursoPolicy } from "./recurso.mjs";
 import { hitLimit, hostGuard, postRateLimit, requestLog, securityHeaders } from "./httpguard.mjs";
 import { audit, consumeReset, enrollmentWindow, integrityOk, isoDay, issueReset, putSetting, setting } from "./ops.mjs";
 import { assertBootConfig, signupOpen, trustProxy } from "./runtime.mjs";
@@ -60,6 +61,7 @@ import { createAdmin, seedDemo } from "./seed.mjs";
 import {
   arquivosRelFromRequest,
   renderMarkdownPage,
+  recursoHref,
   resolveMarkdownPath,
 } from "../../preview/lib/markdown.mjs";
 import { isInsideRoot } from "../../preview/lib/paths.mjs";
@@ -81,6 +83,15 @@ function safeNext(value) {
   const v = String(value || "");
   if (!/^\/[A-Za-z0-9/_\-.]*$/.test(v) || v.includes("//") || v.includes("..")) return "/dashboard";
   return v;
+}
+
+function safeFrom(value) {
+  const v = Array.isArray(value) ? "" : String(value || "");
+  if (!v || v.includes("..") || v.includes("//") || v.includes("\\") || v.includes("%")) return "";
+  if (/^\/aula\/[A-Za-z0-9._-]{1,80}$/.test(v)) return v;
+  if (/^\/modulo\/[A-Za-z0-9._-]{1,40}$/.test(v)) return v;
+  if (/^\/(trilha|catalogo|dashboard|glossario)$/.test(v)) return v;
+  return "";
 }
 
 function attachSession(req, res, db) {
@@ -151,13 +162,14 @@ function needCsrf(req, res) {
 }
 
 function lessonMarkdown(lesson) {
+  const surface = { surface: "ead", from: `/aula/${lesson.id}` };
   if (lesson.md) {
     const { abs, rel } = resolveMarkdownPath(lesson.md);
     let markdown = readFileSync(abs, "utf8");
     if (Number.isInteger(lesson.start)) {
       markdown = markdown.split("\n").slice(lesson.start, lesson.end).join("\n");
     }
-    const page = renderMarkdownPage(markdown, rel);
+    const page = renderMarkdownPage(markdown, rel, surface);
     return { ...page, html: sanitizeHtml(page.html) };
   }
   if (lesson.repoMd) {
@@ -170,7 +182,8 @@ function lessonMarkdown(lesson) {
       throw Object.assign(new Error("Ficheiro Python opcional ausente."), { status: 404 });
     }
     const markdown = readFileSync(abs, "utf8");
-    const page = renderMarkdownPage(markdown, lesson.repoMd);
+    const rel = path.relative(CURSO_ROOT, abs).split(path.sep).join("/");
+    const page = renderMarkdownPage(markdown, rel, surface);
     return { ...page, html: sanitizeHtml(page.html) };
   }
   throw Object.assign(new Error("Aula sem fonte."), { status: 404 });
@@ -398,6 +411,239 @@ export function createApp({ db, catalog }) {
     res.setHeader("Content-Disposition", contentDisposition(item.arquivo));
     res.sendFile(abs);
   });
+
+  function leituraBanner(info) {
+    const lab =
+      Boolean(info.modulo) ||
+      info.rel.startsWith("lives/") ||
+      info.rel.startsWith("troubleshooting") ||
+      info.rel.startsWith("skills/");
+    if (lab) {
+      const qual = info.modulo ? ` Faz parte do Módulo ${info.modulo}.` : "";
+      return `<aside class="card"><p><strong>Leitura.</strong>${qual} A sala abre este material para ler. npm, docker e os scripts deste exemplo rodam no seu computador, fora desta página. Esta página não executa o laboratório.</p></aside>`;
+    }
+    return `<aside class="card"><p><strong>Leitura.</strong> Este texto faz parte do curso. A sala não executa o que estiver descrito aqui.</p></aside>`;
+  }
+
+  function voltarLink(from) {
+    if (!from) return `<p><a href="/trilha">Voltar à trilha</a></p>`;
+    const rotulo = from.startsWith("/aula/") ? "Voltar à aula" : "Voltar";
+    return `<p><a href="${escapeHtml(from)}">${rotulo}</a></p>`;
+  }
+
+  function recursoCrumbs(rel, from) {
+    const parts = rel.split("/");
+    const bits = [`<a href="/trilha">Trilha</a>`];
+    let acc = "";
+    for (let i = 0; i < parts.length; i++) {
+      acc = acc ? `${acc}/${parts[i]}` : parts[i];
+      const label = escapeHtml(parts[i]);
+      if (i === parts.length - 1) bits.push(label);
+      else bits.push(`<a href="${escapeHtml(recursoHref(acc, "", from))}">${label}</a>`);
+    }
+    return `<p class="muted">${bits.join(" / ")}</p>`;
+  }
+
+  function recursoGate(req, info) {
+    if (staff(req.session.user)) return null;
+    const enr = enrollmentOf(db, req.session.user.id);
+    if (info.modulo) {
+      const mod = moduleById(catalog, info.modulo);
+      const done = new Set(completedLessons(db, req.session.user.id));
+      const gate = mod
+        ? moduleGate(catalog, mod, { enrolled: Boolean(enr), doneSet: done })
+        : { open: false, reason: "pre-requisito", detail: "Módulo fechado." };
+      return gate.open ? null : gate;
+    }
+    if (!enr) return { reason: "sem-matricula", detail: "Aguardando matrícula. O diagnóstico não abre o material." };
+    return null;
+  }
+
+  function sendRecurso(req, res) {
+    if (!req.session?.user) {
+      res.status(401).type("text/plain; charset=utf-8").send("Autenticação necessária.");
+      return;
+    }
+    const raw = req.path.replace(/^\/recurso\/?/, "");
+    if (!raw) {
+      sendHtml(
+        res,
+        page(
+          req,
+          "Material",
+          `<h1>Material</h1><aside class="card"><p>Este endereço não faz parte do material desta sala.</p></aside><p><a href="/trilha">Voltar à trilha</a></p>`,
+          200,
+          "read"
+        ),
+        404
+      );
+      return;
+    }
+    const parsed = parseRecursoPath(raw);
+    if (!parsed.ok) {
+      res.status(parsed.status).type("text/plain; charset=utf-8").send(parsed.message);
+      return;
+    }
+    const info = inspectRecurso(REPO_ROOT, parsed.rel);
+    if (info.status === 400 || info.status === 403) {
+      res.status(info.status).type("text/plain; charset=utf-8").send(info.message || "Caminho recusado.");
+      return;
+    }
+    const gate = recursoGate(req, info);
+    if (gate) {
+      denyModule(req, res, "Material", gate);
+      return;
+    }
+    const from = safeFrom(req.query.from);
+    const banner = leituraBanner(info);
+    const voltar = voltarLink(from);
+    const crumbs = recursoCrumbs(info.rel, from);
+    const titulo = info.rel.split("/").pop() || "Material";
+    if (info.kind === "missing") {
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${crumbs}<p>Este caminho não está nesta instalação. A sala não executa o laboratório e não coloca um exemplo vazio no lugar.</p>`,
+          200,
+          "read"
+        ),
+        404
+      );
+      return;
+    }
+    if (info.kind === "omitted") {
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${crumbs}<p>Este ficheiro não é mostrado aqui: é um binário ou é grande demais. Se o laboratório precisar dele, rode o exemplo no seu computador.</p>`,
+          200,
+          "read"
+        )
+      );
+      return;
+    }
+    if (info.kind === "image" && String(req.query.ver || "") === "1") {
+      res.setHeader("X-Content-Type-Options", "nosniff");
+      res.setHeader("Cache-Control", "private, no-store");
+      res.sendFile(info.abs);
+      return;
+    }
+    if (info.kind === "image") {
+      const src = recursoHref(info.rel, "", from, "ver=1");
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${crumbs}<p><img src="${escapeHtml(src)}" alt=""></p>`,
+          200,
+          "read"
+        )
+      );
+      return;
+    }
+    if (info.kind === "pdf") {
+      const encoded = info.rel
+        .split("/")
+        .map((part) => encodeURIComponent(part))
+        .join("/");
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${crumbs}<p><a href="/arquivos/${encoded}">Baixar o PDF</a></p>`,
+          200,
+          "read"
+        )
+      );
+      return;
+    }
+    if (info.kind === "dir") {
+      const all = listRecurso(REPO_ROOT, info.rel);
+      const shown = all.slice(0, 400);
+      const items = shown
+        .map((ent) => {
+          const href = escapeHtml(recursoHref(ent.rel, "", from));
+          const name = escapeHtml(ent.name + (ent.kind === "dir" ? "/" : ""));
+          return `<li><a href="${href}">${name}</a></li>`;
+        })
+        .join("");
+      const resto = all.length > shown.length ? `<p class="muted">A pasta tem ${all.length} itens. A lista mostra os primeiros ${shown.length}.</p>` : "";
+      const pacote = all.some((ent) => ent.name === "package.json")
+        ? `<p class="muted">Há um package.json. As dependências não vêm instaladas nesta sala.</p>`
+        : "";
+      let readme = "";
+      const readmeInfo = inspectRecurso(REPO_ROOT, `${info.rel}/README.md`);
+      if (readmeInfo.status === 200 && readmeInfo.kind === "markdown") {
+        const read = readRecursoText(readmeInfo.abs);
+        if (!read.truncated) {
+          const mdRel = path.relative(CURSO_ROOT, readmeInfo.abs).split(path.sep).join("/");
+          const rendered = renderMarkdownPage(read.text, mdRel, { surface: "ead", from });
+          readme = `<h2>README</h2><div class="md">${sanitizeHtml(rendered.html)}</div>`;
+        }
+      }
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${crumbs}${pacote}<ul>${items}</ul>${resto}${readme}`,
+          200,
+          "read"
+        )
+      );
+      return;
+    }
+    const body = readRecursoText(info.abs);
+    if (body.truncated) {
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${crumbs}<p>Este ficheiro é grande demais para mostrar aqui. Abra a sua cópia e rode o exemplo no seu computador.</p>`,
+          200,
+          "read"
+        )
+      );
+      return;
+    }
+    const aula = info.rel.match(/^curso\/conteudo\/modulo-(0[1-9])\/aula\.md$/);
+    const ponte = aula ? `<p><a href="/modulo/${aula[1]}">Este texto está dividido nas aulas numeradas do módulo.</a></p>` : "";
+    if (info.kind === "markdown") {
+      const mdRel = path.relative(CURSO_ROOT, info.abs).split(path.sep).join("/");
+      const rendered = renderMarkdownPage(body.text, mdRel, { surface: "ead", from });
+      sendHtml(
+        res,
+        page(
+          req,
+          titulo,
+          `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${ponte}${crumbs}<div class="md">${sanitizeHtml(rendered.html)}</div>`,
+          200,
+          "read"
+        )
+      );
+      return;
+    }
+    sendHtml(
+      res,
+      page(
+        req,
+        titulo,
+        `<h1>${escapeHtml(titulo)}</h1>${voltar}${banner}${crumbs}<pre><code>${escapeHtml(body.text)}</code></pre>`,
+        200,
+        "read"
+      )
+    );
+  }
+
+  app.get("/recurso", (req, res) => sendRecurso(req, res));
+  app.get("/recurso/*", (req, res) => sendRecurso(req, res));
 
   app.get("/preview-pacote", (req, res) => {
     if (!needAuth(req, res)) return;
@@ -1754,6 +2000,19 @@ export function createApp({ db, catalog }) {
         </tbody></table>`
       )
     );
+  });
+
+  app.use((req, res, next) => {
+    if (req.method !== "GET" && req.method !== "HEAD") return next();
+    const rel = String(req.path || "").replace(/^\/+/, "").replace(/\/+$/, "");
+    if (!rel || rel === "recurso" || rel.startsWith("recurso/")) return next();
+    const parsed = parseRecursoPath(rel);
+    if (!parsed.ok || !recursoPolicy(parsed.rel)) return next();
+    const dest = recursoHref(parsed.rel);
+    if (!dest.startsWith("/recurso/") || dest.startsWith("//")) return next();
+    const qAt = req.url.indexOf("?");
+    const q = qAt >= 0 ? req.url.slice(qAt) : "";
+    res.redirect(302, dest + q);
   });
 
   app.use((err, req, res, _next) => {

@@ -1,6 +1,6 @@
 import { existsSync, realpathSync } from "node:fs";
 import path from "node:path";
-import { marked } from "marked";
+import { marked, Renderer } from "marked";
 import {
   ARQUIVOS_EXT_OK,
   CURSO_ROOT,
@@ -10,6 +10,73 @@ import {
 } from "./paths.mjs";
 
 marked.setOptions({ gfm: true, breaks: false });
+
+const IMAGE_EXT = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp"]);
+
+function slugHeading(text) {
+  const plain = String(text || "").replace(/<[^>]+>/g, "");
+  return (
+    plain
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 80) || "secao"
+  );
+}
+
+class EadRenderer extends Renderer {
+  constructor() {
+    super();
+    this.seen = new Map();
+  }
+  heading({ tokens, depth }) {
+    const text = this.parser.parseInline(tokens);
+    let id = slugHeading(text);
+    const n = this.seen.get(id) || 0;
+    this.seen.set(id, n + 1);
+    if (n) id = `${id}-${n}`;
+    return `<h${depth} id="${id}">${text}</h${depth}>\n`;
+  }
+}
+
+/**
+ * Curso markdown that already has a room in the LMS.
+ * Anything else stays on the authenticated reader so anchors still resolve.
+ */
+export function eadCursoHref(cursoRel, suffix = "") {
+  const rel = String(cursoRel || "").replace(/^\/+/, "");
+  const guia = rel.match(/^modulos\/(0[1-9])\.md$/);
+  if (guia) return `/aula/m${guia[1]}-guia${suffix}`;
+  const roteiro = rel.match(/^conteudo\/modulo-(0[1-9])\/roteiro-narracao\.md$/);
+  if (roteiro) return `/aula/m${roteiro[1]}-roteiro${suffix}`;
+  const aula = rel.match(/^conteudo\/modulo-(0[1-9])\/aula\.md$/);
+  if (aula && !String(suffix).includes("#")) return `/modulo/${aula[1]}`;
+  if (rel === "glossario.md") return `/glossario${suffix}`;
+  if (rel === "trilha-aprendizado.md") return `/trilha${suffix}`;
+  if (rel === "README.md" || rel === "syllabus.md") return `/catalogo${suffix}`;
+  return "";
+}
+
+export function recursoHref(relRepo, suffix = "", from = "", extra = "") {
+  const encoded = String(relRepo || "")
+    .split("/")
+    .filter((part) => part.length > 0)
+    .map((part) => encodeURIComponent(part))
+    .join("/");
+  const hashAt = String(suffix).indexOf("#");
+  const hash = hashAt >= 0 ? String(suffix).slice(hashAt) : "";
+  const queryPart = hashAt >= 0 ? String(suffix).slice(0, hashAt) : String(suffix);
+  const params = new URLSearchParams(queryPart.startsWith("?") ? queryPart.slice(1) : queryPart);
+  if (from) params.set("from", from);
+  if (extra) {
+    const more = new URLSearchParams(extra);
+    for (const [key, value] of more) params.set(key, value);
+  }
+  const q = params.toString();
+  return `/recurso/${encoded}${q ? `?${q}` : ""}${hash}`;
+}
 
 export function extractTitle(markdown, fallback) {
   const match = String(markdown || "").match(/^#\s+(.+)$/m);
@@ -125,14 +192,11 @@ export function resolveRepoFile(url, mdRelPath, cursoRoot = CURSO_ROOT, repoRoot
 }
 
 /**
- * Point relative media paths at /media/, in-package .md at hash routes,
- * and in-repo PDFs at /arquivos/… so they do not 404 as JSON and break the shell.
+ * Point relative media paths at /media/ and in-repo PDFs at /arquivos/.
+ * The preview keeps hash routes. The LMS (surface "ead") sends lab paths to
+ * /recurso/ and course pages that already exist to those rooms.
  */
-export function rewriteHtml(
-  html,
-  mdRelPath,
-  { arquivosPrefix = "/arquivos/" } = {}
-) {
+export function rewriteHtml(html, mdRelPath, { arquivosPrefix = "/arquivos/", surface = "preview", from = "" } = {}) {
   return String(html || "").replace(/\s(src|href)="([^"]*)"/gi, (full, attr, url) => {
     const parsed = parseLocalUrl(url);
     if (!parsed) return full;
@@ -165,6 +229,19 @@ export function rewriteHtml(
       return ` ${attr}="${arquivosPrefix}${encoded}${suffix}" target="_blank" rel="noopener"`;
     }
 
+    if (surface === "ead") {
+      if (!resolved.insideRepo || !resolved.relRepo) {
+        return ` ${attr}="/recurso?fora=1"`;
+      }
+      if (attrName === "href" && resolved.insideCurso && target.toLowerCase().endsWith(".md")) {
+        const cursoRel = resolved.relRepo.startsWith("curso/") ? resolved.relRepo.slice("curso/".length) : target;
+        const mapped = eadCursoHref(cursoRel, suffix);
+        if (mapped) return ` ${attr}="${mapped}"`;
+      }
+      const extra = attrName === "src" && IMAGE_EXT.has(resolved.ext) ? "ver=1" : "";
+      return ` ${attr}="${recursoHref(resolved.relRepo, suffix, from, extra)}"`;
+    }
+
     if (attrName === "href" && target.toLowerCase().endsWith(".md") && resolved.insideCurso) {
       return ` ${attr}="#/${target}${suffix}"`;
     }
@@ -177,8 +254,9 @@ export function rewriteHtml(
   });
 }
 
-export function renderMarkdownPage(markdown, rel) {
-  const html = stripHomeHeroDuplicate(rewriteHtml(marked.parse(markdown), rel), rel);
+export function renderMarkdownPage(markdown, rel, options) {
+  const parseOptions = options?.surface === "ead" ? { renderer: new EadRenderer() } : undefined;
+  const html = stripHomeHeroDuplicate(rewriteHtml(marked.parse(markdown, parseOptions), rel, options), rel);
   return {
     path: rel,
     title: extractTitle(markdown, rel),
