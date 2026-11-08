@@ -53,6 +53,8 @@ describe("helpers de markdown (regressão histórica)", () => {
       "../../modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-01-planejamento-e-escopo/Atividade%20-%20Módulo%201.pdf";
     const html = rewriteHtml(`<p><a href="${href}">PDF</a></p>`, "modulos/07.md");
     assert.match(html, /href="\/arquivos\/modulo07-ferramentas-de-ia-para-gestao-de-projetos\//);
+    assert.match(html, /Atividade%20-%20M%C3%B3dulo%201\.pdf/);
+    assert.doesNotMatch(html, /%2520/);
     assert.match(html, /target="_blank"/);
     assert.doesNotMatch(html, /href="\.\.\//);
   });

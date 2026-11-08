@@ -43,7 +43,8 @@ class EadRenderer extends Renderer {
 
 /**
  * Curso markdown that already has a room in the LMS.
- * Anything else stays on the authenticated reader so anchors still resolve.
+ * The syllabus, the course README and the student guide are documents:
+ * they stay on the reader. The catalog and the trail are the rooms.
  */
 export function eadCursoHref(cursoRel, suffix = "") {
   const rel = String(cursoRel || "").replace(/^\/+/, "");
@@ -55,7 +56,6 @@ export function eadCursoHref(cursoRel, suffix = "") {
   if (aula && !String(suffix).includes("#")) return `/modulo/${aula[1]}`;
   if (rel === "glossario.md") return `/glossario${suffix}`;
   if (rel === "trilha-aprendizado.md") return `/trilha${suffix}`;
-  if (rel === "README.md" || rel === "syllabus.md") return `/catalogo${suffix}`;
   return "";
 }
 
@@ -161,9 +161,16 @@ export function parseLocalUrl(url) {
   let end = cleaned.length;
   if (hashIndex >= 0) end = Math.min(end, hashIndex);
   if (queryIndex >= 0) end = Math.min(end, queryIndex);
+  let href = cleaned.slice(0, end);
+  try {
+    href = decodeURIComponent(href);
+  } catch {
+    return null;
+  }
+  if (!href || href.includes("\0") || href.includes("\\")) return null;
   return {
     kind: "relative",
-    href: cleaned.slice(0, end),
+    href,
     suffix: cleaned.slice(end),
   };
 }

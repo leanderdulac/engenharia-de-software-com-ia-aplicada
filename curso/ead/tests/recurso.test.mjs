@@ -31,8 +31,28 @@ test("a sala reescreve o exemplo e preserva mídia, PDF e âncora", () => {
   assert.match(html, /href="\/aula\/m01-guia#labs"/);
   assert.match(html, /href="\/media\/audios\/tts\/modulo-01-narracao\.mp3"/);
   assert.match(pdf, /href="\/arquivos\/modulo07-ferramentas-de-ia-para-gestao-de-projetos\//);
+  assert.match(pdf, /Atividade%20-%20M%C3%B3dulo%201\.pdf/);
+  assert.doesNotMatch(pdf, /%2520/);
   assert.doesNotMatch(pdf, /\/recurso\//);
   assert.doesNotMatch(html, /href="\.\.\//);
+
+  const docs = rewriteHtml(
+    [
+      `<a href="../../guia-do-aluno.md">guia</a>`,
+      `<a href="../../syllabus.md">ementa</a>`,
+      `<a href="../../README.md">leia</a>`,
+      `<a href="../../trilha-aprendizado.md">trilha</a>`,
+      `<a href="../../glossario.md">glossario</a>`,
+    ].join(" "),
+    "conteudo/modulo-01/aula.md",
+    { surface: "ead", from: "/aula/m01-pratica" }
+  );
+  assert.match(docs, /href="\/recurso\/curso\/guia-do-aluno\.md\?from=%2Faula%2Fm01-pratica"/);
+  assert.match(docs, /href="\/recurso\/curso\/syllabus\.md\?from=%2Faula%2Fm01-pratica"/);
+  assert.match(docs, /href="\/recurso\/curso\/README\.md\?from=%2Faula%2Fm01-pratica"/);
+  assert.match(docs, /href="\/trilha"/);
+  assert.match(docs, /href="\/glossario"/);
+  assert.doesNotMatch(docs, /href="\/catalogo"/);
 });
 
 test("o leitor recusa segredo, travessia e a pasta da aplicação", () => {
@@ -106,6 +126,30 @@ test("o exemplo da loja abre autenticado, sem progresso, e o laboratório não f
 
   const guia = await grab(origin, aluno, "/aula/m01-guia");
   assert.match(guia.text, /\/recurso\/modulo01-fundamentos-de-ia-e-llms-para-programadores\/exemplo-01-ecommerce-recomendations-z\/parte01-/);
+  assert.match(guia.text, /\/recurso\/curso\/guia-do-aluno\.md\?from=%2Faula%2Fm01-guia/);
+
+  const pratica = await grab(origin, aluno, "/aula/m01-pratica");
+  assert.equal(pratica.res.status, 200);
+  assert.match(pratica.text, /\/recurso\/curso\/guia-do-aluno\.md\?from=%2Faula%2Fm01-pratica/);
+  assert.match(pratica.text, /\/recurso\/troubleshooting\/windows\/commons\.md\?from=%2Faula%2Fm01-pratica/);
+  const anonGuia = await grab(origin, new Jar(), "/recurso/curso/guia-do-aluno.md?from=%2Faula%2Fm01-pratica");
+  assert.equal(anonGuia.res.status, 401);
+  const guiaAluno = await grab(origin, aluno, "/recurso/curso/guia-do-aluno.md?from=%2Faula%2Fm01-pratica");
+  assert.equal(guiaAluno.res.status, 200);
+  assert.equal(guiaAluno.location, null);
+  assert.match(guiaAluno.text, /Guia do aluno/);
+  assert.match(guiaAluno.text, /Node\.js 22/);
+  assert.match(guiaAluno.text, /href="\/aula\/m01-pratica"/);
+  assert.match(guiaAluno.text, /Voltar à aula/);
+  assert.doesNotMatch(guiaAluno.text, /não está nesta instalação/);
+  assert.doesNotMatch(guiaAluno.text, /guia-do-aluno\.pdf/);
+  const pelaGuia = await grab(origin, aluno, "/recurso/curso/guia-do-aluno.md?from=%2Faula%2Fm01-guia");
+  assert.equal(pelaGuia.res.status, 200);
+  assert.match(pelaGuia.text, /href="\/aula\/m01-guia"/);
+  const ementa = await grab(origin, aluno, "/recurso/curso/syllabus.md?from=%2Faula%2Fm01-pratica");
+  assert.equal(ementa.res.status, 200);
+  assert.match(ementa.text, /Lewis|ementa|objetivo/i);
+  assert.doesNotMatch(ementa.text, /não está nesta instalação/);
 
   const intro = await grab(origin, aluno, "/aula/m01-intro");
   assert.match(intro.text, /\/media\//);
