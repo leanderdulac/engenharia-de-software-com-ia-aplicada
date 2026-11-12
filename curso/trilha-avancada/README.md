@@ -23,7 +23,7 @@ O que o tronco já cobre bem (dados, SFT, LoRA/QLoRA, harness, governança, deci
 | M08: tiering, eval gate, “MoE ≠ multiagente” numa nota | A11: MoE de verdade (router, experts, quantização, KV cache, serving). |
 | M09: decision framework, JSONL, LoRA/QLoRA, harness, GRPO *sem* atualizar pesos | A3–A6, A8–A10, A12: treino por dentro, máscara do assistant, LoRA de produção, DPO/família, GRPO que treina, destilação, capstone da trilha. |
 
-Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A5 produz π_SFT; A8/A9/A10 o reusam se o adapter existir (`TRILHA_PI_SFT=0` desliga). A12 ainda é esqueleto.
+Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A5 produz π_SFT; A8/A9/A10 o reusam se o adapter existir (`TRILHA_PI_SFT=0` desliga). A trilha completa (A0–A12) está publicada nesta pilha.
 
 ## Índice dos 13 módulos
 
@@ -43,7 +43,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 | [A9](./modulo-a9/README.md) | RL com recompensa verificável | 8 | A7, A8 (ver nota) | **publicado** | REINFORCE → GRPO |
 | [A10](./modulo-a10/README.md) | Destilação | 6 | A5, A7 (ver nota) | **publicado** | professor/aluno, logits, licença |
 | [A11](./modulo-a11/README.md) | MoE, quantização e serving | 9 | A2, A6 (ver nota) | **publicado** | experts, PTQ/QAT, KV cache |
-| [A12](./modulo-a12/README.md) | Projeto final da trilha | 10 | A5 + dois de A8–A11 | esqueleto | capstone sobre o ADR do M09 |
+| [A12](./modulo-a12/README.md) | Projeto final da trilha | 10 | A5 + dois de A8–A11 | **publicado** | capstone sobre o ADR do M09 |
 
 **Total previsto:** 78 h. Não entram nas 240 h obrigatórias.
 
@@ -63,7 +63,7 @@ A1 oficialmente pede A0; A0 agora está publicado (CPU, SmolLM2-135M, T4 `nao_ca
 
 A4 oficialmente pede A1 + M09 M2. JSONL do tronco e oasst1 não são lidos: diálogos originais no espírito Amplitude; template ASCII declarado (o base SmolLM2 não traz `chat_template`).
 
-## Como rodar o que já existe (A0–A11)
+## Como rodar o que já existe (A0–A12)
 
 ```bash
 cd curso/trilha-avancada
@@ -80,11 +80,12 @@ python modulo-a4/lab/lab_a4.py           # A4.1–A4.4 → modulo-a4/saidas/ca4.
 python modulo-a5/lab/lab_a5.py           # A5.1–A5.4 → modulo-a5/saidas/ca5.json + execucao/pi_sft/
 python modulo-a6/lab/lab_a6.py           # A6.1–A6.4 → modulo-a6/saidas/ca6.json
 python modulo-a7/lab/lab_a7.py           # A7.1 → modulo-a7/saidas/ca7.json
+python modulo-a12/lab/lab_a12.py         # A12.1–A12.2 → modulo-a12/saidas/ca12.json
 python -m pytest -q                      # inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
 ```
 
-Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU.
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU.
 
 ## Tutor socrático (opcional)
 
@@ -96,4 +97,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Próximo: **A12**.
+Trilha completa nesta pilha. Sem merge.
