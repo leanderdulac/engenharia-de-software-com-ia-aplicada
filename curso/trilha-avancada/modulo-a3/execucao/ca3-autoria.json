@@ -1,0 +1,101 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794494706,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 447.5
+  },
+  "honestidade": {
+    "tinystories": "nao_baixado; corpus sintético (contador mod V)",
+    "minigpt_llm_course": "apontado, não copiado",
+    "t4": "nao_calibrado"
+  },
+  "a3_1": {
+    "n_params": 26240,
+    "passos": 40,
+    "loss_ini": 31.88454246520996,
+    "loss_fim": 0.0013289739144966006,
+    "losses": [
+      31.88454246520996,
+      22.190610885620117,
+      9.523655891418457,
+      3.7187657356262207,
+      1.9493802785873413,
+      1.551872968673706,
+      0.7588561773300171,
+      0.34433236718177795,
+      0.19502927362918854,
+      0.07968274503946304,
+      0.07101220637559891,
+      0.021542435511946678,
+      0.02596747875213623,
+      0.023708516731858253,
+      0.016999155282974243,
+      0.01602756418287754,
+      0.013217022642493248,
+      0.012599515728652477,
+      0.008575483225286007,
+      0.013099645264446735,
+      0.00767107866704464,
+      0.00913380365818739,
+      0.006949315313249826,
+      0.006235735956579447,
+      0.00480422331020236,
+      0.004267402458935976,
+      0.003972738049924374,
+      0.003396462183445692,
+      0.003241205820813775,
+      0.0031776020769029856,
+      0.0026806683745235205,
+      0.002741220872849226,
+      0.0027459373231977224,
+      0.002362940227612853,
+      0.0020978457760065794,
+      0.0020045095589011908,
+      0.0016934298910200596,
+      0.0018845447339117527,
+      0.0016642337432131171,
+      0.0013289739144966006
+    ],
+    "acuracia_proximo": 1.0,
+    "caiu": true
+  },
+  "a3_2": {
+    "micro": 4,
+    "delta_max": 2.384185791015625e-07,
+    "passou": true,
+    "nota": "média da CE no batch = média das CEs das linhas; dropout ausente"
+  },
+  "a3_3": {
+    "orcamento": {
+      "n_params": 26240,
+      "dtype_bytes": 4,
+      "pesos_mb": 0.1,
+      "grad_mb": 0.1,
+      "adam_mb": 0.2,
+      "total_treino_mb": 0.4,
+      "nota": "sem ativações nem KV; T4 = nao_calibrado nesta CPU"
+    },
+    "rss_processo_mb": 320.1,
+    "nota": "modelo ~50k params; RSS é o processo Python, não o envelope do 135M"
+  },
+  "a3_4_t4": {
+    "status": "nao_calibrado"
+  },
+  "segundos_total": 2.479
+}
