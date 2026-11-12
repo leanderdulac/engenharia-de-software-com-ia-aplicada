@@ -26,7 +26,7 @@ Leitura extra opcional, **não vendored nesta pasta**:
 - Crédito: [`curso/ATRIBUICOES-llm-course.md`](../ATRIBUICOES-llm-course.md)
 - SPDX e NOTICE originais: [`referencia/llm-course/LICENSE`](../../referencia/llm-course/LICENSE), [`referencia/llm-course/NOTICE`](../../referencia/llm-course/NOTICE)
 
-O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A2, A11, A8, A9, A10, A1, A0, A3, A4 e A5 são originais desta trilha.
+O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A2, A11, A8, A9, A10, A1, A0, A3, A4, A5 e A6 são originais desta trilha. A6 aponta o módulo 06 do llm-course (LoRA) sem copiá-lo.
 
 ## Modelos e tokenizers (Hugging Face)
 

@@ -1,0 +1,108 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794495325,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 1377.8
+  },
+  "rss_processo_mb": 1377.8,
+  "honestidade": {
+    "llm_course_m06": "apontado, nao copiado",
+    "gguf_ollama": "nao_calibrado",
+    "t4": "nao_calibrado",
+    "pi_sft": "merge e multi-adapter partem do adapter A5"
+  },
+  "a6_1": [
+    {
+      "nome": "qv",
+      "modulos": [
+        "q_proj",
+        "v_proj"
+      ],
+      "n_treino": 460800,
+      "n_total": 134975808,
+      "fracao": 0.003413945112297457
+    },
+    {
+      "nome": "attn",
+      "modulos": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj"
+      ],
+      "n_treino": 921600,
+      "n_total": 135436608,
+      "fracao": 0.006804659490586179
+    },
+    {
+      "nome": "mlp",
+      "modulos": [
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "n_treino": 1520640,
+      "n_total": 136035648,
+      "fracao": 0.011178246454929226
+    },
+    {
+      "nome": "all_linear",
+      "modulos": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "n_treino": 2442240,
+      "n_total": 136957248,
+      "fracao": 0.017832134010169365
+    }
+  ],
+  "a6_2": {
+    "status": "ok",
+    "delta_max": 4.673004150390625e-05,
+    "passou": true,
+    "limiar": 0.001,
+    "n_tokens": 3,
+    "caminho": "/agent/repos/engenharia-de-software-com-ia-aplicada/curso/trilha-avancada/modulo-a5/execucao/pi_sft"
+  },
+  "a6_3": {
+    "status": "ok",
+    "loss_soma": 1.1432437896728516,
+    "amplitude_no_json": "{\"segurado\":\"Eva Martins\",\"placa\":\"RST-",
+    "soma_no_json": "Segurado: Eva Martins. Placa: RST-22",
+    "amplitude_em_2mais2": "4\n\n(a) 4\n\n(b) 2\n",
+    "soma_em_2mais2": "4\n\nThe sum of the first 10 natural numbers is 4",
+    "amplitude_json_ok": true,
+    "soma_comeca_4": true
+  },
+  "a6_4": {
+    "status": "nao_calibrado",
+    "llama_cpp": false,
+    "ollama": null,
+    "nota": "sem export GGUF nem serve Ollama nesta bancada; A11 já cobre PTQ INT8/INT4"
+  },
+  "a6_5_t4": {
+    "status": "nao_calibrado"
+  },
+  "segundos_total": 7.391
+}

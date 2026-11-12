@@ -1,7 +1,14 @@
 # A6 — LoRA na prática de produção
 
-**Status:** esqueleto (não publicado). **Carga prevista:** 5 h. **Pré-requisito previsto:** A5.
+**Status:** publicado. **Carga:** ~5 h. **Pré-req:** A5.
 
-O M09 já faz LoRA/QLoRA e trade-off de rank. Falta ablação de *alvos* (atenção vs FFN vs all-linear), merge sem perda, dois adapters num base, GGUF/Ollama. Leitura extra já vendored: [`referencia/llm-course/modulo-06-lora/`](../../../referencia/llm-course/modulo-06-lora/) (Apache-2.0).
+Fecha: alvos (qv/attn/mlp/all-linear), merge Δ logits, dois adapters, GGUF `nao_calibrado`. llm-course módulo 06 **apontado, não copiado**.
 
-**CA6:** tabela parâmetros×métrica×tempo; Δ de logits no merge < 1e-3; cada adapter vence no próprio retido; GGUF responde no Ollama com queda declarada.
+```bash
+python modulo-a6/lab/lab_a6.py
+python -m pytest modulo-a6/testes -q
+```
+
+Saída: `modulo-a6/saidas/ca6.json`. Autoria: [`execucao/ca6-autoria.json`](./execucao/ca6-autoria.json).
+
+- Aula [`aula.md`](./aula.md) · CA [`checkpoint-ca6.md`](./checkpoint-ca6.md) · tutor [`tutor/mapa-a6.md`](./tutor/mapa-a6.md) · gabarito [`gabarito-instrutor/`](./gabarito-instrutor/)
