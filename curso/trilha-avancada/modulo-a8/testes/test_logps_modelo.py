@@ -4,7 +4,7 @@ import pytest
 import torch
 
 from logps import logprob_complecao
-from pares import pares_dpo
+from pares import conferir_fronteira, pares_dpo
 
 
 @pytest.mark.modelo
@@ -24,3 +24,5 @@ def test_logprob_complecao_smol_finita():
     assert nw > 0 and nl > 0
     assert lw == lw and ll == ll  # não NaN
     assert lw < 0 and ll < 0
+    fr = conferir_fronteira(tok, pares_dpo())
+    assert fr["ok"], fr["falhas"]

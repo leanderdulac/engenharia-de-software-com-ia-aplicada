@@ -21,7 +21,7 @@ A ordem de *construção* da trilha entregou A2, A11 e agora A8. **A5 (SFT) e A6
 | O plano original pedia | O que este módulo faz |
 | --- | --- |
 | SFT da trilha (A5) como `π_ref` / `π_SFT` | DPO parte do **SmolLM2-135M base** + LoRA `q_proj`/`v_proj` (o mesmo id do A2/A11; Apache-2.0) |
-| Pares do harness Amplitude / JSONL do M09 | **12 pares originais** no *padrão* do M09 (JSON vs prosa, vírgula decimal → `125000`) com nomes já usados no A2 (`Ana Souza` / `ABC-1D23`). O arquivo `preference-dataset-amplitude.jsonl` **não** é lido nem republicado |
+| Pares do harness Amplitude / JSONL do M09 | pares **originais** no *padrão* do M09 (JSON vs prosa, vírgula decimal → `125000`) com nomes já usados no A2 (`Ana Souza` / `ABC-1D23`), **split treino/eval**. O arquivo `preference-dataset-amplitude.jsonl` **não** é lido nem republicado |
 | DPO LoRA na T4, `rewards/accuracies` > 0,5 com IC, harness sem queda > 2 p.p. | treino **CPU**, 8 passos, n=12 (overfit esperado). T4 / IC / harness = `nao_calibrado` |
 | Cinco treinos completos da família | DPO sigmoid de verdade (8 passos); IPO e KTO na API **estável** (fumaça de 1–2 passos); ORPO e SimPO em `trl.experimental` (1 passo). A tabela justa é a **mesma perda no mesmo lote de logps** |
 
@@ -171,7 +171,16 @@ Não precisa de par. Cada compleção é desejável ou não; a perda parece uma 
 | ORPO | não | sim | SFT + odds-ratio | `trl.experimental.orpo` |
 | SimPO | não | sim | média por token + γ | `trl.experimental.cpo` `loss_type=simpo` |
 
-A tabela *numérica* do lab (A8.3) aplica as cinco fórmulas aos **mesmos** logps depois do DPO. A8.4 só acende os trainers (fumaça). Não leia `train_loss` de 1 passo ORPO contra 8 passos DPO.
+A tabela *numérica* do lab (A8.3) aplica as cinco fórmulas aos **mesmos** logps do hold-out. Isso **não é ranking de qualidade**. Unidades:
+
+| Coluna | Unidade |
+| --- | --- |
+| DPO / SimPO | `−log σ(·)` ∈ (0, ∞), satura perto de 0 |
+| IPO | quadrado `(h − 1/(2β))²` — com β=0,1 o alvo é h=5; dezenas são o normal |
+| ORPO (esquema) | SFT (`−logp/n`) + λ · odds |
+| KTO (esquema) | utilidade em [0, 1] aprox. |
+
+Um IPO 19 ao lado de um DPO 0,66 **não** diz que o IPO “treinou pior”. O JSON traz `nao_e_ranking: true`. A8.4 só acende os trainers (fumaça): `train_loss` de 1 passo ORPO contra 8 passos DPO também não compete.
 
 ---
 
@@ -211,24 +220,24 @@ Confira com `python -c "from perdas import exemplo_numerico_aula; print(exemplo_
 | O que pode falhar | clonar demonstrações ruins; não sabe o que *evitar* | aumentar a margem diminuindo os dois; aprender “seja curto”; overfit em n pequeno |
 | Quando basta | formato já está no SFT, sem contraste claro | o modelo já *sabe* os dois estilos e você quer empurrar um |
 
-SFT **não** é um DPO com `y_l` vazio. Sem o rejected, não há Bradley-Terry. ORPO é o híbrido explícito (SFT + contraste no mesmo passo). Nesta trilha, como A5 não existe, você *não* está reproduzindo o paper (“DPO em cima de SFT”). Está medindo se LoRA no *base* mexe a margem implícita em 12 pares sintéticos. O JSON declara isso em `honestidade.sft_trilha`.
+SFT **não** é um DPO com `y_l` vazio. Sem o rejected, não há Bradley-Terry. ORPO é o híbrido explícito (SFT + contraste no mesmo passo). Nesta trilha, como A5 não existe, você *não* está reproduzindo o paper (“DPO em cima de SFT”). Está medindo se LoRA no *base* mexe a margem implícita em pares sintéticos (treino vs hold-out). O JSON declara isso em `honestidade.sft_trilha`.
 
 ---
 
 ## 7. O que o lab mede (e o que não)
 
-**A8.1.** 12 pares + comprimento médio em caracteres. Nesta autoria: chosen **52,9**, rejected **69,8**, razão **1,32** (rejected mais longo — prosa).
+**A8.1.** Pares de **treino** e de **avaliação** com prompts disjuntos; comprimento em caracteres. Compleções rejected em prosa continuam mais longas (viés, §8). O campo `fronteira_tokenizer.ok` tem de ser true: `tokenize(prompt)` é prefixo de `tokenize(prompt+compleção)` nos dois lados. A correção é formatação — um `\\n` no fim do prompt, e **não** cortar JSON no meio de `":` (BPE funde `'":'` com o que vem depois).
 
-**A8.2.** `DPOTrainer` estável, LoRA r=8 em `q_proj`/`v_proj`, `max_steps=8` (env `TRILHA_A8_PASSOS`), `max_length=128`, `β=0,1`, CPU, `fp16=bf16=False`, sem gradient checkpointing. Eval TRL no *mesmo* conjunto (não há hold-out). Depois, logps nossos vs o base congelado.
+**A8.2.** `DPOTrainer` estável, LoRA r=8 em `q_proj`/`v_proj`, `max_steps=8`, `max_length=128`, `β=0,1`, CPU. O `eval_dataset` do TRL é o hold-out. `eval_rewards/accuracies` **não** é medido no conjunto de treino. O JSON também traz `avaliacao_treino_*` (overfit) e `avaliacao_eval_*` (o que o CA8 cobra). `aviso_prefixo_trl.ocorreu` tem de ser false.
 
 Dois números que *não* são a mesma coisa:
 
-- `preferencia_bruta` = fração com `logp(y_w) > logp(y_l)` (soma crua, sem ref). No base desta VM: **0,500**. Depois de 8 passos: ainda **0,500**.
-- `eval_rewards/accuracies` do TRL (e a nossa `rewards_accuracies` vs base) = fração com margem *implícita* `β(Δπ−Δref) > 0`. Nesta VM, depois: **0,917**, margem média TRL **0,071**, margem em log-ratio **0,704**.
+- `preferencia_bruta` = fração com `logp(y_w) > logp(y_l)` (soma crua, sem ref).
+- `rewards_accuracies` = fração com margem *implícita* vs o base congelado.
 
-Lição: oito passos em doze pares podem inflar a acurácia *contra o ref* sem virar o ranking cru de log-prob, e **sem** passar no harness. Overfit. O CA8.5 (T4 + IC + harness) continua `nao_calibrado`.
+Lição: acurácia alta **no treino** (versão anterior desta aula chegou a 0,92 em 12 pares vistos) não é win-rate nem harness. O número que vale no checkpoint é o do **eval**. Copiar 0,917 da autoria antiga zera. O CA8.5 (T4 + IC + harness) continua `nao_calibrado`.
 
-O TRL 1.17.1 avisou: o prompt tokenizado **não** é prefixo de prompt+compleção (`'":'` no limite) — merge de tokens. O modelo treina num contexto ligeiramente diferente do da inferência. Não “corrigimos” o JSON à força: é um artefato real de concatenar string. Documente se aparecer no seu log.
+Se o aviso de prefixo voltar no seu log, o JSON `fronteira_tokenizer.falhas` mostra o recorte — não invente que “sumiu”.
 
 **A8.3.** Cinco perdas no mesmo lote + `dpo_vs_beta` {0,1, 0,5, 1,0} nos logps congelados.
 
@@ -269,4 +278,4 @@ Regra da trilha: número que não saiu do seu JSON ou de `exemplo_numerico_aula`
 3. Abrir `modulo-a8/saidas/ca8.json` e preencher CA8 com *os seus* campos.
 4. Opcional: tutor com [`tutor/mapa-a8.md`](./tutor/mapa-a8.md). Não vale nota.
 
-T4/Colab: instale `trl peft datasets transformers` **sem** trocar o `torch` CUDA pelo wheel CPU. Marque o JSON como T4 se `ambiente.gpu` existir. Não copie os 0,917 desta CPU.
+T4/Colab: instale `trl peft datasets transformers` **sem** trocar o `torch` CUDA pelo wheel CPU. Marque o JSON como T4 se `ambiente.gpu` existir. Não copie accuracies de outra máquina — use o `avaliacao_eval_depois` do *seu* JSON.
