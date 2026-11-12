@@ -21,6 +21,7 @@ AQUI = Path(__file__).resolve().parent
 sys.path.insert(0, str(AQUI))
 A2_LAB = AQUI.parents[1] / "modulo-a2" / "lab"
 sys.path.insert(0, str(A2_LAB))
+sys.path.insert(0, str(AQUI.parents[1] / "modulo-a5" / "lab"))
 
 import torch  # noqa: E402
 
@@ -36,6 +37,7 @@ from pares import (  # noqa: E402
     split_ok,
 )
 from perdas import exemplo_numerico_aula, tabela_no_lote  # noqa: E402
+from pi_sft import manifesto as manifesto_pi_sft  # noqa: E402
 
 SAIDA = AQUI.parent / "saidas" / "ca8.json"
 
@@ -69,10 +71,11 @@ def main() -> None:
         "ambiente": coletar_ambiente(),
         "libs": _libs(),
         "honestidade": {
-            "a5_a6": "nao_publicados",
-            "sft_trilha": "ausente; DPO parte do SmolLM2-135M base + LoRA",
+            "a5_a6": "A5 publicado (π_SFT opcional); A6 esqueleto",
+            "sft_trilha": "π_SFT do A5 se adapter_config.json existir; TRILHA_PI_SFT=0 força o base",
             "jsonl_m09": "nao_copiado; pares originais no padrao JSON vs prosa / virgula decimal",
             "t4_colab": "nao_calibrado",
+            "ponto_partida": manifesto_pi_sft(),
         },
         "a8_1": {
             "n_pares": len(pares),

@@ -17,11 +17,11 @@ Nada disto entra nas 240 h. Não substitui C09.*. A curva do bandit sai de [`lab
 
 ## 0. Honestidade de dependências
 
-**A7 (raciocínio treinável) ainda é esqueleto.** A5/A6 também. Consequências:
+**A7 (raciocínio treinável) ainda é esqueleto.** A5 existe (π_SFT opcional); A6 ainda não. Consequências:
 
 | O plano original pedia | O que este módulo faz |
 | --- | --- |
-| SFT da trilha como política inicial | GRPO no **SmolLM2-135M base** + LoRA `q_proj`/`v_proj` |
+| SFT da trilha como política inicial | π_SFT do A5 se o adapter existir; senão **base** + LoRA (`TRILHA_PI_SFT=0` nos testes) |
 | Demo GRPO do M09 | **não copiado**; aquele script não dá `optimizer.step` |
 | Tarefa Amplitude / harness | soma curta (`3+4` → primeiro inteiro `7`) |
 | GRPO na T4, G grande, IC no retido | CPU, G=4, 16 passos, **3 seeds**, n_eval=80; T4 = `nao_calibrado` |

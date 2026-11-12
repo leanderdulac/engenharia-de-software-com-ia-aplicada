@@ -2,7 +2,7 @@
 
 **Status:** publicado. **Carga:** ~7 h. **Trilha:** opcional, fora das 240 h.
 
-**Pré-requisito oficial (plano):** A5 e A6. **Na prática neste PR:** A2 e A11 publicados; A5/A6 ainda esqueleto. DPO ancora no **SmolLM2-135M base** + LoRA (mesmo id do A2/A11). Pares originais no *padrão* do M09 (JSON vs prosa / vírgula decimal), sem copiar o JSONL do tronco e sem SFT da trilha. CA8.5 (T4 + IC + harness) **não executa**.
+**Pré-requisito oficial (plano):** A5 e A6. **Na prática:** A5 publicado — DPO parte de **π_SFT** se `modulo-a5/execucao/pi_sft/adapter_config.json` existir (`TRILHA_PI_SFT=0` força o SmolLM2-135M **base**). A6 ainda esqueleto. Pares originais no *padrão* do M09 (JSON vs prosa / vírgula decimal), sem copiar o JSONL do tronco. CA8.5 (T4 + IC + harness) **não executa**.
 
 Fecha, com aula e lab, o que o tronco só cita: par `chosen`/`rejected`, reward model, RLHF/RLAIF, DPO com derivação, família (IPO, SimPO, ORPO, KTO), `beta`, viés de comprimento, SFT vs preferência, avaliação por rewards/accuracies.
 

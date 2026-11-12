@@ -67,6 +67,20 @@ def mascara_shift(n_prompt: int, n_seq: int, modo: ModoMascara = "resposta") -> 
 
 
 def carregar_aluno(device: str = "cpu"):
+    """Aluno = π_SFT mergeado + LoRA novo, ou base + LoRA se A5 desligado."""
+    import sys
+    from pathlib import Path
+
+    a5 = Path(__file__).resolve().parents[2] / "modulo-a5" / "lab"
+    if str(a5) not in sys.path:
+        sys.path.insert(0, str(a5))
+    from pi_sft import carregar_base_ou_sft, resolver
+
+    if resolver() is not None:
+        m, tok, _info = carregar_base_ou_sft(device=device)
+        m = _peft(m)
+        m.to(device)
+        return m, tok
     tok = _tok(ALUNO)
     m = AutoModelForCausalLM.from_pretrained(ALUNO, dtype=torch.float32)
     m = _peft(m)
