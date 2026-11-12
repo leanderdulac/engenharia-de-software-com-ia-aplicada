@@ -35,5 +35,8 @@ def test_smol_ptq_ppl_finita():
     r = comparar_ptq(n_novos=4)
     assert r["fp32"]["ppl"] > 1.0
     assert r["int8_dinamico"]["ppl"] > 1.0
+    assert r["int8_dinamico_sem_lm_head"]["ppl"] > 1.0
     assert r["int4_grupo64_fake"]["ppl"] > 1.0
     assert r["fp32"]["bytes"] > r["int8_dinamico"]["bytes"] or r["int8_dinamico"]["bytes"] > 0
+    # lição: incluir lm_head costuma doer mais que a comparação justa
+    assert r["int8_dinamico"]["ppl"] >= r["int8_dinamico_sem_lm_head"]["ppl"] - 1e-6

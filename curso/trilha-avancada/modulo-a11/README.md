@@ -59,7 +59,7 @@ Saída: `modulo-a11/saidas/ca11.json` (gitignore; você entrega o seu). Cópia d
 - **A11.1.** 8 experts, top-2; sem aux → colapso (`f_max ≥ 0,50`); com aux → maior entropia e menor `f_max`; conta totais vs ativos.
 - **A11.2.** Config Granite 32/8 e OLMoE 64/8; se os pesos do Granite couberem, histograma de uso por domínio e L1 vs permutação. Senão, `nao_coube` documentado.
 - **A11.3.** Não executado (A6/T4 ausentes).
-- **A11.4.** SmolLM2 fp32 vs INT8 dinâmico vs INT4 grupo-64 fake-quant: PPL no corpus original, bytes, latência `generate`. GGUF/bnb/NF4 = `nao_calibrado` / leitura M09.
+- **A11.4.** SmolLM2 fp32 vs INT8 dinâmico (**com** e **sem** `lm_head`) vs INT4 grupo-64 fake-quant: PPL no corpus original, bytes, latência `generate`. GGUF/bnb/NF4 = `nao_calibrado` / leitura M09.
 - **A11.5.** MLP `sin(x)`: MSE fp32, PTQ depois, QAT (STE).
 - **A11.6.** Atenção prefixo+cache vs sequência cheia (Δ < 1e-5); `use_cache` True/False no SmolLM2; forward batch 1/4/8. vLLM/llama-server = `nao_calibrado`.
 

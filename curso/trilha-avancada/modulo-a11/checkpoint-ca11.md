@@ -42,7 +42,8 @@ Parágrafo: se `ok`, compare L1 real vs permutado com os números do JSON. Se `n
 
 | Critério | Campo | Limiar |
 | --- | --- | --- |
-| Três PPL finitas | `a11_4.fp32.ppl`, `int8_dinamico.ppl`, `int4_grupo64_fake.ppl` | > 1 e < inf |
+| PPL finitas | `fp32.ppl`, `int8_dinamico.ppl`, `int8_dinamico_sem_lm_head.ppl`, `int4_grupo64_fake.ppl` | > 1 e < inf |
+| Lição do `lm_head` | `int8_dinamico.ppl` vs `int8_dinamico_sem_lm_head.ppl` | completar `lm_head` **não** é melhor (PPL com cabeça ≥ PPL sem, folga 1e-6) |
 | Bytes | `fp32.bytes` vs `int8_dinamico.bytes` | INT8 **menor** que fp32 |
 | INT4 é fake | `a11_4.int4_grupo64_fake.nota` | declara compute em fp32 |
 | Não calibrados | `gguf_llama_cpp`, `bitsandbytes_llm_int8` | `nao_calibrado*` |

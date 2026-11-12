@@ -107,7 +107,9 @@ def main() -> None:
         ptq["segundos"] = round(time.perf_counter() - t4, 3)
         payload["a11_4"] = ptq
         print(
-            f"  ppl fp32={ptq['fp32']['ppl']:.3f} int8={ptq['int8_dinamico']['ppl']:.3f} "
+            f"  ppl fp32={ptq['fp32']['ppl']:.3f} "
+            f"int8={ptq['int8_dinamico']['ppl']:.3f} "
+            f"int8_sem_lm_head={ptq['int8_dinamico_sem_lm_head']['ppl']:.3f} "
             f"int4={ptq['int4_grupo64_fake']['ppl']:.3f}"
         )
 
