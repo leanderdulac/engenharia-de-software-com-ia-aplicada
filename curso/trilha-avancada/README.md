@@ -23,7 +23,7 @@ O que o tronco já cobre bem (dados, SFT, LoRA/QLoRA, harness, governança, deci
 | M08: tiering, eval gate, “MoE ≠ multiagente” numa nota | A11: MoE de verdade (router, experts, quantização, KV cache, serving). |
 | M09: decision framework, JSONL, LoRA/QLoRA, harness, GRPO *sem* atualizar pesos | A3–A6, A8–A10, A12: treino por dentro, máscara do assistant, LoRA de produção, DPO/família, GRPO que treina, destilação, capstone da trilha. |
 
-Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**.
+Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A11 já pode ser cursado depois do A2, com as pontes honestas do README do módulo (sem A3/A5/A6).
 
 ## Índice dos 13 módulos
 
@@ -42,7 +42,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 | [A8](./modulo-a8/README.md) | Alinhamento por preferências | 7 | A5, A6 | esqueleto | DPO e família |
 | [A9](./modulo-a9/README.md) | RL com recompensa verificável | 8 | A7, A8 | esqueleto | REINFORCE → GRPO |
 | [A10](./modulo-a10/README.md) | Destilação | 6 | A5, A7 | esqueleto | professor/aluno, logits, licença |
-| [A11](./modulo-a11/README.md) | MoE, quantização e serving | 9 | A2, A6 | esqueleto | experts, PTQ/QAT, KV cache |
+| [A11](./modulo-a11/README.md) | MoE, quantização e serving | 9 | A2, A6 (ver nota) | **publicado** | experts, PTQ/QAT, KV cache |
 | [A12](./modulo-a12/README.md) | Projeto final da trilha | 10 | A5 + dois de A8–A11 | esqueleto | capstone sobre o ADR do M09 |
 
 **Total previsto:** 78 h. Não entram nas 240 h obrigatórias.
@@ -51,21 +51,24 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 
 A ordem de *construção* (A2 → A11 → A8 …) entrega primeiro a lacuna maior. A1 ainda não tem aula. Quem vem do M09 e do lab de sliders do M01 (`exemplo-04`) consegue cursar A2: o módulo assume “token é inteiro, embedding é linha de uma tabela, o modelo prevê o próximo token”. A1 depois aprofunda BPE, logits e top-p.
 
-## Como rodar o que já existe (A2)
+A11 oficialmente pede A6; A6 ainda é esqueleto. O módulo declara isso: MoE avulso, PTQ no SmolLM2 do A2, LoRA-MoE (CA11.3) não executa, T4/vLLM não calibrados.
+
+## Como rodar o que já existe (A2 e A11)
 
 ```bash
 cd curso/trilha-avancada
-pip install -r requirements.txt          # CPU; no Colab, veja modulo-a2/README.md
+pip install -r requirements.txt          # CPU; no Colab, veja o README do módulo
 python modulo-a2/lab/lab_a2.py           # A2.1 + A2.2 → modulo-a2/saidas/ca2.json
-python -m pytest modulo-a2/testes -q     # inclui o modelo pequeno (marca `modelo`)
-python -m pytest modulo-a2/testes -q -m "not modelo"   # só CPU, sem baixar pesos
+python modulo-a11/lab/lab_a11.py         # A11.1–A11.6 → modulo-a11/saidas/ca11.json
+python -m pytest -q                      # A2 + A11; inclui modelos pequenos (marca `modelo`)
+python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
 ```
 
-Detalhes, Colab e checkpoint CA2: [`modulo-a2/README.md`](./modulo-a2/README.md).
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale.
 
 ## Tutor socrático (opcional)
 
-Não vale nota. Não substitui CA*. Copie [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) **e** o mapa do módulo (em A2: [`modulo-a2/tutor/mapa-a2.md`](./modulo-a2/tutor/mapa-a2.md)) no assistente. Origem MIT: Jane Street; ver NOTICE.
+Não vale nota. Não substitui CA*. Copie [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) **e** o mapa do módulo (A2: [`modulo-a2/tutor/mapa-a2.md`](./modulo-a2/tutor/mapa-a2.md); A11: [`modulo-a11/tutor/mapa-a11.md`](./modulo-a11/tutor/mapa-a11.md)) no assistente. Origem MIT: Jane Street; ver NOTICE.
 
 ## Leitura extra (Apache-2.0, isolada)
 
@@ -73,4 +76,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Próximo módulo a construir: **A11** (MoE, quantização, serving). Ver o README de [`modulo-a11`](./modulo-a11/README.md).
+Próximo módulo a construir: **A8** (alinhamento por preferências: DPO e família). Ainda depende de A5/A6 no plano; a construção terá de declarar a ponte (pares do M09 sem SFT da trilha), como o A11 fez com LoRA do M09. Ver [`modulo-a8/README.md`](./modulo-a8/README.md).
