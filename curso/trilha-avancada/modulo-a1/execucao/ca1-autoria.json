@@ -1,0 +1,562 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "torch": "2.15.0+cpu",
+    "transformers": "5.22.2",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794494331
+  },
+  "honestidade": {
+    "a0": "esqueleto; ambiente coletado como no A2, sem bancada.json",
+    "m01": "sliders exemplo-04 citados, não copiados; top-p não é aula no tronco"
+  },
+  "a1_1": {
+    "tokenizers": {
+      "smollm2": "HuggingFaceTB/SmolLM2-135M",
+      "qwen25": "Qwen/Qwen2.5-0.5B",
+      "caracteres": "1 caractere = 1 token (baseline, sem card HF)"
+    },
+    "vocab_size": {
+      "smollm2": 49152,
+      "qwen25": 151643,
+      "caracteres": 256
+    },
+    "pares": [
+      {
+        "id": "sinistro",
+        "pt": "O segurado Ana Souza abriu um sinistro na Amplitude Seguros.",
+        "en": "The insured Ana Souza opened a claim at Amplitude Seguros.",
+        "smollm2": {
+          "pt": {
+            "n_tokens": 21,
+            "n_chars": 60,
+            "tokens_por_char": 0.35,
+            "chars_por_token": 2.857142857142857
+          },
+          "en": {
+            "n_tokens": 15,
+            "n_chars": 58,
+            "tokens_por_char": 0.25862068965517243,
+            "chars_por_token": 3.8666666666666667
+          },
+          "razao_pt_en": 1.4,
+          "tokens_pt": [
+            "O",
+            "Ġseg",
+            "ur",
+            "ado",
+            "ĠAna",
+            "ĠSou",
+            "za",
+            "Ġab",
+            "ri",
+            "u",
+            "Ġum",
+            "Ġsin",
+            "ist",
+            "ro",
+            "Ġna",
+            "ĠAmpl",
+            "itude",
+            "ĠSeg",
+            "uro",
+            "s",
+            "."
+          ],
+          "tokens_en": [
+            "The",
+            "Ġinsured",
+            "ĠAna",
+            "ĠSou",
+            "za",
+            "Ġopened",
+            "Ġa",
+            "Ġclaim",
+            "Ġat",
+            "ĠAmpl",
+            "itude",
+            "ĠSeg",
+            "uro",
+            "s",
+            "."
+          ]
+        },
+        "qwen25": {
+          "pt": {
+            "n_tokens": 19,
+            "n_chars": 60,
+            "tokens_por_char": 0.31666666666666665,
+            "chars_por_token": 3.1578947368421053
+          },
+          "en": {
+            "n_tokens": 14,
+            "n_chars": 58,
+            "tokens_por_char": 0.2413793103448276,
+            "chars_por_token": 4.142857142857143
+          },
+          "razao_pt_en": 1.3571428571428572,
+          "tokens_pt": [
+            "O",
+            "Ġseg",
+            "ur",
+            "ado",
+            "ĠAna",
+            "ĠSou",
+            "za",
+            "Ġab",
+            "ri",
+            "u",
+            "Ġum",
+            "Ġsin",
+            "istro",
+            "Ġna",
+            "ĠAm",
+            "plitude",
+            "ĠSeg",
+            "uros",
+            "."
+          ],
+          "tokens_en": [
+            "The",
+            "Ġinsured",
+            "ĠAna",
+            "ĠSou",
+            "za",
+            "Ġopened",
+            "Ġa",
+            "Ġclaim",
+            "Ġat",
+            "ĠAm",
+            "plitude",
+            "ĠSeg",
+            "uros",
+            "."
+          ]
+        },
+        "caracteres": {
+          "pt": {
+            "n_tokens": 60,
+            "n_chars": 60,
+            "tokens_por_char": 1.0,
+            "chars_por_token": 1.0
+          },
+          "en": {
+            "n_tokens": 58,
+            "n_chars": 58,
+            "tokens_por_char": 1.0,
+            "chars_por_token": 1.0
+          },
+          "razao_pt_en": 1.0344827586206897
+        }
+      },
+      {
+        "id": "placa",
+        "pt": "A placa do veiculo e ABC-1D23.",
+        "en": "The vehicle plate is ABC-1D23.",
+        "smollm2": {
+          "pt": {
+            "n_tokens": 15,
+            "n_chars": 30,
+            "tokens_por_char": 0.5,
+            "chars_por_token": 2.0
+          },
+          "en": {
+            "n_tokens": 11,
+            "n_chars": 30,
+            "tokens_por_char": 0.36666666666666664,
+            "chars_por_token": 2.727272727272727
+          },
+          "razao_pt_en": 1.3636363636363635,
+          "tokens_pt": [
+            "A",
+            "Ġpl",
+            "aca",
+            "Ġdo",
+            "Ġve",
+            "icul",
+            "o",
+            "Ġe",
+            "ĠABC",
+            "-",
+            "1",
+            "D",
+            "2",
+            "3",
+            "."
+          ],
+          "tokens_en": [
+            "The",
+            "Ġvehicle",
+            "Ġplate",
+            "Ġis",
+            "ĠABC",
+            "-",
+            "1",
+            "D",
+            "2",
+            "3",
+            "."
+          ]
+        },
+        "qwen25": {
+          "pt": {
+            "n_tokens": 14,
+            "n_chars": 30,
+            "tokens_por_char": 0.4666666666666667,
+            "chars_por_token": 2.142857142857143
+          },
+          "en": {
+            "n_tokens": 11,
+            "n_chars": 30,
+            "tokens_por_char": 0.36666666666666664,
+            "chars_por_token": 2.727272727272727
+          },
+          "razao_pt_en": 1.2727272727272727,
+          "tokens_pt": [
+            "A",
+            "Ġpl",
+            "aca",
+            "Ġdo",
+            "Ġve",
+            "iculo",
+            "Ġe",
+            "ĠABC",
+            "-",
+            "1",
+            "D",
+            "2",
+            "3",
+            "."
+          ],
+          "tokens_en": [
+            "The",
+            "Ġvehicle",
+            "Ġplate",
+            "Ġis",
+            "ĠABC",
+            "-",
+            "1",
+            "D",
+            "2",
+            "3",
+            "."
+          ]
+        },
+        "caracteres": {
+          "pt": {
+            "n_tokens": 30,
+            "n_chars": 30,
+            "tokens_por_char": 1.0,
+            "chars_por_token": 1.0
+          },
+          "en": {
+            "n_tokens": 30,
+            "n_chars": 30,
+            "tokens_por_char": 1.0,
+            "chars_por_token": 1.0
+          },
+          "razao_pt_en": 1.0
+        }
+      },
+      {
+        "id": "soma",
+        "pt": "Quanto e doze mais sete? Responda apenas o numero.",
+        "en": "What is twelve plus seven? Answer with the number only.",
+        "smollm2": {
+          "pt": {
+            "n_tokens": 18,
+            "n_chars": 50,
+            "tokens_por_char": 0.36,
+            "chars_por_token": 2.7777777777777777
+          },
+          "en": {
+            "n_tokens": 12,
+            "n_chars": 55,
+            "tokens_por_char": 0.21818181818181817,
+            "chars_por_token": 4.583333333333333
+          },
+          "razao_pt_en": 1.5,
+          "tokens_pt": [
+            "Quant",
+            "o",
+            "Ġe",
+            "Ġdo",
+            "ze",
+            "Ġm",
+            "ais",
+            "Ġset",
+            "e",
+            "?",
+            "ĠRespond",
+            "a",
+            "Ġap",
+            "enas",
+            "Ġo",
+            "Ġnum",
+            "ero",
+            "."
+          ],
+          "tokens_en": [
+            "What",
+            "Ġis",
+            "Ġtwelve",
+            "Ġplus",
+            "Ġseven",
+            "?",
+            "ĠAnswer",
+            "Ġwith",
+            "Ġthe",
+            "Ġnumber",
+            "Ġonly",
+            "."
+          ]
+        },
+        "qwen25": {
+          "pt": {
+            "n_tokens": 16,
+            "n_chars": 50,
+            "tokens_por_char": 0.32,
+            "chars_por_token": 3.125
+          },
+          "en": {
+            "n_tokens": 12,
+            "n_chars": 55,
+            "tokens_por_char": 0.21818181818181817,
+            "chars_por_token": 4.583333333333333
+          },
+          "razao_pt_en": 1.3333333333333333,
+          "tokens_pt": [
+            "Qu",
+            "anto",
+            "Ġe",
+            "Ġdo",
+            "ze",
+            "Ġmais",
+            "Ġset",
+            "e",
+            "?",
+            "ĠRes",
+            "pon",
+            "da",
+            "Ġapenas",
+            "Ġo",
+            "Ġnumero",
+            "."
+          ],
+          "tokens_en": [
+            "What",
+            "Ġis",
+            "Ġtwelve",
+            "Ġplus",
+            "Ġseven",
+            "?",
+            "ĠAnswer",
+            "Ġwith",
+            "Ġthe",
+            "Ġnumber",
+            "Ġonly",
+            "."
+          ]
+        },
+        "caracteres": {
+          "pt": {
+            "n_tokens": 50,
+            "n_chars": 50,
+            "tokens_por_char": 1.0,
+            "chars_por_token": 1.0
+          },
+          "en": {
+            "n_tokens": 55,
+            "n_chars": 55,
+            "tokens_por_char": 1.0,
+            "chars_por_token": 1.0
+          },
+          "razao_pt_en": 0.9090909090909091
+        }
+      }
+    ],
+    "quebra_bpe": {
+      "palavra": "Segurado",
+      "smollm2": [
+        "Seg",
+        "ur",
+        "ado"
+      ],
+      "qwen25": [
+        "Seg",
+        "ur",
+        "ado"
+      ],
+      "caracteres": [
+        "S",
+        "e",
+        "g",
+        "u",
+        "r",
+        "a",
+        "d",
+        "o"
+      ],
+      "nota": "BPE parte palavra frequente em subpalavras; caracteres nunca junta."
+    },
+    "segundos": 1.821
+  },
+  "a1_2": {
+    "modelo": "HuggingFaceTB/SmolLM2-135M",
+    "prompt": "Responda apenas o numero inteiro.\n2+2=",
+    "greedy_nossa": {
+      "ids": [
+        10598,
+        33410,
+        4606,
+        42254,
+        263,
+        861,
+        3955,
+        464,
+        85,
+        12337,
+        30,
+        198,
+        34,
+        27,
+        34,
+        45,
+        36,
+        198,
+        198,
+        49,
+        446,
+        216,
+        33,
+        198
+      ],
+      "ids_novos": [
+        36,
+        198,
+        198,
+        49,
+        446,
+        216,
+        33,
+        198
+      ],
+      "texto": "4\n\nA = 1\n",
+      "n_novos": 8
+    },
+    "greedy_hf": {
+      "ids": [
+        10598,
+        33410,
+        4606,
+        42254,
+        263,
+        861,
+        3955,
+        464,
+        85,
+        12337,
+        30,
+        198,
+        34,
+        27,
+        34,
+        45,
+        36,
+        198,
+        198,
+        49,
+        446,
+        216,
+        33,
+        198
+      ],
+      "ids_novos": [
+        36,
+        198,
+        198,
+        49,
+        446,
+        216,
+        33,
+        198
+      ],
+      "texto": "4\n\nA = 1\n"
+    },
+    "greedy_ids_iguais": true,
+    "warpers_hf": {
+      "delta_temperatura": 0.0,
+      "delta_top_k": 0.0,
+      "delta_top_p": 0.0
+    },
+    "passou_warpers": true,
+    "passou_greedy": true,
+    "greedy_temperatura_baixa_igual_argmax": true,
+    "top5": [
+      {
+        "id": 36,
+        "token": "4",
+        "p": 0.46999111771583557
+      },
+      {
+        "id": 37,
+        "token": "5",
+        "p": 0.17347781360149384
+      },
+      {
+        "id": 35,
+        "token": "3",
+        "p": 0.09523166716098785
+      },
+      {
+        "id": 38,
+        "token": "6",
+        "p": 0.07659804821014404
+      },
+      {
+        "id": 33,
+        "token": "1",
+        "p": 0.031949032098054886
+      }
+    ],
+    "entropia": [
+      {
+        "temperatura": 0.1,
+        "entropia_nats": 0.0005170012591406703,
+        "entropia_sobre_logV": 4.785864275650848e-05
+      },
+      {
+        "temperatura": 0.5,
+        "entropia_nats": 0.6778292059898376,
+        "entropia_sobre_logV": 0.06274643484102015
+      },
+      {
+        "temperatura": 1.0,
+        "entropia_nats": 2.0577752590179443,
+        "entropia_sobre_logV": 0.1904876037598306
+      },
+      {
+        "temperatura": 1.5,
+        "entropia_nats": 6.068280220031738,
+        "entropia_sobre_logV": 0.5617387773476692
+      },
+      {
+        "temperatura": 2.0,
+        "entropia_nats": 9.098427772521973,
+        "entropia_sobre_logV": 0.8422385762363227
+      }
+    ],
+    "config": {
+      "vocab_size": 49152,
+      "hidden_size": 576,
+      "max_position_embeddings": 8192,
+      "tie_word_embeddings": true
+    },
+    "segundos": 1.313
+  },
+  "segundos_total": 3.146
+}
