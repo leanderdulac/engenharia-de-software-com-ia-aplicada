@@ -11,5 +11,6 @@
 - Mapa A3: [`../modulo-a3/tutor/mapa-a3.md`](../modulo-a3/tutor/mapa-a3.md)
 - Mapa A4: [`../modulo-a4/tutor/mapa-a4.md`](../modulo-a4/tutor/mapa-a4.md)
 - Mapa A5: [`../modulo-a5/tutor/mapa-a5.md`](../modulo-a5/tutor/mapa-a5.md)
+- Mapa A6: [`../modulo-a6/tutor/mapa-a6.md`](../modulo-a6/tutor/mapa-a6.md)
 
 Não vale nota. Não substitui CA*. Ver [`NOTICE.md`](../NOTICE.md).
