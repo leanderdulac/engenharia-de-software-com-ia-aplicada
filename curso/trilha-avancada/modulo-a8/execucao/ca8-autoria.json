@@ -1,0 +1,438 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "torch": "2.15.0+cpu",
+    "transformers": "5.22.2",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794492519
+  },
+  "libs": {
+    "trl": "1.17.1",
+    "peft": "0.21.2",
+    "datasets": "5.2.0"
+  },
+  "honestidade": {
+    "a5_a6": "nao_publicados",
+    "sft_trilha": "ausente; DPO parte do SmolLM2-135M base + LoRA",
+    "jsonl_m09": "nao_copiado; pares originais no padrao JSON vs prosa / virgula decimal",
+    "t4_colab": "nao_calibrado"
+  },
+  "a8_1": {
+    "n_pares": 14,
+    "split": {
+      "n_treino": 10,
+      "n_eval": 4,
+      "prompts_disjuntos": true,
+      "n_prompts_treino": 10,
+      "n_prompts_eval": 4
+    },
+    "comprimento": {
+      "n": 14,
+      "chosen_chars_medio": 60.214285714285715,
+      "rejected_chars_medio": 74.28571428571429,
+      "razao_rejected_sobre_chosen": 1.2336892052194544,
+      "rejeitado_mais_longo": true,
+      "nota": "rejeitados em prosa sao mais longos; DPO sem normalizar por |y| pode aprender 'seja curto', nao so 'seja JSON'"
+    },
+    "comprimento_treino": {
+      "n": 10,
+      "chosen_chars_medio": 62.3,
+      "rejected_chars_medio": 76.7,
+      "razao_rejected_sobre_chosen": 1.231139646869984,
+      "rejeitado_mais_longo": true,
+      "nota": "rejeitados em prosa sao mais longos; DPO sem normalizar por |y| pode aprender 'seja curto', nao so 'seja JSON'"
+    },
+    "comprimento_eval": {
+      "n": 4,
+      "chosen_chars_medio": 55.0,
+      "rejected_chars_medio": 68.25,
+      "razao_rejected_sobre_chosen": 1.240909090909091,
+      "rejeitado_mais_longo": true,
+      "nota": "rejeitados em prosa sao mais longos; DPO sem normalizar por |y| pode aprender 'seja curto', nao so 'seja JSON'"
+    },
+    "exemplo_aula": {
+      "dpo_sigmoid": 0.6466516256332397,
+      "ipo": 17.056249618530273,
+      "simpo": 1.0407218933105469,
+      "orpo": 0.3510662317276001,
+      "kto": 0.4878380298614502,
+      "beta_dpo": 0.1,
+      "nao_e_ranking": true,
+      "nota_unidades": "DPO/SimPO/KTO em escala de -log σ; IPO e (h-1/(2β))²; ORPO mistura SFT. Comparar o numero cru entre linhas NAO e ranking de qualidade.",
+      "apis": {
+        "dpo_sigmoid": "trl.DPOTrainer loss_type=sigmoid (estavel)",
+        "ipo": "trl.DPOTrainer loss_type=ipo (estavel)",
+        "kto": "trl.KTOTrainer (estavel)",
+        "orpo": "trl.experimental.orpo.ORPOTrainer",
+        "simpo": "trl.experimental.cpo.CPOTrainer loss_type=simpo"
+      },
+      "delta": [
+        1.9000000953674316,
+        0.05000007152557373
+      ],
+      "dpo_par0": 0.6026529049818791
+    },
+    "fronteira_tokenizer": {
+      "n": 14,
+      "n_falhas": 0,
+      "ok": true,
+      "falhas": []
+    }
+  },
+  "a8_2": {
+    "loss_type": "sigmoid",
+    "beta": 0.1,
+    "max_steps": 8,
+    "n_treino": 10,
+    "n_eval": 4,
+    "train_loss": 0.6797339096665382,
+    "eval": {
+      "eval_loss": 0.6597905158996582,
+      "eval_runtime": 0.9391,
+      "eval_samples_per_second": 4.26,
+      "eval_steps_per_second": 4.26,
+      "eval_entropy": 1.814268246293068,
+      "eval_num_tokens": 1100.0,
+      "eval_logits/chosen": 11.938785131335033,
+      "eval_logits/rejected": 8.429414397908813,
+      "eval_mean_token_accuracy": 0.7123458236455917,
+      "eval_rewards/chosen": 0.08645024592988193,
+      "eval_rewards/rejected": 0.017923355335369706,
+      "eval_rewards/accuracies": 1.0,
+      "eval_rewards/margins": 0.0685268915258348,
+      "eval_logps/chosen": -39.7279748916626,
+      "eval_logps/rejected": -80.54195785522461,
+      "epoch": 0.8
+    },
+    "rewards_accuracies_log": [
+      0.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "log_history": [
+      {
+        "loss": 0.6931471824645996,
+        "grad_norm": 2.5678861141204834,
+        "learning_rate": 0.0002,
+        "entropy": 2.4143598079681396,
+        "num_tokens": 179.0,
+        "logits/chosen": 11.071957674893467,
+        "logits/rejected": 3.2143891433189653,
+        "mean_token_accuracy": 0.6969696879386902,
+        "rewards/chosen": 0.0,
+        "rewards/rejected": 0.0,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": 0.0,
+        "logps/chosen": -49.575897216796875,
+        "logps/rejected": -194.59031677246094,
+        "epoch": 0.1,
+        "step": 1
+      },
+      {
+        "loss": 0.6891583204269409,
+        "grad_norm": 0.5092998147010803,
+        "learning_rate": 0.000175,
+        "entropy": 1.0156797170639038,
+        "num_tokens": 354.0,
+        "logits/chosen": 11.604039192199707,
+        "logits/rejected": 11.616996519027218,
+        "mean_token_accuracy": 0.71875,
+        "rewards/chosen": 0.029163742437958717,
+        "rewards/rejected": 0.02117004431784153,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.007993698120117188,
+        "logps/chosen": -41.6540412902832,
+        "logps/rejected": -38.48295593261719,
+        "epoch": 0.2,
+        "step": 2
+      },
+      {
+        "loss": 0.6965131759643555,
+        "grad_norm": 1.839957356452942,
+        "learning_rate": 0.00015000000000000001,
+        "entropy": 4.242868423461914,
+        "num_tokens": 447.0,
+        "logits/chosen": 4.953902851451527,
+        "logits/rejected": 5.08402451224949,
+        "mean_token_accuracy": 0.13636364042758942,
+        "rewards/chosen": -0.0048614502884447575,
+        "rewards/rejected": 0.0018592834239825606,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": -0.00672073382884264,
+        "logps/chosen": -131.4367218017578,
+        "logps/rejected": -88.1382064819336,
+        "epoch": 0.3,
+        "step": 3
+      },
+      {
+        "loss": 0.6632344126701355,
+        "grad_norm": 2.5072622299194336,
+        "learning_rate": 0.000125,
+        "entropy": 1.789894938468933,
+        "num_tokens": 615.0,
+        "logits/chosen": 11.655862247242647,
+        "logits/rejected": 3.4098925590515137,
+        "mean_token_accuracy": 0.7941176295280457,
+        "rewards/chosen": 0.04145012050867081,
+        "rewards/rejected": -0.01929779164493084,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.060747914016246796,
+        "logps/chosen": -35.57564926147461,
+        "logps/rejected": -112.02842712402344,
+        "epoch": 0.4,
+        "step": 4
+      },
+      {
+        "loss": 0.6708128452301025,
+        "grad_norm": 0.8332069516181946,
+        "learning_rate": 0.0001,
+        "entropy": 0.9854176044464111,
+        "num_tokens": 781.0,
+        "logits/chosen": 11.212858138545867,
+        "logits/rejected": 11.152191888718377,
+        "mean_token_accuracy": 0.7096773982048035,
+        "rewards/chosen": 0.07619400322437286,
+        "rewards/rejected": 0.03101501427590847,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.045178987085819244,
+        "logps/chosen": -43.805274963378906,
+        "logps/rejected": -35.156288146972656,
+        "epoch": 0.5,
+        "step": 5
+      },
+      {
+        "loss": 0.7020413875579834,
+        "grad_norm": 1.8265210390090942,
+        "learning_rate": 7.500000000000001e-05,
+        "entropy": 4.2265424728393555,
+        "num_tokens": 839.0,
+        "logits/chosen": 9.262596493675595,
+        "logits/rejected": 9.567955465877757,
+        "mean_token_accuracy": 0.1428571492433548,
+        "rewards/chosen": -0.009212493896484375,
+        "rewards/rejected": 0.00849762000143528,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": -0.017710113897919655,
+        "logps/chosen": -103.04047393798828,
+        "logps/rejected": -96.01652526855469,
+        "epoch": 0.6,
+        "step": 6
+      },
+      {
+        "loss": 0.6300925612449646,
+        "grad_norm": 2.0567595958709717,
+        "learning_rate": 5e-05,
+        "entropy": 2.2215957641601562,
+        "num_tokens": 1025.0,
+        "logits/chosen": 11.311984062194824,
+        "logits/rejected": 4.313629998101129,
+        "mean_token_accuracy": 0.71875,
+        "rewards/chosen": 0.12571410834789276,
+        "rewards/rejected": -0.0046401978470385075,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.13035430014133453,
+        "logps/chosen": -42.31855392456055,
+        "logps/rejected": -172.62942504882812,
+        "epoch": 0.7,
+        "step": 7
+      },
+      {
+        "loss": 0.6928713917732239,
+        "grad_norm": 1.7740370035171509,
+        "learning_rate": 2.5e-05,
+        "entropy": 4.301918029785156,
+        "num_tokens": 1100.0,
+        "logits/chosen": 3.1418881135828354,
+        "logits/rejected": 6.878958702087402,
+        "mean_token_accuracy": 0.23529411852359772,
+        "rewards/chosen": 0.001445007394067943,
+        "rewards/rejected": 0.0008934020879678428,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.0005516053061001003,
+        "logps/chosen": -74.72533416748047,
+        "logps/rejected": -99.4841537475586,
+        "epoch": 0.8,
+        "step": 8
+      },
+      {
+        "eval_loss": 0.6597905158996582,
+        "eval_runtime": 0.948,
+        "eval_samples_per_second": 4.22,
+        "eval_steps_per_second": 4.22,
+        "eval_entropy": 1.814268246293068,
+        "eval_num_tokens": 1100.0,
+        "eval_logits/chosen": 11.938785131335033,
+        "eval_logits/rejected": 8.429414397908813,
+        "eval_mean_token_accuracy": 0.7123458236455917,
+        "eval_rewards/chosen": 0.08645024592988193,
+        "eval_rewards/rejected": 0.017923355335369706,
+        "eval_rewards/accuracies": 1.0,
+        "eval_rewards/margins": 0.0685268915258348,
+        "eval_logps/chosen": -39.7279748916626,
+        "eval_logps/rejected": -80.54195785522461,
+        "epoch": 0.8,
+        "step": 8
+      },
+      {
+        "train_runtime": 4.8212,
+        "train_samples_per_second": 1.659,
+        "train_steps_per_second": 1.659,
+        "total_flos": 746223134976.0,
+        "train_loss": 0.6797339096665382,
+        "epoch": 0.8,
+        "step": 8
+      },
+      {
+        "eval_loss": 0.6597905158996582,
+        "eval_runtime": 0.9391,
+        "eval_samples_per_second": 4.26,
+        "eval_steps_per_second": 4.26,
+        "eval_entropy": 1.814268246293068,
+        "eval_num_tokens": 1100.0,
+        "eval_logits/chosen": 11.938785131335033,
+        "eval_logits/rejected": 8.429414397908813,
+        "eval_mean_token_accuracy": 0.7123458236455917,
+        "eval_rewards/chosen": 0.08645024592988193,
+        "eval_rewards/rejected": 0.017923355335369706,
+        "eval_rewards/accuracies": 1.0,
+        "eval_rewards/margins": 0.0685268915258348,
+        "eval_logps/chosen": -39.7279748916626,
+        "eval_logps/rejected": -80.54195785522461,
+        "epoch": 0.8,
+        "step": 8
+      }
+    ],
+    "aviso_prefixo_trl": {
+      "ocorreu": false,
+      "n": 0,
+      "amostra": []
+    },
+    "api": "trl.DPOTrainer (estavel)",
+    "avaliacao_treino_base": {
+      "n": 10,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 0.0,
+      "margem_media": 0.0,
+      "fracao_chosen_mais_curto": 0.4
+    },
+    "avaliacao_treino_depois": {
+      "n": 10,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 1.0,
+      "margem_media": 1.1100360870361328,
+      "fracao_chosen_mais_curto": 0.4
+    },
+    "avaliacao_eval_base": {
+      "n": 4,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 0.0,
+      "margem_media": 0.0,
+      "fracao_chosen_mais_curto": 0.5
+    },
+    "avaliacao_eval_depois": {
+      "n": 4,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 1.0,
+      "margem_media": 0.6610503196716309,
+      "fracao_chosen_mais_curto": 0.5
+    },
+    "avaliacao_base": {
+      "n": 4,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 0.0,
+      "margem_media": 0.0,
+      "fracao_chosen_mais_curto": 0.5
+    },
+    "avaliacao_depois": {
+      "n": 4,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 1.0,
+      "margem_media": 0.6610503196716309,
+      "fracao_chosen_mais_curto": 0.5
+    },
+    "segundos": 13.482
+  },
+  "a8_3": {
+    "perdas_no_mesmo_lote_depois_dpo": {
+      "dpo_sigmoid": 0.6609361171722412,
+      "ipo": 19.063100814819336,
+      "simpo": 0.41446468234062195,
+      "orpo": 1.576066255569458,
+      "kto": 0.49174559116363525,
+      "beta_dpo": 0.1,
+      "nao_e_ranking": true,
+      "nota_unidades": "DPO/SimPO/KTO em escala de -log σ; IPO e (h-1/(2β))²; ORPO mistura SFT. Comparar o numero cru entre linhas NAO e ranking de qualidade.",
+      "apis": {
+        "dpo_sigmoid": "trl.DPOTrainer loss_type=sigmoid (estavel)",
+        "ipo": "trl.DPOTrainer loss_type=ipo (estavel)",
+        "kto": "trl.KTOTrainer (estavel)",
+        "orpo": "trl.experimental.orpo.ORPOTrainer",
+        "simpo": "trl.experimental.cpo.CPOTrainer loss_type=simpo"
+      }
+    },
+    "dpo_vs_beta": {
+      "0.1": 0.6609361171722412,
+      "0.5": 0.5485934019088745,
+      "1.0": 0.4418185353279114
+    },
+    "nota": "mesmos logps do hold-out; unidades diferentes (sigmoid vs quadrado vs SFT+OR); NAO e ranking de qualidade. SimPO/ORPO/KTO aqui sao formulas da aula; treino experimental e A8.4"
+  },
+  "a8_4": {
+    "t4_colab": "nao_calibrado",
+    "ipo": {
+      "status": "ok",
+      "api": "trl.DPOTrainer loss_type=ipo (estavel)",
+      "train_loss": 25.0,
+      "max_steps": 1,
+      "nota": "1 passo para exercitar a API estavel; nao comparar train_loss com DPO de 8 passos"
+    },
+    "kto": {
+      "status": "ok",
+      "api": "trl.KTOTrainer (estavel)",
+      "train_loss": 0.4993954598903656,
+      "max_steps": 2,
+      "aviso_prefixo_trl": {
+        "ocorreu": false,
+        "n": 0,
+        "amostra": []
+      }
+    },
+    "orpo": {
+      "status": "ok",
+      "api": "trl.experimental.orpo.ORPOTrainer",
+      "train_loss": 2.916579484939575,
+      "max_steps": 1,
+      "aviso_prefixo_trl": {
+        "ocorreu": false,
+        "n": 0,
+        "amostra": []
+      }
+    },
+    "simpo": {
+      "status": "ok",
+      "api": "trl.experimental.cpo.CPOTrainer loss_type=simpo",
+      "train_loss": 2.296875,
+      "max_steps": 1,
+      "aviso_prefixo_trl": {
+        "ocorreu": false,
+        "n": 0,
+        "amostra": []
+      }
+    },
+    "segundos": 8.069
+  },
+  "a8_5_t4": {
+    "status": "nao_calibrado",
+    "motivo": "esta VM nao tem CUDA; limiar CA8 rewards/accuracies>0.5 com IC e harness e alvo de T4/Colab"
+  },
+  "segundos_total": 23.857
+}
