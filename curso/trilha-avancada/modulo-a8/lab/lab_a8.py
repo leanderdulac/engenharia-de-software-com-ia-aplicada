@@ -26,7 +26,15 @@ import torch  # noqa: E402
 
 from ambiente import coletar_ambiente  # noqa: E402
 from logps import avaliar_pares, tensores_do_relatorio  # noqa: E402
-from pares import estatistica_comprimento, pares_dpo, pares_kto  # noqa: E402
+from pares import (  # noqa: E402
+    conferir_fronteira,
+    estatistica_comprimento,
+    pares_avaliacao,
+    pares_dpo,
+    pares_kto,
+    pares_treino,
+    split_ok,
+)
 from perdas import exemplo_numerico_aula, tabela_no_lote  # noqa: E402
 
 SAIDA = AQUI.parent / "saidas" / "ca8.json"
@@ -45,6 +53,8 @@ def _serializavel(x):
 def main() -> None:
     t0 = time.perf_counter()
     pares = pares_dpo()
+    treino = pares_treino()
+    avaliacao = pares_avaliacao()
     def _libs() -> dict:
         out: dict = {}
         for name in ("trl", "peft", "datasets"):
@@ -66,13 +76,22 @@ def main() -> None:
         },
         "a8_1": {
             "n_pares": len(pares),
+            "split": split_ok(),
             "comprimento": estatistica_comprimento(pares),
+            "comprimento_treino": estatistica_comprimento(treino),
+            "comprimento_eval": estatistica_comprimento(avaliacao),
             "exemplo_aula": exemplo_numerico_aula(),
         },
     }
     print("=== A8.1 pares e comprimento ===")
     c = payload["a8_1"]["comprimento"]
-    print(f"  n={c['n']} chosen_chars={c['chosen_chars_medio']:.1f} rejected_chars={c['rejected_chars_medio']:.1f} razao={c['razao_rejected_sobre_chosen']:.2f}")
+    sp = payload["a8_1"]["split"]
+    print(
+        f"  n={c['n']} treino={sp['n_treino']} eval={sp['n_eval']} "
+        f"disjuntos={sp['prompts_disjuntos']} "
+        f"chosen_chars={c['chosen_chars_medio']:.1f} rejected_chars={c['rejected_chars_medio']:.1f} "
+        f"razao={c['razao_rejected_sobre_chosen']:.2f}"
+    )
 
     skip = bool(os.environ.get("TRILHA_A8_SEM_TREINO"))
     if skip:
@@ -91,27 +110,41 @@ def main() -> None:
         tok_ref = AutoTokenizer.from_pretrained(ID_SMOL)
         if tok_ref.pad_token is None:
             tok_ref.pad_token = tok_ref.eos_token
+        fronteira = conferir_fronteira(tok_ref, pares)
+        payload["a8_1"]["fronteira_tokenizer"] = fronteira
+        print(f"  fronteira_ok={fronteira['ok']} falhas={fronteira['n_falhas']}")
         ref = AutoModelForCausalLM.from_pretrained(ID_SMOL, dtype=torch.float32)
         ref.eval()
-        antes = avaliar_pares(ref, tok_ref, pares, device="cpu")
-        print(f"  base preferencia_bruta={antes['preferencia_bruta']:.3f} (logp_chosen > logp_rejected no base)")
+        antes_tr = avaliar_pares(ref, tok_ref, treino, device="cpu")
+        antes_ev = avaliar_pares(ref, tok_ref, avaliacao, device="cpu")
+        print(
+            f"  base treino preferencia_bruta={antes_tr['preferencia_bruta']:.3f} "
+            f"eval preferencia_bruta={antes_ev['preferencia_bruta']:.3f}"
+        )
 
-        dpo = treinar_dpo(pares)
+        dpo = treinar_dpo(treino, pares_eval=avaliacao)
         trainer = dpo.pop("trainer")
         tok = dpo.pop("tokenizer")
         device_s = str(next(trainer.model.parameters()).device)
-        print("=== A8.2b logps / margem vs base ===")
-        depois = avaliar_pares(trainer.model, tok, pares, device=device_s, modelo_ref=ref)
-        dpo["avaliacao_base"] = {k: antes[k] for k in ("n", "preferencia_bruta", "rewards_accuracies", "margem_media", "fracao_chosen_mais_curto")}
-        dpo["avaliacao_depois"] = {k: depois[k] for k in ("n", "preferencia_bruta", "rewards_accuracies", "margem_media", "fracao_chosen_mais_curto")}
+        print("=== A8.2b logps / margem vs base (eval hold-out) ===")
+        depois_tr = avaliar_pares(trainer.model, tok, treino, device=device_s, modelo_ref=ref)
+        depois_ev = avaliar_pares(trainer.model, tok, avaliacao, device=device_s, modelo_ref=ref)
+        campos = ("n", "preferencia_bruta", "rewards_accuracies", "margem_media", "fracao_chosen_mais_curto")
+        dpo["avaliacao_treino_base"] = {k: antes_tr[k] for k in campos}
+        dpo["avaliacao_treino_depois"] = {k: depois_tr[k] for k in campos}
+        dpo["avaliacao_eval_base"] = {k: antes_ev[k] for k in campos}
+        dpo["avaliacao_eval_depois"] = {k: depois_ev[k] for k in campos}
+        dpo["avaliacao_base"] = dpo["avaliacao_eval_base"]
+        dpo["avaliacao_depois"] = dpo["avaliacao_eval_depois"]
         dpo["segundos"] = round(time.perf_counter() - t2, 3)
         payload["a8_2"] = _serializavel(dpo)
         print(
-            f"  train_loss={dpo.get('train_loss')} acc_log={dpo.get('rewards_accuracies_log')} "
-            f"acc_depois={depois['rewards_accuracies']:.3f} margem={depois['margem_media']:.3f}"
+            f"  train_loss={dpo.get('train_loss')} aviso_prefixo={dpo.get('aviso_prefixo_trl')} "
+            f"acc_treino={depois_tr['rewards_accuracies']:.3f} acc_eval={depois_ev['rewards_accuracies']:.3f} "
+            f"margem_eval={depois_ev['margem_media']:.3f}"
         )
 
-        tens = tensores_do_relatorio(depois, device="cpu")
+        tens = tensores_do_relatorio(depois_ev, device="cpu")
         tab = tabela_no_lote(
             tens["logp_w"],
             tens["logp_l"],
@@ -132,7 +165,10 @@ def main() -> None:
         payload["a8_3"] = {
             "perdas_no_mesmo_lote_depois_dpo": tab,
             "dpo_vs_beta": beta_scan,
-            "nota": "mesmos logps; SimPO/ORPO/KTO aqui sao as formulas da aula; treino experimental e A8.4",
+            "nota": (
+                "mesmos logps do hold-out; unidades diferentes (sigmoid vs quadrado vs SFT+OR); "
+                "NAO e ranking de qualidade. SimPO/ORPO/KTO aqui sao formulas da aula; treino experimental e A8.4"
+            ),
         }
         print("  perdas", {k: round(tab[k], 4) for k in ("dpo_sigmoid", "ipo", "simpo", "orpo", "kto")})
 
@@ -141,7 +177,8 @@ def main() -> None:
         fam: dict = {"t4_colab": "nao_calibrado"}
         try:
             ipo_d = treinar_dpo(
-                pares,
+                treino,
+                pares_eval=None,
                 max_steps=1,
                 loss_type="ipo",
                 output_dir=AQUI.parent / "saidas" / "runs" / "ipo-fumaca",
@@ -164,12 +201,12 @@ def main() -> None:
         if os.environ.get("TRILHA_A8_SEM_KTO"):
             fam["kto"] = {"status": "pulado_env"}
         else:
-            fam["kto"] = tentar_kto(pares_kto(), max_steps=int(os.environ.get("TRILHA_A8_PASSOS_KTO", "2")))
+            fam["kto"] = tentar_kto(pares_kto(treino), max_steps=int(os.environ.get("TRILHA_A8_PASSOS_KTO", "2")))
         if os.environ.get("TRILHA_A8_SEM_EXPERIMENTAL"):
             fam["orpo"] = {"status": "pulado_env", "api": "trl.experimental.orpo.ORPOTrainer"}
             fam["simpo"] = {"status": "pulado_env", "api": "trl.experimental.cpo.CPOTrainer"}
         else:
-            fam.update(tentar_experimental(pares, max_steps=1))
+            fam.update(tentar_experimental(treino, max_steps=1))
         fam["segundos"] = round(time.perf_counter() - t4, 3)
         payload["a8_4"] = fam
         print(

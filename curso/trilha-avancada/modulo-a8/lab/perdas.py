@@ -107,6 +107,11 @@ def tabela_no_lote(
         "orpo": float(perda_orpo(logp_w, logp_l, n_w)),
         "kto": float(perda_kto(kto_logp, kto_ref, kto_lab, beta=beta_dpo)),
         "beta_dpo": beta_dpo,
+        "nao_e_ranking": True,
+        "nota_unidades": (
+            "DPO/SimPO/KTO em escala de -log σ; IPO e (h-1/(2β))²; ORPO mistura SFT. "
+            "Comparar o numero cru entre linhas NAO e ranking de qualidade."
+        ),
         "apis": {
             "dpo_sigmoid": "trl.DPOTrainer loss_type=sigmoid (estavel)",
             "ipo": "trl.DPOTrainer loss_type=ipo (estavel)",

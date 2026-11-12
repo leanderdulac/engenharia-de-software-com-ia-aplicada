@@ -68,8 +68,8 @@ Comece pelo diagnóstico e mostre o mapa inicial.
   2. `preferencia_bruta` (soma logp) e `rewards/accuracies` (vs ref) podem discordar. Que história isso conta?
   3. Recalcular a perda DPO nos *mesmos* logps com `β=1` em vez de `0,1` muda a política ou só o número?
   4. No exemplo da aula, par 0 tem `h=1,9` e par 1 tem `h=0,05`. Qual satura a sigmoid?
-  5. Oito passos em 12 pares chegaram a acurácia alta. Isso generaliza?
-- **Caso-limite (nível 5):** o aluno copia `eval_rewards/accuracies=0.917` da autoria sem `epoch_unix` próprio. Que evidência você exige?
+  5. Acurácia implícita no *treino* pode subir e a do *eval* não. O que você pede no JSON?
+- **Caso-limite (nível 5):** o aluno cola `eval_rewards/accuracies` do conjunto de treino (ou 0,917 da autoria antiga) como se fosse hold-out. Que campos você exige?
 - **Seção-fonte:** aula.md §§3–5 e §7; `lab/perdas.py`; CA8.2–CA8.3.
 - **Prepara para:** **CA8.2**, **CA8.3**.
 
@@ -106,7 +106,7 @@ Comece pelo diagnóstico e mostre o mapa inicial.
   2. `rewards/accuracies=1` no treino com n=12. Hold-out ou overfit?
   3. O aviso do TRL sobre prompt que não é prefixo (`'":'`) — isso invalida o lab ou é limitação a declarar?
   4. Se `ambiente.gpu` é `null`, um parágrafo com “na T4 a margem foi 0,4” pode passar?
-- **Caso-limite (nível 5):** o aluno preenche IC 95% à mão a partir de 12 pares binários e apresenta como CA8.5.
+- **Caso-limite (nível 5):** o aluno preenche IC 95% à mão a partir de poucos pares binários e apresenta como CA8.5.
 - **Seção-fonte:** aula.md §§7 e 9; CA8.2, CA8.5.
 - **Prepara para:** **CA8.2**, **CA8.5** (honestidade).
 

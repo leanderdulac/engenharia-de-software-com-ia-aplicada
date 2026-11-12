@@ -57,9 +57,9 @@ Saída: `modulo-a8/saidas/ca8.json` (gitignore; você entrega o seu). Cópia da 
 
 ## O que o lab prova
 
-- **A8.1.** 12 pares originais; rejected mais longo em caracteres; perdas de caderno (`exemplo_numerico_aula`) finitas; APIs estável vs `experimental` no JSON.
-- **A8.2.** DPO LoRA 8 passos (`trl.DPOTrainer` estável). Loga `train_loss`, `eval_rewards/accuracies`, `eval_rewards/margins`. Compara logps vs o base congelado (`preferencia_bruta` ≠ acurácia implícita).
-- **A8.3.** Cinco perdas **no mesmo lote** de logps + `dpo_vs_beta` {0,1, 0,5, 1,0} sem retreinar.
+- **A8.1.** Pares originais com **split treino/eval** (prompts disjuntos); rejected mais longo; `tokenize(prompt)` prefixo de prompt+compleção; perdas de caderno; APIs estável vs `experimental`.
+- **A8.2.** DPO LoRA 8 passos (`trl.DPOTrainer` estável) no treino; `eval_rewards/accuracies` no **hold-out**. `aviso_prefixo_trl.ocorreu=false`. Compara logps vs o base congelado.
+- **A8.3.** Cinco perdas **no mesmo lote do eval** + `dpo_vs_beta`; `nao_e_ranking=true` (unidades diferentes).
 - **A8.4.** KTO e IPO na API estável (poucos passos); ORPO e SimPO em `trl.experimental` (1 passo) ou `falhou` documentado.
 - **A8.5.** `nao_calibrado` (esta CPU não tem CUDA; harness/IC são alvo de T4).
 

@@ -1,11 +1,11 @@
 # Corrida real — A8 (VM de autoria)
 
-Nada abaixo foi inventado. Pesos do SmolLM2-135M já estavam no cache (A2/A11). A parede do lab **não** inclui o download inicial.
+Nada abaixo foi inventado. Pesos do SmolLM2-135M já estavam no cache (A2/A11). Esta corrida é a **pós-correção**: fronteira BPE + split treino/eval.
 
 ## Hardware e software
 
 ```
-utc 2026-11-12T14:02:54Z
+utc 2026-11-12T14:08:39Z
 uname Linux 6.12.113+ x86_64
 cpu Intel(R) Xeon(R) Processor
 nproc 4
@@ -19,61 +19,46 @@ datasets 5.2.0
 pytest 9.2.0
 ```
 
-JSON gerado: [`ca8-autoria.json`](./ca8-autoria.json) (cópia de `saidas/ca8.json` desta corrida).
+JSON: [`ca8-autoria.json`](./ca8-autoria.json).
 
 ## `WANDB_DISABLED=true python modulo-a8/lab/lab_a8.py`
 
-`segundos_total=30.536`  `exit=0`
+`segundos_total=23.857`  `exit=0`
 
 ```
 === A8.1 pares e comprimento ===
-  n=12 chosen_chars=52.9 rejected_chars=69.8 razao=1.32
+  n=14 treino=10 eval=4 disjuntos=True chosen_chars=60.2 rejected_chars=74.3 razao=1.23
 === A8.2 DPO LoRA (TRL) ===
-  base preferencia_bruta=0.500 (logp_chosen > logp_rejected no base)
-... (8 passos DPO; dicts no JSON) ...
-{'eval_loss': '0.659', ... 'eval_rewards/accuracies': '0.9167', 'eval_rewards/margins': '0.07122', ...}
-{'train_runtime': '6.078', ... 'train_loss': '0.6899', ...}
-=== A8.2b logps / margem vs base ===
-  train_loss=0.689865954220295 acc_log=[0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0] acc_depois=0.917 margem=0.704
-  perdas {'dpo_sigmoid': 0.6594, 'ipo': 19.1219, 'simpo': 0.8347, 'orpo': 3.1007, 'kto': 0.4912}
-=== A8.4 familia TRL (IPO/KTO estaveis; ORPO/SimPO experimental) ===
-{'loss': '25', ...}   # IPO 1 passo
-{'train_loss': '25', ...}
-... KTO 2 passos train_loss=0.4994 ...
-... ORPO 1 passo train_loss=5.736 ...
-... SimPO/CPO 1 passo train_loss=5.75 ...
+  fronteira_ok=True falhas=0
+  base treino preferencia_bruta=0.500 eval preferencia_bruta=0.500
+... 8 passos DPO ...
+{'eval_loss': '0.6598', ... 'eval_rewards/accuracies': '1', 'eval_rewards/margins': '0.06853', ...}
+{'train_runtime': '4.821', ... 'train_loss': '0.6797', ...}
+=== A8.2b logps / margem vs base (eval hold-out) ===
+  train_loss=0.6797339096665382 aviso_prefixo={'ocorreu': False, 'n': 0, 'amostra': []} acc_treino=1.000 acc_eval=1.000 margem_eval=0.661
+  perdas {'dpo_sigmoid': 0.6609, 'ipo': 19.0631, 'simpo': 0.4145, 'orpo': 1.5761, 'kto': 0.4917}
+=== A8.4 familia TRL ...
   ipo ok kto ok orpo ok simpo ok
 
-JSON → modulo-a8/saidas/ca8.json  (30.536 s)
+JSON → modulo-a8/saidas/ca8.json  (23.857 s)
 ```
 
-Stdout completa desta corrida (dicts por passo) está no log da sessão; métricas canônicas = o JSON.
+**Aviso TRL de prefixo:** 0 ocorrências no stderr (`grep -c "not a prefix"` → 0) e `aviso_prefixo_trl.ocorreu=false` no DPO, KTO, ORPO e SimPO.
 
-Aviso do TRL 1.17.1 (stderr, uma vez por trainer): *The tokenized prompt is not a prefix of the tokenized prompt+completion* — merge em `'":'`. Limitação real; não foi mascarada.
-
-## Números que o gabarito usa
+## Números
 
 | Item | Medido |
 | --- | ---: |
-| chosen / rejected chars | 52,92 / 69,75 (razão 1,32) |
-| DPO `train_loss` (8 passos, β=0,1) | 0,689866 |
-| `eval_rewards/accuracies` | 0,916667 |
-| `eval_rewards/margins` | 0,071216 |
-| `preferencia_bruta` base → depois | 0,500 → 0,500 |
-| margem log-ratio vs base | 0,704376 |
-| perdas no mesmo lote (DPO/IPO/SimPO/ORPO/KTO) | 0,6594 / 19,1219 / 0,8347 / 3,1007 / 0,4912 |
-| `dpo_vs_beta` 0,1 / 0,5 / 1,0 | 0,6594 / 0,5521 / 0,4680 |
-| IPO fumaça `train_loss` (1 passo) | 25,0 |
-| KTO `train_loss` (2 passos) | 0,499373 |
-| ORPO / SimPO `train_loss` (1 passo) | 5,736 / 5,75 |
-| T4 | `nao_calibrado` |
+| split | 10 treino / 4 eval, prompts disjuntos |
+| fronteira | ok, 0 falhas |
+| DPO `train_loss` | 0,679734 |
+| TRL eval acc / margin (hold-out) | 1,0 / 0,06853 |
+| acc implícita treino / eval vs base | 1,0 / 1,0 |
+| margem log-ratio treino / eval | 1,110 / 0,661 |
+| `preferencia_bruta` eval | 0,500 |
+| perdas DPO/IPO/SimPO/ORPO/KTO | 0,661 / 19,063 / 0,414 / 1,576 / 0,492 |
+| IPO/KTO/ORPO/SimPO `train_loss` fumaça | 25 / 0,499 / 2,917 / 2,297 |
 
-## `python -m pytest modulo-a8/testes -q --tb=short`
+## `python -m pytest modulo-a8/testes -q`
 
-`exit=0`
-
-```
-.......                                                                  [100%]
-```
-
-Sete testes (6 sem modelo + 1 `modelo` com SmolLM2). `pytest -q -m "not modelo"` na pasta da trilha: 32 passed (A2+A11+A8).
+`exit=0`  `........` (8 testes, inclui `modelo`).
