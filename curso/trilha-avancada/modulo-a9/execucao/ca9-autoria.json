@@ -8,7 +8,7 @@
     "cpu": "Intel(R) Xeon(R) Processor",
     "cpus_logicas": 4,
     "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
-    "epoch_unix": 1794492979
+    "epoch_unix": 1794493383
   },
   "libs": {
     "trl": "1.17.1",
@@ -19,7 +19,8 @@
     "a7": "nao_publicado",
     "m09_grpo_demo": "nao_copia; aquele script nao atualiza pesos",
     "sft_trilha": "ausente; GRPO parte do SmolLM2-135M base + LoRA",
-    "t4_colab": "nao_calibrado"
+    "t4_colab": "nao_calibrado",
+    "eval_greedy": "antes é o base (std=0 entre seeds); variação é o treino"
   },
   "a9_1": {
     "com_baseline": {
@@ -102,219 +103,492 @@
   },
   "a9_3": {
     "beta": 0.0,
-    "max_steps": 3,
-    "num_generations": 2,
-    "train_loss": 0.0,
-    "rewards_log": [
-      0.5,
-      0.5,
-      0.0
-    ],
-    "kl_log": [],
-    "log_history": [
-      {
-        "loss": 9.934107758624577e-09,
-        "grad_norm": 0.6702818274497986,
-        "learning_rate": 0.0002,
-        "num_tokens": 44.0,
-        "completions/mean_length": 6.0,
-        "completions/min_length": 6.0,
-        "completions/max_length": 6.0,
-        "completions/clipped_ratio": 1.0,
-        "completions/mean_terminated_length": 0.0,
-        "completions/min_terminated_length": 0.0,
-        "completions/max_terminated_length": 0.0,
-        "rewards/recompensa_exata/mean": 0.5,
-        "rewards/recompensa_exata/std": 0.7071067690849304,
-        "reward": 0.5,
-        "reward_std": 0.7071067690849304,
-        "frac_reward_zero_std": 0.0,
-        "entropy": 3.14204478263855,
-        "clip_ratio/low_mean": 0.0,
-        "clip_ratio/high_mean": 0.0,
-        "clip_ratio/region_mean": 0.0,
-        "clip_ratio/low_min": 0.0,
-        "clip_ratio/high_max": 0.0,
-        "step_time": 0.3607792430002519,
-        "epoch": 0.125,
-        "step": 1
-      },
-      {
-        "loss": -9.934107758624577e-09,
-        "grad_norm": 1.1024235486984253,
-        "learning_rate": 0.00013333333333333334,
-        "num_tokens": 88.0,
-        "completions/mean_length": 6.0,
-        "completions/min_length": 6.0,
-        "completions/max_length": 6.0,
-        "completions/clipped_ratio": 1.0,
-        "completions/mean_terminated_length": 0.0,
-        "completions/min_terminated_length": 0.0,
-        "completions/max_terminated_length": 0.0,
-        "rewards/recompensa_exata/mean": 0.5,
-        "rewards/recompensa_exata/std": 0.7071067690849304,
-        "reward": 0.5,
-        "reward_std": 0.7071067690849304,
-        "frac_reward_zero_std": 0.0,
-        "entropy": 1.8564852476119995,
-        "clip_ratio/low_mean": 0.0,
-        "clip_ratio/high_mean": 0.0,
-        "clip_ratio/region_mean": 0.0,
-        "clip_ratio/low_min": 0.0,
-        "clip_ratio/high_max": 0.0,
-        "step_time": 0.3202174399998512,
-        "epoch": 0.25,
-        "step": 2
-      },
-      {
-        "loss": 0.0,
-        "grad_norm": 0.0,
-        "learning_rate": 6.666666666666667e-05,
-        "num_tokens": 132.0,
-        "completions/mean_length": 6.0,
-        "completions/min_length": 6.0,
-        "completions/max_length": 6.0,
-        "completions/clipped_ratio": 1.0,
-        "completions/mean_terminated_length": 0.0,
-        "completions/min_terminated_length": 0.0,
-        "completions/max_terminated_length": 0.0,
-        "rewards/recompensa_exata/mean": 0.0,
-        "rewards/recompensa_exata/std": 0.0,
-        "reward": 0.0,
-        "reward_std": 0.0,
-        "frac_reward_zero_std": 1.0,
-        "entropy": 2.3835866451263428,
-        "clip_ratio/low_mean": 0.0,
-        "clip_ratio/high_mean": 0.0,
-        "clip_ratio/region_mean": 0.0,
-        "clip_ratio/low_min": 0.0,
-        "clip_ratio/high_max": 0.0,
-        "step_time": 0.3395100990001083,
-        "epoch": 0.375,
-        "step": 3
-      },
-      {
-        "train_runtime": 1.0493,
-        "train_samples_per_second": 5.718,
-        "train_steps_per_second": 2.859,
-        "total_flos": 0.0,
-        "train_loss": 0.0,
-        "epoch": 0.375,
-        "step": 3
-      }
-    ],
+    "max_steps": 16,
+    "num_generations": 4,
+    "temperature": 1.0,
     "api": "trl.GRPOTrainer (estavel)",
     "atualiza_pesos": true,
     "split": {
-      "n_treino": 8,
-      "n_eval": 4,
+      "n_treino": 24,
+      "n_eval": 80,
       "prompts_disjuntos": true,
-      "prompt_termina_igual": true
+      "prompt_termina_igual": true,
+      "pares_treino": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ]
     },
     "eval_antes": {
-      "n": 4,
-      "recompensa_media": 0.5,
-      "n_acertos": 2
+      "n": 80,
+      "recompensa_media": 0.6,
+      "n_acertos": 48,
+      "amostra": [
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+6=",
+          "ouro": "6",
+          "gerado": "10\n\nAproximad",
+          "r": 0.0
+        },
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+7=",
+          "ouro": "7",
+          "gerado": "1+1=1+1=",
+          "r": 0.0
+        },
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+8=",
+          "ouro": "8",
+          "gerado": "18\n\nAproximad",
+          "r": 0.0
+        },
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+9=",
+          "ouro": "9",
+          "gerado": "19\n\n## 1.",
+          "r": 0.0
+        }
+      ]
     },
-    "eval_depois": {
-      "n": 4,
-      "recompensa_media": 0.75,
-      "n_acertos": 3
-    },
-    "eval_depois_amostra": [
-      {
-        "prompt": "Responda apenas o numero inteiro.\n7+1=",
-        "ouro": "8",
-        "gerado": "8\n\nA. ",
-        "r": 1.0
-      },
-      {
-        "prompt": "Responda apenas o numero inteiro.\n8+0=",
-        "ouro": "8",
-        "gerado": "8+0=8+",
-        "r": 1.0
-      },
-      {
-        "prompt": "Responda apenas o numero inteiro.\n3+5=",
-        "ouro": "8",
-        "gerado": "10\n\nA.",
-        "r": 0.0
-      },
-      {
-        "prompt": "Responda apenas o numero inteiro.\n9+1=",
-        "ouro": "10",
-        "gerado": "10\n\nA.",
-        "r": 1.0
-      }
-    ],
-    "eval_antes_amostra": [
-      {
-        "prompt": "Responda apenas o numero inteiro.\n7+1=",
-        "ouro": "8",
-        "gerado": "10\n\nA.",
-        "r": 0.0
-      },
-      {
-        "prompt": "Responda apenas o numero inteiro.\n8+0=",
-        "ouro": "8",
-        "gerado": "8+0=8+",
-        "r": 1.0
-      },
-      {
-        "prompt": "Responda apenas o numero inteiro.\n3+5=",
-        "ouro": "8",
-        "gerado": "10\n\nA.",
-        "r": 0.0
-      },
-      {
-        "prompt": "Responda apenas o numero inteiro.\n9+1=",
-        "ouro": "10",
-        "gerado": "10\n\nA.",
-        "r": 1.0
-      }
-    ],
     "treino_antes": {
-      "n": 8,
-      "recompensa_media": 0.875,
-      "n_acertos": 7
+      "n": 24,
+      "recompensa_media": 0.7083333333333334,
+      "n_acertos": 17
     },
-    "treino_depois": {
-      "n": 8,
-      "recompensa_media": 0.875,
-      "n_acertos": 7
-    },
-    "frac_reward_zero_std": [
-      0.0,
-      0.0,
-      1.0
+    "seeds": [
+      0,
+      1,
+      2
     ],
-    "por_que_nao_subiu": null,
-    "segundos": 6.237
+    "corridas": [
+      {
+        "seed": 0,
+        "eval_depois": {
+          "n": 80,
+          "recompensa_media": 0.7375,
+          "n_acertos": 59
+        },
+        "treino_depois": {
+          "n": 24,
+          "recompensa_media": 0.875,
+          "n_acertos": 21
+        },
+        "delta_eval": 0.13750000000000007,
+        "rewards_log": [
+          0.5,
+          0.25,
+          0.5,
+          0.0,
+          1.0,
+          0.25,
+          0.5,
+          0.0,
+          0.5,
+          0.75,
+          0.0,
+          0.0,
+          0.75,
+          0.75,
+          0.5,
+          0.75
+        ],
+        "frac_reward_zero_std": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_passos_zero_std": 5,
+        "frac_passos_zero_std": 0.3125,
+        "train_loss": 0.007210098206996918,
+        "atualiza_pesos": true,
+        "amostra_depois": [
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+6=",
+            "ouro": "6",
+            "gerado": "6\n\nA = 0\n",
+            "r": 1.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+7=",
+            "ouro": "7",
+            "gerado": "1+1=1+1=",
+            "r": 0.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+8=",
+            "ouro": "8",
+            "gerado": "8\n\nAproximadament",
+            "r": 1.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+9=",
+            "ouro": "9",
+            "gerado": "9\n\n## 1.\n",
+            "r": 1.0
+          }
+        ],
+        "segundos": 14.017
+      },
+      {
+        "seed": 1,
+        "eval_depois": {
+          "n": 80,
+          "recompensa_media": 0.725,
+          "n_acertos": 58
+        },
+        "treino_depois": {
+          "n": 24,
+          "recompensa_media": 0.875,
+          "n_acertos": 21
+        },
+        "delta_eval": 0.125,
+        "rewards_log": [
+          0.25,
+          0.0,
+          0.5,
+          0.25,
+          0.75,
+          0.5,
+          0.25,
+          0.0,
+          0.5,
+          0.5,
+          0.25,
+          0.5,
+          0.25,
+          1.0,
+          0.5,
+          0.0
+        ],
+        "frac_reward_zero_std": [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "n_passos_zero_std": 4,
+        "frac_passos_zero_std": 0.25,
+        "train_loss": -2.3283064365386963e-09,
+        "atualiza_pesos": true,
+        "amostra_depois": [
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+6=",
+            "ouro": "6",
+            "gerado": "6\n\nA = 0\n",
+            "r": 1.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+7=",
+            "ouro": "7",
+            "gerado": "1+1=1+1=",
+            "r": 0.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+8=",
+            "ouro": "8",
+            "gerado": "18\n\nAproximad",
+            "r": 0.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+9=",
+            "ouro": "9",
+            "gerado": "19\n\n## 1.",
+            "r": 0.0
+          }
+        ],
+        "segundos": 14.585
+      },
+      {
+        "seed": 2,
+        "eval_depois": {
+          "n": 80,
+          "recompensa_media": 0.7375,
+          "n_acertos": 59
+        },
+        "treino_depois": {
+          "n": 24,
+          "recompensa_media": 0.875,
+          "n_acertos": 21
+        },
+        "delta_eval": 0.13750000000000007,
+        "rewards_log": [
+          0.75,
+          0.25,
+          0.5,
+          0.5,
+          0.25,
+          0.25,
+          1.0,
+          0.5,
+          0.25,
+          0.25,
+          0.5,
+          0.75,
+          0.25,
+          0.75,
+          0.75,
+          0.5
+        ],
+        "frac_reward_zero_std": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_passos_zero_std": 1,
+        "frac_passos_zero_std": 0.0625,
+        "train_loss": -4.656612873077393e-10,
+        "atualiza_pesos": true,
+        "amostra_depois": [
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+6=",
+            "ouro": "6",
+            "gerado": "6\n\nA = 0\n",
+            "r": 1.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+7=",
+            "ouro": "7",
+            "gerado": "1+1=1+1=",
+            "r": 0.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+8=",
+            "ouro": "8",
+            "gerado": "8\n\nA = 0\n",
+            "r": 1.0
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+9=",
+            "ouro": "9",
+            "gerado": "9\n\nA = 0\n",
+            "r": 1.0
+          }
+        ],
+        "segundos": 15.0
+      }
+    ],
+    "resumo": {
+      "eval_antes": 0.6,
+      "eval_depois": {
+        "n": 3,
+        "media": 0.7333333333333334,
+        "desvio": 0.00721687836487036
+      },
+      "delta": {
+        "n": 3,
+        "media": 0.1333333333333334,
+        "desvio": 0.00721687836487036,
+        "claro": true,
+        "nota": "média do delta > desvio e ≥ 0,03"
+      },
+      "frac_passos_zero_std": {
+        "n": 3,
+        "media": 0.20833333333333334,
+        "desvio": 0.13010412496663332
+      },
+      "melhorou_claro": true
+    },
+    "segundos": 48.789
   },
   "a9_4": {
     "beta_pos": {
       "status": "ok",
       "beta": 0.04,
-      "max_steps": 1,
-      "train_loss": 9.934107758624577e-09,
+      "max_steps": 16,
+      "num_generations": 4,
+      "seed": 0,
+      "train_loss": 0.007390732929934529,
       "kl_log": [
-        0.0
+        0.0,
+        0.00010310113430023193,
+        0.0006130225956439972,
+        0.0005534552037715912,
+        0.0009790286421775818,
+        0.0038799121975898743,
+        0.006190750747919083,
+        0.0029786434024572372,
+        0.015947531908750534,
+        0.007624518126249313,
+        0.003135599195957184,
+        0.002341054379940033,
+        0.0041930191218853,
+        0.010551540181040764,
+        0.010335579514503479,
+        0.0028281956911087036
       ],
+      "kl_max": 0.015947531908750534,
+      "kl_n_nao_zero": 15,
       "rewards_log": [
-        0.5
+        0.5,
+        0.25,
+        0.5,
+        0.0,
+        1.0,
+        0.25,
+        0.5,
+        0.0,
+        0.5,
+        0.75,
+        0.0,
+        0.0,
+        0.75,
+        0.75,
+        0.5,
+        0.75
       ],
-      "nota": "1 passo; nao comparar qualidade com beta=0 de 3 passos"
+      "n_passos_zero_std": 5,
+      "eval_depois": {
+        "n": 80,
+        "recompensa_media": 0.7375,
+        "n_acertos": 59
+      },
+      "delta_vs_base": 0.13750000000000007,
+      "delta_vs_beta0_seed0": 0.0,
+      "nota": "mesmo G/passos/seed=0 que a primeira corrida beta=0; KL precisa aparecer no log",
+      "segundos": 15.615
     },
     "hack_vs_exata_no_base": {
-      "exata_media": 0.5,
+      "n": 20,
+      "exata_media": 0.35,
       "hack_media": 1.0,
       "nota": "no base, dígito qualquer já pontua no hack; a exata exige o inteiro ouro"
     },
-    "segundos": 2.071
+    "segundos": 17.488
   },
   "a9_5_t4": {
     "status": "nao_calibrado",
     "motivo": "CPU sem CUDA; GRPO G grande / T4 / IC do retido e alvo de Colab"
   },
-  "segundos_total": 10.742
+  "segundos_total": 68.589
 }

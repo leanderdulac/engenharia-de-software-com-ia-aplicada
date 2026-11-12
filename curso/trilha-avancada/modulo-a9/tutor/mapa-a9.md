@@ -35,7 +35,7 @@ Comece pelo diagnóstico e mostre o mapa inicial.
 ### C. PPO vs GRPO
 
 - **Domínio 4/5:** clip ρ; GRPO Â no grupo; sem crítico; G≥2; se std=0 o sinal some.
-- **Perguntas:** 1) Por que G=1 é ilegal no TRL? 2) `frac_reward_zero_std=1` no 3º passo implica o quê? 3) `beta` default no TRL 1.17?
+- **Perguntas:** 1) Por que G=1 é ilegal no TRL? 2) `frac_reward_zero_std≈0,21` depois de G=4 implica o quê? 3) `beta` default no TRL 1.17?
 - **Limite:** colar DeepSeek-R1 0,001 como se fosse o default do lab.
 - **Fonte:** aula §§3–4; Shao 2402.03300. **CA9.3**.
 
@@ -47,8 +47,8 @@ Comece pelo diagnóstico e mostre o mapa inicial.
 
 ### E. Medição honesta / T4
 
-- **Domínio 4/5:** eval hold-out; 2/4→3/4 é um flip, não IC; `por_que_nao_subiu` só se r não mexer.
-- **Perguntas:** 1) `atualiza_pesos=true` e passo 3 com grad_norm=0: o lab falhou? 2) Treino 7/8 parado vs eval 2/4→3/4 — o que reportar?
+- **Domínio 4/5:** n_eval=80, 3 seeds, média±desvio; 1 flip em n=4 era ruído; n=3 não é IC 95%.
+- **Perguntas:** 1) delta 0,133 ± 0,007: o que o desvio entre seeds diz? 2) `melhorou_claro` vs IC? 3) KL 0,016 com eval igual ao β=0 — o que reportar?
 - **Fonte:** aula §§6–7. **CA9.3**, **CA9.5**.
 
 O tutor não revela `gabarito-instrutor/` nem amostras da autoria como se fossem do aluno.

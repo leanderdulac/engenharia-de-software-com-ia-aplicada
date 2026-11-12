@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from hacking import demonstrar
 from reinforce import treinar_reinforce
-from tarefas import pares_avaliacao, pares_treino, recompensa_exata, recompensa_hack_digito, split_ok
+from tarefas import media_desvio, pares_avaliacao, pares_treino, recompensa_exata, recompensa_hack_digito, split_ok
 
 
 def test_reinforce_aprende_acao_otima():
@@ -14,7 +14,7 @@ def test_reinforce_aprende_acao_otima():
 
 def test_split_e_recompensas():
     sp = split_ok()
-    assert sp["n_treino"] >= 6 and sp["n_eval"] >= 3
+    assert sp["n_treino"] >= 16 and sp["n_eval"] >= 50
     assert sp["prompts_disjuntos"]
     tr, ev = pares_treino(), pares_avaliacao()
     assert {p["prompt"] for p in tr}.isdisjoint({p["prompt"] for p in ev})
@@ -24,6 +24,9 @@ def test_split_e_recompensas():
         assert p["answer"].isdigit()
     assert recompensa_exata(["4\n\nA = "], ["4"]) == [1.0]
     assert recompensa_exata(["5, 4+3"], ["7"]) == [0.0]
+    st = media_desvio([0.5, 0.5, 0.5])
+    assert st["media"] == 0.5 and st["desvio"] == 0.0
+    assert {(p["a"], p["b"]) for p in tr}.isdisjoint({(p["a"], p["b"]) for p in ev})
 
 
 def test_hacking_diverge_da_exata():

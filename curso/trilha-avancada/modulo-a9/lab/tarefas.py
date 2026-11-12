@@ -1,14 +1,17 @@
 """Tarefa verificável mínima: aritmética curta, primeiro inteiro da compleção.
 
-Não copia o demo GRPO do M09 (Ollama / sinistro Amplitude). O ouro é a soma.
-O prompt termina em ``=`` (sem newline extra): um ``\\n`` depois do igual faz o
-SmolLM2-135M base emitir ``A. 10`` em vez de continuar a conta.
+Não copia o demo GRPO do M09. O ouro é a soma. Pares de treino e de avaliação
+são gerados programaticamente, sem sobreposição.
 """
 
 from __future__ import annotations
 
+import os
 import re
 from typing import Any
+
+N_TREINO = 24
+N_EVAL = 80
 
 
 def _item(a: int, b: int) -> dict[str, Any]:
@@ -20,14 +23,32 @@ def _item(a: int, b: int) -> dict[str, Any]:
     }
 
 
+def contas(amax: int, bmax: int, soma_max: int) -> list[tuple[int, int]]:
+    out: list[tuple[int, int]] = []
+    for a in range(0, amax + 1):
+        for b in range(0, bmax + 1):
+            if a + b <= soma_max:
+                out.append((a, b))
+    return out
+
+
 def pares_treino() -> list[dict[str, Any]]:
-    pares = [(1, 1), (2, 2), (3, 1), (4, 0), (5, 2), (6, 1), (2, 3), (4, 3)]
-    return [_item(a, b) for a, b in pares]
+    """Currículo curto (somas ≤ 10, parcelas pequenas) — G>1 tem chance de std≠0."""
+    cand = contas(6, 5, 10)
+    return [_item(a, b) for a, b in cand[:N_TREINO]]
 
 
-def pares_avaliacao() -> list[dict[str, Any]]:
-    pares = [(7, 1), (8, 0), (3, 5), (9, 1)]
-    return [_item(a, b) for a, b in pares]
+def pares_avaliacao(n: int | None = None) -> list[dict[str, Any]]:
+    n = n if n is not None else int(os.environ.get("TRILHA_A9_N_EVAL", str(N_EVAL)))
+    used = {(p["a"], p["b"]) for p in pares_treino()}
+    out: list[dict[str, Any]] = []
+    for a, b in contas(12, 12, 20):
+        if (a, b) in used:
+            continue
+        out.append(_item(a, b))
+        if len(out) >= n:
+            break
+    return out
 
 
 def texto_complecao(c: Any) -> str:
@@ -47,12 +68,7 @@ def primeiro_inteiro(texto: str) -> str | None:
 
 
 def recompensa_exata(completions, answer, **kwargs) -> list[float]:
-    """1.0 se o primeiro inteiro da compleção é o ouro (parse verificável).
-
-    Igualdade da string inteira (``strip()==ouro``) quase nunca ocorre em 6
-    tokens do base: ele continua (``4\\n\\nA = ``). O parse do primeiro
-    inteiro é o sinal de precisão desta aula.
-    """
+    """1.0 se o primeiro inteiro da compleção é o ouro (parse verificável)."""
     out: list[float] = []
     for c, ouro in zip(completions, answer):
         t = texto_complecao(c)
@@ -88,4 +104,16 @@ def split_ok() -> dict[str, Any]:
         "n_eval": len(ev),
         "prompts_disjuntos": pt.isdisjoint(pe),
         "prompt_termina_igual": all(p["prompt"].endswith("=") for p in tr + ev),
+        "pares_treino": [(p["a"], p["b"]) for p in tr],
     }
+
+
+def media_desvio(xs: list[float]) -> dict[str, Any]:
+    n = len(xs)
+    if n == 0:
+        return {"n": 0, "media": None, "desvio": None}
+    m = sum(xs) / n
+    if n == 1:
+        return {"n": 1, "media": float(m), "desvio": 0.0}
+    d = (sum((x - m) ** 2 for x in xs) / (n - 1)) ** 0.5
+    return {"n": n, "media": float(m), "desvio": float(d)}

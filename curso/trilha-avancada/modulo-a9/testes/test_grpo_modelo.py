@@ -32,6 +32,7 @@ def test_grpo_trainer_roda_um_passo_com_lora():
         recompensa_exata,
         beta=0.0,
         max_steps=1,
+        num_generations=2,
     )
     assert g["atualiza_pesos"] is True
     assert g["api"].startswith("trl.GRPOTrainer")

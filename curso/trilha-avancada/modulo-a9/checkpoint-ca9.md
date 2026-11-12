@@ -31,21 +31,24 @@ CA9.5 (T4 / G grande / IC) **não é exigido**. `a9_5_t4.status = nao_calibrado`
 | Critério | Campo | Limiar |
 | --- | --- | --- |
 | API | `a9_3.api`, `atualiza_pesos` | `GRPOTrainer`, **true** |
-| Split | `a9_3.split` | n_eval ≥ 3, `prompts_disjuntos` |
-| Antes/depois no **eval** | `eval_antes`, `eval_depois` | `recompensa_media`, `n_acertos` |
-| Se não subiu | `por_que_nao_subiu` | preenchido; parágrafo cita amostra |
-| Se subiu | parágrafo | n do eval; **não** inventar IC; citar o flip |
-| `beta` default | `a9_3.beta` | **0.0** nesta receita (TRL) |
+| Split | `a9_3.split` | n_eval ≥ 50, n_treino ≥ 16, `prompts_disjuntos` |
+| Seeds | `a9_3.seeds`, `corridas` | **≥ 3** seeds |
+| Antes (base) | `eval_antes` | n, `recompensa_media`, `n_acertos` |
+| Depois | `resumo.eval_depois`, `resumo.delta` | **média e desvio** |
+| Melhora | `resumo.melhorou_claro` | true **ou** parágrafo honesto se false |
+| Zero-std | `resumo.frac_passos_zero_std` | reportar; não precisa ser 0 |
+| `beta` default | `a9_3.beta` | **0.0** nesta receita |
 | Testes `modelo` | `pytest -q` marca `modelo` | passam |
 
-Inventar eval 0,99 nesta CPU zera. Copiar o demo do M09 (sem `train()`) zera `atualiza_pesos`. Copiar 0,50→0,75 da autoria sem rodar zera.
+Um único flip em n=4 **não** basta. Copiar 0,600→0,733 da autoria sem rodar zera. Copiar o demo do M09 (sem `train()`) zera `atualiza_pesos`.
 
 ## CA9.4 — beta > 0 e hack no gerado
 
 | Critério | Campo | Limiar |
 | --- | --- | --- |
-| Fumaça KL | `a9_4.beta_pos` | `ok` com `kl_log` **ou** `falhou`/`pulado_env` documentado |
-| Hack vs exata no base | `hack_vs_exata_no_base` | os dois números; não precisam subir |
+| KL de fato | `a9_4.beta_pos.kl_n_nao_zero` | **≥ 1** (ou `falhou`/`pulado_env` documentado) |
+| Mesmo protocolo | `max_steps`, `num_generations` | iguais ao A9.3 |
+| Hack vs exata no base | `hack_vs_exata_no_base` | os dois números |
 
 ## CA9.5 — T4 (não exigido)
 
@@ -55,9 +58,9 @@ Inventar eval 0,99 nesta CPU zera. Copiar o demo do M09 (sem `train()`) zera `at
 
 | Nota | Evidência |
 | --- | --- |
-| 9–10 | JSON próprio; REINFORCE sobe; hacking divergente; GRPO `train()`; eval hold-out; parágrafo honesto (n pequeno / `por_que_nao_subiu` se r não mexeu); T4 declarado |
-| 7–8 | Limiares ok; parágrafo trata 3/4 como IC |
-| 5–6 | JSON de outro / números digitados |
+| 9–10 | JSON próprio; 3 seeds; n_eval≥50; média±desvio; KL não nulo ou falha documentada; parágrafo honesto sobre zero-std / T4 |
+| 7–8 | Limiares ok; trata n=3 como IC 95% |
+| 5–6 | JSON de outro / n_eval=4 de versão antiga |
 | 0–4 | Sem JSON; “o M09 já era GRPO”; IC inventado |
 
-Se a recompensa **não** subir, o relatório que explica o grupo homogêneo vale nota cheia nesse item. Inventar subida zera. n=4 com um flip também vale — desde que o parágrafo diga que é um exemplo.
+Se `melhorou_claro=false`, o relatório que cita média e desvio vale nota cheia nesse item. Inventar subida zera.
