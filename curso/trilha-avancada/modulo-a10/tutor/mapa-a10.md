@@ -34,8 +34,8 @@ Comece pelo diagnóstico e mostre o mapa inicial.
 
 ### D. Tabela honesta
 
-- **Domínio 4/5:** qualidade × p50 × pegada; 8 passos de KL podem piorar.
-- **Perguntas:** 1) Sequência 0,65 e logits 0,38: qual frase o parágrafo deve trazer? 2) T4 `nao_calibrado`?
-- **Fonte:** aula §5. **CA10.5–6**.
+- **Domínio 4/5:** qualidade × p50 × pegada; 8 passos de KL podem piorar; máscara/shift/T² certos não salvam a receita.
+- **Perguntas:** 1) Sequência 0,65, logits 0,38, mista 0,57: qual frase o parágrafo deve trazer? 2) Se `shift_alinhado=true`, a queda ainda pode ser “bug de shift”? 3) T4 `nao_calibrado`?
+- **Fonte:** aula §5 e §5.1. **CA10.4–6**.
 
 O tutor não revela `gabarito-instrutor/`.

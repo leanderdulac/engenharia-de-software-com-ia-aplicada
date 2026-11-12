@@ -42,6 +42,7 @@ Saída: `modulo-a10/saidas/ca10.json` (gitignore). Autoria: [`execucao/ca10-auto
 - **A10.1.** Professor gera 32 treinos; filtro 32/32; eval hold-out n=60 acc **0,917**, p50 0,146 s, 1447 MB.
 - **A10.2.** Aluno original acc **0,600**, p50 0,045 s, 538 MB.
 - **A10.3.** Destilação por resposta (CE, 8 passos LoRA) → acc **0,650**.
-- **A10.4.** Destilação por logits T=2 (8 passos) → acc **0,383** (piorou; a aula não esconde).
+- **A10.4.** Destilação por logits T=2 (8 passos, máscara=resposta, T² conferido) → acc **0,383** (piorou). Diagnóstico: shift alinhado, máscara *não* inclui prompt, `razao_t2=4`. A causa não é bug de implementação — ver aula §5.1.
 - **A10.4b.** Fumaça T=4 (2 passos).
+- **A10.4c.** Perda mista α=0,5 → acc **0,567** (mitiga, não supera o aluno original 0,600 nem a CE 0,650).
 - **A10.6.** `nao_calibrado` (T4).
