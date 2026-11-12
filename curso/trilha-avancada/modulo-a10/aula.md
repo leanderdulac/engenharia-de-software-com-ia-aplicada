@@ -8,7 +8,7 @@ No A9 o aluno *melhorou a si mesmo* com recompensa verificável. Aqui alguém ma
 2. dizer por que logits exigem o **mesmo tokenizer**;
 3. montar um pipeline sintético com verificador (não copiar lixo do professor);
 4. situar self-distillation e reasoning distillation sem fingir que rodou CoT (A7 esqueleto);
-5. ler uma tabela professor × aluno original × aluno destilado em qualidade, latência e memória;
+5. ler uma tabela professor × aluno original × sequência × logits × mista em qualidade, latência e memória;
 6. checar a **licença** do professor antes de treinar o aluno.
 
 Nada disto entra nas 240 h. Números do SmolLM2 **não** se copiam da aula: saem do seu `ca10.json`.
@@ -34,7 +34,7 @@ Qwen2.5-0.5B também é Apache-2.0 (card, nov/2026) mas o vocabulário **não** 
 
 O professor `π_T` é maior (ou só melhor na tarefa). O aluno `π_S` é o que você vai servir. Destilar é treinar `π_S` para parecer `π_T` **sem** carregar `π_T` na inferência.
 
-Custo típico: treino usa os dois; serving usa só o aluno. Nesta CPU o professor 360M tem pegada **1447 MB** e p50 **0,146 s**/prompt; o aluno 135M **538 MB** e **0,045 s**. Qualidade na soma curta: professor **0,917** (55/60), aluno original **0,600** (36/60).
+Custo típico: treino usa os dois; serving usa só o aluno. Nesta CPU o professor 360M tem pegada **1447 MB** e p50 **0,108 s**/prompt; o aluno 135M **538 MB** e **0,045 s**. Qualidade na soma curta: professor **0,917** (55/60), aluno original **0,600** (36/60).
 
 ---
 
@@ -53,6 +53,14 @@ L = T²  KL( p_T  ||  p_S )
 ```
 
 `T>1` amacia a distribuição (as classes “quase certas” ainda ensinam). `T²` mantém a escala do gradiente. Exige **os mesmos ids** — daí o mesmo tokenizer SmolLM2.
+
+Perda mista clássica (Hinton, quando há rótulo duro *e* professor):
+
+```text
+L = α · CE(y_duro) + (1−α) · T² · KL(p_T || p_S)
+```
+
+Nesta receita α=0,5, mesma máscara e mesmo shift da CE. Sem o termo duro, o lab colapsa (0,383). Com ele, sobe a 0,567 — ainda abaixo da CE pura.
 
 ### Por features
 
@@ -89,14 +97,35 @@ Retenção / esquecimento: treinar só em somas pode estragar prosa. O lab **nã
 
 | Modelo | acc | n_acertos | p50 (s) | pegada (MB) |
 | --- | ---: | ---: | ---: | ---: |
-| professor 360M | **0,917** | 55 | 0,146 | 1447 |
+| professor 360M | **0,917** | 55 | 0,108 | 1447 |
 | aluno original 135M | 0,600 | 36 | 0,045 | 538 |
-| aluno sequência (8 passos) | **0,650** | 39 | 0,052 | 540 |
+| aluno sequência (8 passos) | **0,650** | 39 | 0,044 | 540 |
 | aluno logits T=2 (8 passos) | **0,383** | 23 | 0,045 | 540 |
+| aluno mista α=0,5 (8 passos) | **0,567** | 34 | 0,041 | 540 |
 
-Sequência **subiu** 5 p.p. Logits **caiu**. Oito passos de KL no vocabulário inteiro, LoRA r=8, CPU, não é DistilBERT. A aula não transforma isso em “logits é pior para sempre”: é o que *esta* receita mediu. T=4 (2 passos) só acende a curva (`loss≈1,87` → `1,83`); não compete com T=2 de 8 passos.
+Sequência **subiu** 5 p.p. Logits **caiu**. Mista (Hinton: `α·CE + (1−α)·T²·KL`, α=0,5) **recuperou** a maior parte da queda (0,383 → 0,567) mas **não** passou o aluno original nem a CE pura. T=4 (2 passos) só acende a curva (`loss≈1,87` → `1,83`).
 
 Qualidade × latência × memória: o professor ganha acerto e perde os três outros eixos. O aluno destilado por resposta fica no meio da acurácia, perto do aluno original em p50/pegada.
+
+### 5.1 Por que os logits caíram a 0,383 — o que foi checado
+
+Três suspeitos de implementação. Os três **não** eram o bug:
+
+| Hipótese | Campo no JSON | Medido |
+| --- | --- | --- |
+| KL no prompt (sem máscara) | `diagnostico.mascara_inclui_prompt` | **false** — só posições da compleção |
+| Shift errado (`logits[t]` vs `ids[t]` em vez de `ids[t+1]`) | `shift_alinhado` | **true** — 8 posições KL = 8 posições CE |
+| Esqueceu o `T²` | `t2_bate`, `razao_t2` | **true**, razão **4,0** com T=2 |
+
+A máscara está em `mascara_shift`: posição `j` de `logits[:, :-1]` prediz `ids[j+1]`; a resposta começa em `ids[n_prompt]`, logo `j ≥ n_prompt − 1`. O lab imprime isso antes de treinar.
+
+A causa que *resta*, nesta receita:
+
+1. O professor greedy emite **8 tokens** (`n_complecao=8`). O verificador só olha o primeiro inteiro. A compleção de treino desta corrida começa `"0 1+1=2 "` — o ouro é `0`; o resto é lixo do 360M. Sequência CE ainda ancora o argmax no token `"0"`. KL casa a **distribuição inteira** (|V|=49 152) também nos sete tokens seguintes.
+2. LoRA r=8 só em `q_proj`/`v_proj`, 8 passos. Isso não é DistilBERT. O softmax suave (T=2) espalha massa para vizinhos (`10`, `1`, `6`). No greedy do hold-out o aluno colapsa para `"10"` / `"1"` (amostra em `a10_4.eval`).
+3. `kl_primeiro_t2≈1,48` já é quase `kl_resposta_t2≈1,56`: mesmo o primeiro token da resposta, sozinho, está longe do professor. A âncora dura da CE é o que segura a sequência.
+
+A perda mista confirma o diagnóstico: misturar CE **mitiga** o colapso, não o inverte neste orçamento. Quem escrever “logits sempre ganha quando a máscara está certa” zera o parágrafo. Quem citar 0,383 / 0,567 e a tabela acima acerta.
 
 ---
 
@@ -104,7 +133,7 @@ Qualidade × latência × memória: o professor ganha acerto e perde os três ou
 
 1. Ler Hinton §2 (temperatura) e esta §2.
 2. `python modulo-a10/lab/lab_a10.py`
-3. CA10 com o JSON **seu**. Se logits piorar, o parágrafo cita o número.
+3. CA10 com o JSON **seu**. Se logits piorar, o parágrafo cita o número e o diagnóstico (`shift_alinhado`, `t2_bate`).
 4. Opcional: [`tutor/mapa-a10.md`](./tutor/mapa-a10.md).
 
 T4: não troque o `torch` CUDA. Não copie 0,917 desta CPU.

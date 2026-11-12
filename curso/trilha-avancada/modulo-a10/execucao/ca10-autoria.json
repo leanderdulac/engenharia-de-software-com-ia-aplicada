@@ -8,7 +8,7 @@
     "cpu": "Intel(R) Xeon(R) Processor",
     "cpus_logicas": 4,
     "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
-    "epoch_unix": 1794493623
+    "epoch_unix": 1794494031
   },
   "honestidade": {
     "a5_a7": "esqueleto; aluno = SmolLM2-135M base + LoRA, não SFT da trilha",
@@ -37,7 +37,7 @@
     "dados_sinteticos": "compleções do professor herdam a licença Apache-2.0 do modelo. API comercial (OpenAI etc.) costuma proibir treinar aluno — não é o caso aqui.",
     "mesmo_tokenizer": true
   },
-  "rss_inicio_mb": 344.8,
+  "rss_inicio_mb": 344.6,
   "a10_1": {
     "professor": "HuggingFaceTB/SmolLM2-360M",
     "split": {
@@ -73,9 +73,9 @@
       "n": 60,
       "acuracia": 0.9166666666666666,
       "n_acertos": 55,
-      "latencia_p50_s": 0.14601586937499178,
+      "latencia_p50_s": 0.10803702524998471,
       "pegada_mb": 1447.3,
-      "rss_processo_mb": 1806.0,
+      "rss_processo_mb": 1807.4,
       "amostra": [
         {
           "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -103,7 +103,7 @@
         }
       ]
     },
-    "segundos": 12.209
+    "segundos": 10.892
   },
   "a10_2": {
     "aluno": "HuggingFaceTB/SmolLM2-135M",
@@ -111,9 +111,9 @@
       "n": 60,
       "acuracia": 0.6,
       "n_acertos": 36,
-      "latencia_p50_s": 0.04526140812498625,
+      "latencia_p50_s": 0.04467790100000002,
       "pegada_mb": 538.1,
-      "rss_processo_mb": 2333.3,
+      "rss_processo_mb": 2333.4,
       "amostra": [
         {
           "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -141,29 +141,29 @@
         }
       ]
     },
-    "segundos": 3.539
+    "segundos": 3.196
   },
   "a10_3": {
     "tipo": "sequencia",
     "passos": 8,
     "n_pares": 32,
     "losses": [
-      1.0365567207336426,
-      0.9698110818862915,
-      1.2790848016738892,
-      1.3947926759719849,
+      1.0365568399429321,
+      0.969810962677002,
+      1.2790849208831787,
+      1.3947925567626953,
       1.2741327285766602,
       1.0028921365737915,
-      0.7287089824676514,
-      0.7146609425544739
+      0.7287089228630066,
+      0.7146610021591187
     ],
     "eval": {
       "n": 60,
       "acuracia": 0.65,
       "n_acertos": 39,
-      "latencia_p50_s": 0.05182217062503014,
+      "latencia_p50_s": 0.044422832625002684,
       "pegada_mb": 539.9,
-      "rss_processo_mb": 2406.6,
+      "rss_processo_mb": 2511.1,
       "amostra": [
         {
           "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -191,30 +191,51 @@
         }
       ]
     },
-    "segundos": 4.702
+    "segundos": 4.113
   },
   "a10_4": {
     "tipo": "logits",
     "temperatura": 2.0,
+    "modo_mascara": "resposta",
     "passos": 8,
     "n_pares": 32,
+    "diagnostico": {
+      "n_prompt": 16,
+      "n_seq": 24,
+      "n_complecao": 8,
+      "n_posicoes_kl_resposta": 8,
+      "n_posicoes_ce_resposta": 8,
+      "n_posicoes_prompt": 15,
+      "shift_alinhado": true,
+      "mascara_inclui_prompt": false,
+      "primeira_posicao_resposta": 15,
+      "kl_resposta_t2": 1.558824062347412,
+      "kl_prompt_t2": 2.47517466545105,
+      "kl_primeiro_t2": 1.4791450500488281,
+      "kl_tudo_t2": 2.1564438343048096,
+      "kl_resposta_sem_t2": 0.389706015586853,
+      "razao_t2": 4.0,
+      "t2_esperado": 4.0,
+      "t2_bate": true,
+      "complecao_amostra": "0 1+1=2 "
+    },
     "losses": [
-      1.5588241815567017,
-      1.4405131340026855,
-      1.6008327007293701,
-      1.7015308141708374,
+      1.558824062347412,
+      1.4405133724212646,
+      1.6008328199386597,
+      1.701530933380127,
       1.439375400543213,
       1.6613459587097168,
       1.4326705932617188,
-      1.3383694887161255
+      1.338369369506836
     ],
     "eval": {
       "n": 60,
       "acuracia": 0.38333333333333336,
       "n_acertos": 23,
-      "latencia_p50_s": 0.04547871812502535,
+      "latencia_p50_s": 0.04546293262501422,
       "pegada_mb": 539.9,
-      "rss_processo_mb": 2499.4,
+      "rss_processo_mb": 2624.3,
       "amostra": [
         {
           "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -242,7 +263,7 @@
         }
       ]
     },
-    "segundos": 5.9
+    "segundos": 6.124
   },
   "a10_4b_T": {
     "temperatura": 4.0,
@@ -253,15 +274,69 @@
     ],
     "nota": "fumaça da curva T; não compete com T=2 de 8 passos"
   },
+  "a10_4c": {
+    "tipo": "mista",
+    "temperatura": 2.0,
+    "alpha": 0.5,
+    "modo_mascara": "resposta",
+    "passos": 8,
+    "n_pares": 32,
+    "losses": [
+      1.2976903915405273,
+      1.2101449966430664,
+      1.4467893838882446,
+      1.562131404876709,
+      1.3673650026321411,
+      1.3620867729187012,
+      1.104813575744629,
+      1.0576956272125244
+    ],
+    "eval": {
+      "n": 60,
+      "acuracia": 0.5666666666666667,
+      "n_acertos": 34,
+      "latencia_p50_s": 0.0413860877499701,
+      "pegada_mb": 539.9,
+      "rss_processo_mb": 2549.8,
+      "amostra": [
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+6=",
+          "ouro": "6",
+          "gerado": "10\n\nA = 1",
+          "ok": false
+        },
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+7=",
+          "ouro": "7",
+          "gerado": "1\n\n## 1.\n",
+          "ok": false
+        },
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+8=",
+          "ouro": "8",
+          "gerado": "10\n\nA = 1",
+          "ok": false
+        },
+        {
+          "prompt": "Responda apenas o numero inteiro.\n0+9=",
+          "ouro": "9",
+          "gerado": "10\n\n## 10",
+          "ok": false
+        }
+      ]
+    },
+    "segundos": 4.678,
+    "formula": "alpha * CE(labels) + (1-alpha) * T^2 * KL(p_T || p_S)"
+  },
   "a10_5": {
     "tabela": {
       "professor": {
         "n": 60,
         "acuracia": 0.9166666666666666,
         "n_acertos": 55,
-        "latencia_p50_s": 0.14601586937499178,
+        "latencia_p50_s": 0.10803702524998471,
         "pegada_mb": 1447.3,
-        "rss_processo_mb": 1806.0,
+        "rss_processo_mb": 1807.4,
         "amostra": [
           {
             "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -293,9 +368,9 @@
         "n": 60,
         "acuracia": 0.6,
         "n_acertos": 36,
-        "latencia_p50_s": 0.04526140812498625,
+        "latencia_p50_s": 0.04467790100000002,
         "pegada_mb": 538.1,
-        "rss_processo_mb": 2333.3,
+        "rss_processo_mb": 2333.4,
         "amostra": [
           {
             "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -327,9 +402,9 @@
         "n": 60,
         "acuracia": 0.65,
         "n_acertos": 39,
-        "latencia_p50_s": 0.05182217062503014,
+        "latencia_p50_s": 0.044422832625002684,
         "pegada_mb": 539.9,
-        "rss_processo_mb": 2406.6,
+        "rss_processo_mb": 2511.1,
         "amostra": [
           {
             "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -361,9 +436,9 @@
         "n": 60,
         "acuracia": 0.38333333333333336,
         "n_acertos": 23,
-        "latencia_p50_s": 0.04547871812502535,
+        "latencia_p50_s": 0.04546293262501422,
         "pegada_mb": 539.9,
-        "rss_processo_mb": 2499.4,
+        "rss_processo_mb": 2624.3,
         "amostra": [
           {
             "prompt": "Responda apenas o numero inteiro.\n0+6=",
@@ -390,6 +465,40 @@
             "ok": false
           }
         ]
+      },
+      "aluno_mista": {
+        "n": 60,
+        "acuracia": 0.5666666666666667,
+        "n_acertos": 34,
+        "latencia_p50_s": 0.0413860877499701,
+        "pegada_mb": 539.9,
+        "rss_processo_mb": 2549.8,
+        "amostra": [
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+6=",
+            "ouro": "6",
+            "gerado": "10\n\nA = 1",
+            "ok": false
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+7=",
+            "ouro": "7",
+            "gerado": "1\n\n## 1.\n",
+            "ok": false
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+8=",
+            "ouro": "8",
+            "gerado": "10\n\nA = 1",
+            "ok": false
+          },
+          {
+            "prompt": "Responda apenas o numero inteiro.\n0+9=",
+            "ouro": "9",
+            "gerado": "10\n\n## 10",
+            "ok": false
+          }
+        ]
       }
     },
     "nota": "acurácia = primeiro inteiro == ouro no hold-out. latência p50 = s/prompt greedy 8 tokens. pegada = get_memory_footprint. não é ranking universal nem IC."
@@ -398,6 +507,6 @@
     "status": "nao_calibrado",
     "motivo": "CPU sem CUDA; T4 / vLLM / custo/1k são alvo de Colab"
   },
-  "rss_fim_mb": 1068.1,
-  "segundos_total": 27.735
+  "rss_fim_mb": 1145.1,
+  "segundos_total": 30.07
 }

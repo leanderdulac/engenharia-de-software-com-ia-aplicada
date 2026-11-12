@@ -34,12 +34,21 @@ CA10.6 (T4 / custo/1k / IC) **não é exigido**.
 | --- | --- | --- |
 | T | `a10_4.temperatura` | > 1 |
 | KL | `a10_4.losses` | finitos |
+| Máscara / shift / T² | `a10_4.diagnostico` | `shift_alinhado=true`, `mascara_inclui_prompt=false`, `t2_bate=true` |
 | Eval | `a10_4.eval` | acc — **pode piorar**; o parágrafo cita o número |
 | Tokenizer | `licencas.mesmo_tokenizer` | true nesta receita |
 
+## CA10.4c — perda mista
+
+| Critério | Campo | Limiar |
+| --- | --- | --- |
+| Fórmula | `a10_4c.formula` | `α·CE + (1−α)·T²·KL` |
+| α | `a10_4c.alpha` | 0,5 nesta receita |
+| Eval | `a10_4c.eval` | acc no mesmo hold-out; citar se subiu ou não |
+
 ## CA10.5 — tabela
 
-Parágrafo compara as **quatro** linhas (ou três se logits pulou) em qualidade, latência e memória. Sem IC inventado. Sem “logits sempre ganha”.
+Parágrafo compara professor, aluno original, sequência, logits **e** mista em qualidade, latência e memória. Sem IC inventado. Sem “logits sempre ganha”.
 
 ## CA10.6 — T4
 

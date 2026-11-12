@@ -25,7 +25,7 @@ import torch  # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 
 from ambiente import coletar_ambiente  # noqa: E402
-from destilar import treinar_logits, treinar_sequencia  # noqa: E402
+from destilar import diagnosticar_kl, treinar_logits, treinar_mista, treinar_sequencia  # noqa: E402
 from filtro import filtrar  # noqa: E402
 from licencas import ALUNO, PROFESSOR, manifesto  # noqa: E402
 from medir import avaliar, gerar_complecoes, rss_mb  # noqa: E402
@@ -124,6 +124,7 @@ def main() -> None:
             "n_aceitos": len(aceitos),
         }
         payload["a10_4"] = {"status": "pulado"}
+        payload["a10_4c"] = {"status": "pulado"}
         print("=== destilação pulada ===")
     else:
         print(f"=== A10.3 destilação por resposta (CE, {passos} passos, n={len(aceitos)}) ===")
@@ -141,16 +142,40 @@ def main() -> None:
         }
         del seq
 
-        print(f"=== A10.4 destilação por logits (T=2, {passos} passos) ===")
+        print(f"=== A10.4 destilação por logits (T=2, {passos} passos, máscara=resposta) ===")
         t4 = time.perf_counter()
+        aluno_diag, tok_diag = _carregar(ALUNO, device)
+        diag = diagnosticar_kl(
+            aluno_diag,
+            teacher,
+            tok_diag,
+            aceitos[0]["prompt"],
+            aceitos[0]["complecao"],
+            temperatura=2.0,
+            device=device,
+        )
+        del aluno_diag
+        print(
+            "  diag shift_alinhado={shift} inclui_prompt={inc} "
+            "t2_bate={t2} n_comp={nc} kl_resp={kr:.4f} kl_prompt={kp:.4f}".format(
+                shift=diag["shift_alinhado"],
+                inc=diag["mascara_inclui_prompt"],
+                t2=diag["t2_bate"],
+                nc=diag["n_complecao"],
+                kr=diag["kl_resposta_t2"],
+                kp=diag["kl_prompt_t2"],
+            )
+        )
         kd = treinar_logits(aceitos, teacher, tok_t, temperatura=2.0, passos=passos, device=device)
         ev_kd = avaliar(kd["model"], kd["tokenizer"], ev, device=device)
         print(f"  logits T=2 acc={ev_kd['acuracia']:.3f} kl_fim={kd['losses'][-1]:.4f}")
         payload["a10_4"] = {
             "tipo": "logits",
             "temperatura": 2.0,
+            "modo_mascara": "resposta",
             "passos": passos,
             "n_pares": len(aceitos),
+            "diagnostico": diag,
             "losses": kd["losses"],
             "eval": {**_pontuar(ev_kd), "amostra": ev_kd["amostra"]},
             "segundos": round(time.perf_counter() - t4, 3),
@@ -167,6 +192,27 @@ def main() -> None:
         }
         del kd4
 
+        print(f"=== A10.4c perda mista α·CE+(1-α)·T²·KL (α=0,5, {passos} passos) ===")
+        t4c = time.perf_counter()
+        mix = treinar_mista(
+            aceitos, teacher, tok_t, temperatura=2.0, alpha=0.5, passos=passos, device=device
+        )
+        ev_mix = avaliar(mix["model"], mix["tokenizer"], ev, device=device)
+        print(f"  mista α=0.5 acc={ev_mix['acuracia']:.3f} loss_fim={mix['losses'][-1]:.4f}")
+        payload["a10_4c"] = {
+            "tipo": "mista",
+            "temperatura": 2.0,
+            "alpha": 0.5,
+            "modo_mascara": "resposta",
+            "passos": passos,
+            "n_pares": len(aceitos),
+            "losses": mix["losses"],
+            "eval": {**_pontuar(ev_mix), "amostra": ev_mix["amostra"]},
+            "segundos": round(time.perf_counter() - t4c, 3),
+            "formula": "alpha * CE(labels) + (1-alpha) * T^2 * KL(p_T || p_S)",
+        }
+        del mix
+
     del teacher
 
     payload["a10_5"] = {
@@ -175,6 +221,7 @@ def main() -> None:
             "aluno_original": payload["a10_2"]["eval"],
             "aluno_sequencia": payload.get("a10_3", {}).get("eval"),
             "aluno_logits": payload.get("a10_4", {}).get("eval"),
+            "aluno_mista": payload.get("a10_4c", {}).get("eval"),
         },
         "nota": (
             "acurácia = primeiro inteiro == ouro no hold-out. "
