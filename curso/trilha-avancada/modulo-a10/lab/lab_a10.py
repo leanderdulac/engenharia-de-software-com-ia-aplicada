@@ -20,12 +20,14 @@ AQUI = Path(__file__).resolve().parent
 sys.path.insert(0, str(AQUI))
 A2_LAB = AQUI.parents[1] / "modulo-a2" / "lab"
 sys.path.insert(0, str(A2_LAB))
+sys.path.insert(0, str(AQUI.parents[1] / "modulo-a5" / "lab"))
 
 import torch  # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 
 from ambiente import coletar_ambiente  # noqa: E402
 from destilar import diagnosticar_kl, treinar_logits, treinar_mista, treinar_sequencia  # noqa: E402
+from pi_sft import manifesto as manifesto_pi_sft  # noqa: E402
 from filtro import filtrar  # noqa: E402
 from licencas import ALUNO, PROFESSOR, manifesto  # noqa: E402
 from medir import avaliar, gerar_complecoes, rss_mb  # noqa: E402
@@ -67,7 +69,8 @@ def main() -> None:
     payload: dict = {
         "ambiente": coletar_ambiente(),
         "honestidade": {
-            "a5_a7": "esqueleto; aluno = SmolLM2-135M base + LoRA, não SFT da trilha",
+            "a5_a7": "A5 publicado (π_SFT opcional); A7 esqueleto",
+            "ponto_partida": manifesto_pi_sft(),
             "t4_colab": "nao_calibrado",
             "esquecimento": "nao_medido (só a tarefa de soma; aula discute retenção)",
         },

@@ -2,7 +2,7 @@
 
 **Status:** publicado. **Carga:** ~6 h. **Trilha:** opcional, fora das 240 h.
 
-**Pré-requisito oficial (plano):** A5 e A7. **Na prática neste PR:** A9 publicado; A5/A7 esqueleto. Aluno = SmolLM2-135M **base** + LoRA. Professor = SmolLM2-360M (Apache-2.0, mesmo tokenizer). Qwen2.5-0.5B é Apache-2.0 mas vocabulário diferente — citado, não baixado.
+**Pré-requisito oficial (plano):** A5 e A7. **Na prática:** A5 publicado — aluno parte de **π_SFT** se o adapter existir (`TRILHA_PI_SFT=0` força o base + LoRA). A7 esqueleto. Professor = SmolLM2-360M (Apache-2.0, mesmo tokenizer). Qwen2.5-0.5B é Apache-2.0 mas vocabulário diferente — citado, não baixado.
 
 Fecha: professor/aluno, destilação por resposta e por logits (T + KL), features (aula), self-distillation e reasoning distillation (aula), sintético + verificador, LoRA, retenção (declarada não medida), qualidade × latência × memória, licença dos dados gerados.
 
