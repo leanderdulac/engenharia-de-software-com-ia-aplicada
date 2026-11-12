@@ -31,7 +31,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 
 | # | Módulo | Horas | Pré-req. | Status | Fecha (interno) |
 | --- | --- | ---: | --- | --- | --- |
-| [A0](./modulo-a0/README.md) | Bancada: ambiente, medição e orçamento de GPU | 2 | M09 (C09.3, C09.4) | esqueleto | versões, memória, `bancada.json` |
+| [A0](./modulo-a0/README.md) | Bancada: ambiente, medição e orçamento de GPU | 2 | M09 (C09.3, C09.4) | **publicado** | versões, memória, `bancada.json` |
 | [A1](./modulo-a1/README.md) | Por dentro do LLM: tokens, logits e amostragem | 4 | A0 (ver nota) | **publicado** | tokenização, softmax, top-p |
 | [A2](./modulo-a2/README.md) | O bloco Transformer, peça por peça | 6 | A1 (ver nota) | **publicado** | atenção, QKV, máscaras, bloco, decoder-only |
 | [A3](./modulo-a3/README.md) | Treino por dentro | 6 | A2 | esqueleto | shift, CE, LR, accumulation, precisão |
@@ -49,7 +49,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 
 ### Nota sobre A2 ter saído antes de A1
 
-A ordem de *construção* (A2 → A11 → A8 → A9 → A10 → A1) entregou primeiro a lacuna maior. A1 agora existe: BPE, custo PT/EN, softmax, top-p, laço vs `generate`. Quem já cursou A2 pelo M01 não precisa refazer o bloco; o A1 preenche o sampler que o A2 apontava. A0 continua esqueleto — o JSON do A1 declara ambiente sem `bancada.json`.
+A ordem de *construção* (A2 → A11 → A8 → A9 → A10 → A1 → A0) entregou primeiro a lacuna maior. A0 agora existe: versões, p50/p95, envelope. A1 já preenchia o sampler sem `bancada.json`; quem cursar na ordem pedagógica começa pelo A0.
 
 A11 oficialmente pede A6; A6 ainda é esqueleto. O módulo declara isso: MoE avulso, PTQ no SmolLM2 do A2, LoRA-MoE (CA11.3) não executa, T4/vLLM não calibrados.
 
@@ -59,9 +59,9 @@ A9 oficialmente pede A7 e A8; A7 ainda é esqueleto. O módulo declara isso: GRP
 
 A10 oficialmente pede A5 e A7; ambos esqueleto. O módulo declara isso: aluno = SmolLM2-135M **base** + LoRA; professor = SmolLM2-360M (Apache-2.0, mesmo tokenizer). T4 / custo/1k = `nao_calibrado`. A queda dos logits (0,383) foi reinvestigada: máscara/shift/T² certos; perda mista α=0,5 chega a 0,567 e ainda não vence a CE.
 
-A1 oficialmente pede A0; A0 é esqueleto. O módulo declara isso: ponte M01 (`exemplo-04`) + A2 já publicado. Qwen2.5-0.5B entra só como tokenizer. T4 / Prompt API / custo/1k = `nao_calibrado`.
+A1 oficialmente pede A0; A0 agora está publicado (CPU, SmolLM2-135M, T4 `nao_calibrado`). Qwen2.5-0.5B no A1 entra só como tokenizer.
 
-## Como rodar o que já existe (A2, A11, A8, A9, A10 e A1)
+## Como rodar o que já existe (A2, A11, A8, A9, A10, A1 e A0)
 
 ```bash
 cd curso/trilha-avancada
@@ -72,15 +72,16 @@ python modulo-a8/lab/lab_a8.py           # A8.1–A8.5 → modulo-a8/saidas/ca8.
 python modulo-a9/lab/lab_a9.py           # A9.1–A9.5 → modulo-a9/saidas/ca9.json
 python modulo-a10/lab/lab_a10.py         # A10.1–A10.6 → modulo-a10/saidas/ca10.json
 python modulo-a1/lab/lab_a1.py           # A1.1–A1.2 → modulo-a1/saidas/ca1.json
-python -m pytest -q                      # A2 + A11 + A8 + A9 + A10 + A1; inclui modelos pequenos (marca `modelo`)
+python modulo-a0/lab/lab_a0.py           # A0.1 → modulo-a0/saidas/ca0.json
+python -m pytest -q                      # A2 + A11 + A8 + A9 + A10 + A1 + A0; inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
 ```
 
-Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU.
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU.
 
 ## Tutor socrático (opcional)
 
-Não vale nota. Não substitui CA*. Copie [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) **e** o mapa do módulo (A2: [`modulo-a2/tutor/mapa-a2.md`](./modulo-a2/tutor/mapa-a2.md); A11: [`modulo-a11/tutor/mapa-a11.md`](./modulo-a11/tutor/mapa-a11.md); A8: [`modulo-a8/tutor/mapa-a8.md`](./modulo-a8/tutor/mapa-a8.md); A9: [`modulo-a9/tutor/mapa-a9.md`](./modulo-a9/tutor/mapa-a9.md); A10: [`modulo-a10/tutor/mapa-a10.md`](./modulo-a10/tutor/mapa-a10.md); A1: [`modulo-a1/tutor/mapa-a1.md`](./modulo-a1/tutor/mapa-a1.md)) no assistente. Origem MIT: Jane Street; ver NOTICE.
+Não vale nota. Não substitui CA*. Copie [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) **e** o mapa do módulo (A2: [`modulo-a2/tutor/mapa-a2.md`](./modulo-a2/tutor/mapa-a2.md); A11: [`modulo-a11/tutor/mapa-a11.md`](./modulo-a11/tutor/mapa-a11.md); A8: [`modulo-a8/tutor/mapa-a8.md`](./modulo-a8/tutor/mapa-a8.md); A9: [`modulo-a9/tutor/mapa-a9.md`](./modulo-a9/tutor/mapa-a9.md); A10: [`modulo-a10/tutor/mapa-a10.md`](./modulo-a10/tutor/mapa-a10.md); A1: [`modulo-a1/tutor/mapa-a1.md`](./modulo-a1/tutor/mapa-a1.md); A0: [`modulo-a0/tutor/mapa-a0.md`](./modulo-a0/tutor/mapa-a0.md)) no assistente. Origem MIT: Jane Street; ver NOTICE.
 
 ## Leitura extra (Apache-2.0, isolada)
 
@@ -88,4 +89,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Próximos esqueletos: **A0** (bancada), depois **A3 → A4 → A5** (treino e SFT, que A8/A9/A10 declararam ausentes), **A6** (LoRA de produção), **A7** (raciocínio), **A12** (capstone). Ver os READMEs de cada pasta.
+Próximos: **A3 → A4 → A5** (treino e SFT), **A6**, **A7**, **A12**.
