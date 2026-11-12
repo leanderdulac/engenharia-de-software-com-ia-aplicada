@@ -24,7 +24,7 @@ Nada disto entra nas 240 h. Não substitui C09.*. A curva do bandit sai de [`lab
 | SFT da trilha como política inicial | GRPO no **SmolLM2-135M base** + LoRA `q_proj`/`v_proj` |
 | Demo GRPO do M09 | **não copiado**; aquele script não dá `optimizer.step` |
 | Tarefa Amplitude / harness | soma curta (`3+4` → primeiro inteiro `7`) |
-| GRPO na T4, G grande, IC no retido | CPU, G=2, 3 passos, n_eval=4; T4 = `nao_calibrado` |
+| GRPO na T4, G grande, IC no retido | CPU, G=4, 16 passos, **3 seeds**, n_eval=80; T4 = `nao_calibrado` |
 
 O prompt **termina em `=`**, sem newline extra. Um `\n` depois do igual faz o base emitir `A. 10` e a recompensa some. A recompensa de precisão **não** exige que a compleção inteira seja o dígito (6 tokens do base continuam, `4\n\nA = `): o sinal é o **primeiro inteiro** parseado.
 
@@ -92,9 +92,9 @@ A perda parece PPO (razão × vantagem, clip), com KL opcional:
 L  +=  β  KL(π_θ  ||  π_ref)
 ```
 
-No TRL 1.17.1 o **beta padrão é 0.0**: não carrega ref, mais barato. DeepSeek-R1 ([2501.12948](https://arxiv.org/abs/2501.12948)) cita `β≈0,001` e recompensas de precisão/formato. O lab treina de verdade com `β=0` (3 passos, LoRA atualiza) e uma fumaça `β=0,04` (1 passo; o log ganha a chave `kl`).
+No TRL 1.17.1 o **beta padrão é 0.0**: não carrega ref, mais barato. DeepSeek-R1 ([2501.12948](https://arxiv.org/abs/2501.12948)) cita `β≈0,001` e recompensas de precisão/formato. O lab treina de verdade com `β=0` (16 passos, G=4, 3 seeds) e compara `β=0,04` no mesmo G/passos/seed=0 — o log traz `kl` **não nulo** depois do 1º passo.
 
-`num_generations ≥ 2` (senão não há grupo). Nesta CPU `G=2`, `max_completion_length=6`.
+`num_generations ≥ 2` (senão não há grupo). Nesta CPU `G=4`, `temperature=1,0`, `max_completion_length=8`. Mesmo assim ~1/5 dos passos ainda sai com `frac_reward_zero_std=1` (grupo homogêneo). Currículo curto + G maior *reduz*, não zera.
 
 ---
 
@@ -114,24 +114,30 @@ Três regras neste lab, ouro `7`:
 
 Caderno: exata `[1,0,0,0,0]`, formato `[1,1,1,0,0]`, hack `[1,1,1,0,0]`, 2 divergências hack vs exata (`"0"`, `"70"`). `"7 pontos"` passaria na exata (primeiro inteiro 7) e falharia no formato estrito.
 
-No SmolLM2 base, greedy 6 tokens no hold-out: exata **0,50** (2/4); hack **1,00** (todo mundo solta dígito). Treinar no hack empurra “solte um número”, não “acerta a soma”.
+No SmolLM2 base, greedy 8 tokens nos 20 primeiros do hold-out: exata **0,35**; hack **1,00**. Treinar no hack empurra “solte um número”, não “acerta a soma”.
 
 ---
 
 ## 6. O que o lab mediu
 
-GRPOTrainer **rodou** (`atualiza_pesos=true`, LoRA, `train()`, `β=0`, G=2, 3 passos). Recompensa de treino no log: `[0,5, 0,5, 0,0]`. Hold-out (n=4, prompts disjuntos):
+Hold-out **n=80**, prompts disjuntos do treino (24 contas de currículo). Eval greedy do **base** (não depende da seed): **0,600** (48/80). Treino greedy do base: 0,708 (17/24).
 
-| | Antes | Depois |
-| --- | ---: | ---: |
-| eval (primeiro inteiro) | **0,50** (2/4) | **0,75** (3/4) |
-| treino | 0,875 (7/8) | 0,875 (7/8) |
+Três seeds independentes, `β=0`, G=4, 16 passos, ~69 s no total desta VM:
 
-O único flip no eval: `7+1=` ia a `"10\n\nA."` (r=0) e passou a `"8\n\nA. "` (r=1). `3+5=` continuou `"10\n\nA."`. n=4, **um** exemplo — não é IC, não é “GRPO resolve aritmética”. É evidência de que o laço on-policy com sinal verificável *mexeu* na política.
+| seed | eval depois | delta | passos com std=0 |
+| ---: | ---: | ---: | ---: |
+| 0 | 0,738 (59/80) | +0,138 | 5/16 |
+| 1 | 0,725 (58/80) | +0,125 | 4/16 |
+| 2 | 0,738 (59/80) | +0,138 | 1/16 |
+| **média ± desvio** | **0,733 ± 0,007** | **+0,133 ± 0,007** | 0,21 ± 0,13 |
 
-Passo 3: `frac_reward_zero_std=1`, `grad_norm=0` — grupo homogêneo, vantagem nula. Completions clipadas em 6 tokens (`clipped_ratio=1`).
+`melhorou_claro=true`: a média do delta é positiva, ≥ 0,03 e maior que o desvio entre seeds. n=3 **não** é IC 95%; o desvio entre seeds é pequeno (~1 exemplo em 80). Um único flip em n=4 (versão anterior desta aula) *era* ruído; este não.
 
-`β>0` (1 passo): `kl` aparece no log (valor **0** neste passo — política ainda colada no ref). Não compare `train_loss` com os 3 passos em `β=0`.
+Treino depois: 21/24 (0,875) nas três seeds — também sobe, mas o que conta no CA9 é o **eval**.
+
+Passos com `frac_reward_zero_std=1` **não desapareceram**. G=4 e currículo curto baixam a fração (~1/5); um grupo todo certo ou todo errado ainda zera o Â. Completions em 8 tokens, muitas clipadas.
+
+`β=0,04`, mesmos 16 passos, seed=0: `kl` no log em **15/16** passos (`kl_max≈0,016`). Eval **0,738** — igual ao `β=0` seed 0 nesta CPU. O KL *aparece*; não há ganho extra de qualidade para declarar. DeepSeek-R1 usa `β≈0,001`; 0,04 é só para o termo ser visível no log.
 
 ---
 
@@ -152,7 +158,7 @@ Nesta trilha **não** há tabela numérica SFT×DPO×PPO×GRPO no mesmo modelo: 
 
 1. Conta REINFORCE no caderno (4 ações).
 2. `python modulo-a9/lab/lab_a9.py` a partir de `curso/trilha-avancada/`.
-3. CA9 com o `ca9.json` **seu**. n=4 no eval: cite o flip (ou a ausência) e não invente IC.
+3. CA9 com o `ca9.json` **seu**. n=80, 3 seeds: cite média e desvio do delta. Não invente IC.
 4. Opcional: [`tutor/mapa-a9.md`](./tutor/mapa-a9.md).
 
-T4/Colab: não troque o `torch` CUDA. Não copie 0,50→0,75 desta CPU como teto — meça.
+T4/Colab: não troque o `torch` CUDA. Não copie 0,600→0,733 desta CPU como teto — meça.
