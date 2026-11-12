@@ -1,7 +1,14 @@
 # A5 — SFT sério
 
-**Status:** esqueleto (não publicado). **Carga prevista:** 6 h. **Pré-requisito previsto:** A3, A4.
+**Status:** publicado. **Carga:** ~6 h. **Pré-req:** A3, A4.
 
-O collator atual do notebook LoRA do M09 treina prompt+resposta. Aqui: loss só no assistant; esquecimento catastrófico medido num conjunto geral (GSM8K, Dolly); tracking de experimento; continual pre-training curto como opcional.
+Fecha: loss só no assistant, LoRA, π_SFT em `execucao/pi_sft/`, probes de esquecimento, tracking no JSON. GSM8K/Dolly/T4/`nao_calibrado`. A8/A9/A10 reusam o adapter (`TRILHA_PI_SFT=0` desliga).
 
-**CA5:** tabela no harness Amplitude com 3 sementes; delta de acurácia geral com intervalo; perplexidade de domínio vs geral se fizer o lab opcional.
+```bash
+python modulo-a5/lab/lab_a5.py
+python -m pytest modulo-a5/testes -q
+```
+
+Saída: `modulo-a5/saidas/ca5.json`. Autoria: [`execucao/ca5-autoria.json`](./execucao/ca5-autoria.json). Adapter: [`execucao/pi_sft/`](./execucao/pi_sft/).
+
+- Aula [`aula.md`](./aula.md) · CA [`checkpoint-ca5.md`](./checkpoint-ca5.md) · tutor [`tutor/mapa-a5.md`](./tutor/mapa-a5.md) · gabarito [`gabarito-instrutor/`](./gabarito-instrutor/)

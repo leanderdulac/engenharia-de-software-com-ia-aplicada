@@ -38,6 +38,21 @@ def _tok():
     return tok
 
 
+def _partida():
+    import sys
+
+    a5 = Path(__file__).resolve().parents[2] / "modulo-a5" / "lab"
+    if str(a5) not in sys.path:
+        sys.path.insert(0, str(a5))
+    from pi_sft import carregar_base_ou_sft, manifesto, resolver
+
+    info = manifesto()
+    if resolver() is None:
+        return MODELO, _tok(), info
+    m, tok, info = carregar_base_ou_sft()
+    return m, tok, info
+
+
 def _kl_de_logs(logs: list[dict]) -> list[float]:
     out: list[float] = []
     for m in logs:
@@ -140,7 +155,7 @@ def treinar_grpo(
     num_generations = num_generations if num_generations is not None else int(os.environ.get("TRILHA_A9_G", "4"))
     output_dir = Path(output_dir or (SAIDA / f"grpo-b{beta}-s{seed}"))
     output_dir.mkdir(parents=True, exist_ok=True)
-    tok = _tok()
+    model_ini, tok, origem = _partida()
     colunas = [{"prompt": p["prompt"], "answer": p["answer"]} for p in pares]
     ds = Dataset.from_list(colunas)
     args = GRPOConfig(
@@ -167,7 +182,7 @@ def treinar_grpo(
         temperature=temperature,
     )
     trainer = GRPOTrainer(
-        model=MODELO,
+        model=model_ini,
         reward_funcs=reward_fn,
         args=args,
         train_dataset=ds,
@@ -197,6 +212,7 @@ def treinar_grpo(
         "logs_compactos": _compactar_logs(logs),
         "api": "trl.GRPOTrainer (estavel)",
         "atualiza_pesos": True,
+        "ponto_partida": origem,
     }
     if devolver_trainer:
         out["trainer"] = trainer

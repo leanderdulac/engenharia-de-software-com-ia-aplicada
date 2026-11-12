@@ -1,0 +1,118 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794495177,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 1359.5
+  },
+  "rss_processo_mb": 1359.5,
+  "honestidade": {
+    "gsm8k_dolly": "nao_baixado; probes 2+2 e capital of France",
+    "jsonl_m09": "nao_lido; dialogos A4",
+    "wandb": "nao_usado; tracking no JSON",
+    "t4": "nao_calibrado",
+    "tres_sementes_harness": "nao_calibrado",
+    "pi_sft": {
+      "encontrado": true,
+      "caminho": "/agent/repos/engenharia-de-software-com-ia-aplicada/curso/trilha-avancada/modulo-a5/execucao/pi_sft",
+      "env": null,
+      "padrao": "/agent/repos/engenharia-de-software-com-ia-aplicada/curso/trilha-avancada/modulo-a5/execucao/pi_sft",
+      "ponto_partida": "pi_sft"
+    }
+  },
+  "a5_1": {
+    "passos": 64,
+    "lr": 0.0002,
+    "so_assistant": true,
+    "seed": 0,
+    "loss_ini": 1.3377470970153809,
+    "loss_fim": 0.04576753079891205,
+    "loss_min": 0.027817802503705025,
+    "caiu": true,
+    "n_params_treino": 460800,
+    "n_params_total": 134975808,
+    "fracao_treino": 0.003413945112297457,
+    "salvo_em": "/agent/repos/engenharia-de-software-com-ia-aplicada/curso/trilha-avancada/modulo-a5/execucao/pi_sft",
+    "historico_tail": [
+      0.06064338982105255,
+      0.043139148503541946,
+      0.027817802503705025,
+      0.04268944263458252,
+      0.04576753079891205
+    ]
+  },
+  "a5_2": {
+    "treino": {
+      "n": 4,
+      "n_ok": 4,
+      "acuracia": 1.0
+    },
+    "eval": {
+      "n": 2,
+      "n_ok": 1,
+      "acuracia": 0.5
+    },
+    "amostra_eval": [
+      {
+        "user": "Segurado: Eva Martins. Placa: RST-2222. Valor: R$ 410,00.",
+        "ouro": "{\"segurado\":\"Eva Martins\",\"placa\":\"RST-2222\",\"valor\":410.00}",
+        "gerado": "{\"segurado\":\"Eva Martins\",\"placa\":\"RST-2222\",\"valor\":410.00}",
+        "ok": true
+      },
+      {
+        "user": "Sinistro. Placa: UWW-7777. Segurado Fabio Nunes. 1500,00.",
+        "ouro": "{\"segurado\":\"Fabio Nunes\",\"placa\":\"UWW-7777\",\"valor\":1500.00}",
+        "gerado": "{\"segurado\":\"UWW-7777\",\"placa\":\"UWW-7777\",\"valor\":1500.00}",
+        "ok": false
+      }
+    ]
+  },
+  "a5_3": {
+    "antes": {
+      "2+2=": "10.\n\nThe number of ways to arrange ",
+      "The capital of France is": " the capital of the country.\n\nThe capital of France"
+    },
+    "depois": {
+      "2+2=": "4\n\n(a) 4\n\n(b",
+      "The capital of France is": " the city of Paris. Paris is the capital of France and"
+    },
+    "nota": "qualitativo; sem dataset geral publico; n=2 probes"
+  },
+  "a5_4": {
+    "full": {
+      "passos": 8,
+      "lr": 0.0002,
+      "so_assistant": false,
+      "seed": 1,
+      "loss_ini": 3.335397481918335,
+      "loss_fim": 3.4399261474609375,
+      "loss_min": 3.268331289291382,
+      "caiu": false,
+      "n_params_treino": 460800,
+      "n_params_total": 134975808,
+      "fracao_treino": 0.003413945112297457,
+      "salvo_em": null
+    },
+    "eval_acuracia": 0.0,
+    "assistant_eval_acuracia": 0.5
+  },
+  "a5_5_t4": {
+    "status": "nao_calibrado"
+  },
+  "segundos_total": 24.607
+}

@@ -11,7 +11,7 @@ O gabarito do instrutor **não** faz parte desta entrega. Se você abriu `gabari
 
 CA8.5 **não é exigido**: T4/Colab, intervalo de confiança e harness Amplitude não foram calibrados. O JSON deve trazer `a8_5_t4.status = nao_calibrado` (ou um JSON T4 *seu*, com `ambiente.gpu` preenchido). Inventar win-rate / IC / queda de harness zera o item de honestidade.
 
-A5 e A6 **não** foram publicados. `honestidade.sft_trilha` tem de declarar que o DPO partiu do base, não de um SFT da trilha.
+A5 está publicado. `honestidade.ponto_partida` declara `pi_sft` ou `smollm2_base`. A6 continua esqueleto.
 
 ## CA8.1 — pares e comprimento
 
@@ -41,7 +41,7 @@ Modelo padrão: `HuggingFaceTB/SmolLM2-135M`. LoRA `q_proj`/`v_proj`.
 | Treino separado | `a8_2.avaliacao_treino_depois` | presente (overfit é esperado; não substitui o eval) |
 | Aviso TRL de prefixo | `a8_2.aviso_prefixo_trl.ocorreu` | **false** |
 | CPU desta trilha | `avaliacao_eval_depois.rewards_accuracies` | **reportado**; se ≤ 0,5, declare — **não invente** e não cole o 0,92 do treino antigo |
-| Honestidade | `honestidade.sft_trilha`, `jsonl_m09` | base + pares originais |
+| Honestidade | `honestidade.ponto_partida`, `jsonl_m09` | π_SFT ou base; pares originais |
 | Testes com modelo | `pytest -q` (marca `modelo`) | passam |
 
 Parágrafo: contraste acurácia **de treino** vs **eval**, e `preferencia_bruta` vs margem implícita. Copiar 0,917 da autoria antiga (treino=eval) zera.

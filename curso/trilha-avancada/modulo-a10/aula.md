@@ -17,11 +17,11 @@ Nada disto entra nas 240 h. Números do SmolLM2 **não** se copiam da aula: saem
 
 ## 0. Honestidade de dependências
 
-A5 (SFT) e A7 (raciocínio) são esqueleto. Consequências:
+A5 (SFT) está publicado; A7 (raciocínio) ainda é esqueleto. Consequências:
 
 | O plano original pedia | O que este módulo faz |
 | --- | --- |
-| Aluno = SFT da trilha | SmolLM2-135M **base** + LoRA |
+| Aluno = SFT da trilha | π_SFT mergeado + LoRA novo, se o adapter A5 existir; senão **base** + LoRA |
 | Professor API / 7B | SmolLM2-360M (Apache-2.0, mesmo tokenizer) |
 | Traces CoT (reasoning KD) | aula; lab não gera cadeia longa |
 | T4, custo/1k, IC | `nao_calibrado` |

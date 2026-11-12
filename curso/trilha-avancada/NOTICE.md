@@ -26,7 +26,7 @@ Leitura extra opcional, **não vendored nesta pasta**:
 - Crédito: [`curso/ATRIBUICOES-llm-course.md`](../ATRIBUICOES-llm-course.md)
 - SPDX e NOTICE originais: [`referencia/llm-course/LICENSE`](../../referencia/llm-course/LICENSE), [`referencia/llm-course/NOTICE`](../../referencia/llm-course/NOTICE)
 
-O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A2, A11, A8, A9, A10, A1, A0, A3 e A4 são originais desta trilha.
+O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A2, A11, A8, A9, A10, A1, A0, A3, A4 e A5 são originais desta trilha.
 
 ## Modelos e tokenizers (Hugging Face)
 
@@ -34,7 +34,7 @@ Os labs baixam pesos em tempo de execução. Cada modelo traz a licença no card
 
 | Modelo | Card | Licença lida no card (nov/2026) | Onde |
 | --- | --- | --- | --- |
-| `HuggingFaceTB/SmolLM2-135M` | https://huggingface.co/HuggingFaceTB/SmolLM2-135M | Apache-2.0 | A2, A11 (PTQ/KV), A8 (DPO/LoRA), A9 (GRPO/LoRA), A10 (aluno), A1 (tokenizer + amostragem), A0 (bancada), A4 (tokenizer / máscara) |
+| `HuggingFaceTB/SmolLM2-135M` | https://huggingface.co/HuggingFaceTB/SmolLM2-135M | Apache-2.0 | A2, A11 (PTQ/KV), A8 (DPO/LoRA), A9 (GRPO/LoRA), A10 (aluno), A1 (tokenizer + amostragem), A0 (bancada), A4 (tokenizer / máscara), A5 (SFT / π_SFT) |
 | `HuggingFaceTB/SmolLM2-360M` | https://huggingface.co/HuggingFaceTB/SmolLM2-360M | Apache-2.0 | A10 (professor) |
 | `Qwen/Qwen2.5-0.5B` (opcional, `TRILHA_A2_MODELO=...`) | https://huggingface.co/Qwen/Qwen2.5-0.5B | Apache-2.0 | A2 (pesos opcionais); A1 (**só tokenizer**) |
 | `ibm-granite/granite-3.1-1b-a400m-instruct` | https://huggingface.co/ibm-granite/granite-3.1-1b-a400m-instruct | Apache-2.0 | A11 (MoE real) |
@@ -42,7 +42,7 @@ Os labs baixam pesos em tempo de execução. Cada modelo traz a licença no card
 
 ## Papers (citação acadêmica, não código)
 
-Ver [`modulo-a2/referencias.md`](./modulo-a2/referencias.md), [`modulo-a11/referencias.md`](./modulo-a11/referencias.md), [`modulo-a8/referencias.md`](./modulo-a8/referencias.md), [`modulo-a9/referencias.md`](./modulo-a9/referencias.md), [`modulo-a10/referencias.md`](./modulo-a10/referencias.md), [`modulo-a1/referencias.md`](./modulo-a1/referencias.md), [`modulo-a0/referencias.md`](./modulo-a0/referencias.md), [`modulo-a3/referencias.md`](./modulo-a3/referencias.md) e [`modulo-a4/referencias.md`](./modulo-a4/referencias.md). Citar um paper não transfere a licença do artigo para esta pasta.
+Ver os `referencias.md` de cada módulo publicado. Citar um paper não transfere a licença do artigo para esta pasta.
 
 ## Tronco UniPDS (CC BY-NC-ND 4.0)
 
