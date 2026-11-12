@@ -174,11 +174,17 @@ Números da autoria (SmolLM2-135M, CPU, 16 frases, **não** copie se o seu JSON 
 
 | Variante | PPL | Bytes (estado) | `generate` 8 tokens (mediana) |
 | --- | ---: | ---: | ---: |
-| fp32 | 217,50 | 538 060 288 (~513 MiB) | 0,164 s |
-| INT8 dinâmico (todas as `Linear`, **inclui** `lm_head`) | 1060,79 | 144 905 756 (~138 MiB) | 0,129 s |
-| INT4 grupo-64 fake (pula `lm_head` e embeddings) | 506,19 | 56 401 920 empacotados (estimativa) | 0,186 s (compute ainda fp32) |
+| fp32 | 217,50 | 538 060 288 (~513 MiB) | 0,167 s |
+| INT8 dinâmico (todas as `Linear`, **inclui** `lm_head`) | 1060,79 | 145 237 536 | 0,109 s |
+| INT8 dinâmico **sem** `lm_head` (comparação justa com o INT4) | 950,45 | 117 478 940 | 0,116 s |
+| INT4 grupo-64 fake (pula `lm_head` e embeddings) | 506,19 | 56 401 920 empacotados (estimativa) | 0,160 s (compute ainda fp32) |
 
-INT8 pior que INT4 *neste* recorte não é milagre dos 4 bits: o INT8 quantiza a cabeça de logits; o INT4 fake não. Bytes INT8 caem de verdade; latência INT4 **não** cai. GGUF/bnb/NF4 continuam `nao_calibrado`.
+Duas lições, não uma:
+
+1. **Quantizar `lm_head` (e embeddings, quando não estão amarrados) costuma doer mais** que quantizar só o tronco. A cabeça produz logits em `|V|` dimensões; um degrau ali mexe em *todo* o softmax. Nesta VM, incluir o `lm_head` no INT8 sobe a PPL de 950 para 1061. O INT8 “completo” permanece no JSON de propósito: é o erro fácil do `quantize_dynamic({nn.Linear})`.
+2. Mesmo sem `lm_head`, INT8 real (950) ainda perde para INT4 **fake-quant** (506). O INT4 deste lab desquantiza de volta e conta em fp32; o INT8 dinâmico usa kernels inteiros. Comparar bits sem comparar o *caminho de compute* é trapaça. GGUF de verdade (llama.cpp) não foi medido (`nao_calibrado`).
+
+Bytes INT8 caem de verdade; latência INT4 **não** cai. GGUF/bnb/NF4 continuam `nao_calibrado`.
 
 Latência: `generate` greedy, `max_new_tokens` pequeno (padrão 8), mediana de poucas corridas. CPU de 4 núcleos ≠ T4. O seu milissegundo é o que vale.
 

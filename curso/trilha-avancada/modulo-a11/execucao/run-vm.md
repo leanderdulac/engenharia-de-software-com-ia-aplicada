@@ -51,13 +51,23 @@ E07 |██████████          | 0.229
   cache on=0.164s off=0.253s  prova_attn_ok=True
 === A11.4 PTQ SmolLM2 ===
   ppl fp32=217.498 int8=1060.785 int4=506.192
+  # (stdout da 1ª corrida; a remedição acrescenta int8_sem_lm_head=950.452 — tabela abaixo)
 
 JSON → modulo-a11/saidas/ca11.json  (54.712 s)
 ```
 
 Granite: `num_parameters=1334628352`, `l1_auto_saude=0.0521`, `l1_auto_saude_permutado=0.2005`, `especializacao_aparente=false`. OLMoE: só config (64 experts / top-8).
 
-PTQ bytes: fp32 538060288 → INT8 144905756. INT4 `bytes_empacotados_estimados=56401920` (fake-quant, 210 matrizes). `gguf_llama_cpp=nao_calibrado`, `bitsandbytes_llm_int8=nao_calibrado_cpu`.
+PTQ (remedição na mesma VM após acrescentar INT8 sem `lm_head`; PPL fp32/INT8+cabeça/INT4 iguais à corrida anterior):
+
+| Variante | PPL | Bytes | `generate` 8 tok |
+| --- | ---: | ---: | ---: |
+| fp32 | 217.498 | 538060288 | 0.167 s |
+| INT8 + `lm_head` | 1060.785 | 145237536 | 0.109 s |
+| INT8 sem `lm_head` | **950.452** | 117478940 | 0.116 s |
+| INT4 fake | 506.192 | 56401920 (estimado) | 0.160 s |
+
+`gguf_llama_cpp=nao_calibrado`, `bitsandbytes_llm_int8=nao_calibrado_cpu`.
 
 Batch forward tok/s: 1→786, 4→1475, 8→1542. `vllm_continuous_batching=nao_calibrado_cpu`.
 
@@ -71,7 +81,7 @@ Há `UserWarning`/`DeprecationWarning` de `torch.ao.quantization` e `torch.quant
 ...........                                                              [100%]
 ```
 
-11 testes (10 sem modelo + 1 com `HuggingFaceTB/SmolLM2-135M`). Sem modelo, ~6 s (`..........`).
+12 testes após o INT8 sem `lm_head` (11 sem modelo + 1 com SmolLM2). Sem modelo: `...........`.
 
 ## Limitações desta corrida
 

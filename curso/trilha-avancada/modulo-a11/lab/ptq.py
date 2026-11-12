@@ -16,8 +16,55 @@ from typing import Any
 
 import torch
 from torch import nn
+import torch.nn.functional as F
 
 from frases import corpus_ppl
+
+
+class LinearFp32(nn.Module):
+    """Cópia de ``nn.Linear`` que o ``quantize_dynamic`` não pega (tipo diferente)."""
+
+    def __init__(self, linear: nn.Linear):
+        super().__init__()
+        self.in_features = linear.in_features
+        self.out_features = linear.out_features
+        self.weight = linear.weight
+        self.bias = linear.bias
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return F.linear(x, self.weight, self.bias)
+
+
+def _proteger_lm_head(model: nn.Module) -> int:
+    """Troca ``lm_head`` (e gêmeos ``*lm_head``) por ``LinearFp32``. Devolve quantos trocou."""
+    n = 0
+    if hasattr(model, "lm_head") and isinstance(model.lm_head, nn.Linear):
+        model.lm_head = LinearFp32(model.lm_head)
+        n += 1
+        return n
+    for nome, mod in list(model.named_modules()):
+        if nome.endswith("lm_head") and isinstance(mod, nn.Linear):
+            pai_nome, _, filho = nome.rpartition(".")
+            pai = model if not pai_nome else model.get_submodule(pai_nome)
+            setattr(pai, filho, LinearFp32(mod))
+            n += 1
+    return n
+
+
+def quantizar_int8_dinamico(model: nn.Module, *, excluir_lm_head: bool) -> tuple[nn.Module, dict[str, Any]]:
+    m = copy.deepcopy(model).cpu().eval()
+    n_protegidos = _proteger_lm_head(m) if excluir_lm_head else 0
+    q = torch.ao.quantization.quantize_dynamic(m, {nn.Linear}, dtype=torch.qint8)
+    q.eval()
+    return q, {
+        "excluir_lm_head": excluir_lm_head,
+        "lm_head_protegidos": n_protegidos,
+        "nota": (
+            "quantize_dynamic em Linear, CPU; lm_head em fp32"
+            if excluir_lm_head
+            else "quantize_dynamic em todas as Linear (inclui lm_head)"
+        ),
+    }
 
 MODELO_PTQ = "HuggingFaceTB/SmolLM2-135M"
 
@@ -187,15 +234,18 @@ def comparar_ptq(*, n_novos: int = 8, device: str | None = None) -> dict[str, An
     dt_fp32 = time.perf_counter() - t0
 
     t1 = time.perf_counter()
-    modelo_int8 = torch.ao.quantization.quantize_dynamic(
-        copy.deepcopy(model).cpu(), {nn.Linear}, dtype=torch.qint8
-    )
-    modelo_int8.eval()
-    # generate/ppl no CPU após dynamic quant
+    modelo_int8, meta_int8 = quantizar_int8_dinamico(model, excluir_lm_head=False)
     ppl_int8 = perplexidade(modelo_int8, tok, textos, "cpu")
     lat_int8 = latencia_generate(modelo_int8, tok, prompt, n_novos=n_novos, use_cache=True, device="cpu")
     bytes_int8 = nbytes_estado(modelo_int8)
     dt_int8 = time.perf_counter() - t1
+
+    t1b = time.perf_counter()
+    modelo_int8_fair, meta_int8_fair = quantizar_int8_dinamico(model, excluir_lm_head=True)
+    ppl_int8_fair = perplexidade(modelo_int8_fair, tok, textos, "cpu")
+    lat_int8_fair = latencia_generate(modelo_int8_fair, tok, prompt, n_novos=n_novos, use_cache=True, device="cpu")
+    bytes_int8_fair = nbytes_estado(modelo_int8_fair)
+    dt_int8_fair = time.perf_counter() - t1b
 
     t2 = time.perf_counter()
     modelo_int4 = copy.deepcopy(model)
@@ -219,7 +269,17 @@ def comparar_ptq(*, n_novos: int = 8, device: str | None = None) -> dict[str, An
             "bytes": bytes_int8,
             "latencia": lat_int8,
             "segundos_bloco": round(dt_int8, 3),
-            "nota": "torch.ao.quantization.quantize_dynamic em Linear, CPU",
+            "nota": meta_int8["nota"],
+            "excluir_lm_head": False,
+        },
+        "int8_dinamico_sem_lm_head": {
+            "ppl": ppl_int8_fair,
+            "bytes": bytes_int8_fair,
+            "latencia": lat_int8_fair,
+            "segundos_bloco": round(dt_int8_fair, 3),
+            "nota": meta_int8_fair["nota"],
+            "excluir_lm_head": True,
+            "lm_head_protegidos": meta_int8_fair["lm_head_protegidos"],
         },
         "int4_grupo64_fake": {
             "ppl": ppl_int4,

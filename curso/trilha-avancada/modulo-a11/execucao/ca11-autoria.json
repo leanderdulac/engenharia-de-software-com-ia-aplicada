@@ -351,48 +351,65 @@
       "ppl": 217.4980450811796,
       "bytes": 538060288,
       "latencia": {
-        "segundos_mediana": 0.16439943000000312,
-        "tokens_por_s": 48.66196920512345,
+        "segundos_mediana": 0.16743283199980397,
+        "tokens_por_s": 47.780354094526494,
         "corridas": 2,
         "n_novos": 8,
         "use_cache": true,
         "prefixo": 16
       },
-      "segundos_bloco": 0.953
+      "segundos_bloco": 8.597
     },
     "int8_dinamico": {
       "ppl": 1060.7854448244682,
-      "bytes": 144905756,
+      "bytes": 145237536,
       "latencia": {
-        "segundos_mediana": 0.12893136799993954,
-        "tokens_por_s": 62.04851561028773,
+        "segundos_mediana": 0.10859664800000246,
+        "tokens_por_s": 73.66709882242239,
         "corridas": 2,
         "n_novos": 8,
         "use_cache": true,
         "prefixo": 16
       },
-      "segundos_bloco": 2.52,
-      "nota": "torch.ao.quantization.quantize_dynamic em Linear, CPU"
+      "segundos_bloco": 2.462,
+      "nota": "quantize_dynamic em todas as Linear (inclui lm_head)",
+      "excluir_lm_head": false
+    },
+    "int8_dinamico_sem_lm_head": {
+      "ppl": 950.4521831374268,
+      "bytes": 117478940,
+      "latencia": {
+        "segundos_mediana": 0.11603955300006419,
+        "tokens_por_s": 68.94200979898272,
+        "corridas": 2,
+        "n_novos": 8,
+        "use_cache": true,
+        "prefixo": 16
+      },
+      "segundos_bloco": 1.929,
+      "nota": "quantize_dynamic em Linear, CPU; lm_head em fp32",
+      "excluir_lm_head": true,
+      "lm_head_protegidos": 1
     },
     "int4_grupo64_fake": {
       "ppl": 506.1915990034364,
       "bytes_empacotados_estimados": 56401920,
       "matrizes": 210,
       "latencia": {
-        "segundos_mediana": 0.18557284500002424,
-        "tokens_por_s": 43.109755632614004,
+        "segundos_mediana": 0.15973984900006144,
+        "tokens_por_s": 50.08142958740948,
         "corridas": 2,
         "n_novos": 8,
         "use_cache": true,
         "prefixo": 16
       },
-      "segundos_bloco": 1.152,
+      "segundos_bloco": 1.039,
       "nota": "fake-quant: compute em fp32; bytes são o empacotamento teórico"
     },
     "gguf_llama_cpp": "nao_calibrado",
     "bitsandbytes_llm_int8": "nao_calibrado_cpu",
     "nf4_qlora": "leitura_M09",
-    "segundos": 5.223
+    "segundos": 14.027
   },
   "a11_3_lora_moe": {
     "status": "nao_executado",

@@ -22,9 +22,9 @@ Ver [`../execucao/run-vm.md`](../execucao/run-vm.md). CPU, sem CUDA, torch 2.15.
 | A11.2 L1 Auto–Saúde permutado | **0.2005** | — |
 | A11.2 `especializacao_aparente` | **false** | false é válido |
 | A11.3 | `nao_executado` | obrigatório neste PR |
-| A11.4 PPL fp32 / INT8 / INT4 | 217.50 / 1060.79 / 506.19 | finitas; não copiar |
-| A11.4 bytes fp32 → INT8 | 538 060 288 → 144 905 756 | INT8 menor |
-| A11.4 latência 8 tok fp32 / INT8 / INT4 | 0.164 / 0.129 / 0.186 s | INT4 fake não acelera |
+| A11.4 PPL fp32 / INT8+lm_head / INT8 sem lm_head / INT4 | 217.50 / **1060.79** / **950.45** / 506.19 | finitas; cabeça piora; INT4 fake ≠ INT8 real |
+| A11.4 bytes fp32 → INT8 → INT8 sem cabeça | 538 060 288 → 145 237 536 → 117 478 940 | INT8 menor |
+| A11.4 latência 8 tok | 0.167 / 0.109 / 0.116 / 0.160 s | INT4 fake não acelera |
 | A11.5 MSE fp32 / PTQ / QAT | 1.38×10⁻⁴ / 1.89×10⁻⁴ / 3.65×10⁻⁴ | `qat_melhor_que_ptq=false` nesta semente |
 | A11.6 Δ attn cache vs full | **2.384e-07** | < 1e-5 |
 | A11.6 `generate` cache on/off | 0.164 s / 0.253 s (razão 1.54) | `cache_mais_rapido` pode ser false no aluno |
@@ -33,7 +33,12 @@ Ver [`../execucao/run-vm.md`](../execucao/run-vm.md). CPU, sem CUDA, torch 2.15.
 
 Observação do histograma Granite (camada agregada, 118+106+92 tokens): os três domínios usam os mesmos experts “populares” (índices altos ~31, 13, 8…). Permutar Saúde **aumenta** a L1 porque quebra esse perfil compartilhado. Um parágrafo de aluno que diga “não apareceu especialização nesta amostra” está correto. Um que invente “o expert 7 é funilaria” está errado.
 
-INT8 PPL > INT4 PPL: o dinâmico quantiza **todas** as `nn.Linear` (incluindo `lm_head`); o fake INT4 pula `lm_head` e embeddings. Não é evidência de que 4 bits “ganham” de 8.
+INT8 PPL > INT4 PPL tem **duas** causas, ambas no JSON:
+
+1. `int8_dinamico` inclui `lm_head` (1061) vs `int8_dinamico_sem_lm_head` (950). Quantizar a cabeça dói.
+2. Mesmo sem cabeça, 950 > 506 do INT4 **fake-quant** (compute fp32). Não é evidência de que 4 bits “ganham” de 8.
+
+Parágrafo de aluno que só diz “INT8 é pior” sem citar o campo `sem_lm_head` fica no teto 8.
 
 ## Como conferir um `ca11.json` entregue
 

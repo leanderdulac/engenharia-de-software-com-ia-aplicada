@@ -2,8 +2,24 @@ from __future__ import annotations
 
 import torch
 
-from ptq import dequantizar_int4, quantizar_int4_por_grupo
+from torch import nn
+
+from ptq import LinearFp32, _proteger_lm_head, dequantizar_int4, quantizar_int4_por_grupo
 from qat import comparar_ptq_qat, fake_quant_int8_ste
+
+
+def test_proteger_lm_head_deixa_as_outras_lineares():
+    class Mini(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.l = nn.Linear(4, 4)
+            self.lm_head = nn.Linear(4, 8)
+
+    m = Mini()
+    n = _proteger_lm_head(m)
+    assert n == 1
+    assert isinstance(m.lm_head, LinearFp32)
+    assert isinstance(m.l, nn.Linear)
 
 
 def test_int4_roundtrip_erro_limitado():

@@ -79,6 +79,7 @@ Comece pelo diagnóstico e mostre o mapa inicial.
 - **Ideias de perguntas diagnósticas:**
   1. O `round` tem derivada zero. Como o QAT ainda treina?
   2. Por que INT4 neste lab não deve ficar *mais rápido*?
+  2b. O JSON tem `int8_dinamico` e `int8_dinamico_sem_lm_head`. Qual pergunta você faz se o aluno comparar o primeiro com o INT4 fake e concluir que “8 bits perdem de 4”?
   3. NF4 do M09 é PTQ, QAT ou treino em pesos já quantizados (QLoRA)?
   4. PPL neste corpus curto é comparável à WikiText-2? Por quê (não)?
   5. `quantize_dynamic` avisou deprecated. Isso zera o lab ou é nota de API?
