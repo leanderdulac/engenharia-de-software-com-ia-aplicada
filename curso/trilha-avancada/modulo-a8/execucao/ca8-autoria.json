@@ -1,0 +1,336 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "torch": "2.15.0+cpu",
+    "transformers": "5.22.2",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794492174
+  },
+  "libs": {
+    "trl": "1.17.1",
+    "peft": "0.21.2",
+    "datasets": "5.2.0"
+  },
+  "honestidade": {
+    "a5_a6": "nao_publicados",
+    "sft_trilha": "ausente; DPO parte do SmolLM2-135M base + LoRA",
+    "jsonl_m09": "nao_copiado; pares originais no padrao JSON vs prosa / virgula decimal",
+    "t4_colab": "nao_calibrado"
+  },
+  "a8_1": {
+    "n_pares": 12,
+    "comprimento": {
+      "n": 12,
+      "chosen_chars_medio": 52.916666666666664,
+      "rejected_chars_medio": 69.75,
+      "razao_rejected_sobre_chosen": 1.3181102362204724,
+      "rejeitado_mais_longo": true,
+      "nota": "rejeitados em prosa sao mais longos; DPO sem normalizar por |y| pode aprender 'seja curto', nao so 'seja JSON'"
+    },
+    "exemplo_aula": {
+      "dpo_sigmoid": 0.6466516256332397,
+      "ipo": 17.056249618530273,
+      "simpo": 1.0407218933105469,
+      "orpo": 0.3510662317276001,
+      "kto": 0.4878380298614502,
+      "beta_dpo": 0.1,
+      "apis": {
+        "dpo_sigmoid": "trl.DPOTrainer loss_type=sigmoid (estavel)",
+        "ipo": "trl.DPOTrainer loss_type=ipo (estavel)",
+        "kto": "trl.KTOTrainer (estavel)",
+        "orpo": "trl.experimental.orpo.ORPOTrainer",
+        "simpo": "trl.experimental.cpo.CPOTrainer loss_type=simpo"
+      },
+      "delta": [
+        1.9000000953674316,
+        0.05000007152557373
+      ],
+      "dpo_par0": 0.6026529049818791
+    }
+  },
+  "a8_2": {
+    "loss_type": "sigmoid",
+    "beta": 0.1,
+    "max_steps": 8,
+    "train_loss": 0.689865954220295,
+    "eval": {
+      "eval_loss": 0.6590189933776855,
+      "eval_runtime": 2.4796,
+      "eval_samples_per_second": 4.839,
+      "eval_steps_per_second": 4.839,
+      "eval_entropy": 2.6989515324433646,
+      "eval_num_tokens": 995.0,
+      "eval_logits/chosen": 9.688324605500771,
+      "eval_logits/rejected": 7.539346947695961,
+      "eval_mean_token_accuracy": 0.5057871925334135,
+      "eval_rewards/chosen": 0.05466769554914208,
+      "eval_rewards/rejected": -0.016548793841745162,
+      "eval_rewards/accuracies": 0.9166666666666666,
+      "eval_rewards/margins": 0.07121649061446078,
+      "eval_logps/chosen": -58.680876890818276,
+      "eval_logps/rejected": -94.71200927098592,
+      "epoch": 0.6666666666666666
+    },
+    "rewards_accuracies_log": [
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0
+    ],
+    "log_history": [
+      {
+        "loss": 0.6931471824645996,
+        "grad_norm": 1.6858359575271606,
+        "learning_rate": 0.0002,
+        "entropy": 4.787312030792236,
+        "num_tokens": 73.0,
+        "logits/chosen": 3.7905506807215072,
+        "logits/rejected": 6.936071872711182,
+        "mean_token_accuracy": 0.23529411852359772,
+        "rewards/chosen": 0.0,
+        "rewards/rejected": 0.0,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": 0.0,
+        "logps/chosen": -81.49468994140625,
+        "logps/rejected": -100.25883483886719,
+        "epoch": 0.08333333333333333,
+        "step": 1
+      },
+      {
+        "loss": 0.7008191347122192,
+        "grad_norm": 2.199134111404419,
+        "learning_rate": 0.000175,
+        "entropy": 2.221911907196045,
+        "num_tokens": 257.0,
+        "logits/chosen": 11.397000312805176,
+        "logits/rejected": 4.313739917896412,
+        "mean_token_accuracy": 0.71875,
+        "rewards/chosen": -0.0036155700217932463,
+        "rewards/rejected": 0.011669921688735485,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": -0.015285491943359375,
+        "logps/chosen": -47.226497650146484,
+        "logps/rejected": -184.2711181640625,
+        "epoch": 0.16666666666666666,
+        "step": 2
+      },
+      {
+        "loss": 0.6856975555419922,
+        "grad_norm": 2.728724718093872,
+        "learning_rate": 0.00015000000000000001,
+        "entropy": 1.8439035415649414,
+        "num_tokens": 423.0,
+        "logits/chosen": 11.897723029641543,
+        "logits/rejected": 3.896315574645996,
+        "mean_token_accuracy": 0.7941176295280457,
+        "rewards/chosen": 0.01638336293399334,
+        "rewards/rejected": 0.0014282226329669356,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.01495514065027237,
+        "logps/chosen": -47.393863677978516,
+        "logps/rejected": -120.71913146972656,
+        "epoch": 0.25,
+        "step": 3
+      },
+      {
+        "loss": 0.6953533887863159,
+        "grad_norm": 1.4272739887237549,
+        "learning_rate": 0.000125,
+        "entropy": 4.6322550773620605,
+        "num_tokens": 479.0,
+        "logits/chosen": 9.547733125232515,
+        "logits/rejected": 9.910984712488512,
+        "mean_token_accuracy": 0.1428571492433548,
+        "rewards/chosen": -0.01230545062571764,
+        "rewards/rejected": -0.007897949777543545,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": -0.004407500848174095,
+        "logps/chosen": -106.90536499023438,
+        "logps/rejected": -99.41015625,
+        "epoch": 0.3333333333333333,
+        "step": 4
+      },
+      {
+        "loss": 0.7020726203918457,
+        "grad_norm": 1.7848412990570068,
+        "learning_rate": 0.0001,
+        "entropy": 4.673277854919434,
+        "num_tokens": 570.0,
+        "logits/chosen": 5.13451489535245,
+        "logits/rejected": 5.520457060440727,
+        "mean_token_accuracy": 0.13636364042758942,
+        "rewards/chosen": -0.00312042236328125,
+        "rewards/rejected": 0.014651489444077015,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": -0.01777191087603569,
+        "logps/chosen": -132.5784149169922,
+        "logps/rejected": -91.33033752441406,
+        "epoch": 0.4166666666666667,
+        "step": 5
+      },
+      {
+        "loss": 0.6598383784294128,
+        "grad_norm": 2.8257741928100586,
+        "learning_rate": 7.500000000000001e-05,
+        "entropy": 2.4776339530944824,
+        "num_tokens": 747.0,
+        "logits/chosen": 11.238887902462121,
+        "logits/rejected": 3.5521582241716056,
+        "mean_token_accuracy": 0.6969696879386902,
+        "rewards/chosen": 0.04231224209070206,
+        "rewards/rejected": -0.02545318566262722,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.06776542961597443,
+        "logps/chosen": -52.22551345825195,
+        "logps/rejected": -204.10385131835938,
+        "epoch": 0.5,
+        "step": 6
+      },
+      {
+        "loss": 0.687567412853241,
+        "grad_norm": 1.1673468351364136,
+        "learning_rate": 5e-05,
+        "entropy": 1.482059359550476,
+        "num_tokens": 935.0,
+        "logits/chosen": 10.935104370117188,
+        "logits/rejected": 8.434003829956055,
+        "mean_token_accuracy": 0.75,
+        "rewards/chosen": 0.05671501159667969,
+        "rewards/rejected": 0.04552421718835831,
+        "rewards/accuracies": 1.0,
+        "rewards/margins": 0.01119079440832138,
+        "logps/chosen": -47.83662414550781,
+        "logps/rejected": -57.04155731201172,
+        "epoch": 0.5833333333333334,
+        "step": 7
+      },
+      {
+        "loss": 0.6944319605827332,
+        "grad_norm": 1.47295343875885,
+        "learning_rate": 2.5e-05,
+        "entropy": 4.4174652099609375,
+        "num_tokens": 995.0,
+        "logits/chosen": 12.159122467041016,
+        "logits/rejected": 8.097886403401693,
+        "mean_token_accuracy": 0.0,
+        "rewards/chosen": 0.0010568619472905993,
+        "rewards/rejected": 0.0036247253883630037,
+        "rewards/accuracies": 0.0,
+        "rewards/margins": -0.002567863557487726,
+        "logps/chosen": -11.597091674804688,
+        "logps/rejected": -115.57618713378906,
+        "epoch": 0.6666666666666666,
+        "step": 8
+      },
+      {
+        "eval_loss": 0.6590189933776855,
+        "eval_runtime": 2.6692,
+        "eval_samples_per_second": 4.496,
+        "eval_steps_per_second": 4.496,
+        "eval_entropy": 2.6989515324433646,
+        "eval_num_tokens": 995.0,
+        "eval_logits/chosen": 9.688324605500771,
+        "eval_logits/rejected": 7.539346947695961,
+        "eval_mean_token_accuracy": 0.5057871925334135,
+        "eval_rewards/chosen": 0.05466769554914208,
+        "eval_rewards/rejected": -0.016548793841745162,
+        "eval_rewards/accuracies": 0.9166666666666666,
+        "eval_rewards/margins": 0.07121649061446078,
+        "eval_logps/chosen": -58.680876890818276,
+        "eval_logps/rejected": -94.71200927098592,
+        "epoch": 0.6666666666666666,
+        "step": 8
+      },
+      {
+        "train_runtime": 6.0777,
+        "train_samples_per_second": 1.316,
+        "train_steps_per_second": 1.316,
+        "total_flos": 684784523520.0,
+        "train_loss": 0.689865954220295,
+        "epoch": 0.6666666666666666,
+        "step": 8
+      }
+    ],
+    "api": "trl.DPOTrainer (estavel)",
+    "avaliacao_base": {
+      "n": 12,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 0.0,
+      "margem_media": 0.0,
+      "fracao_chosen_mais_curto": 0.4166666666666667
+    },
+    "avaliacao_depois": {
+      "n": 12,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 0.9166666666666666,
+      "margem_media": 0.7043761213620504,
+      "fracao_chosen_mais_curto": 0.4166666666666667
+    },
+    "segundos": 15.295
+  },
+  "a8_3": {
+    "perdas_no_mesmo_lote_depois_dpo": {
+      "dpo_sigmoid": 0.6593830585479736,
+      "ipo": 19.12188148498535,
+      "simpo": 0.8347217440605164,
+      "orpo": 3.100705623626709,
+      "kto": 0.4912029206752777,
+      "beta_dpo": 0.1,
+      "apis": {
+        "dpo_sigmoid": "trl.DPOTrainer loss_type=sigmoid (estavel)",
+        "ipo": "trl.DPOTrainer loss_type=ipo (estavel)",
+        "kto": "trl.KTOTrainer (estavel)",
+        "orpo": "trl.experimental.orpo.ORPOTrainer",
+        "simpo": "trl.experimental.cpo.CPOTrainer loss_type=simpo"
+      }
+    },
+    "dpo_vs_beta": {
+      "0.1": 0.6593830585479736,
+      "0.5": 0.5520932078361511,
+      "1.0": 0.4680321216583252
+    },
+    "nota": "mesmos logps; SimPO/ORPO/KTO aqui sao as formulas da aula; treino experimental e A8.4"
+  },
+  "a8_4": {
+    "t4_colab": "nao_calibrado",
+    "ipo": {
+      "status": "ok",
+      "api": "trl.DPOTrainer loss_type=ipo (estavel)",
+      "train_loss": 25.0,
+      "max_steps": 1,
+      "nota": "1 passo para exercitar a API estavel; nao comparar train_loss com DPO de 8 passos"
+    },
+    "kto": {
+      "status": "ok",
+      "api": "trl.KTOTrainer (estavel)",
+      "train_loss": 0.4993729889392853,
+      "max_steps": 2
+    },
+    "orpo": {
+      "status": "ok",
+      "api": "trl.experimental.orpo.ORPOTrainer",
+      "train_loss": 5.736124038696289,
+      "max_steps": 1
+    },
+    "simpo": {
+      "status": "ok",
+      "api": "trl.experimental.cpo.CPOTrainer loss_type=simpo",
+      "train_loss": 5.75,
+      "max_steps": 1
+    },
+    "segundos": 12.974
+  },
+  "a8_5_t4": {
+    "status": "nao_calibrado",
+    "motivo": "esta VM nao tem CUDA; limiar CA8 rewards/accuracies>0.5 com IC e harness e alvo de T4/Colab"
+  },
+  "segundos_total": 30.536
+}
