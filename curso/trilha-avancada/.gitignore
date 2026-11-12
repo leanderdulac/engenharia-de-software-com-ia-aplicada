@@ -3,10 +3,10 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
-saidas/*.json
-saidas/*.txt
-saidas/*.npy
-!saidas/.gitkeep
+**/saidas/*.json
+**/saidas/*.txt
+**/saidas/*.npy
+!**/saidas/.gitkeep
 .ipynb_checkpoints/
 hf-cache/
 *.egg-info/
