@@ -1,0 +1,131 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794495440,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 778.3
+  },
+  "rss_processo_mb": 778.3,
+  "honestidade": {
+    "gsm8k": "nao_baixado; somas curtas originais",
+    "m04_react": "apontado, nao copiado; aqui raciocinio e dado, nao agente",
+    "t4": "nao_calibrado",
+    "ic95": "nao_calibrado (n=8, 1 semente)",
+    "pi_sft": "nao usado; base SmolLM2-135M (SFT A5 e JSON, nao CoT)"
+  },
+  "a7_1": {
+    "n": 8,
+    "n_sc": 4,
+    "temperatura": 0.8,
+    "acc_direto": 0.375,
+    "acc_cot": 0.375,
+    "acc_sc": 0.25,
+    "taxa_certo_motivo_errado": 0.25,
+    "cot_piorou": false
+  },
+  "a7_1_amostra": [
+    {
+      "a": 4,
+      "b": 5,
+      "ouro": 9,
+      "direto": "10\n\nA. 10\nB.",
+      "cot": "11\n\n### 1.\n\nAo trabalhar com a internet, você pode ter um bom desenvolvimento",
+      "pred_dir": "10",
+      "pred_cot": "11",
+      "voto": {
+        "voto": "5",
+        "n": 1,
+        "dist": {
+          "5": 1,
+          "13": 1,
+          "9": 1,
+          "10": 1
+        },
+        "n_amostras": 4
+      },
+      "ok_dir": false,
+      "ok_cot": false,
+      "ok_sc": false,
+      "certo_motivo_errado": false
+    },
+    {
+      "a": 7,
+      "b": 2,
+      "ouro": 9,
+      "direto": "10\n\nA. 10\nB.",
+      "cot": "11\n\n### 1.\n\nThe sum of the first 100 natural numbers is 360.\n\n### 2",
+      "pred_dir": "10",
+      "pred_cot": "11",
+      "voto": {
+        "voto": "5",
+        "n": 1,
+        "dist": {
+          "5": 1,
+          "3": 1,
+          "11": 1,
+          "4": 1
+        },
+        "n_amostras": 4
+      },
+      "ok_dir": false,
+      "ok_cot": false,
+      "ok_sc": false,
+      "certo_motivo_errado": false
+    },
+    {
+      "a": 8,
+      "b": 8,
+      "ouro": 16,
+      "direto": "16\n\nAproximadamente 1",
+      "cot": "16\n\n### 1.2.2.1.1.1.1.2.1.2.2.2.2.",
+      "pred_dir": "16",
+      "pred_cot": "16",
+      "voto": {
+        "voto": "9",
+        "n": 1,
+        "dist": {
+          "9": 1,
+          "16": 1,
+          "4": 1,
+          "26": 1
+        },
+        "n_amostras": 4
+      },
+      "ok_dir": true,
+      "ok_cot": true,
+      "ok_sc": false,
+      "certo_motivo_errado": true
+    }
+  ],
+  "a7_2": {
+    "voto_demo": {
+      "voto": "7",
+      "n": 3,
+      "dist": {
+        "7": 3,
+        "9": 1
+      },
+      "n_amostras": 4
+    },
+    "split_ok": true
+  },
+  "a7_3_t4": {
+    "status": "nao_calibrado"
+  },
+  "segundos_total": 15.901
+}
