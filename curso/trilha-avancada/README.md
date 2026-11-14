@@ -48,6 +48,14 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 
 **Total previsto A0–A12:** 78 h. **A13:** +4 h opcionais, **fora** das 78 h e das 240 h obrigatórias.
 
+## Caixas de estudo de caso (opcional, ~30 min)
+
+Não são módulo. Sem CA. **Fora** das 78 h, das +4 h do A13 e das 240 h. Índice: [`caixas/README.md`](./caixas/README.md).
+
+| Caixa | Tempo | Liga |
+| --- | ---: | --- |
+| [Antigravity `/teamwork` (Google Research, 13/11/2026)](./caixas/antigravity-teamwork.md) | ~30 min | A7, A12, A13; eval do M09 só como referência conceitual |
+
 ### Nota sobre A2 ter saído antes de A1
 
 A ordem de *construção* (A2 → A11 → A8 → A9 → A10 → A1 → A0) entregou primeiro a lacuna maior. A0 agora existe: versões, p50/p95, envelope. A1 já preenchia o sampler sem `bancada.json`; quem cursar na ordem pedagógica começa pelo A0.
@@ -85,9 +93,10 @@ python modulo-a12/lab/lab_a12.py         # A12.1–A12.2 → modulo-a12/saidas/c
 python modulo-a13/lab/lab_a13.py         # A13.1–A13.5 → modulo-a13/saidas/ca13.json
 python -m pytest -q                      # inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
+python -m pytest caixas/testes -q        # links/âncoras da caixa /teamwork
 ```
 
-Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md), [`modulo-a13/README.md`](./modulo-a13/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU. A13.3 tenta mean-pool SmolLM2; se falhar, declara TF-IDF.
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md), [`modulo-a13/README.md`](./modulo-a13/README.md), caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU. A13.3 tenta mean-pool SmolLM2; se falhar, declara TF-IDF.
 
 ## Tutor socrático (opcional)
 
@@ -99,4 +108,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Trilha completa nesta pilha. Sem merge.
+Trilha A0–A13 nesta pilha, mais a caixa opcional `/teamwork`. Sem merge.

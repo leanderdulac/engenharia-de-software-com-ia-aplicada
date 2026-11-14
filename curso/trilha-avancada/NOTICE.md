@@ -44,6 +44,15 @@ Os labs baixam pesos em tempo de execução. Cada modelo traz a licença no card
 
 O lab A13 importa `sklearn` (`SVC`, `LogisticRegression`, `MLPClassifier`, `TfidfVectorizer`, `make_blobs`). Licença: BSD-3-Clause, https://github.com/scikit-learn/scikit-learn/blob/main/COPYING. Os algoritmos (SVM, VC) são citados pelos papers em [`modulo-a13/referencias.md`](./modulo-a13/referencias.md); o código do lab é original desta trilha.
 
+## Google Research — Antigravity `/teamwork` (citação, não código)
+
+A caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md) comenta o post de Vahab Mirrokni no blog Google Research (13/11/2026) e o post em X do mesmo dia. Texto da caixa é original desta trilha (paráfrase pedagógica). Números e nomes de produto permanecem alegações da fonte:
+
+- https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/ (acesso 2026-11-14)
+- https://x.com/mirrokni/status/2121351383236436247 (13/11/2026 21:15 UTC)
+
+Não há código, pesos nem suítes do Google nesta pasta. Citar o post **não** transfere licença nem implica endosso.
+
 ## Papers (citação acadêmica, não código)
 
 Ver os `referencias.md` de cada módulo publicado. Citar um paper não transfere a licença do artigo para esta pasta.
