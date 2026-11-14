@@ -26,7 +26,7 @@ Leitura extra opcional, **não vendored nesta pasta**:
 - Crédito: [`curso/ATRIBUICOES-llm-course.md`](../ATRIBUICOES-llm-course.md)
 - SPDX e NOTICE originais: [`referencia/llm-course/LICENSE`](../../referencia/llm-course/LICENSE), [`referencia/llm-course/NOTICE`](../../referencia/llm-course/NOTICE)
 
-O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A0–A12 (publicados nesta pasta) são originais desta trilha. A6 aponta o módulo 06 do llm-course (LoRA) sem copiá-lo. O ADR do A12 não copia o do M09.
+O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A0–A13 (publicados nesta pasta) são originais desta trilha. A6 aponta o módulo 06 do llm-course (LoRA) sem copiá-lo. O ADR do A12 não copia o do M09. A13 não copia labs sklearn de terceiros.
 
 ## Modelos e tokenizers (Hugging Face)
 
@@ -34,11 +34,15 @@ Os labs baixam pesos em tempo de execução. Cada modelo traz a licença no card
 
 | Modelo | Card | Licença lida no card (nov/2026) | Onde |
 | --- | --- | --- | --- |
-| `HuggingFaceTB/SmolLM2-135M` | https://huggingface.co/HuggingFaceTB/SmolLM2-135M | Apache-2.0 | A2, A11 (PTQ/KV), A8 (DPO/LoRA), A9 (GRPO/LoRA), A10 (aluno), A1 (tokenizer + amostragem), A0 (bancada), A4 (tokenizer / máscara), A5 (SFT / π_SFT) |
+| `HuggingFaceTB/SmolLM2-135M` | https://huggingface.co/HuggingFaceTB/SmolLM2-135M | Apache-2.0 | A2, A11 (PTQ/KV), A8 (DPO/LoRA), A9 (GRPO/LoRA), A10 (aluno), A1 (tokenizer + amostragem), A0 (bancada), A4 (tokenizer / máscara), A5 (SFT / π_SFT), A13 (mean-pool opcional) |
 | `HuggingFaceTB/SmolLM2-360M` | https://huggingface.co/HuggingFaceTB/SmolLM2-360M | Apache-2.0 | A10 (professor) |
 | `Qwen/Qwen2.5-0.5B` (opcional, `TRILHA_A2_MODELO=...`) | https://huggingface.co/Qwen/Qwen2.5-0.5B | Apache-2.0 | A2 (pesos opcionais); A1 (**só tokenizer**) |
 | `ibm-granite/granite-3.1-1b-a400m-instruct` | https://huggingface.co/ibm-granite/granite-3.1-1b-a400m-instruct | Apache-2.0 | A11 (MoE real) |
 | `allenai/OLMoE-1B-7B-0924-Instruct` | https://huggingface.co/allenai/OLMoE-1B-7B-0924-Instruct | Apache-2.0 | A11 (só config nesta CPU) |
+
+## scikit-learn (BSD-3-Clause)
+
+O lab A13 importa `sklearn` (`SVC`, `LogisticRegression`, `MLPClassifier`, `TfidfVectorizer`, `make_blobs`). Licença: BSD-3-Clause, https://github.com/scikit-learn/scikit-learn/blob/main/COPYING. Os algoritmos (SVM, VC) são citados pelos papers em [`modulo-a13/referencias.md`](./modulo-a13/referencias.md); o código do lab é original desta trilha.
 
 ## Papers (citação acadêmica, não código)
 
