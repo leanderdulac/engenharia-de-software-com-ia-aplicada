@@ -11,10 +11,10 @@
     "epoch_unix": 1794491244
   },
   "honestidade": {
-    "a3_a5_a6": "nao_publicados",
+    "a3_a5_a6": "A6 publicado (alvos/merge/multi-adapter); A3/A5 conforme a pilha",
     "moe_brinquedo": "camada avulsa, nao MiniGPT do A3",
     "ptq": "SmolLM2-135M, nao o SFT do A5",
-    "lora_moe": "CA11.3 nao executado (A6 ausente, T4 ausente); ponte conceitual: LoRA do M09",
+    "lora_moe": "CA11.3 no brinquedo (experts vs router) + Granite meta (tensores 3D); treino Granite/T4 nao_calibrado",
     "t4_vllm_olmoe": "nao_calibrado"
   },
   "a11_1": {
@@ -412,8 +412,117 @@
     "segundos": 14.027
   },
   "a11_3_lora_moe": {
-    "status": "nao_executado",
-    "motivo": "A6 não publicado; T4 não disponível nesta VM; LoRA do M09 permanece a ponte"
+    "status": "ok",
+    "motivo": null,
+    "a6_publicado": true,
+    "brinquedo": {
+      "status": "ok",
+      "r": 4,
+      "alpha": 8.0,
+      "passos": 80,
+      "semente": 14,
+      "experts": {
+        "alvos": "experts",
+        "modulos": [
+          "experts.0.sobe",
+          "experts.0.desce",
+          "experts.1.sobe",
+          "experts.1.desce",
+          "experts.2.sobe",
+          "experts.2.desce",
+          "experts.3.sobe",
+          "experts.3.desce",
+          "experts.4.sobe",
+          "experts.4.desce",
+          "experts.5.sobe",
+          "experts.5.desce",
+          "experts.6.sobe",
+          "experts.6.desce",
+          "experts.7.sobe",
+          "experts.7.desce"
+        ],
+        "n_treino_lora": 6144,
+        "r": 4,
+        "alpha": 8.0,
+        "passos": 80,
+        "semente": 14,
+        "mse_ini": 0.034391,
+        "mse_fim": 0.001065,
+        "mse_caiu": true,
+        "n_params_base_moe": 33800,
+        "fracao_lora": 0.181775
+      },
+      "router": {
+        "alvos": "router",
+        "modulos": [
+          "router"
+        ],
+        "n_treino_lora": 160,
+        "r": 4,
+        "alpha": 8.0,
+        "passos": 80,
+        "semente": 14,
+        "mse_ini": 0.034391,
+        "mse_fim": 0.030704,
+        "mse_caiu": true,
+        "n_params_base_moe": 33800,
+        "fracao_lora": 0.004734
+      },
+      "lora_experts_mais_params": true,
+      "leitura": "LoRA nos experts atualiza os FFN esparsos (sobe/desce × N). LoRA no router só mexe em quem é escolhido, não no cálculo do expert. São alvos diferentes — a lição do A6 (qv vs mlp) no MoE."
+    },
+    "granite": {
+      "status": "ok_meta",
+      "modelo": "ibm-granite/granite-3.1-1b-a400m-instruct",
+      "num_local_experts": 32,
+      "num_experts_per_tok": 8,
+      "n_tensores_expert_3d": 48,
+      "n_tensores_router": 24,
+      "n_lineares_attn": 96,
+      "lora_r": 4,
+      "n_treino_lora_experts": 11010048,
+      "n_treino_lora_router": 101376,
+      "n_treino_lora_attn": 688128,
+      "peft_linear_nao_casa_experts_3d": true,
+      "amostra_experts": [
+        "model.layers.0.block_sparse_moe.experts.gate_up_proj[32, 1024, 1024]",
+        "model.layers.0.block_sparse_moe.experts.down_proj[32, 1024, 512]"
+      ],
+      "shapes": {
+        "experts": [
+          {
+            "nome": "model.layers.0.block_sparse_moe.experts.gate_up_proj",
+            "shape": [
+              32,
+              1024,
+              1024
+            ]
+          },
+          {
+            "nome": "model.layers.0.block_sparse_moe.experts.down_proj",
+            "shape": [
+              32,
+              1024,
+              512
+            ]
+          }
+        ],
+        "router": [
+          {
+            "nome": "model.layers.0.block_sparse_moe.router.weight",
+            "shape": [
+              32,
+              1024
+            ]
+          }
+        ]
+      },
+      "treino": "nao_calibrado_cpu",
+      "t4": "nao_calibrado",
+      "nota": "from_config(meta): experts são tensores 3D, não Linear. PEFT target_modules do A6 não aplica BA neles. Contagem LoRA = r·in + out·r por fatia. Sem treino. T4 nao_calibrado."
+    },
+    "t4": "nao_calibrado",
+    "segundos": 2.402
   },
   "segundos_total": 54.712
 }

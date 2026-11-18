@@ -18,17 +18,17 @@ Nada disto entra nas 240 h. Não substitui C09.*. Os números miúdos do router 
 
 ## 0. Honestidade de dependências
 
-A ordem de *construção* da trilha entregou A2 e agora A11. **A3 (MiniGPT), A5 (SFT) e A6 (LoRA de produção) ainda são esqueleto.** Consequências, escritas para não haver magia:
+A ordem de *construção* entregou A11 antes de A6. **A6 agora está publicado** (alvos, merge, multi-adapter). O MoE de brinquedo continua avulso (não é o MiniGPT do A3). Consequências, escritas para não haver magia:
 
 | O plano original pedia | O que este módulo faz |
 | --- | --- |
 | MoE dentro do MiniGPT do A3 | camada MoE **avulsa** (clusters → router → 8 experts) |
-| LoRA em atenção vs experts (CA11.3) | **não executado**; ponte conceitual = LoRA do M09 em `q_proj`/`v_proj` |
+| LoRA em atenção vs experts (CA11.3) | **executado no brinquedo** (A6 publicado): LoRA r=4 nos FFN dos 8 experts vs só no router; Granite = inspeção meta (experts 3D); treino Granite/T4 `nao_calibrado` |
 | SFT do A5 em fp16 / int8 / NF4 / GGUF | PTQ weight-only no **SmolLM2-135M** (mesmo id do A2), corpus original curto |
 | QAT no MiniGPT | MLP 1-D que aproxima `sin(x)` |
 | vLLM / llama-server na T4 | leitura + campo `nao_calibrado` no JSON |
 
-Se você abrir o JSON e CA11.3 estiver `nao_executado`, isso é o desenho, não um bug seu.
+Se o JSON tiver `a11_3_lora_moe.status=ok` com MSE de experts vs router, CA11.3 rodou. Treino no Granite 1,3B e T4 continuam `nao_calibrado` — não invente Δ.
 
 ---
 
@@ -199,7 +199,18 @@ No M09 o harness da Amplitude puniu `1250,00` virando `125000` (vírgula vs pont
 
 O corpus de PPL inclui de propósito a frase `O decimal 1250,00 nao deve virar 125000 depois da quantizacao.` Se a PPL INT4 disparar, **não** conclua que reproduziu o bug do harness — conclua que o modelo ficou pior em geral. CA11.4 pede a tabela ppl/bytes/latência, não um veredito sobre a vírgula.
 
-LoRA em experts: o A6, quando existir, vai apontar `target_modules` para `w1/w2/w3` (ou `gate_up`) dos experts *e/ou* para `q_proj`. Hoje a ponte é só vocabular: no M09 você atualizou `q_proj`/`v_proj` com `BA`. Num MoE, o mesmo truque cabe no router (`router` / `gate`) ou num subset de experts. Sem A6 e sem T4, **não medimos**. Não invente um Δ de LoRA-MoE.
+LoRA em experts (CA11.3, A6 publicado). O A6 apontou `target_modules` para `q_proj`/`v_proj` vs MLP. No brinquedo do A11 os nomes são `sobe`/`desce` (experts) e `router`. O lab injeta BA (r=4, α=8) na mão — PEFT do A6 casa sufixos Linear; aqui o ponto é o *alvo*, não o matching.
+
+Medido nesta CPU (semente 14, 80 passos, MSE do cluster):
+
+| Alvo | params LoRA | MSE ini → fim |
+| --- | ---: | --- |
+| 8 experts (`sobe`+`desce`) | **6 144** | 0,034391 → **0,001065** |
+| só router | **160** | 0,034391 → 0,030704 |
+
+Experts têm mais params treináveis e a loss cai de verdade. O router quase não mexe no FFN — escolhe *quem* calcula, não *como* o expert calcula. É a lição qv vs mlp do A6 no MoE.
+
+Granite 3.1-1B-A400M, `from_config` em device **meta** (sem 1,3B na RAM): os experts **não** são `nn.Linear`. São tensores 3D `(n_experts, out, in)` — `gate_up_proj` `[32, 1024, 1024]` e `down_proj` `[32, 1024, 512]` em cada uma das 24 camadas (48 tensores). PEFT `target_modules` do A6 **não** aplica BA nesses empacotados. Contagem LoRA r=4 por fatia: experts **11 010 048** vs attn **688 128** vs router **101 376**. **Não treinamos** o Granite (`treino=nao_calibrado_cpu`). T4 `nao_calibrado`. Não copie um Δ de LoRA-Granite da internet.
 
 ---
 
@@ -242,7 +253,7 @@ Se no Colab T4 você levantar vLLM, anote GPU, modelo, concorrência e tokens/s 
 - A2: o FFN denso que você reconstruiu é *um* expert. MoE é *N* desses + router. RoPE/GQA/RMSNorm não saem.
 - M01 `exemplo-04`: temperature age **depois** dos logits, MoE ou não.
 - M08: a nota “MoE ≠ multiagente” é a tese desta §1.
-- M09: LoRA em `q,v`; QLoRA NF4; harness da vírgula. PTQ aqui é outra alavanca; LoRA-em-expert espera A6.
+- M09: LoRA em `q,v`; QLoRA NF4; harness da vírgula. PTQ aqui é outra alavanca. CA11.3 mede LoRA-em-expert no brinquedo; Granite packed 3D não entra no PEFT Linear.
 - Serving no M08/M09 (Ollama): agora você tem nomes para o que o servidor esconde (KV, batch, quantização de peso).
 
 Leitura extra opcional (Apache-2.0, **não** vendored): módulos de quantização/serving no [lucianoon/llm-course](https://github.com/lucianoon/llm-course). O texto desta aula é original.
@@ -256,7 +267,7 @@ Faça na ordem. Critérios: [`checkpoint-ca11.md`](./checkpoint-ca11.md).
 1. Leia esta aula. Rode `python modulo-a11/lab/lab_a11.py` → `saidas/ca11.json`.
 2. Confira no JSON: flags de colapso/aux; config 32/8; MSE QAT; tabela PTQ; prova de cache; campos `nao_calibrado`.
 3. `python -m pytest modulo-a11/testes -q` (marca `modelo` baixa o SmolLM2 de novo).
-4. Relatório curto: (a) histograma ASCII sem vs com aux; (b) se o Granite coube, L1 Auto/Saúde vs permutação; se não, o `erro`; (c) PPL fp32/int8/int4 e se INT4 é fake; (d) `use_cache` on vs off; (e) uma frase sobre o que falta para o A6/CA11.3.
+4. Relatório curto: (a) histograma ASCII sem vs com aux; (b) se o Granite coube, L1 Auto/Saúde vs permutação; se não, o `erro`; (c) PPL fp32/int8/int4 e se INT4 é fake; (d) `use_cache` on vs off; (e) CA11.3: params/MSE experts vs router **e** o fato de o Granite empacotar experts em 3D (treino Granite/T4 `nao_calibrado`).
 
 Tutor socrático opcional: [`tutor/mapa-a11.md`](./tutor/mapa-a11.md). Níveis 0–5 não são nota.
 

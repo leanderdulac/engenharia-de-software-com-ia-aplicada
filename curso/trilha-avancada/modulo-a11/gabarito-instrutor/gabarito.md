@@ -21,7 +21,8 @@ Ver [`../execucao/run-vm.md`](../execucao/run-vm.md). CPU, sem CUDA, torch 2.15.
 | A11.2 L1 Auto–Saúde | **0.0521** | — |
 | A11.2 L1 Auto–Saúde permutado | **0.2005** | — |
 | A11.2 `especializacao_aparente` | **false** | false é válido |
-| A11.3 | `nao_executado` | obrigatório neste PR |
+| A11.3 brinquedo | experts LoRA **6144**, router **160**; MSE experts 0,034391 → **0,001065**; router 0,034391 → 0,030704 | `status=ok`; experts > router; mse_caiu |
+| A11.3 Granite | 48 tensores 3D; LoRA r=4 experts **11 010 048** / attn 688 128 / router 101 376; `peft_linear_nao_casa_experts_3d=true` | treino Granite e T4 = `nao_calibrado` |
 | A11.4 PPL fp32 / INT8+lm_head / INT8 sem lm_head / INT4 | 217.50 / **1060.79** / **950.45** / 506.19 | finitas; cabeça piora; INT4 fake ≠ INT8 real |
 | A11.4 bytes fp32 → INT8 → INT8 sem cabeça | 538 060 288 → 145 237 536 → 117 478 940 | INT8 menor |
 | A11.4 latência 8 tok | 0.167 / 0.109 / 0.116 / 0.160 s | INT4 fake não acelera |
@@ -44,7 +45,7 @@ Parágrafo de aluno que só diz “INT8 é pior” sem citar o campo `sem_lm_hea
 
 1. Abrir o JSON. Se `ambiente.epoch_unix` for idêntico ao de outro aluno byte a byte **e** os histogramas `f_final` também, pedir reexecução (semente do brinquedo é fixa — o epoch_unix e o `segundos_*` têm de mudar).
 2. Checar as flags / limiares de [`../checkpoint-ca11.md`](../checkpoint-ca11.md).
-3. `a11_3_lora_moe.status` tem de ser `nao_executado` enquanto A6 não existir. LoRA-MoE inventado = 0 nesse item.
+3. `a11_3_lora_moe.status` tem de ser `ok` (A6 publicado). Inventar treino/Δ no Granite ou T4 = 0 nesse item. O brinquedo tem de mostrar experts com mais params LoRA que o router e MSE caindo.
 4. Campos `nao_calibrado`: se o aluno preencheu um throughput de vLLM sem GPU no `ambiente`, zerar honestidade.
 5. Parágrafo: tem de citar números que existem no JSON (PPL, L1 ou `erro` de `nao_coube`, razão cache).
 

@@ -28,6 +28,7 @@ sys.path.insert(0, str(A2_LAB))
 from ambiente import coletar_ambiente  # noqa: E402
 from inspecionar_moe import inspecionar_granite  # noqa: E402
 from kv_cache import medir_cache_e_batch, prova_cache_minidecoder  # noqa: E402
+from lora_moe import executar_ca11_3  # noqa: E402
 from moe_brinquedo import comparar_com_sem_aux, exemplo_numerico_aula, histograma_ascii  # noqa: E402
 from ptq import comparar_ptq  # noqa: E402
 from qat import comparar_ptq_qat  # noqa: E402
@@ -38,10 +39,10 @@ SAIDA = AQUI.parent / "saidas" / "ca11.json"
 def main() -> None:
     t0 = time.perf_counter()
     payload: dict = {"ambiente": coletar_ambiente(), "honestidade": {
-        "a3_a5_a6": "nao_publicados",
+        "a3_a5_a6": "A6 publicado (alvos/merge/multi-adapter); A3/A5 conforme a pilha",
         "moe_brinquedo": "camada avulsa, nao MiniGPT do A3",
         "ptq": "SmolLM2-135M, nao o SFT do A5",
-        "lora_moe": "CA11.3 nao executado (A6 ausente, T4 ausente); ponte conceitual: LoRA do M09",
+        "lora_moe": "CA11.3 no brinquedo (experts vs router) + Granite meta (tensores 3D); treino Granite/T4 nao_calibrado",
         "t4_vllm_olmoe": "nao_calibrado",
     }}
 
@@ -113,10 +114,24 @@ def main() -> None:
             f"int4={ptq['int4_grupo64_fake']['ppl']:.3f}"
         )
 
-    payload["a11_3_lora_moe"] = {
-        "status": "nao_executado",
-        "motivo": "A6 não publicado; T4 não disponível nesta VM; LoRA do M09 permanece a ponte",
-    }
+    print("=== A11.3 LoRA experts vs router ===")
+    t3 = time.perf_counter()
+    lora = executar_ca11_3()
+    lora["segundos"] = round(time.perf_counter() - t3, 3)
+    payload["a11_3_lora_moe"] = lora
+    br = lora.get("brinquedo") or {}
+    ge = lora.get("granite") or {}
+    print(
+        f"  brinquedo status={lora.get('status')} "
+        f"experts_lora={br.get('experts', {}).get('n_treino_lora')} "
+        f"router_lora={br.get('router', {}).get('n_treino_lora')} "
+        f"mse_exp {br.get('experts', {}).get('mse_ini')}→{br.get('experts', {}).get('mse_fim')}"
+    )
+    print(
+        f"  granite status={ge.get('status')} "
+        f"experts_3d={ge.get('n_tensores_expert_3d')} "
+        f"treino={ge.get('treino')}"
+    )
     payload["segundos_total"] = round(time.perf_counter() - t0, 3)
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
