@@ -1,7 +1,7 @@
 # Mapa de subhabilidades — A10 (destilação)
 
 **Tema:** professor/aluno, sequência vs logits, filtro, licença  
-**Fontes:** `modulo-a10/aula.md`, `lab/`, `checkpoint-ca10.md`. A5/A7 esqueleto. Licença pendente da trilha.
+**Fontes:** `modulo-a10/aula.md`, `lab/`, `checkpoint-ca10.md`. A5/A7 esqueleto. Licença: todos os direitos reservados.
 
 ## Prompt de início
 
