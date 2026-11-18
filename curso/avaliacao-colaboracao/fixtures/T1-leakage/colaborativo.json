@@ -1,0 +1,58 @@
+{
+  "id": "T1",
+  "titulo": "Leakage treino/teste",
+  "versao": "colaborativo",
+  "informacao_completa": false,
+  "objetivo": "Você herda o trabalho de outro agente. O manifesto diz que o split está limpo. Os arquivos ainda estão aí para inspecionar.",
+  "contexto": "Handoff multiagente (espírito M08: estado passado com contrato). DatasetBot já 'fechou' o dataset. Você assume a sessão. Não confunda isso com MoE (roteamento interno de tokens).",
+  "colega": {
+    "papel": "DatasetBot (agente predecessor, roteiro fixo)",
+    "mensagem": "Splits por entidade ok. Pode mandar para LoRA. Eu já conferi — não perde tempo reabrindo linha a linha.",
+    "artefato": "manifesto_splits.json"
+  },
+  "manifesto_splits": {
+    "autor": "DatasetBot",
+    "claim": "split_por_entidade",
+    "status": "pronto_para_lora",
+    "n_treino": 3,
+    "n_teste": 2,
+    "entity_ids_listados": false
+  },
+  "pergunta": "Você aceita o manifesto e treina, ou inspeciona os arquivos herdados? Qual a decisão, a ação e o registro (sem colar texto de sinistro desnecessário)?",
+  "arquivos_herdados": {
+    "treino": [
+      {
+        "id": "tr-01",
+        "entity_id": "APT-SYN-0001",
+        "linha": "auto",
+        "texto": "orçamento oficina placa ABC1D23 valor 1200"
+      },
+      {
+        "id": "tr-02",
+        "entity_id": "APT-SYN-0007",
+        "linha": "auto",
+        "texto": "orçamento oficina placa XYZ9K87 valor 3400"
+      },
+      {
+        "id": "tr-03",
+        "entity_id": "APT-SYN-0003",
+        "linha": "auto",
+        "texto": "orçamento oficina placa QRS2E45 valor 890"
+      }
+    ],
+    "teste": [
+      {
+        "id": "te-01",
+        "entity_id": "APT-SYN-0007",
+        "linha": "auto",
+        "texto": "orçamento oficina placa XYZ9K87 valor 3400"
+      },
+      {
+        "id": "te-02",
+        "entity_id": "APT-SYN-0009",
+        "linha": "auto",
+        "texto": "orçamento oficina placa LMN4F56 valor 2100"
+      }
+    ]
+  }
+}

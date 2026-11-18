@@ -93,6 +93,8 @@ Atalhos honestos (documente no entregável):
 
 Não pule: RAG M01, guardrails M02, token MCP M03, HITL M04 ou M06, Monte Carlo script M07, canvas próprio M08, “vale fine-tune?” M09.
 
+Integração opcional (10%): cruzar dois casos **ou** o [C-COLAB](./guia-checkpoint-colaboracao.md) depois de M08/M09. Não é lab obrigatório e não usa API paga.
+
 ## 5. Chaves e `.env`
 
 Nunca commite chave. Padrões que o material espera:

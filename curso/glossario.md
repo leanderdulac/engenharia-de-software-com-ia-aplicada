@@ -40,7 +40,9 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **Context window / ContextBuilder** | Limite de contexto; montagem orçada por seção + sumarização em rolo. | M04 U5 |
 | **Memória semântica** | Recall por embeddings, não só histórico linear. | M04 U4 |
 | **Blackboard / supervisor** | Estado compartilhado e agente que despacha papéis. | M04 U9; M08 M3 |
-| **Multiagente** | Mais de um papel/modelo coordenado (padrões Sequential, Parallel, Supervisor, Hierarchical, Group Chat, Handoff). | M04 U9; M08 M3 |
+| **Multiagente** | Mais de um papel/modelo coordenado (padrões Sequential, Parallel, Supervisor, Hierarchical, Group Chat, Handoff). Não é MoE. | M04 U9; M08 M3 |
+| **MoE** | Mixture of experts: roteamento interno de tokens entre experts no mesmo modelo. Não confundir com multiagentes. | Fora do lab; aviso em [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md) |
+| **C-COLAB** | Checkpoint **opcional** de colaboração humano–IA (três fixtures sintéticos). Não substitui C08/C09. Não é score oficial do CIB. | [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md); [avaliacao.md](./avaliacao.md) |
 | **A2A** | Agent2Agent Protocol (referência de comunicação entre agentes). | README raiz M08 |
 | **RICE / WSJF / MoSCoW** | Frameworks de priorização de backlog. | M07 M2 |
 | **PERT / Monte Carlo** | Estimativa de três pontos; simulação de prazo (P50/P85/P95). **Script**, não LLM. | M07 M4 |

@@ -96,6 +96,7 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [trilha-aprendizado.md](./trilha-aprendizado.md) | Sequência, dependências, tempo por unidade |
 | [mapa-do-repositorio.md](./mapa-do-repositorio.md) | Pasta → aula/lab → o que o aluno faz |
 | [avaliacao.md](./avaliacao.md) | Rubricas, checkpoints, projetos finais |
+| [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md) | Checkpoint **opcional** C-COLAB (não substitui C08/C09) |
 | [guia-do-instrutor.md](./guia-do-instrutor.md) | Como conduzir, ênfases, traps, ordem das demos |
 | [guia-do-aluno.md](./guia-do-aluno.md) | Setup, ritmo, estudo, troubleshooting |
 | [glossario.md](./glossario.md) | Termos-chave da trilha |

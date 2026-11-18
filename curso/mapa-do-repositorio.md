@@ -18,6 +18,8 @@ Legenda: **T** = template (trabalhe aqui); **Z** = gabarito; **S** = snapshot cu
 | [`.github/workflows/ci_test-skills.yml`](../.github/workflows/ci_test-skills.yml) | CI da skill windowsfy |
 | [`.gitmodules`](../.gitmodules) | Submódulo Danger demo do RouteWise |
 | [`referencia/llm-course/`](../referencia/llm-course/) | Vendor Apache-2.0 (RAG/LoRA/produção + `auditar_dataset`); ver [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md) |
+| [`curso/guia-checkpoint-colaboracao.md`](./guia-checkpoint-colaboracao.md) | Checkpoint **opcional** C-COLAB (aluno + instrutor) |
+| [`curso/avaliacao-colaboracao/`](./avaliacao-colaboracao/) | Fixtures sintéticos + `verificar.mjs` (sem API) |
 
 ---
 

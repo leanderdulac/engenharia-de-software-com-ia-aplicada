@@ -102,6 +102,7 @@ Só o que já está citado no material do repo. Completar com os links do [READM
 - Arquitetura: CAP theorem; [A2A Protocol](https://a2a-protocol.org/); RAND *Why AI Projects Fail* (M08).
 - Fine-tuning: companions na raiz do M09 (`casos-de-mercado-fine-tuning-companion.md`, `historico-fine-tuning-companion.md`, *Bestiário do Zoo*).
 - Curso companheiro (opcional): Nunes, Luciano de Oliveira — *Engenharia e Customização de LLMs em Português* ([lucianoon/llm-course](https://github.com/lucianoon/llm-course), Apache-2.0). Recorte e crédito em [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md).
+- Wu et al. — *Measuring AI Agents as Teammates with Collaborative Intelligence* (arXiv:2611.02633v1, preprint). Só o **método** (isolar colaboração); atividade didática em [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md). Não copiar o benchmark nem rankings.
 - IBM Cost of a Data Breach Report 2025 (M07 M8).
 - Saaty — Analytic Hierarchy Process (M09 M1).
 
@@ -116,7 +117,7 @@ Detalhe e rubricas em [avaliacao.md](./avaliacao.md).
 | Checkpoints de lab (M01–M03, M06) | 30% |
 | Projetos âncora de módulo (OpsPilot, Nexus 12, RouteWise, TrialForge, Amplitude) | 50% |
 | Participação em demos / curadoria (prompts, canvases, HITL) | 10% |
-| Integração final (opcional: cruzar dois casos) | 10% |
+| Integração final (opcional: cruzar dois casos **ou** C-COLAB) | 10% |
 
 Aprovação: média ≥ 7,0 **e** checklist de conclusão de pelo menos 7 dos 9 módulos (os 7 devem incluir M04 e um entre M06/M08/M09). O instrutor pode adaptar pesos à calendário da turma; não avalie o que o lab não pede.
 

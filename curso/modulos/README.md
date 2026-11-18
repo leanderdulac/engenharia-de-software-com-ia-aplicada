@@ -1,6 +1,6 @@
 # Guias por módulo
 
-Cada arquivo é o **guia operacional** da pasta correspondente (objetivos, mapa de labs, checklist). O texto didático da aula — o que o aluno lê e o roteiro falado — está em [`../conteudo/`](../conteudo/README.md). Comece pelo [README do curso](../README.md) e pela [trilha](../trilha-aprendizado.md).
+Cada arquivo é o **guia operacional** da pasta correspondente (objetivos, mapa de labs, checklist). O texto didático da aula — o que o aluno lê e o roteiro falado — está em [`../conteudo/`](../conteudo/README.md). Comece pelo [README do curso](../README.md) e pela [trilha](../trilha-aprendizado.md). Checkpoint opcional de colaboração (M08+M09+HITL, não substitui C08/C09): [guia-checkpoint-colaboracao.md](../guia-checkpoint-colaboracao.md).
 
 | Guia | Aula (texto) | Pasta no repo |
 | --- | --- | --- |

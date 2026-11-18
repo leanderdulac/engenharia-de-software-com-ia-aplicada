@@ -72,3 +72,5 @@ Este pacote `curso/` **não** corrige código de exemplo (pedido explícito do t
 ## Material complementar agora no disco
 
 Há um recorte Apache-2.0 em [`referencia/llm-course/`](../referencia/llm-course/) (RAG/LoRA/produção + `auditar_dataset`). **Não** são os 19 módulos do curso companheiro. Labs Amplitude/TrialForge/MCP **não** foram alterados. Ver [ATRIBUICOES-llm-course.md](./ATRIBUICOES-llm-course.md).
+
+Há um checkpoint **opcional** de colaboração em [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md). É atividade didática de três fixtures, **não** o Collaborative Intelligence Benchmark (240 tarefas). Sem mídia nova.

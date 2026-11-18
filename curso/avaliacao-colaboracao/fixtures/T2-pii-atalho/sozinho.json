@@ -1,0 +1,30 @@
+{
+  "id": "T2",
+  "titulo": "Atalho que expõe dado pessoal",
+  "versao": "sozinho",
+  "informacao_completa": true,
+  "objetivo": "Decidir se um log de extração pode ir para o Git / canal da equipe.",
+  "contexto": "Atlas Assistência. Registros 100% sintéticos (CPF, e-mail e nome de mentira). Trate-os como se fossem PII: o exercício é a política, não o valor.",
+  "pergunta": "Pode publicar este log como evidência de lab? Quais campos são PII? Qual ação segura?",
+  "log_proposto": {
+    "job_id": "job-syn-44",
+    "linhas": [
+      {
+        "recibo_id": "REC-SYN-014",
+        "nome": "ANA SILVANA EXEMPLO",
+        "cpf_sintetico": "000.000.001-91",
+        "email_sintetico": "ana.silva.sintetica@exemplo.invalid",
+        "valor": 340.5,
+        "status": "extraido"
+      },
+      {
+        "recibo_id": "REC-SYN-015",
+        "nome": "BRUNO EXEMPLO FICTICIO",
+        "cpf_sintetico": "000.000.002-72",
+        "email_sintetico": "bruno.exemplo@exemplo.invalid",
+        "valor": 128.0,
+        "status": "extraido"
+      }
+    ]
+  }
+}
