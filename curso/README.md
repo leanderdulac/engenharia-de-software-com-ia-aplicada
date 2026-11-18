@@ -2,7 +2,7 @@
 
 Este diretório é o **ponto de entrada oficial** da pós-graduação neste repositório. Os módulos, labs e exemplos já existiam; aqui eles viram uma trilha ensinável, com ordem, critérios e mapa do que o aluno faz em cada pasta.
 
-Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~5,5–6 min por módulo, voz `pt-BR-FranciscaNeural`, rate `-18%`, com legendas WebVTT) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — uso para estudo, sem uso comercial.
+Vídeos de aula longos **não** estão neste repositório (IDs HeyGen ficam só como referência). As **narrações TTS** (~5,5–6 min por módulo, voz `pt-BR-FranciscaNeural`, rate `-18%`, com legendas WebVTT) estão em [`media/audios/tts/`](./media/audios/tts/). As **intros Grok Imagine** (~8 s por módulo) estão versionadas em [`media/videos/grok/`](./media/videos/grok/). O código, os prompts, os canvases e os labs são o material de estudo. Licença: [CC BY-NC-ND 4.0](../LICENSE.md) — estudo, sem uso comercial, **sem distribuir adaptações** até autorização dos titulares. Leitura operacional: [licencas/LEIA-ME.md](./licencas/LEIA-ME.md). A ilha Apache em `referencia/llm-course/` **não** libera o tronco.
 
 ## Mídia
 
@@ -16,7 +16,7 @@ O texto didático (aula completa, roteiro de narração e metadados) está em [`
 
 ## Preview local
 
-Para abrir o pacote no navegador (sidebar, markdown, capas, narrações TTS, intros Grok e índice de mídia): [preview/README.md](./preview/README.md).
+Para abrir o pacote no navegador (sidebar, markdown, capas, narrações TTS, intros Grok, PDFs das missões e índice de mídia): [preview/README.md](./preview/README.md). Há build estático para GitHub Pages (**não** publicado daqui; ND pode bloquear). Piloto acompanhado: [piloto/protocolo.md](./piloto/protocolo.md).
 
 ## Público-alvo
 
@@ -96,6 +96,7 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [trilha-aprendizado.md](./trilha-aprendizado.md) | Sequência, dependências, tempo por unidade |
 | [mapa-do-repositorio.md](./mapa-do-repositorio.md) | Pasta → aula/lab → o que o aluno faz |
 | [avaliacao.md](./avaliacao.md) | Rubricas, checkpoints, projetos finais |
+| [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md) | Checkpoint **opcional** C-COLAB (não substitui C08/C09) |
 | [guia-do-instrutor.md](./guia-do-instrutor.md) | Como conduzir, ênfases, traps, ordem das demos |
 | [guia-do-aluno.md](./guia-do-aluno.md) | Setup, ritmo, estudo, troubleshooting |
 | [glossario.md](./glossario.md) | Termos-chave da trilha |
@@ -104,7 +105,9 @@ Os Módulos 04–09 são casos cumulativos (snapshots ou ferramentas por unidade
 | [modulos/01.md](./modulos/01.md) … [09.md](./modulos/09.md) | Guia ensinável de cada módulo |
 | [conteudo/README.md](./conteudo/README.md) | Texto das aulas, roteiros de narração e `meta.json` |
 | [media/README.md](./media/README.md) | Capas, narrações TTS (`media/audios/tts/`), intros Grok Imagine (`media/videos/grok/`) e IDs HeyGen |
-| [preview/README.md](./preview/README.md) | Preview local do pacote no navegador |
+| [preview/README.md](./preview/README.md) | Preview local + build estático (Pages não ligado daqui) |
+| [piloto/protocolo.md](./piloto/protocolo.md) | Piloto acompanhado (proposta; sem dados de alunos) |
+| [licencas/LEIA-ME.md](./licencas/LEIA-ME.md) | NC/ND, fork vs distribuição, o que falta de autorização |
 
 ## Os nove módulos
 

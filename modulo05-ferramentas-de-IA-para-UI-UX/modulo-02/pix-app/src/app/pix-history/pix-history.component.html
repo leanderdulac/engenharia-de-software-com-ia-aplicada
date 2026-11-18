@@ -1,8 +1,8 @@
-<div class="pix-history-list">
+<div class="pix-history-list" role="list" aria-label="Extrato Pix">
   @for (transaction of transactions(); track transaction.id) {
-    <div class="transaction-item">
+    <div class="transaction-item" role="listitem">
       <div class="transaction-info">
-        <span class="material-symbols-outlined icon" [class.icon-received]="transaction.type === 'received'" [class.icon-sent]="transaction.type === 'sent'">
+        <span class="material-symbols-outlined icon" aria-hidden="true" [class.icon-received]="transaction.type === 'received'" [class.icon-sent]="transaction.type === 'sent'">
           {{ transaction.type === 'received' ? 'arrow_downward' : 'arrow_upward' }}
         </span>
         <div class="transaction-details">

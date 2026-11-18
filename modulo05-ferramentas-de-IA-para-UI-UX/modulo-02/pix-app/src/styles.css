@@ -21,6 +21,19 @@
     --spacing-extra-large: 32px;
 }
 
+.skip-link {
+    position: absolute;
+    left: 0.5rem;
+    top: -3rem;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    background: var(--color-primary);
+    color: #fff;
+}
+.skip-link:focus {
+    top: 0.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         /* Temas para Modo Escuro */

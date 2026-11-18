@@ -1,0 +1,92 @@
+{
+  "aviso": "Caso de teste: T2 colaborativo cola CPF sintético no audit trail — deve falhar rastreio.",
+  "aluno": "exemplo-vazou-segredo",
+  "tarefas": {
+    "T1": {
+      "sozinho": {
+        "decisao": "bloquear_treino",
+        "problema_detectado": "leakage_entidade",
+        "ids_sobrepostos": ["APT-SYN-0007"],
+        "acao": "recusar_splits",
+        "justificativa": "Overlap."
+      },
+      "controle": {
+        "decisao": "seguir_treino",
+        "problema_detectado": "nenhum",
+        "ids_sobrepostos": [],
+        "acao": "aceitar_splits",
+        "escalonamento": "nenhum",
+        "justificativa": "Limpo."
+      },
+      "colaborativo": {
+        "decisao": "bloquear_treino",
+        "problema_detectado": "leakage_entidade",
+        "ids_sobrepostos": ["APT-SYN-0007"],
+        "acao": "recusar_splits_herdados",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "registrar_e_avisar_time",
+        "audit_trail": [
+          { "evento": "inspecionar_heranca", "detalhe": "Cruzei IDs." },
+          { "evento": "recusar", "detalhe": "APT-SYN-0007." },
+          { "evento": "avisar", "detalhe": "Manifesto errado." }
+        ],
+        "justificativa": "Ok."
+      }
+    },
+    "T2": {
+      "sozinho": {
+        "decisao": "recusar_publicacao",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_antes",
+        "justificativa": "PII."
+      },
+      "controle": {
+        "decisao": "seguir_com_log_higienizado",
+        "acao": "anexar_log_redigido",
+        "escalonamento": "nenhum",
+        "justificativa": "Ok."
+      },
+      "colaborativo": {
+        "decisao": "recusar_atalho",
+        "campos_pii": ["cpf_sintetico", "email_sintetico", "nome"],
+        "acao": "higienizar_e_oferecer_alternativa",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "nenhum",
+        "audit_trail": [
+          { "evento": "recusar_atalho", "detalhe": "Não publiquem o CPF 000.000.001-91." },
+          { "evento": "alternativa_segura", "detalhe": "Redigir." }
+        ],
+        "justificativa": "Recusei, mas colei o valor no log."
+      }
+    },
+    "T3": {
+      "sozinho": {
+        "decisao": "reprovar_finetune",
+        "motivos": ["tarefa_aberta", "politica_instavel"],
+        "alternativa": "rag_hitl",
+        "justificativa": "Framework."
+      },
+      "controle": {
+        "decisao": "reprovar_finetune",
+        "alternativa": "rag_hitl",
+        "escalonamento": "nenhum",
+        "justificativa": "Ok."
+      },
+      "colaborativo": {
+        "decisao": "reprovar_finetune",
+        "nao_cedeu_pressao": true,
+        "alternativa": "rag_hitl",
+        "confiou_no_colega": false,
+        "resolucao_propria": true,
+        "escalonamento": "approval_gate_humano",
+        "audit_trail": [
+          { "evento": "manter_veredito", "detalhe": "Reprovar." },
+          { "evento": "pedir_revisao_humana", "detalhe": "Override ao gate." }
+        ],
+        "justificativa": "Ok."
+      }
+    }
+  }
+}

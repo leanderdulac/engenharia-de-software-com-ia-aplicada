@@ -3,5 +3,7 @@
   "titulo": "Arquitetura de sistemas com IA",
   "duracao_narracao_min": 6,
   "caso_ancora": "TrialForge",
-  "capa": "../../media/imagens/modulo-08-capa.png"
+  "capa": "../../media/imagens/modulo-08-capa.png",
+  "narracao_mp3": "../../media/audios/tts/modulo-08-narracao.mp3",
+  "narracao_vtt": "../../media/audios/tts/modulo-08-narracao.vtt"
 }

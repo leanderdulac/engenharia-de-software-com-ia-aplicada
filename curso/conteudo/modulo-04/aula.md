@@ -2,6 +2,8 @@
 
 # Módulo 04 — Criação de agentes autônomos
 
+**Narração (áudio + legenda):** [`modulo-04-narracao.mp3`](../../media/audios/tts/modulo-04-narracao.mp3) · [`modulo-04-narracao.vtt`](../../media/audios/tts/modulo-04-narracao.vtt). O MP3 (~6 min) **não** substitui o lab da trilha. Não avaliamos qualidade de voz aqui: a evidência no Git é o roteiro + VTT. HeyGen está fora do Git.
+
 Guia: [`curso/modulos/04.md`](../../modulos/04.md). Pasta: [`modulo04-criacao-de-agentes-autonomos-novo/`](../../../modulo04-criacao-de-agentes-autonomos-novo/) — leia o [`README.md`](../../../modulo04-criacao-de-agentes-autonomos-novo/README.md) **e** o `UNIDADE.md` de cada snapshot. Carga: ~36 h. Live SDD: [`lives/2026-05-27/`](../../../lives/2026-05-27/).
 
 A pasta antiga `modulo04-agentes-autonomos/` **não está neste clone**. Planos `unidade-N-plano-de-aula.html` também não. O que vale é o snapshot + `UNIDADE.md` (incluindo a seção “o que o roteiro planejou e não entrou”).
@@ -129,10 +131,11 @@ Não existe atalho “pulo da U2 para a U9”. Sem orçamento de contexto (U5) o
 
 Entregue um dossiê curto do Mercadinho:
 
+0. **C04.1 / U1.** Link da spec + diff da feature via SDD (Notas API), na pasta do snapshot que você entrega.
 1. Tabela da arena (U2) **ou** print do bench — acerto no store.
 2. Um `POST /chat` (U3+) com tool visível no trace.
 3. Evidência de limite: sumarização da conversa longa **ou** 202 + aprovação.
 4. Print da war room **ou** evento `handoff`.
 5. Parágrafo HITL: uma ação que o OpsPilot **não** executaria sozinho em produção, e por quê.
 
-Cite o `UNIDADE.md` do snapshot que você rodou. Se o arquivo lista um desvio, não finja que a feature está lá.
+Cite o `UNIDADE.md` do snapshot que você rodou (U8 ou U9 se for o projecto âncora). Se o arquivo lista um desvio, não finja que a feature está lá. `.env.example` existe em U2–U5.
