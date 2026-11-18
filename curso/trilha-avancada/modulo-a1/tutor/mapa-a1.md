@@ -1,7 +1,7 @@
 # Mapa de subhabilidades — A1 (tokens, logits e amostragem)
 
 **Tema:** tokenização, softmax, temperature, top-k, top-p, laço  
-**Fontes:** `modulo-a1/aula.md`, `lab/`, `checkpoint-ca1.md`. A0 esqueleto. Licença pendente da trilha.  
+**Fontes:** `modulo-a1/aula.md`, `lab/`, `checkpoint-ca1.md`. A0 esqueleto. Licença: todos os direitos reservados.  
 **Tronco citado, não copiado:** M01 seção “LLM: amostragem, não oráculo”; `exemplo-04`.
 
 ## Prompt de início
