@@ -3,12 +3,17 @@
 # CUDA (Colab T4): o Colab já traz torch; instale só o restante, ou
 #   pip install torch --index-url https://download.pytorch.org/whl/cu124
 #
-# Versões conferidas na VM de autoria do A2 e do A11 (12/11/2026):
+# Versões conferidas na VM de autoria do A2, A11 e A8 (12/11/2026):
 #   torch 2.15.0+cpu, transformers 5.22.2, pytest 9.2.0
-# APIs do transformers mudam; se output_attentions quebrar, fixe a versão.
+#   trl 1.17.1, peft 0.21.2, datasets 5.2.0
+# APIs do transformers/trl mudam; se DPOConfig quebrar, fixe a versão.
+# ORPO e SimPO neste trl vivem em trl.experimental — o lab marca isso no JSON.
 
 torch>=2.2
 transformers>=4.44
 accelerate>=0.30
 safetensors>=0.4
 pytest>=8.0
+trl>=0.14
+peft>=0.11
+datasets>=2.20
