@@ -34,7 +34,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 | [A0](./modulo-a0/README.md) | Bancada: ambiente, medição e orçamento de GPU | 2 | M09 (C09.3, C09.4) | **publicado** | versões, memória, `bancada.json` |
 | [A1](./modulo-a1/README.md) | Por dentro do LLM: tokens, logits e amostragem | 4 | A0 (ver nota) | **publicado** | tokenização, softmax, top-p |
 | [A2](./modulo-a2/README.md) | O bloco Transformer, peça por peça | 6 | A1 (ver nota) | **publicado** | atenção, QKV, máscaras, bloco, decoder-only |
-| [A3](./modulo-a3/README.md) | Treino por dentro | 6 | A2 | esqueleto | shift, CE, LR, accumulation, precisão |
+| [A3](./modulo-a3/README.md) | Treino por dentro | 6 | A2 | **publicado** | shift, CE, LR, accumulation, precisão |
 | [A4](./modulo-a4/README.md) | Dados para SFT no nível do token | 4 | A1 + M09 M2 | esqueleto | chat template, máscara, EOS |
 | [A5](./modulo-a5/README.md) | SFT sério | 6 | A3, A4 | esqueleto | assistant-only, esquecimento, tracking |
 | [A6](./modulo-a6/README.md) | LoRA na prática de produção | 5 | A5 | esqueleto | alvos, merge, multi-adapter, GGUF |
@@ -73,6 +73,7 @@ python modulo-a9/lab/lab_a9.py           # A9.1–A9.5 → modulo-a9/saidas/ca9.
 python modulo-a10/lab/lab_a10.py         # A10.1–A10.6 → modulo-a10/saidas/ca10.json
 python modulo-a1/lab/lab_a1.py           # A1.1–A1.2 → modulo-a1/saidas/ca1.json
 python modulo-a0/lab/lab_a0.py           # A0.1 → modulo-a0/saidas/ca0.json
+python modulo-a3/lab/lab_a3.py           # A3.1–A3.3 → modulo-a3/saidas/ca3.json
 python -m pytest -q                      # A2 + A11 + A8 + A9 + A10 + A1 + A0; inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
 ```
@@ -89,4 +90,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Próximos: **A3 → A4 → A5** (treino e SFT), **A6**, **A7**, **A12**.
+Próximos: **A4 → A5** (dados e SFT), **A6**, **A7**, **A12**.

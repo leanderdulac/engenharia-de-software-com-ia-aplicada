@@ -1,7 +1,14 @@
 # A3 — Treino por dentro
 
-**Status:** esqueleto (não publicado). **Carga prevista:** 6 h. **Pré-requisito previsto:** A2.
+**Status:** publicado. **Carga:** ~6 h. **Pré-req:** A2.
 
-Fecha o que o M09 *usa* nos notebooks sem abrir: deslocamento de labels, cross-entropy no próximo token, LR e schedule, accumulation, clipping, fp32/fp16/bf16, orçamento de memória (pesos + gradientes + Adam + ativações).
+Fecha: shift, CE, accumulation, clipping, envelope. TinyStories e T4 `nao_calibrado`. MiniGPT do llm-course **não** copiado.
 
-**Labs previstos:** MiniGPT de poucos milhões no TinyStories (CA3.1); prova de que accumulation equivale a batch maior com dropout off (CA3.2); planilha de memória vs pico medido (CA3.3). Reusa o pôster `gpu-cuda-anatomia-poster.html` do M09 como leitura, sem duplicá-lo.
+```bash
+python modulo-a3/lab/lab_a3.py
+python -m pytest modulo-a3/testes -q
+```
+
+Saída: `modulo-a3/saidas/ca3.json`. Autoria: [`execucao/ca3-autoria.json`](./execucao/ca3-autoria.json).
+
+- Aula [`aula.md`](./aula.md) · CA [`checkpoint-ca3.md`](./checkpoint-ca3.md) · tutor [`tutor/mapa-a3.md`](./tutor/mapa-a3.md) · gabarito [`gabarito-instrutor/`](./gabarito-instrutor/)
