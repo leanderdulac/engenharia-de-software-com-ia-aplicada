@@ -1,0 +1,419 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "torch": "2.15.0+cpu",
+    "transformers": "5.22.2",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794491244
+  },
+  "honestidade": {
+    "a3_a5_a6": "nao_publicados",
+    "moe_brinquedo": "camada avulsa, nao MiniGPT do A3",
+    "ptq": "SmolLM2-135M, nao o SFT do A5",
+    "lora_moe": "CA11.3 nao executado (A6 ausente, T4 ausente); ponte conceitual: LoRA do M09",
+    "t4_vllm_olmoe": "nao_calibrado"
+  },
+  "a11_1": {
+    "exemplo_aula": {
+      "logits": [
+        [
+          2.0,
+          0.0,
+          -1.0
+        ],
+        [
+          2.0,
+          0.5,
+          -1.0
+        ]
+      ],
+      "probs": [
+        [
+          0.8437947034835815,
+          0.11419519037008286,
+          0.04201006516814232
+        ],
+        [
+          0.785597026348114,
+          0.17529039084911346,
+          0.03911257162690163
+        ]
+      ],
+      "top_idx": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "gates": [
+        [
+          0.8807970285415649,
+          0.11920291185379028
+        ],
+        [
+          0.8175744414329529,
+          0.18242551386356354
+        ]
+      ],
+      "f": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "p_medio": [
+        0.8146958351135254,
+        0.14474278688430786,
+        0.04056131839752197
+      ],
+      "aux": 2.8783159255981445
+    },
+    "comparacao": {
+      "sem_aux": {
+        "aux_coef": 0.0,
+        "vies_expert0": 2.5,
+        "passos": 250,
+        "f_final": [
+          1.0,
+          0.2578125,
+          0.0,
+          0.279296875,
+          0.34375,
+          0.0,
+          0.0,
+          0.119140625
+        ],
+        "f_max": 1.0,
+        "f_min": 0.0,
+        "entropia": 1.356269359588623,
+        "aux_ultimo": 4.431628704071045,
+        "mse_ultimo": 0.00017858990759123117,
+        "perda_ultimo": 0.00017858990759123117,
+        "parametros": {
+          "router": 264,
+          "um_expert": 4192,
+          "todos_experts": 33536,
+          "total": 33800,
+          "ativos_por_token": 8648,
+          "fracao_ativa": 0.25585798816568045,
+          "n_experts": 8,
+          "k": 2
+        }
+      },
+      "com_aux": {
+        "aux_coef": 0.05,
+        "vies_expert0": 2.5,
+        "passos": 250,
+        "f_final": [
+          0.478515625,
+          0.236328125,
+          0.251953125,
+          0.224609375,
+          0.197265625,
+          0.185546875,
+          0.197265625,
+          0.228515625
+        ],
+        "f_max": 0.478515625,
+        "f_min": 0.185546875,
+        "entropia": 2.0264627933502197,
+        "aux_ultimo": 2.0168824195861816,
+        "mse_ultimo": 0.00045104091987013817,
+        "perda_ultimo": 0.10129516571760178,
+        "parametros": {
+          "router": 264,
+          "um_expert": 4192,
+          "todos_experts": 33536,
+          "total": 33800,
+          "ativos_por_token": 8648,
+          "fracao_ativa": 0.25585798816568045,
+          "n_experts": 8,
+          "k": 2
+        }
+      },
+      "colapso_sem_aux": true,
+      "mais_equilibrado_com_aux": true
+    },
+    "histograma_sem": "E00 |████████████████████| 1.000\nE01 |█████               | 0.258\nE02 |                    | 0.000\nE03 |██████              | 0.279\nE04 |███████             | 0.344\nE05 |                    | 0.000\nE06 |                    | 0.000\nE07 |██                  | 0.119",
+    "histograma_com": "E00 |████████████████████| 0.479\nE01 |██████████          | 0.236\nE02 |███████████         | 0.252\nE03 |█████████           | 0.225\nE04 |████████            | 0.197\nE05 |████████            | 0.186\nE06 |████████            | 0.197\nE07 |██████████          | 0.229",
+    "segundos": 2.35
+  },
+  "a11_2": {
+    "config_granite": {
+      "modelo": "ibm-granite/granite-3.1-1b-a400m-instruct",
+      "model_type": "granitemoe",
+      "arquiteturas": [
+        "GraniteMoeForCausalLM"
+      ],
+      "hidden_size": 1024,
+      "intermediate_size": 512,
+      "num_hidden_layers": 24,
+      "num_attention_heads": 16,
+      "num_local_experts": 32,
+      "num_experts_per_tok": 8,
+      "fracao_experts_ativos": 0.25,
+      "output_router_logits": false,
+      "router_aux_loss_coef": 0.0
+    },
+    "config_olmoe_somente_card": {
+      "modelo": "allenai/OLMoE-1B-7B-0924-Instruct",
+      "model_type": "olmoe",
+      "arquiteturas": [
+        "OlmoeForCausalLM"
+      ],
+      "hidden_size": 2048,
+      "intermediate_size": 1024,
+      "num_hidden_layers": 16,
+      "num_attention_heads": 16,
+      "num_local_experts": 64,
+      "num_experts_per_tok": 8,
+      "fracao_experts_ativos": 0.125,
+      "output_router_logits": false,
+      "router_aux_loss_coef": 0.01
+    },
+    "olmoe_status": "nao_calibrado_cpu_7b",
+    "status": "ok",
+    "num_parameters": 1334628352,
+    "device": "cpu",
+    "segundos_carga_e_forward": 42.855,
+    "uso_por_dominio": {
+      "auto": [
+        0.034516241401433945,
+        0.031205860897898674,
+        0.035222455859184265,
+        0.030985169112682343,
+        0.02758651040494442,
+        0.02899894118309021,
+        0.030720338225364685,
+        0.029087217524647713,
+        0.0399894081056118,
+        0.03588453307747841,
+        0.027674788609147072,
+        0.024717513471841812,
+        0.029793431982398033,
+        0.037826623767614365,
+        0.027763064950704575,
+        0.02617408148944378,
+        0.02462923713028431,
+        0.030499646440148354,
+        0.03407485783100128,
+        0.033898305147886276,
+        0.02237817831337452,
+        0.03041137009859085,
+        0.02864583395421505,
+        0.02273128554224968,
+        0.032838981598615646,
+        0.03963629901409149,
+        0.03870939090847969,
+        0.02652718871831894,
+        0.03138241544365883,
+        0.024099575355648994,
+        0.03928319364786148,
+        0.04210805147886276
+      ],
+      "saude": [
+        0.03326454386115074,
+        0.031937893480062485,
+        0.036360062658786774,
+        0.03203616291284561,
+        0.02668042480945587,
+        0.028989780694246292,
+        0.027319181710481644,
+        0.02908805012702942,
+        0.03665487468242645,
+        0.03626179322600365,
+        0.030218159779906273,
+        0.026778694242239,
+        0.03095518797636032,
+        0.03955385088920593,
+        0.028547562658786774,
+        0.025648584589362144,
+        0.02820361591875553,
+        0.031643081456422806,
+        0.03306800499558449,
+        0.028301887214183807,
+        0.022405659779906273,
+        0.02648388408124447,
+        0.029038915410637856,
+        0.021324684843420982,
+        0.03616352379322052,
+        0.03827633708715439,
+        0.039897799491882324,
+        0.024321934208273888,
+        0.034099843353033066,
+        0.023683175444602966,
+        0.03857114911079407,
+        0.044221699237823486
+      ],
+      "codigo": [
+        0.03838315233588219,
+        0.02819293551146984,
+        0.03606204688549042,
+        0.04030797258019447,
+        0.02864583395421505,
+        0.028023097664117813,
+        0.029891304671764374,
+        0.02213541604578495,
+        0.041326992213726044,
+        0.03560914844274521,
+        0.027117300778627396,
+        0.026834238320589066,
+        0.027004076167941093,
+        0.0442708320915699,
+        0.025362318381667137,
+        0.023097826167941093,
+        0.024796195328235626,
+        0.029042119160294533,
+        0.03209918364882469,
+        0.03974184766411781,
+        0.026437953114509583,
+        0.027740037068724632,
+        0.02502264454960823,
+        0.023324275389313698,
+        0.03657155856490135,
+        0.027853261679410934,
+        0.032042574137449265,
+        0.02909873239696026,
+        0.03294837102293968,
+        0.029042119160294533,
+        0.038722824305295944,
+        0.04325181245803833
+      ]
+    },
+    "tokens_por_dominio": {
+      "auto": 118,
+      "saude": 106,
+      "codigo": 92
+    },
+    "l1_auto_saude": 0.05211830884218216,
+    "l1_auto_codigo": 0.09921358525753021,
+    "l1_auto_saude_permutado": 0.20053666830062866,
+    "hipotese": "se Auto e Saúde usam experts de forma diferente, L1(Auto,Saúde) deve ser maior que L1(Auto, permutação de Saúde) com alguma folga; se não, a especialização por domínio *nesta* amostra não aparece.",
+    "especializacao_aparente": false,
+    "segundos_lab": 43.546
+  },
+  "a11_5": {
+    "passos": 400,
+    "mse_fp32": 0.00013823543849866837,
+    "mse_ptq_depois": 0.00018885447934735566,
+    "mse_qat": 0.00036463284050114453,
+    "qat_melhor_que_ptq": false,
+    "ptq_pior_que_fp32": true,
+    "segundos": 0.342
+  },
+  "a11_6": {
+    "modelo": "HuggingFaceTB/SmolLM2-135M",
+    "n_novos": 8,
+    "prefixo": 11,
+    "generate_use_cache_true_s": 0.16447048999998515,
+    "generate_use_cache_false_s": 0.25252206899995144,
+    "cache_mais_rapido": true,
+    "razao_off_sobre_on": 1.5353639975169664,
+    "batch_forward": {
+      "1": {
+        "segundos": 0.04069625400006771,
+        "tokens": 32,
+        "tokens_por_s": 786.3131579615844
+      },
+      "4": {
+        "segundos": 0.08680616399988139,
+        "tokens": 128,
+        "tokens_por_s": 1474.5496644705427
+      },
+      "8": {
+        "segundos": 0.16606628099998488,
+        "tokens": 256,
+        "tokens_por_s": 1541.553158524838
+      }
+    },
+    "vllm_continuous_batching": "nao_calibrado_cpu",
+    "llama_server": "nao_calibrado",
+    "ollama": "leitura_M01_M08_M09",
+    "prova_minidecoder": {
+      "greedy_ids_iguais": true,
+      "delta_attn_cache_vs_full": 2.384185791015625e-07,
+      "cache_attn_ok": true
+    },
+    "segundos": 2.786
+  },
+  "a11_4": {
+    "modelo": "HuggingFaceTB/SmolLM2-135M",
+    "ancoragem": "SmolLM2-135M (A5/A6 ausentes; LoRA do M09 é a ponte conceitual, não os pesos)",
+    "n_frases_ppl": 16,
+    "fp32": {
+      "ppl": 217.4980450811796,
+      "bytes": 538060288,
+      "latencia": {
+        "segundos_mediana": 0.16743283199980397,
+        "tokens_por_s": 47.780354094526494,
+        "corridas": 2,
+        "n_novos": 8,
+        "use_cache": true,
+        "prefixo": 16
+      },
+      "segundos_bloco": 8.597
+    },
+    "int8_dinamico": {
+      "ppl": 1060.7854448244682,
+      "bytes": 145237536,
+      "latencia": {
+        "segundos_mediana": 0.10859664800000246,
+        "tokens_por_s": 73.66709882242239,
+        "corridas": 2,
+        "n_novos": 8,
+        "use_cache": true,
+        "prefixo": 16
+      },
+      "segundos_bloco": 2.462,
+      "nota": "quantize_dynamic em todas as Linear (inclui lm_head)",
+      "excluir_lm_head": false
+    },
+    "int8_dinamico_sem_lm_head": {
+      "ppl": 950.4521831374268,
+      "bytes": 117478940,
+      "latencia": {
+        "segundos_mediana": 0.11603955300006419,
+        "tokens_por_s": 68.94200979898272,
+        "corridas": 2,
+        "n_novos": 8,
+        "use_cache": true,
+        "prefixo": 16
+      },
+      "segundos_bloco": 1.929,
+      "nota": "quantize_dynamic em Linear, CPU; lm_head em fp32",
+      "excluir_lm_head": true,
+      "lm_head_protegidos": 1
+    },
+    "int4_grupo64_fake": {
+      "ppl": 506.1915990034364,
+      "bytes_empacotados_estimados": 56401920,
+      "matrizes": 210,
+      "latencia": {
+        "segundos_mediana": 0.15973984900006144,
+        "tokens_por_s": 50.08142958740948,
+        "corridas": 2,
+        "n_novos": 8,
+        "use_cache": true,
+        "prefixo": 16
+      },
+      "segundos_bloco": 1.039,
+      "nota": "fake-quant: compute em fp32; bytes são o empacotamento teórico"
+    },
+    "gguf_llama_cpp": "nao_calibrado",
+    "bitsandbytes_llm_int8": "nao_calibrado_cpu",
+    "nf4_qlora": "leitura_M09",
+    "segundos": 14.027
+  },
+  "a11_3_lora_moe": {
+    "status": "nao_executado",
+    "motivo": "A6 não publicado; T4 não disponível nesta VM; LoRA do M09 permanece a ponte"
+  },
+  "segundos_total": 54.712
+}
