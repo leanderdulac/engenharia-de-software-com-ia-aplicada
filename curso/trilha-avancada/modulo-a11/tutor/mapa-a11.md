@@ -7,7 +7,7 @@
 - Checkpoint: `curso/trilha-avancada/modulo-a11/checkpoint-ca11.md`
 - Tronco citado, não copiado: M08 (MoE ≠ multiagente), M09 (LoRA / NF4 / harness)
 - A2 citado: FFN denso, GQA, máscara causal
-- Licença da trilha: pendente — [`LICENSE-PENDENTE.md`](../../LICENSE-PENDENTE.md). Este mapa parafraseia tópicos.
+- Licença da trilha: todos os direitos reservados — [`LICENSE.md`](../../LICENSE.md). Este mapa parafraseia tópicos.
 
 **Como usar:** cole `tutor/tutor-socratico-ptbr.md` **e** este mapa no assistente. Os níveis 0–5 são do tutor; **não** substituem CA11. O tutor **não** deve revelar `gabarito-instrutor/` nem inventar PPL, L1 ou speedup.
 

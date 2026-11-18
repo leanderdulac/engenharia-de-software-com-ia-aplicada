@@ -5,9 +5,9 @@ TRILHA = Path(__file__).resolve().parents[2]
 
 def test_licenca_todos_os_direitos_reservados():
     lic = TRILHA / "LICENSE.md"
-    pendente = TRILHA / "LICENSE-PENDENTE.md"
+    pendente = TRILHA / "LICENSE.md"
     assert lic.is_file(), "LICENSE.md da trilha precisa existir"
-    assert not pendente.exists(), "LICENSE-PENDENTE.md foi substituído; não republicar"
+    assert not pendente.exists(), "LICENSE.md foi substituído; não republicar"
     t = lic.read_text(encoding="utf-8")
     assert "Todos os direitos reservados" in t
     assert "Leandro França de Mello" in t
