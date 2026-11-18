@@ -23,9 +23,9 @@ O que o tronco já cobre bem (dados, SFT, LoRA/QLoRA, harness, governança, deci
 | M08: tiering, eval gate, “MoE ≠ multiagente” numa nota | A11: MoE de verdade (router, experts, quantização, KV cache, serving). |
 | M09: decision framework, JSONL, LoRA/QLoRA, harness, GRPO *sem* atualizar pesos | A3–A6, A8–A10, A12: treino por dentro, máscara do assistant, LoRA de produção, DPO/família, GRPO que treina, destilação, capstone da trilha. |
 
-Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A5 produz π_SFT; A8/A9/A10 o reusam se o adapter existir (`TRILHA_PI_SFT=0` desliga). A trilha completa (A0–A12) está publicada nesta pilha. A13 é módulo **opcional extra**, empilhado depois do A12.
+Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A5 produz π_SFT; A8/A9/A10 o reusam se o adapter existir (`TRILHA_PI_SFT=0` desliga). A trilha completa (A0–A12) está publicada nesta pilha. A13 e A14 são módulos **opcionais extra**. Lista de leitura: [`leituras.md`](./leituras.md).
 
-## Índice dos 14 módulos
+## Índice dos 15 módulos
 
 Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Horas = estudo + lab do aluno, não horas de vídeo.
 
@@ -45,12 +45,13 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 | [A11](./modulo-a11/README.md) | MoE, quantização e serving | 9 | A2, A6 (ver nota) | **publicado** | experts, PTQ/QAT, KV cache |
 | [A12](./modulo-a12/README.md) | Projeto final da trilha | 10 | A5 + dois de A8–A11 | **publicado** | capstone sobre o ADR do M09 |
 | [A13](./modulo-a13/README.md) | Generalização clássica: Vapnik, VC e SVM — e onde ela falha em LLMs | 4 | A5 | **publicado** (opcional extra) | ERM, VC, SVM, Zhang 2017, bound vácuo |
+| [A14](./modulo-a14/README.md) | Medindo generalização na prática | 4 | A5 (A13 recom.) | **publicado** (opcional extra) | hold-out, vazamento, k-fold, IC, viés–variância |
 
-**Total previsto A0–A12:** 78 h. **A13:** +4 h opcionais, **fora** das 78 h e das 240 h obrigatórias.
+**Total previsto A0–A12:** 78 h. **A13:** +4 h. **A14:** +4 h. Ambos **fora** das 78 h e das 240 h obrigatórias.
 
 ## Caixas de estudo de caso (opcional, ~30 min)
 
-Não são módulo. Sem CA. **Fora** das 78 h, das +4 h do A13 e das 240 h. Índice: [`caixas/README.md`](./caixas/README.md).
+Não são módulo. Sem CA. **Fora** das 78 h, das horas do A13/A14 e das 240 h. Índice: [`caixas/README.md`](./caixas/README.md). Leitura: [`leituras.md`](./leituras.md).
 
 | Caixa | Tempo | Liga |
 | --- | ---: | --- |
@@ -72,7 +73,7 @@ A1 oficialmente pede A0; A0 agora está publicado (CPU, SmolLM2-135M, T4 `nao_ca
 
 A4 oficialmente pede A1 + M09 M2. JSONL do tronco e oasst1 não são lidos: diálogos originais no espírito Amplitude; template ASCII declarado (o base SmolLM2 não traz `chat_template`).
 
-## Como rodar o que já existe (A0–A13)
+## Como rodar o que já existe (A0–A14)
 
 ```bash
 cd curso/trilha-avancada
@@ -91,12 +92,13 @@ python modulo-a6/lab/lab_a6.py           # A6.1–A6.4 → modulo-a6/saidas/ca6.
 python modulo-a7/lab/lab_a7.py           # A7.1 → modulo-a7/saidas/ca7.json
 python modulo-a12/lab/lab_a12.py         # A12.1–A12.2 → modulo-a12/saidas/ca12.json
 python modulo-a13/lab/lab_a13.py         # A13.1–A13.5 → modulo-a13/saidas/ca13.json
+python modulo-a14/lab/lab_a14.py         # A14.1–A14.6 → modulo-a14/saidas/ca14.json
 python -m pytest -q                      # inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
 python -m pytest caixas/testes -q        # links/âncoras da caixa /teamwork
 ```
 
-Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md), [`modulo-a13/README.md`](./modulo-a13/README.md), caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU. A13.3 tenta mean-pool SmolLM2; se falhar, declara TF-IDF.
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md), [`modulo-a13/README.md`](./modulo-a13/README.md), [`modulo-a14/README.md`](./modulo-a14/README.md), caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md), leituras [`leituras.md`](./leituras.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU. A13.3 tenta mean-pool SmolLM2; se falhar, declara TF-IDF.
 
 ## Tutor socrático (opcional)
 
@@ -108,4 +110,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Trilha A0–A13 nesta pilha, mais a caixa opcional `/teamwork`. Sem merge.
+Trilha A0–A14 nesta pilha, caixa `/teamwork` e [`leituras.md`](./leituras.md). Sem merge.
