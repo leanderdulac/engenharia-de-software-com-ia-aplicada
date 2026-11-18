@@ -1,7 +1,7 @@
 # Mapa de subhabilidades — A9 (RL até GRPO)
 
 **Tema:** REINFORCE, PPO, GRPO, recompensa verificável  
-**Fontes:** `modulo-a9/aula.md`, `lab/`, `checkpoint-ca9.md`. M09 GRPO demo citado, não copiado. A8 citado (DPO off-policy). Licença pendente.
+**Fontes:** `modulo-a9/aula.md`, `lab/`, `checkpoint-ca9.md`. M09 GRPO demo citado, não copiado. A8 citado (DPO off-policy). Licença: todos os direitos reservados.
 
 **Como usar:** cole `tutor/tutor-socratico-ptbr.md` **e** este mapa. Níveis 0–5 do tutor **não** substituem CA9. Não revelar gabarito nem inventar recompensa.
 
