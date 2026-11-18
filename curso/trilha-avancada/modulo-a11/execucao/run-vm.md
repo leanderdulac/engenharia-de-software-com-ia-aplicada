@@ -88,7 +88,7 @@ Há `UserWarning`/`DeprecationWarning` de `torch.ao.quantization` e `torch.quant
 - CPU only; T4/Colab **não** foi usada.
 - vLLM, llama-server, GGUF, bitsandbytes, NF4 runtime: **não calibrados**.
 - OLMoE-1B-7B pesos **não** carregados (~7B bf16).
-- CA11.3 LoRA-MoE **não executado** (A6 ausente).
+- CA11.3 LoRA-MoE **executado** depois do A6 (2026-11-18): brinquedo experts LoRA 6144, MSE 0,034391 → 0,001065; router 160, MSE 0,034391 → 0,030704; Granite meta 48 tensores 3D, LoRA r=4 experts 11 010 048; treino Granite/T4 `nao_calibrado`.
 - INT4 não acelera (compute fp32). INT8 PPL pior que INT4 neste recorte porque o dinâmico quantiza `lm_head`.
 - QAT no MLP **não** ganhou do PTQ (400 passos, semente 0).
 - Especialização Auto vs Saúde **não** apareceu (`especializacao_aparente=false`).

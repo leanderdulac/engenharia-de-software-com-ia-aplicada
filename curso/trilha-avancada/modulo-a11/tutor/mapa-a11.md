@@ -13,7 +13,7 @@
 
 **Ordem sugerida de foco:** A → B → C → D → E → F.
 
-A3, A5 e A6 **não** foram publicados. Não trate MiniGPT, SFT da trilha ou LoRA-em-expert como pré-requisito feito. CA11.3 não se cobra.
+A6 **foi** publicado. CA11.3 cobra LoRA no brinquedo (experts vs router) e a observação de que o Granite empacota experts em tensores 3D. Treino Granite/T4 não se inventa.
 
 ---
 
@@ -108,7 +108,7 @@ Comece pelo diagnóstico e mostre o mapa inicial.
   2. Por que KV de tamanhos diferentes quebra o batch denso ingênuo?
   3. O que o campo `nao_calibrado_cpu` está te proibindo de escrever no relatório?
   4. Ollama no M09 já fazia quantização. Qual pergunta nova o A11 te deixa fazer ao servidor?
-  5. CA11.3 não rodou. Que frase honesta cabe no parágrafo — e qual não cabe?
+  5. CA11.3 rodou no brinquedo. O Granite tem experts 3D. Que frase honesta cabe — e qual (inventar Δ na T4) não cabe?
 - **Caso-limite (nível 5):** o aluno entrega “vLLM 2–4×” copiado do abstract do paper. Como redirecionar para o JSON sem recitar Kwon et al.?
 - **Seção-fonte:** aula.md §8; Kwon 2309.06180; CA11.6 servidores.
 - **Prepara para:** **CA11** parágrafo de honestidade; futuro A8 não depende disto.

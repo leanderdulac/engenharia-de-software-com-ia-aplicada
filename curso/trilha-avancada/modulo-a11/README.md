@@ -2,7 +2,7 @@
 
 **Status:** publicado. **Carga:** ~9 h. **Trilha:** opcional, fora das 240 h.
 
-**Pré-requisito oficial (plano):** A2 e A6. **Na prática neste PR:** A2 publicado; A3/A5/A6 ainda esqueleto. MoE é camada avulsa; PTQ ancora no SmolLM2-135M (A2) e no LoRA/NF4 do M09 como ponte conceitual. CA11.3 (LoRA em experts) **não executa**.
+**Pré-requisito oficial (plano):** A2 e A6. A6 está publicado nesta pilha. MoE de brinquedo continua avulso (não MiniGPT). PTQ ancora no SmolLM2-135M (A2). CA11.3 **executa** LoRA experts vs router no brinquedo; Granite = inspeção meta (tensores 3D); treino Granite/T4 `nao_calibrado`.
 
 Fecha, com aula e lab, o que o tronco só cita: router top-*k*, aux loss / colapso, inspeção de um MoE pequeno real, PTQ INT8/INT4 weight-only, QAT com STE, KV cache e batching medidos, servidores de inferência como leitura.
 

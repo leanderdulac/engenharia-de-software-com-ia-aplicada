@@ -9,7 +9,17 @@ Entregue um único pacote:
 
 O gabarito do instrutor **não** faz parte desta entrega. Se você abriu `gabarito-instrutor/`, declare.
 
-CA11.3 **não é exigido**: A6 não foi publicado. O JSON deve trazer `a11_3_lora_moe.status = nao_executado`. Inventar um LoRA-MoE zera o item de honestidade.
+CA11.3 **é exigido** (A6 publicado): `a11_3_lora_moe.status = ok`, com MSE/params do brinquedo. Inventar treino no Granite ou número de T4 zera honestidade. Granite `treino=nao_calibrado_cpu` e `t4=nao_calibrado` são o desenho.
+
+## CA11.3 — LoRA em experts vs router
+
+| Critério | Campo | Limiar |
+| --- | --- | --- |
+| Rodou | `a11_3_lora_moe.status` | **ok** (não `nao_executado`) |
+| Experts > router | `brinquedo.lora_experts_mais_params` | **true** |
+| Loss cai nos experts | `brinquedo.experts.mse_caiu` | **true** |
+| Granite 3D | `granite.peft_linear_nao_casa_experts_3d` | **true** se `granite.status=ok_meta` |
+| Sem treino Granite/T4 | `granite.treino`, `t4` | contém `nao_calibrado` |
 
 ## CA11.1 — MoE de brinquedo
 
@@ -76,7 +86,7 @@ Se `cache_mais_rapido` for false em CPU, **declare**. Inventar speedup zera.
 
 | Nota | Evidência |
 | --- | --- |
-| 9–10 | JSON reproduzível; CA11.1 flags; config 32/8; PTQ com três PPL; prova de cache; parágrafo honesto sobre CA11.3 e `nao_calibrado` |
+| 9–10 | JSON reproduzível; CA11.1 flags; config 32/8; PTQ com três PPL; prova de cache; CA11.3 com params/MSE reais; Granite 3D e T4 `nao_calibrado` |
 | 7–8 | Limiares ok; parágrafo vago ou Granite pulado sem citar o `erro` |
 | 5–6 | JSON de outra pessoa / números digitados; PPL inventada; vLLM “medido” sem campo no JSON |
 | 0–4 | Sem JSON; colapso forçado no editor; gabarito colado como medição |

@@ -51,7 +51,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 
 A ordem de *construção* (A2 → A11 → A8 → A9 → A10 → A1 → A0) entregou primeiro a lacuna maior. A0 agora existe: versões, p50/p95, envelope. A1 já preenchia o sampler sem `bancada.json`; quem cursar na ordem pedagógica começa pelo A0.
 
-A11 oficialmente pede A6; A6 agora está publicado (alvos/merge/multi-adapter; GGUF `nao_calibrado`). CA11.3 (LoRA em experts MoE) continua sem executar. T4/vLLM não calibrados.
+A11 oficialmente pede A6; A6 agora está publicado (alvos/merge/multi-adapter; GGUF `nao_calibrado`). CA11.3 **executa** LoRA experts vs router no brinquedo; Granite packed 3D inspecionado em meta; treino Granite/T4/`vLLM` `nao_calibrado`.
 
 A8 oficialmente pede A5/A6; ambos publicados (π_SFT opcional). DPO parte do adapter A5 se existir. Pares originais no padrão do M09 (sem copiar o JSONL). T4/harness/IC não calibrados.
 
