@@ -26,7 +26,7 @@ Leitura extra opcional, **não vendored nesta pasta**:
 - Crédito: [`curso/ATRIBUICOES-llm-course.md`](../ATRIBUICOES-llm-course.md)
 - SPDX e NOTICE originais: [`referencia/llm-course/LICENSE`](../../referencia/llm-course/LICENSE), [`referencia/llm-course/NOTICE`](../../referencia/llm-course/NOTICE)
 
-O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A0–A13 (publicados nesta pasta) são originais desta trilha. A6 aponta o módulo 06 do llm-course (LoRA) sem copiá-lo. O ADR do A12 não copia o do M09. A13 não copia labs sklearn de terceiros.
+O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A0–A14 (publicados nesta pasta) são originais desta trilha. A6 aponta o módulo 06 do llm-course (LoRA) sem copiá-lo. O ADR do A12 não copia o do M09. A13 não copia labs sklearn de terceiros.
 
 ## Modelos e tokenizers (Hugging Face)
 
@@ -42,7 +42,7 @@ Os labs baixam pesos em tempo de execução. Cada modelo traz a licença no card
 
 ## scikit-learn (BSD-3-Clause)
 
-O lab A13 importa `sklearn` (`SVC`, `LogisticRegression`, `MLPClassifier`, `TfidfVectorizer`, `make_blobs`). Licença: BSD-3-Clause, https://github.com/scikit-learn/scikit-learn/blob/main/COPYING. Os algoritmos (SVM, VC) são citados pelos papers em [`modulo-a13/referencias.md`](./modulo-a13/referencias.md); o código do lab é original desta trilha.
+O lab A13 importa `sklearn` (`SVC`, `LogisticRegression`, `MLPClassifier`, `TfidfVectorizer`, `make_blobs`). O lab A14 reusa `sklearn` (`Pipeline`, `StandardScaler`, `PolynomialFeatures`, `Ridge`, `KNeighborsClassifier`, `StratifiedKFold`). Licença: BSD-3-Clause, https://github.com/scikit-learn/scikit-learn/blob/main/COPYING. Os algoritmos são citados nos `referencias.md`; o código dos labs é original desta trilha.
 
 ## Google Research — Antigravity `/teamwork` (citação, não código)
 
@@ -52,6 +52,12 @@ A caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md) com
 - https://x.com/mirrokni/status/2121351383236436247 (13/11/2026 21:15 UTC)
 
 Não há código, pesos nem suítes do Google nesta pasta. Citar o post **não** transfere licença nem implica endosso.
+
+## Lindholm et al. — livro CUP (citação / leitura, não obra derivada)
+
+Lindholm, Wahlström, Lindsten & Schön, *Machine Learning — A First Course for Engineers and Scientists*, Cambridge University Press, 2022, ISBN 9781108843607. Site: https://smlbook.org.
+
+O aviso de uso pessoal do rascunho/PDF (o aluno deve reler na cópia que baixar) restringe a **uso pessoal**: sem redistribuição, revenda ou uso em **obras derivadas**. Esta pasta **não** contém o PDF, **não** traduz capítulos, **não** copia figuras, exercícios, notação nem a ordem do livro. [`leituras.md`](./leituras.md) aponta o site para o aluno baixar. Aula e lab do A14 são texto original da trilha.
 
 ## Papers (citação acadêmica, não código)
 
