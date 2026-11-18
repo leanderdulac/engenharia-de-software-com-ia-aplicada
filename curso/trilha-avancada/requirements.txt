@@ -6,6 +6,7 @@
 # Versões conferidas na VM de autoria do A2, A11 e A8 (12/11/2026):
 #   torch 2.15.0+cpu, transformers 5.22.2, pytest 9.2.0
 #   trl 1.17.1, peft 0.21.2, datasets 5.2.0
+# A13 (14/11/2026): scikit-learn 1.9.1
 # APIs do transformers/trl mudam; se DPOConfig quebrar, fixe a versão.
 # ORPO e SimPO neste trl vivem em trl.experimental — o lab marca isso no JSON.
 
@@ -17,3 +18,4 @@ pytest>=8.0
 trl>=0.14
 peft>=0.11
 datasets>=2.20
+scikit-learn>=1.3
