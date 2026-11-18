@@ -1,6 +1,6 @@
 # NOTICE — Trilha Avançada
 
-Obra nova desta pasta: autoria a definir na licença (ver [`LICENSE-PENDENTE.md`](./LICENSE-PENDENTE.md)).
+Obra nova desta pasta: © 2026 Leandro França de Mello. Todos os direitos reservados (ver [`LICENSE.md`](./LICENSE.md)). Material de terceiros abaixo segue as respectivas licenças.
 
 Este produto inclui referências, trechos curtos de adaptação e dependências de terceiros. Esses trabalhos **mantêm as próprias licenças** e não são relicenciados pela trilha nem pelo tronco UniPDS.
 

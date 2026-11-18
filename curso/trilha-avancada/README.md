@@ -6,7 +6,7 @@ Você já treinou LoRA na Amplitude (M09) e já mexeu em temperature (M01). Esta
 
 **Pré-requisito da trilha:** M09 concluído (C09.3 e C09.4). Sem isso, os labs posteriores que reusam o harness Amplitude não fazem sentido.
 
-**Licença:** obra nova. A licença desta pasta ainda **não** foi escolhida pelo titular — leia [`LICENSE-PENDENTE.md`](./LICENSE-PENDENTE.md) e [`NOTICE.md`](./NOTICE.md). O tronco continua CC BY-NC-ND 4.0; esta trilha cita M01–M09 sem editá-los.
+**Licença:** © 2026 Leandro França de Mello. Todos os direitos reservados. Veja [`LICENSE.md`](./LICENSE.md) e [`NOTICE.md`](./NOTICE.md). Material de terceiros no NOTICE segue as próprias licenças. O tronco continua CC BY-NC-ND 4.0; esta trilha **não** altera essa licença e cita M01–M09 sem editá-los.
 
 ## Por que existe
 

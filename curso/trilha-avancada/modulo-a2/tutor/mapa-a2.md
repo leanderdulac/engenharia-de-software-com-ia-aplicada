@@ -6,7 +6,7 @@
 - Labs: `curso/trilha-avancada/modulo-a2/lab/`
 - Checkpoint: `curso/trilha-avancada/modulo-a2/checkpoint-ca2.md`
 - Tronco citado, não copiado: M01 (amostragem), M09 (LoRA em q/v)
-- Licença da trilha: pendente — [`LICENSE-PENDENTE.md`](../../LICENSE-PENDENTE.md). Este mapa parafraseia tópicos.
+- Licença da trilha: todos os direitos reservados — [`LICENSE.md`](../../LICENSE.md). Este mapa parafraseia tópicos.
 
 **Como usar:** cole `tutor/tutor-socratico-ptbr.md` **e** este mapa no assistente. Os níveis 0–5 são do tutor; **não** substituem CA2. O tutor **não** deve revelar `gabarito-instrutor/` nem inventar Δ do lab.
 
