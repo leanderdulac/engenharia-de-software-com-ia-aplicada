@@ -2,7 +2,7 @@
 
 **Status:** esqueleto (não publicado). **Carga prevista:** 4 h. **Pré-requisito previsto:** A0.
 
-A2 foi publicado antes (maior lacuna). Enquanto A1 não sai, o aluno de A2 usa o M01 (sliders de temperature/top-K) como ponte.
+A2 foi publicado antes (maior lacuna). A10 (destilação) já está publicado; **A1 é o próximo a construir**. Enquanto A1 não sai, o aluno de A2 usa o M01 (sliders de temperature/top-K) como ponte.
 
 Quando existir: tokenização e custo PT vs EN; laço autoregressivo; logits → softmax; temperature, top-k, top-p (e min-p como bônus) **sem** `generate`. Ponte explícita com `exemplo-04` do M01. Top-p hoje não é aula no tronco.
 
