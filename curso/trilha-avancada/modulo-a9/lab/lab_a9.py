@@ -23,12 +23,14 @@ AQUI = Path(__file__).resolve().parent
 sys.path.insert(0, str(AQUI))
 A2_LAB = AQUI.parents[1] / "modulo-a2" / "lab"
 sys.path.insert(0, str(A2_LAB))
+sys.path.insert(0, str(AQUI.parents[1] / "modulo-a5" / "lab"))
 
 import torch  # noqa: E402
 
 from ambiente import coletar_ambiente  # noqa: E402
 from hacking import demonstrar  # noqa: E402
 from reinforce import comparar_baseline  # noqa: E402
+from pi_sft import manifesto as manifesto_pi_sft  # noqa: E402
 from tarefas import (  # noqa: E402
     media_desvio,
     pares_avaliacao,
@@ -97,7 +99,8 @@ def main() -> None:
         "honestidade": {
             "a7": "nao_publicado",
             "m09_grpo_demo": "nao_copia; aquele script nao atualiza pesos",
-            "sft_trilha": "ausente; GRPO parte do SmolLM2-135M base + LoRA",
+            "sft_trilha": "π_SFT do A5 se adapter existir; TRILHA_PI_SFT=0 força o base",
+            "ponto_partida": manifesto_pi_sft(),
             "t4_colab": "nao_calibrado",
             "eval_greedy": "antes é o base (std=0 entre seeds); variação é o treino",
         },

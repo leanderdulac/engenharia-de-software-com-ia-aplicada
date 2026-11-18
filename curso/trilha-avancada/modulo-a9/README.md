@@ -2,7 +2,7 @@
 
 **Status:** publicado. **Carga:** ~8 h. **Trilha:** opcional, fora das 240 h.
 
-**Pré-requisito oficial (plano):** A7 e A8. **Na prática neste PR:** A8 publicado; A7/A5/A6 esqueleto. GRPO ancora no SmolLM2-135M **base** + LoRA. O demo GRPO do M09 **não** é copiado e **não** atualiza pesos; este lab chama `GRPOTrainer.train()`.
+**Pré-requisito oficial (plano):** A7 e A8. **Na prática:** A8 publicado; A5 publicado (π_SFT opcional, `TRILHA_PI_SFT=0` no pytest); A7/A6 esqueleto. O demo GRPO do M09 **não** é copiado e **não** atualiza pesos; este lab chama `GRPOTrainer.train()`.
 
 Fecha: política/ação/recompensa, on/off-policy, REINFORCE, PPO (clip, vantagem), GRPO (vantagem no grupo, `beta` KL), recompensa verificável, credit assignment, reward hacking, instabilidade, SFT × DPO × PPO × GRPO.
 

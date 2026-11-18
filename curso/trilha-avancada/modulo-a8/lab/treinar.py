@@ -1,6 +1,7 @@
 """DPO (e família) com TRL + LoRA em SmolLM2. Poucos passos, CPU.
 
-A5/A6 ausentes: partimos do base, não de um SFT da trilha. T4/Colab: ver README.
+Ponto de partida: π_SFT do A5 se ``modulo-a5/execucao/pi_sft/`` existir
+(``TRILHA_PI_SFT=0`` volta ao base). T4/Colab: ver README.
 """
 
 from __future__ import annotations
@@ -71,6 +72,23 @@ def _tok():
     return tok
 
 
+def _partida():
+    """``(model_or_id, tok, manifesto)``. π_SFT mergeado quando o A5 o publicou."""
+    import sys
+    from pathlib import Path
+
+    a5 = Path(__file__).resolve().parents[2] / "modulo-a5" / "lab"
+    if str(a5) not in sys.path:
+        sys.path.insert(0, str(a5))
+    from pi_sft import carregar_base_ou_sft, manifesto, resolver
+
+    info = manifesto()
+    if resolver() is None:
+        return MODELO, _tok(), info
+    m, tok, info = carregar_base_ou_sft()
+    return m, tok, info
+
+
 def treinar_dpo(
     pares_treino: list[dict[str, str]],
     *,
@@ -86,7 +104,7 @@ def treinar_dpo(
     max_steps = max_steps if max_steps is not None else int(os.environ.get("TRILHA_A8_PASSOS", "8"))
     output_dir = Path(output_dir or (SAIDA_TREINO / f"dpo-{loss_type}"))
     output_dir.mkdir(parents=True, exist_ok=True)
-    tok = _tok()
+    model_ini, tok, origem = _partida()
     ds = Dataset.from_list(pares_treino)
     eval_ds = Dataset.from_list(pares_eval) if pares_eval else None
     tem_eval = eval_ds is not None and len(pares_eval or []) > 0
@@ -114,7 +132,7 @@ def treinar_dpo(
     )
     with capturar_logs_trl() as msgs:
         trainer = DPOTrainer(
-            model=MODELO,
+            model=model_ini,
             args=args,
             train_dataset=ds,
             eval_dataset=eval_ds,
@@ -138,6 +156,7 @@ def treinar_dpo(
         "log_history": logs,
         "aviso_prefixo_trl": aviso,
         "api": "trl.DPOTrainer (estavel)",
+        "ponto_partida": origem,
         "trainer": trainer,
         "tokenizer": tok,
     }

@@ -16,11 +16,11 @@ Nada disto entra nas 240 h. Não substitui C09.*. Os dois pares numéricos da §
 
 ## 0. Honestidade de dependências
 
-A ordem de *construção* da trilha entregou A2, A11 e agora A8. **A5 (SFT) e A6 (LoRA de produção) ainda são esqueleto.** Consequências, escritas para não haver magia:
+A ordem de *construção* entregou A8 antes do A5. **A5 agora existe:** DPO parte de **π_SFT** quando `modulo-a5/execucao/pi_sft/` está no disco (`TRILHA_PI_SFT=0` volta ao base). A6 ainda é esqueleto. Consequências:
 
 | O plano original pedia | O que este módulo faz |
 | --- | --- |
-| SFT da trilha (A5) como `π_ref` / `π_SFT` | DPO parte do **SmolLM2-135M base** + LoRA `q_proj`/`v_proj` (o mesmo id do A2/A11; Apache-2.0) |
+| SFT da trilha (A5) como `π_ref` / `π_SFT` | `carregar_base_ou_sft()`: merge do LoRA A5 se houver adapter; senão SmolLM2-135M **base** + LoRA `q_proj`/`v_proj` |
 | Pares do harness Amplitude / JSONL do M09 | pares **originais** no *padrão* do M09 (JSON vs prosa, vírgula decimal → `125000`) com nomes já usados no A2 (`Ana Souza` / `ABC-1D23`), **split treino/eval**. O arquivo `preference-dataset-amplitude.jsonl` **não** é lido nem republicado |
 | DPO LoRA na T4, `rewards/accuracies` > 0,5 com IC, harness sem queda > 2 p.p. | treino **CPU**, 8 passos, n=12 (overfit esperado). T4 / IC / harness = `nao_calibrado` |
 | Cinco treinos completos da família | DPO sigmoid de verdade (8 passos); IPO e KTO na API **estável** (fumaça de 1–2 passos); ORPO e SimPO em `trl.experimental` (1 passo). A tabela justa é a **mesma perda no mesmo lote de logps** |
@@ -220,7 +220,7 @@ Confira com `python -c "from perdas import exemplo_numerico_aula; print(exemplo_
 | O que pode falhar | clonar demonstrações ruins; não sabe o que *evitar* | aumentar a margem diminuindo os dois; aprender “seja curto”; overfit em n pequeno |
 | Quando basta | formato já está no SFT, sem contraste claro | o modelo já *sabe* os dois estilos e você quer empurrar um |
 
-SFT **não** é um DPO com `y_l` vazio. Sem o rejected, não há Bradley-Terry. ORPO é o híbrido explícito (SFT + contraste no mesmo passo). Nesta trilha, como A5 não existe, você *não* está reproduzindo o paper (“DPO em cima de SFT”). Está medindo se LoRA no *base* mexe a margem implícita em pares sintéticos (treino vs hold-out). O JSON declara isso em `honestidade.sft_trilha`.
+SFT **não** é um DPO com `y_l` vazio. Sem o rejected, não há Bradley-Terry. ORPO é o híbrido explícito (SFT + contraste no mesmo passo). Com o A5 publicado, o lab *tenta* o paper (“DPO em cima de SFT”) via `honestidade.ponto_partida`. Os testes isolados (`TRILHA_PI_SFT=0`) ainda medem LoRA no base.
 
 ---
 

@@ -23,7 +23,7 @@ O que o tronco já cobre bem (dados, SFT, LoRA/QLoRA, harness, governança, deci
 | M08: tiering, eval gate, “MoE ≠ multiagente” numa nota | A11: MoE de verdade (router, experts, quantização, KV cache, serving). |
 | M09: decision framework, JSONL, LoRA/QLoRA, harness, GRPO *sem* atualizar pesos | A3–A6, A8–A10, A12: treino por dentro, máscara do assistant, LoRA de produção, DPO/família, GRPO que treina, destilação, capstone da trilha. |
 
-Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A1, A11, A8, A9 e A10 já podem ser cursados depois do A2 (A1 também a partir do M01), com as pontes honestas dos READMEs. A4 já existe; A5/A6/A7/A12 ainda são esqueleto.
+Rota mínima (~45 h, quando os módulos existirem): A0 → A1 → A2 → A5 → A6 → A8 → A11 → A12 (versão curta). Quem só quer a maior lacuna faz **A2 agora**. A5 produz π_SFT; A8/A9/A10 o reusam se o adapter existir (`TRILHA_PI_SFT=0` desliga). A6/A7/A12 ainda são esqueleto.
 
 ## Índice dos 13 módulos
 
@@ -36,7 +36,7 @@ Checkpoints da trilha usam o prefixo **CA** para não colidir com C01–C09. Hor
 | [A2](./modulo-a2/README.md) | O bloco Transformer, peça por peça | 6 | A1 (ver nota) | **publicado** | atenção, QKV, máscaras, bloco, decoder-only |
 | [A3](./modulo-a3/README.md) | Treino por dentro | 6 | A2 | **publicado** | shift, CE, LR, accumulation, precisão |
 | [A4](./modulo-a4/README.md) | Dados para SFT no nível do token | 4 | A1 + M09 M2 | **publicado** | chat template, máscara, EOS |
-| [A5](./modulo-a5/README.md) | SFT sério | 6 | A3, A4 | esqueleto | assistant-only, esquecimento, tracking |
+| [A5](./modulo-a5/README.md) | SFT sério | 6 | A3, A4 | **publicado** | assistant-only, esquecimento, tracking |
 | [A6](./modulo-a6/README.md) | LoRA na prática de produção | 5 | A5 | esqueleto | alvos, merge, multi-adapter, GGUF |
 | [A7](./modulo-a7/README.md) | Raciocínio treinável | 5 | A1, M04 U2 | esqueleto | CoT, self-consistency, verificadores |
 | [A8](./modulo-a8/README.md) | Alinhamento por preferências | 7 | A5, A6 (ver nota) | **publicado** | DPO e família |
@@ -53,17 +53,17 @@ A ordem de *construção* (A2 → A11 → A8 → A9 → A10 → A1 → A0) entre
 
 A11 oficialmente pede A6; A6 ainda é esqueleto. O módulo declara isso: MoE avulso, PTQ no SmolLM2 do A2, LoRA-MoE (CA11.3) não executa, T4/vLLM não calibrados.
 
-A8 oficialmente pede A5/A6; ambos ainda são esqueleto. O módulo declara isso: DPO no SmolLM2 **base** + LoRA, pares originais no padrão do M09 (sem copiar o JSONL), T4/harness/IC não calibrados.
+A8 oficialmente pede A5/A6; A5 publicado (π_SFT opcional), A6 esqueleto. DPO parte do adapter A5 se existir. Pares originais no padrão do M09 (sem copiar o JSONL). T4/harness/IC não calibrados.
 
-A9 oficialmente pede A7 e A8; A7 ainda é esqueleto. O módulo declara isso: GRPO no SmolLM2 **base** + LoRA (não o SFT da trilha), recompensa verificável de soma curta, demo GRPO do M09 citado e **não** copiado (aquele script não atualiza pesos). T4 / G grande / IC = `nao_calibrado`.
+A9 oficialmente pede A7 e A8; A7 ainda é esqueleto. GRPO parte de π_SFT se existir (testes usam `TRILHA_PI_SFT=0`). Demo GRPO do M09 citado e **não** copiado. T4 / G grande / IC = `nao_calibrado`.
 
-A10 oficialmente pede A5 e A7; ambos esqueleto. O módulo declara isso: aluno = SmolLM2-135M **base** + LoRA; professor = SmolLM2-360M (Apache-2.0, mesmo tokenizer). T4 / custo/1k = `nao_calibrado`. A queda dos logits (0,383) foi reinvestigada: máscara/shift/T² certos; perda mista α=0,5 chega a 0,567 e ainda não vence a CE.
+A10 oficialmente pede A5 e A7; A5 publicado, A7 esqueleto. Aluno = π_SFT + LoRA novo (ou base). Professor = SmolLM2-360M (Apache-2.0, mesmo tokenizer). T4 / custo/1k = `nao_calibrado`. A queda dos logits (0,383) foi reinvestigada: máscara/shift/T² certos; perda mista α=0,5 chega a 0,567 e ainda não vence a CE.
 
 A1 oficialmente pede A0; A0 agora está publicado (CPU, SmolLM2-135M, T4 `nao_calibrado`). Qwen2.5-0.5B no A1 entra só como tokenizer.
 
 A4 oficialmente pede A1 + M09 M2. JSONL do tronco e oasst1 não são lidos: diálogos originais no espírito Amplitude; template ASCII declarado (o base SmolLM2 não traz `chat_template`).
 
-## Como rodar o que já existe (A2, A11, A8, A9, A10, A1, A0, A3 e A4)
+## Como rodar o que já existe (A2, A11, A8, A9, A10, A1, A0, A3, A4 e A5)
 
 ```bash
 cd curso/trilha-avancada
@@ -77,15 +77,16 @@ python modulo-a1/lab/lab_a1.py           # A1.1–A1.2 → modulo-a1/saidas/ca1.
 python modulo-a0/lab/lab_a0.py           # A0.1 → modulo-a0/saidas/ca0.json
 python modulo-a3/lab/lab_a3.py           # A3.1–A3.3 → modulo-a3/saidas/ca3.json
 python modulo-a4/lab/lab_a4.py           # A4.1–A4.4 → modulo-a4/saidas/ca4.json
-python -m pytest -q                      # A2 + A11 + A8 + A9 + A10 + A1 + A0 + A3 + A4; inclui modelos pequenos (marca `modelo`)
+python modulo-a5/lab/lab_a5.py           # A5.1–A5.4 → modulo-a5/saidas/ca5.json + execucao/pi_sft/
+python -m pytest -q                      # inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
 ```
 
-Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU.
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU.
 
 ## Tutor socrático (opcional)
 
-Não vale nota. Não substitui CA*. Copie [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) **e** o mapa do módulo (A2: [`modulo-a2/tutor/mapa-a2.md`](./modulo-a2/tutor/mapa-a2.md); A11: [`modulo-a11/tutor/mapa-a11.md`](./modulo-a11/tutor/mapa-a11.md); A8: [`modulo-a8/tutor/mapa-a8.md`](./modulo-a8/tutor/mapa-a8.md); A9: [`modulo-a9/tutor/mapa-a9.md`](./modulo-a9/tutor/mapa-a9.md); A10: [`modulo-a10/tutor/mapa-a10.md`](./modulo-a10/tutor/mapa-a10.md); A1: [`modulo-a1/tutor/mapa-a1.md`](./modulo-a1/tutor/mapa-a1.md); A0: [`modulo-a0/tutor/mapa-a0.md`](./modulo-a0/tutor/mapa-a0.md); A3: [`modulo-a3/tutor/mapa-a3.md`](./modulo-a3/tutor/mapa-a3.md); A4: [`modulo-a4/tutor/mapa-a4.md`](./modulo-a4/tutor/mapa-a4.md)) no assistente. Origem MIT: Jane Street; ver NOTICE.
+Não vale nota. Não substitui CA*. Copie [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) **e** o mapa do módulo (A2, A11, A8, A9, A10, A1, A0, A3, A4, A5 em `modulo-a*/tutor/`) no assistente. Origem MIT: Jane Street; ver NOTICE.
 
 ## Leitura extra (Apache-2.0, isolada)
 
@@ -93,4 +94,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Próximos: **A5** (SFT / π_SFT), **A6**, **A7**, **A12**.
+Próximos: **A6**, **A7**, **A12**.
