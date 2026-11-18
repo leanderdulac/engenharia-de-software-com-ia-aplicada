@@ -19,3 +19,18 @@ def test_licenca_todos_os_direitos_reservados():
     notice = (TRILHA / "NOTICE.md").read_text(encoding="utf-8")
     assert "LICENSE.md" in notice
     assert "LICENSE-PENDENTE" not in notice
+
+
+def test_trilha_nao_cita_licenca_pendente():
+    """Referências antigas ao arquivo pendente não podem voltar em outros módulos."""
+    este = Path(__file__).resolve()
+    restos = []
+    for path in TRILHA.rglob("*"):
+        if not path.is_file() or path.resolve() == este:
+            continue
+        if path.suffix.lower() not in {".md", ".py", ".json", ".txt"}:
+            continue
+        texto = path.read_text(encoding="utf-8", errors="replace")
+        if "LICENSE-PENDENTE" in texto:
+            restos.append(str(path.relative_to(TRILHA)))
+    assert restos == [], "ainda citam LICENSE-PENDENTE.md: " + ", ".join(restos)
