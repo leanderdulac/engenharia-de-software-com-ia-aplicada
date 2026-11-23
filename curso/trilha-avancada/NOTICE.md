@@ -53,6 +53,17 @@ A caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md) com
 
 Não há código, pesos nem suítes do Google nesta pasta. Citar o post **não** transfere licença nem implica endosso.
 
+## @0xTrackmind — harness engineering (citação, não código)
+
+A caixa [`caixas/harness-engineering.md`](./caixas/harness-engineering.md) comenta o artigo «Harness Engineering: How to Fix Your Agent Without Changing the Model» (@0xTrackmind, 21/11/2026). Texto da caixa, templates e a simulação em `caixas/harness/` são originais desta trilha. Os números 40/11/39 do artigo permanecem alegação da fonte (`ilustrativo_nao_medido`). A simulação offline não é medição de LLM (`llm_real` = `nao_calibrado`).
+
+- https://x.com/0xTrackmind/status/2124105677748527453 (21/11/2026; acesso 2026-11-23)
+- Anthropic, «Effective harnesses for long-running agents», 26/11/2025: https://www.anthropic.com/research/effective-harnesses-for-long-running-agents (acesso 2026-11-23)
+- Anthropic, «Harness design for long-running application development», 24/03/2026: https://www.anthropic.com/research/harness-design-long-running-apps (acesso 2026-11-23)
+- OpenAI, Ryan Lopopolo, «Harness engineering: leveraging Codex in an agent-first world», 11/02/2026: https://openai.com/index/harness-engineering/ (acesso 2026-11-23)
+
+Não há código, pesos nem produto dessas fontes nesta pasta. Citar **não** transfere licença nem implica endosso.
+
 ## Lindholm et al. — livro CUP (citação / leitura, não obra derivada)
 
 Lindholm, Wahlström, Lindsten & Schön, *Machine Learning — A First Course for Engineers and Scientists*, Cambridge University Press, 2022, ISBN 9781108843607. Site: https://smlbook.org.
