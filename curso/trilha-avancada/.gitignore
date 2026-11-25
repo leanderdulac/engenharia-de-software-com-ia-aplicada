@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+**/saidas/*.json
+**/saidas/*.txt
+**/saidas/*.npy
+**/saidas/runs/
+!**/saidas/.gitkeep
+.ipynb_checkpoints/
+hf-cache/
+*.egg-info/

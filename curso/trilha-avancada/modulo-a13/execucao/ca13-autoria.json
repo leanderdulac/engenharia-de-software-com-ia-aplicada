@@ -1,0 +1,234 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794626571,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 548.8
+  },
+  "rss_processo_mb": 548.8,
+  "sklearn": "1.9.1",
+  "honestidade": {
+    "jsonl_m09": "nao_lido; frases originais em frases_dominio.py",
+    "sentence_transformers": "nao_usado; mean-pool SmolLM2 ou TF-IDF",
+    "vc_dim_lora": "nao_calculada; h_proxy = n_params LoRA do A5 (aviso no JSON)",
+    "zhang_cifar": "nao_reproduzido; espelho sklearn nas frases do domínio",
+    "t4": "nao_calibrado"
+  },
+  "a13_1": {
+    "tres_pontos": {
+      "n_pontos": 3,
+      "n_dicotomias": 8,
+      "n_separaveis": 8,
+      "estilhaça": true,
+      "falhas": []
+    },
+    "quatro_pontos": {
+      "n_pontos": 4,
+      "n_dicotomias": 16,
+      "n_separaveis": 14,
+      "estilhaça": false,
+      "falhas": [
+        [
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "xor": {
+      "pontos": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ],
+      "rotulos_xor": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "linearmente_separavel": false,
+      "nota": "dois pares de vértices opostos: nenhuma reta separa"
+    },
+    "vc_retas_r2": 3,
+    "conclusao": "3 pontos não colineares estilhaçam; 4 no quadrado não (XOR entre as falhas)."
+  },
+  "a13_2": {
+    "n": 80,
+    "kernel": "linear",
+    "linhas": [
+      {
+        "C": 0.01,
+        "n_sv": 68,
+        "margem": 6.6013303502021365,
+        "acc_treino": 0.675
+      },
+      {
+        "C": 0.1,
+        "n_sv": 60,
+        "margem": 5.423960789896322,
+        "acc_treino": 0.65
+      },
+      {
+        "C": 1.0,
+        "n_sv": 58,
+        "margem": 4.995198984742533,
+        "acc_treino": 0.675
+      },
+      {
+        "C": 10.0,
+        "n_sv": 58,
+        "margem": 4.993314881906932,
+        "acc_treino": 0.675
+      },
+      {
+        "C": 100.0,
+        "n_sv": 58,
+        "margem": 4.993267545108368,
+        "acc_treino": 0.675
+      }
+    ],
+    "nota": "C pequeno: mais violações, margem maior, em geral mais SVs. C grande: aproxima hard-margin."
+  },
+  "a13_3": {
+    "n_treino": 16,
+    "n_eval": 6,
+    "split_disjunto": true,
+    "tfidf": {
+      "svm_linear": {
+        "acc_treino": 1.0,
+        "acc_eval": 1.0,
+        "n_sv": 16
+      },
+      "svm_rbf": {
+        "acc_treino": 1.0,
+        "acc_eval": 1.0,
+        "n_sv": 16
+      },
+      "logreg": {
+        "acc_treino": 1.0,
+        "acc_eval": 1.0
+      },
+      "uso_hoje": "baseline sobre embeddings; classificador leve; guardrail raso (domínio vs fora) antes do LLM",
+      "encoder": {
+        "encoder": "tfidf",
+        "n_features": 229,
+        "nota": "TF-IDF unigrama+bigrama; fallback ou via explícita"
+      }
+    },
+    "embeddings": {
+      "tentado": true,
+      "usou": true,
+      "comparacao": {
+        "svm_linear": {
+          "acc_treino": 1.0,
+          "acc_eval": 1.0,
+          "n_sv": 11
+        },
+        "svm_rbf": {
+          "acc_treino": 0.9375,
+          "acc_eval": 1.0,
+          "n_sv": 16
+        },
+        "logreg": {
+          "acc_treino": 1.0,
+          "acc_eval": 1.0
+        },
+        "uso_hoje": "baseline sobre embeddings; classificador leve; guardrail raso (domínio vs fora) antes do LLM",
+        "encoder": {
+          "encoder": "smollm2-135m-meanpool",
+          "n_features": 576,
+          "modelo": "HuggingFaceTB/SmolLM2-135M",
+          "nota": "média de last_hidden_state mascarada; Apache-2.0"
+        }
+      }
+    },
+    "encoder_principal": "smollm2-135m-meanpool"
+  },
+  "a13_4": {
+    "n_treino": 16,
+    "n_eval": 6,
+    "n_features": 229,
+    "fracao_rotulos_trocados": 0.5,
+    "rotulos_verdadeiros": {
+      "svm_rbf": {
+        "acc_treino": 1.0,
+        "acc_eval": 1.0
+      },
+      "mlp": {
+        "acc_treino": 1.0,
+        "acc_eval": 0.5
+      }
+    },
+    "rotulos_aleatorios": {
+      "svm_rbf": {
+        "acc_treino": 1.0,
+        "acc_eval": 0.5
+      },
+      "mlp": {
+        "acc_treino": 1.0,
+        "acc_eval": 0.6666666666666666
+      }
+    },
+    "leitura_zhang": "se acc_treino_aleatório ≈ 1 e acc_eval ≈ acaso, a hipótese decorou o ruído — o mesmo fenômeno que Zhang et al. 2017 mostraram em redes profundas (arXiv 1611.03530)."
+  },
+  "a13_5": {
+    "acc_treino_a5": 1.0,
+    "acc_eval_a5": 0.5,
+    "n_treino": 4,
+    "h_proxy_lora": 460800,
+    "termo_lora": {
+      "h": 460800,
+      "n": 4,
+      "delta": 0.1,
+      "termo": "inf",
+      "vacuo": true
+    },
+    "termo_retas_vc3": {
+      "h": 3,
+      "n": 4,
+      "delta": 0.1,
+      "termo": 1.551722205579104,
+      "vacuo": true
+    },
+    "aviso_proxy": "h_proxy = nº de params LoRA NÃO é a VC-dimensão da rede. Só mostra que o bound clássico, plugado assim, já é vácuo.",
+    "pergunta_1971": "a frequência empírica converge uniformemente à probabilidade na classe de eventos/hipóteses?",
+    "leitura": "R_emp=0 no treino e R_holdout=0,5: interpolou 4 diálogos. Com h_proxy = params LoRA o termo VC é vácuo; com h=3 (retas) o termo ainda é ≥1 porque n=4. VC não é a teoria de generalização dos LLMs."
+  },
+  "segundos_total": 4.817
+}
