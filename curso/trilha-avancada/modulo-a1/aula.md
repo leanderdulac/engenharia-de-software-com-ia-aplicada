@@ -20,8 +20,8 @@ O tronco já cobre, e esta aula **aponta** em vez de reescrever:
 
 | Já está no M01 | O que o A1 acrescenta |
 | --- | --- |
-| Seção “LLM: amostragem, não oráculo” em [`curso/conteudo/modulo-01/aula.md`](../../../conteudo/modulo-01/aula.md) | a fórmula `p = softmax(z / T)` e a entropia vs T |
-| Lab [`exemplo-04-webai02-temperature-and-topK`](../../../../modulo01-fundamentos-de-ia-e-llms-para-programadores/exemplo-04-webai02-temperature-and-topK/) (sliders, Prompt API) | o mesmo knob, agora em PyTorch, conferido contra `transformers` |
+| Seção “LLM: amostragem, não oráculo” em [`curso/conteudo/modulo-01/aula.md`](../../conteudo/modulo-01/aula.md) | a fórmula `p = softmax(z / T)` e a entropia vs T |
+| Lab [`exemplo-04-webai02-temperature-and-topK`](../../../modulo01-fundamentos-de-ia-e-llms-para-programadores/exemplo-04-webai02-temperature-and-topK/) (sliders, Prompt API) | o mesmo knob, agora em PyTorch, conferido contra `transformers` |
 | Glossário: temperature / top-K | **top-p** (núcleo, Holtzman 2019) — **não** é aula no tronco |
 | Embeddings de *sentença* no Neo4j (`exemplo-12` / `exemplo-13`) | embedding de *token*: uma linha da tabela `E` |
 | “o LLM amostra o próximo token” | o laço, a janela, a diferença treino / forward / geração |

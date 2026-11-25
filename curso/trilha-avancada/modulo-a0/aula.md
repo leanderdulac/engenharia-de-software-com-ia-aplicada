@@ -22,7 +22,7 @@ Nada disto entra nas 240 h. Números **não** se copiam da aula: saem do seu `ca
 | T4 / Kaggle 2×T4 / Mac | CPU; T4 = `nao_calibrado` |
 | bitsandbytes | ausente nesta VM (`null`) |
 
-O pôster [`gpu-cuda-anatomia-poster.html`](../../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-04-lora-e-peft/gpu-cuda-anatomia-poster.html) do M09 **não** é copiado. Leia-o; esta aula só usa a conta de envelope.
+O pôster [`gpu-cuda-anatomia-poster.html`](../../../modulo09-processamento-de-dados-e-fine-tuning-de-modelos/modulo-04-lora-e-peft/gpu-cuda-anatomia-poster.html) do M09 **não** é copiado. Leia-o; esta aula só usa a conta de envelope.
 
 ---
 

@@ -61,4 +61,4 @@ A acurácia 1,0 **não** é SFT de Amplitude. É um autômato. O ponto é: shift
 
 1. `python modulo-a3/lab/lab_a3.py`
 2. CA3 com o JSON **seu**.
-3. Leitura extra opcional: [`referencia/llm-course/tools/minigpt.py`](../../../../referencia/llm-course/tools/minigpt.py) (Apache-2.0) — código de outro autor, não esta aula.
+3. Leitura extra opcional: [`referencia/llm-course/tools/minigpt.py`](../../../referencia/llm-course/tools/minigpt.py) (Apache-2.0) — código de outro autor, não esta aula.
