@@ -57,6 +57,8 @@ Não são módulo. Sem CA. **Fora** das 78 h, das horas do A13/A14 e das 240 h. 
 | --- | ---: | --- |
 | [Antigravity `/teamwork` (Google Research, 13/11/2026)](./caixas/antigravity-teamwork.md) | ~30 min | A7, A12, A13; eval do M09 só como referência conceitual |
 | [Harness engineering (consertar o agente sem trocar o modelo)](./caixas/harness-engineering.md) | ~30–45 min | M09; A4, A5, A7, A12, A13, A14 |
+| [Programação tática e estratégica](./caixas/programacao-tatica-vs-estrategica.md) | ~30–45 min | A7, A12, A14; caixa de harness |
+| [Vários harnesses (produtor, revisor, falsificador)](./caixas/multi-harness.md) | ~30–45 min | A7, A14, M09; caixas de harness e tática |
 
 ### Nota sobre A2 ter saído antes de A1
 
@@ -96,10 +98,10 @@ python modulo-a13/lab/lab_a13.py         # A13.1–A13.5 → modulo-a13/saidas/c
 python modulo-a14/lab/lab_a14.py         # A14.1–A14.6 → modulo-a14/saidas/ca14.json
 python -m pytest -q                      # inclui modelos pequenos (marca `modelo`)
 python -m pytest -q -m "not modelo"      # só CPU, sem baixar pesos de 135M / configs HF
-python -m pytest caixas/testes -q        # links/âncoras das caixas /teamwork e harness
+python -m pytest caixas/testes -q        # links/âncoras das caixas /teamwork, harness, tática e multi-harness
 ```
 
-Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md), [`modulo-a13/README.md`](./modulo-a13/README.md), [`modulo-a14/README.md`](./modulo-a14/README.md), caixas [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md) e [`caixas/harness-engineering.md`](./caixas/harness-engineering.md), leituras [`leituras.md`](./leituras.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU. A13.3 tenta mean-pool SmolLM2; se falhar, declara TF-IDF.
+Detalhes, Colab e checkpoints: [`modulo-a2/README.md`](./modulo-a2/README.md), [`modulo-a11/README.md`](./modulo-a11/README.md), [`modulo-a8/README.md`](./modulo-a8/README.md), [`modulo-a9/README.md`](./modulo-a9/README.md), [`modulo-a10/README.md`](./modulo-a10/README.md), [`modulo-a1/README.md`](./modulo-a1/README.md), [`modulo-a0/README.md`](./modulo-a0/README.md), [`modulo-a3/README.md`](./modulo-a3/README.md), [`modulo-a4/README.md`](./modulo-a4/README.md), [`modulo-a5/README.md`](./modulo-a5/README.md), [`modulo-a6/README.md`](./modulo-a6/README.md), [`modulo-a7/README.md`](./modulo-a7/README.md), [`modulo-a12/README.md`](./modulo-a12/README.md), [`modulo-a13/README.md`](./modulo-a13/README.md), [`modulo-a14/README.md`](./modulo-a14/README.md), caixas [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md), [`caixas/harness-engineering.md`](./caixas/harness-engineering.md), [`caixas/programacao-tatica-vs-estrategica.md`](./caixas/programacao-tatica-vs-estrategica.md) e [`caixas/multi-harness.md`](./caixas/multi-harness.md), leituras [`leituras.md`](./leituras.md). A11.2 tenta o Granite 1B-A400M; se não couber, o JSON traz `nao_coube` e a config ainda vale. A8.5, A9.5 e A10.6 (T4 / harness / IC / G grande / custo/1k) ficam `nao_calibrado` nesta CPU. A13.3 tenta mean-pool SmolLM2; se falhar, declara TF-IDF.
 
 ## Tutor socrático (opcional)
 
@@ -111,4 +113,4 @@ O fork `leanderdulac/curso-de-engenharia-de-IA` (upstream `lucianoon/llm-course`
 
 ## O que vem depois deste PR
 
-Trilha A0–A14 nesta pilha, caixas `/teamwork` e [harness](./caixas/harness-engineering.md), e [`leituras.md`](./leituras.md).
+Trilha A0–A14 nesta pilha, caixas `/teamwork`, [harness](./caixas/harness-engineering.md), [tática](./caixas/programacao-tatica-vs-estrategica.md) e [multi-harness](./caixas/multi-harness.md), e [`leituras.md`](./leituras.md).
