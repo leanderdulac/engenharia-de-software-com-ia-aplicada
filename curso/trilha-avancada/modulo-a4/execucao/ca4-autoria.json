@@ -1,0 +1,113 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794494857,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 455.9
+  },
+  "rss_processo_mb": 455.9,
+  "honestidade": {
+    "jsonl_m09": "nao_lido; dialogos originais no espirito Amplitude",
+    "oasst1": "nao_baixado",
+    "instruct_05b": "nao_baixado; SmolLM2-135M base, template declarado no lab",
+    "t4": "nao_calibrado",
+    "efeito_system_no_sft": "A5 mede acuracia; aqui so n_tokens"
+  },
+  "a4_1": {
+    "modelo": "HuggingFaceTB/SmolLM2-135M",
+    "chat_template_no_tokenizer": false,
+    "template": "### system / ### user / ### assistant (ASCII, desta trilha)",
+    "eos_token": "<|endoftext|>"
+  },
+  "a4_2": {
+    "split_ok": true,
+    "treino_com_system": {
+      "n": 4,
+      "n_prompt_medio": 71.0,
+      "n_total_medio": 102.75,
+      "n_assistant_medio": 31.75,
+      "fracao_prompt_media": 0.6907,
+      "todos_eos": true,
+      "labels_prompt_menos_100": true
+    },
+    "treino_sem_system": {
+      "n": 4,
+      "n_prompt_medio": 38.0,
+      "n_total_medio": 69.75,
+      "n_assistant_medio": 31.75,
+      "fracao_prompt_media": 0.5438,
+      "todos_eos": true,
+      "labels_prompt_menos_100": true
+    },
+    "eval_com_system": {
+      "n": 2,
+      "n_prompt_medio": 72.0,
+      "n_total_medio": 105.0,
+      "n_assistant_medio": 33.0,
+      "fracao_prompt_media": 0.6858,
+      "todos_eos": true,
+      "labels_prompt_menos_100": true
+    },
+    "delta_n_prompt_system": 33.0,
+    "exemplo_n_prompt": 72,
+    "exemplo_n_total": 104,
+    "exemplo_labels_head": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+    ],
+    "exemplo_labels_tail": [
+      34,
+      37,
+      32,
+      30,
+      32,
+      32,
+      109,
+      0
+    ]
+  },
+  "a4_3": {
+    "n_total": 44,
+    "n_assistant": 14,
+    "n_prompt": 30,
+    "so_assistant_na_loss": true
+  },
+  "a4_4": {
+    "pad": {
+      "L": 108,
+      "truncou": false,
+      "n_assistant_medio_depois": 31.75
+    },
+    "trunc_48": {
+      "L": 48,
+      "truncou": true,
+      "n_assistant_antes": 31.75,
+      "n_assistant_depois": 0.0
+    }
+  },
+  "a4_5_t4": {
+    "status": "nao_calibrado"
+  },
+  "segundos_total": 2.26
+}

@@ -1,0 +1,78 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794494561,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 425.7,
+    "modelo": "HuggingFaceTB/SmolLM2-135M",
+    "semente": 0
+  },
+  "honestidade": {
+    "instruct_05b": "plano pedia instruct ~0,5B; nesta CPU usamos SmolLM2-135M já no cache da trilha. Qwen2.5-0.5B = nao_baixado (opcional TRILHA_A0_MODELO).",
+    "t4_colab": "nao_calibrado",
+    "trackio": "nao_instalado; o registro é este JSON"
+  },
+  "a0_1": {
+    "modelo": "HuggingFaceTB/SmolLM2-135M",
+    "n_params": 134515008,
+    "n_prompts": 20,
+    "semente": 0,
+    "corrida1": {
+      "n": 20,
+      "semente": 0,
+      "max_novos": 8,
+      "latencia_p50_s": 0.17237869300060993,
+      "latencia_p95_s": 0.18601383399982296,
+      "latencia_media_s": 0.17337502155005496,
+      "tokens_gerados": 160,
+      "tokens_por_s": 46.01051681533772,
+      "wall_s": 3.477,
+      "rss_pico_mb": 993.1,
+      "pegada_mb": 538.1
+    },
+    "corrida2": {
+      "n": 20,
+      "semente": 0,
+      "max_novos": 8,
+      "latencia_p50_s": 0.16280512299999828,
+      "latencia_p95_s": 0.1896867289997317,
+      "latencia_media_s": 0.16379676710007515,
+      "tokens_gerados": 160,
+      "tokens_por_s": 48.691914021581425,
+      "wall_s": 3.286,
+      "rss_pico_mb": 993.2,
+      "pegada_mb": 538.1
+    },
+    "p50_repetivel_20pct": true,
+    "orcamento": {
+      "n_params": 134515008,
+      "dtype_bytes": 4,
+      "pesos_mb": 538.1,
+      "grad_mb": 538.1,
+      "adam_mb": 1076.1,
+      "total_treino_mb": 2152.2,
+      "nota": "sem ativações nem KV; T4 = nao_calibrado nesta CPU"
+    },
+    "rss_fim_mb": 993.2
+  },
+  "a0_2_t4": {
+    "status": "nao_calibrado",
+    "motivo": "CPU sem CUDA; envelope T4 fica para Colab"
+  },
+  "segundos_total": 9.864
+}
