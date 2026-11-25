@@ -66,7 +66,7 @@ test("conta CLI sem matrícula vê o próximo passo; M01 abre depois, dependente
 
   const m01 = await grab(origin, jar, "/modulo/01");
   assert.equal(m01.res.status, 200);
-  assert.match(m01.text, /M01/);
+  assert.match(m01.text, /Módulo 01/);
   const done = db.prepare(
     "SELECT COUNT(*) AS n FROM lesson_progress WHERE completed = 1 AND user_id = (SELECT id FROM users WHERE email = ?)"
   ).get(EMAIL);

@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { CURSO_ROOT, REPO_ROOT } from "./config.mjs";
+import { idDaSecao, secoesDaAula } from "./secoes.mjs";
 
 const TITULOS = {
   "01": "Fundamentos de IA e LLMs para programadores",
@@ -178,31 +179,49 @@ export function loadCatalog() {
     };
     modules.push(modulo);
 
-    const aulaId = `m${id}-aula`;
-    const guiaId = `m${id}-guia`;
-    lessons.push({
-      id: aulaId,
-      modulo: id,
-      ordem: 1,
-      titulo: `Aula ${id} — ${modulo.titulo}`,
-      md: `conteudo/modulo-${id}/aula.md`,
-      kind: "aula",
+    const mdRel = `conteudo/modulo-${id}/aula.md`;
+    const used = new Set();
+    const partes = secoesDaAula(read(mdRel));
+    partes.forEach((sec, i) => {
+      lessons.push({
+        id: idDaSecao(id, sec, used),
+        modulo: id,
+        ordem: i + 1,
+        numero: i + 1,
+        titulo: sec.titulo,
+        md: mdRel,
+        start: sec.start,
+        end: sec.end,
+        kind: sec.kind,
+        percurso: true,
+      });
     });
     lessons.push({
-      id: guiaId,
+      id: `m${id}-aula`,
       modulo: id,
-      ordem: 2,
-      titulo: `Guia operacional ${id}`,
+      ordem: 1000,
+      titulo: `Aula única anterior — ${modulo.titulo}`,
+      md: mdRel,
+      kind: "aula",
+      legado: true,
+    });
+    lessons.push({
+      id: `m${id}-guia`,
+      modulo: id,
+      ordem: 1001,
+      titulo: `Roteiro do laboratório ${id}`,
       md: `modulos/${id}.md`,
       kind: "guia",
+      legado: true,
     });
     lessons.push({
       id: `m${id}-roteiro`,
       modulo: id,
-      ordem: 3,
-      titulo: `Roteiro de narração ${id}`,
+      ordem: 1002,
+      titulo: `Texto falado da introdução ${id}`,
       md: `conteudo/modulo-${id}/roteiro-narracao.md`,
       kind: "roteiro",
+      legado: true,
     });
   }
 
@@ -285,13 +304,22 @@ export function moduleById(catalog, id) {
   return catalog.modules.find((m) => m.id === id) || null;
 }
 
+export function aulasDoModulo(catalog, modulo) {
+  const percurso = catalog.lessons
+    .filter((l) => l.modulo === modulo && l.percurso)
+    .sort((a, b) => a.ordem - b.ordem);
+  if (percurso.length) return percurso;
+  return catalog.lessons
+    .filter((l) => l.modulo === modulo && !l.legado)
+    .sort((a, b) => a.ordem - b.ordem);
+}
+
 export function neighbors(catalog, lessonId) {
   const lesson = lessonById(catalog, lessonId);
   if (!lesson) return { prev: null, next: null };
-  const same = catalog.lessons
-    .filter((l) => l.modulo === lesson.modulo)
-    .sort((a, b) => a.ordem - b.ordem);
+  const same = aulasDoModulo(catalog, lesson.modulo);
   const i = same.findIndex((l) => l.id === lessonId);
+  if (i < 0) return { prev: null, next: null };
   return { prev: same[i - 1] || null, next: same[i + 1] || null };
 }
 
@@ -300,9 +328,13 @@ export function indexContent(db, catalog) {
   const ins = db.prepare("INSERT INTO content_fts (lesson_id, title, body) VALUES (?, ?, ?)");
   for (const lesson of catalog.lessons) {
     let body = "";
+    if (lesson.legado && lesson.kind !== "guia") continue;
     if (lesson.md) {
       const abs = path.join(CURSO_ROOT, lesson.md);
-      if (existsSync(abs)) body = readFileSync(abs, "utf8");
+      if (existsSync(abs)) {
+        const full = readFileSync(abs, "utf8");
+        body = Number.isInteger(lesson.start) ? full.split("\n").slice(lesson.start, lesson.end).join("\n") : full;
+      }
     } else if (lesson.repoMd) {
       const abs = path.join(REPO_ROOT, lesson.repoMd);
       if (existsSync(abs)) body = readFileSync(abs, "utf8");

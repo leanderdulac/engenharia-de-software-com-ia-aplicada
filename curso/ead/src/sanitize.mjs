@@ -66,7 +66,9 @@ const OK_ATTR = new Set([
 
 function safeUrl(value, kind) {
   const v = String(value || "").replace(/[\u0000-\u001F\u007F\s]/g, "");
-  if (!v || v.length > 500 || v.startsWith("//") || v.includes("\\")) return "";
+  if (!v || v.startsWith("//") || v.includes("\\")) return "";
+  const localRoom = /^\/(recurso|arquivos|media|aula|modulo)\//.test(v) || /^\/(recurso|glossario|trilha|catalogo|dashboard)$/.test(v);
+  if (v.length > (localRoom ? 2000 : 500)) return "";
   const lower = v.toLowerCase();
   if (lower.startsWith("javascript:") || lower.startsWith("vbscript:") || lower.startsWith("data:")) return "";
   if (v.startsWith("#") || v.startsWith("/") || v.startsWith("./") || v.startsWith("../")) return v;

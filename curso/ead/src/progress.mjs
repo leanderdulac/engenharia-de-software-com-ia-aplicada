@@ -1,4 +1,4 @@
-import { DEPS } from "./catalog.mjs";
+import { aulasDoModulo, DEPS } from "./catalog.mjs";
 
 export function enrollmentOf(db, userId) {
   return db.prepare("SELECT * FROM enrollments WHERE user_id = ?").get(userId) || null;
@@ -21,14 +21,19 @@ export function lastLesson(db, userId) {
   );
 }
 
+export function conjuntoAntigoCompleto(doneSet, modulo) {
+  return ["aula", "guia", "roteiro"].every((k) => doneSet.has(`m${modulo}-${k}`));
+}
+
 export function moduleLessonIds(catalog, modulo) {
-  return catalog.lessons.filter((l) => l.modulo === modulo).map((l) => l.id);
+  return aulasDoModulo(catalog, modulo).map((l) => l.id);
 }
 
 export function moduleComplete(catalog, doneSet, modulo) {
   const ids = moduleLessonIds(catalog, modulo);
   if (!ids.length) return false;
-  return ids.every((id) => doneSet.has(id));
+  if (ids.every((id) => doneSet.has(id))) return true;
+  return conjuntoAntigoCompleto(doneSet, modulo);
 }
 
 /** Estado de um módulo para um aluno. Staff não usa isto. */
@@ -81,13 +86,15 @@ export function moduleStats(catalog, db, userId) {
     .filter((m) => !m.optional)
     .map((m) => {
       const ids = moduleLessonIds(catalog, m.id);
-      const doneN = ids.filter((id) => done.has(id)).length;
+      const antigo = conjuntoAntigoCompleto(done, m.id);
+      const doneN = antigo ? ids.length : ids.filter((id) => done.has(id)).length;
       return {
         id: m.id,
         titulo: m.titulo,
         total: ids.length,
         done: doneN,
         complete: ids.length > 0 && doneN === ids.length,
+        antigo,
       };
     });
 }

@@ -30,20 +30,20 @@ export function layout({ title, user, csrf, flash, body, signup = false, variant
     : `<a class="btn" href="/entrar">Entrar</a>`;
   const nav = user
     ? `<p class="nav-label">Estudar</p>
-      <a href="/dashboard">Painel</a>
-      <a href="/catalogo">Curso</a>
+      <a href="/dashboard">Continuar</a>
       <a href="/trilha">Trilha</a>
-      <p class="nav-label">Na aula</p>
-      <a href="/caderno">Caderno</a>
-      <a href="/busca">Busca</a>
-      <a href="/glossario">Glossário</a>
-      <p class="nav-label">Turma</p>
-      <a href="/duvidas">Dúvidas</a>
-      <a href="/certificado">Comprovante</a>
-      <p class="nav-label">Conta</p>
-      <a href="/conta">Conta</a>
-      <a href="/ajuda">Ajuda</a>
-      <a href="/privacidade">Privacidade</a>
+      <a href="/catalogo">Módulos</a>
+      <details class="nav-more">
+        <summary>Ferramentas</summary>
+        <a href="/caderno">Caderno</a>
+        <a href="/busca">Busca</a>
+        <a href="/glossario">Glossário</a>
+        <a href="/duvidas">Dúvidas</a>
+        <a href="/certificado">Comprovante</a>
+        <a href="/conta">Conta</a>
+        <a href="/ajuda">Ajuda</a>
+        <a href="/privacidade">Privacidade</a>
+      </details>
       ${
         role === "instrutor" || role === "admin"
           ? `<p class="nav-label">Equipa</p>
@@ -71,7 +71,7 @@ export function layout({ title, user, csrf, flash, body, signup = false, variant
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} — Engenharia de Software com IA Aplicada</title>
-  <meta name="description" content="Oficina: sala de aula local da pós Engenharia de Software com IA Aplicada. Sem pagamento. Sem envio de e-mail.">
+  <meta name="description" content="Oficina: sala local do curso Engenharia de Software com IA Aplicada. Sem pagamento. Sem envio de e-mail.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/ead.css">
 </head>
@@ -91,7 +91,7 @@ export function layout({ title, user, csrf, flash, body, signup = false, variant
     </main>
   </div>
   <footer class="foot">
-    <p>Oficina é a sala local desta pós. Material do curso: CC BY-NC-ND 4.0. Comprovante interno não é reconhecimento MEC.</p>
+    <p>Oficina é a sala local deste curso. Material: CC BY-NC-ND 4.0. O comprovante interno não é reconhecimento do MEC.</p>
   </footer>
   <script src="/ead.js" defer></script>
 </body>
