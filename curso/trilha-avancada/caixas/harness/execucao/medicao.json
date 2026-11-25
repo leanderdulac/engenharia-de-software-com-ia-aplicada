@@ -1,0 +1,761 @@
+{
+  "simulacao": true,
+  "llm_real": "nao_calibrado",
+  "artigo_40_endpoints": "ilustrativo_nao_medido",
+  "n_funcoes": 12,
+  "janela_contexto": 6,
+  "n_seeds": 20,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "p_escopo": 0.22,
+  "p_ferramenta_vazia": 0.18,
+  "export_bloqueado": 11,
+  "A": {
+    "por_seed": [
+      {
+        "modo": "A",
+        "seed": 0,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 4,
+        "tentativas_desperdicadas": 8,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          2,
+          3
+        ],
+        "refeitos_v1": [
+          "postClaim",
+          "getPolicy"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 1,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 4,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          5,
+          3
+        ],
+        "refeitos_v1": [
+          "postNote",
+          "getPolicy"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 2,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 4,
+        "tentativas_desperdicadas": 10,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          5,
+          2
+        ],
+        "refeitos_v1": [
+          "postNote",
+          "postClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 3,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          0,
+          3
+        ],
+        "refeitos_v1": [
+          "getClaim",
+          "getPolicy"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 4,
+        "relatado": 12,
+        "concluidas": 1,
+        "violacoes_escopo_aplicadas": 6,
+        "tentativas_desperdicadas": 11,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          2,
+          0
+        ],
+        "refeitos_v1": [
+          "postClaim",
+          "getClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 5,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 3,
+        "tentativas_desperdicadas": 8,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          0,
+          3
+        ],
+        "refeitos_v1": [
+          "getClaim",
+          "getPolicy"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 6,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 4,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          3,
+          2
+        ],
+        "refeitos_v1": [
+          "getPolicy",
+          "postClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 7,
+        "relatado": 12,
+        "concluidas": 2,
+        "violacoes_escopo_aplicadas": 5,
+        "tentativas_desperdicadas": 10,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          0,
+          4
+        ],
+        "refeitos_v1": [
+          "getClaim",
+          "listPolicies"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 8,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 3,
+        "tentativas_desperdicadas": 10,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          4,
+          1
+        ],
+        "refeitos_v1": [
+          "listPolicies",
+          "listClaims"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 9,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 3,
+        "tentativas_desperdicadas": 10,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          4,
+          0
+        ],
+        "refeitos_v1": [
+          "listPolicies",
+          "getClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 10,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 4,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          5,
+          1
+        ],
+        "refeitos_v1": [
+          "postNote",
+          "listClaims"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 11,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 8,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          1,
+          4
+        ],
+        "refeitos_v1": [
+          "listClaims",
+          "listPolicies"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 12,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 4,
+        "tentativas_desperdicadas": 10,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          2,
+          3
+        ],
+        "refeitos_v1": [
+          "postClaim",
+          "getPolicy"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 13,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 5,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          1,
+          5
+        ],
+        "refeitos_v1": [
+          "listClaims",
+          "postNote"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 14,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          5,
+          0
+        ],
+        "refeitos_v1": [
+          "postNote",
+          "getClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 15,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 3,
+        "tentativas_desperdicadas": 11,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          5,
+          1
+        ],
+        "refeitos_v1": [
+          "postNote",
+          "listClaims"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 16,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 8,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          2,
+          1
+        ],
+        "refeitos_v1": [
+          "postClaim",
+          "listClaims"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 17,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 8,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          5,
+          2
+        ],
+        "refeitos_v1": [
+          "postNote",
+          "postClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 18,
+        "relatado": 12,
+        "concluidas": 3,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 10,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          3,
+          2
+        ],
+        "refeitos_v1": [
+          "getPolicy",
+          "postClaim"
+        ]
+      },
+      {
+        "modo": "A",
+        "seed": 19,
+        "relatado": 12,
+        "concluidas": 4,
+        "violacoes_escopo_aplicadas": 2,
+        "tentativas_desperdicadas": 8,
+        "tentativas": 14,
+        "escalados": 0,
+        "testes_rodados": false,
+        "compactacoes": 1,
+        "refeitos_com_outro_esquema": [
+          2,
+          4
+        ],
+        "refeitos_v1": [
+          "postClaim",
+          "listPolicies"
+        ]
+      }
+    ],
+    "relatado": {
+      "media": 12.0,
+      "desvio_amostral": 0.0,
+      "min": 12.0,
+      "max": 12.0
+    },
+    "concluidas": {
+      "media": 3.2,
+      "desvio_amostral": 0.7678,
+      "min": 1.0,
+      "max": 4.0
+    },
+    "violacoes_escopo_aplicadas": {
+      "media": 3.3,
+      "desvio_amostral": 1.2183,
+      "min": 2.0,
+      "max": 6.0
+    },
+    "tentativas_desperdicadas": {
+      "media": 9.2,
+      "desvio_amostral": 1.0052,
+      "min": 8.0,
+      "max": 11.0
+    }
+  },
+  "B": {
+    "por_seed": [
+      {
+        "modo": "B",
+        "seed": 0,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 0,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 0,
+        "tentativas": 11,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 1,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 2,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 5,
+        "tentativas": 16,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 2,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 0,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 3,
+        "tentativas": 14,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 3,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 4,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 4,
+        "tentativas": 15,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 4,
+        "relatado": 9,
+        "concluidas": 9,
+        "violacoes_escopo_tentadas": 4,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 6,
+        "tentativas": 15,
+        "escalados": 3,
+        "testes_rodados": true,
+        "progresso_done": 9
+      },
+      {
+        "modo": "B",
+        "seed": 5,
+        "relatado": 10,
+        "concluidas": 10,
+        "violacoes_escopo_tentadas": 2,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 6,
+        "tentativas": 16,
+        "escalados": 2,
+        "testes_rodados": true,
+        "progresso_done": 10
+      },
+      {
+        "modo": "B",
+        "seed": 6,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 2,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 3,
+        "tentativas": 14,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 7,
+        "relatado": 9,
+        "concluidas": 9,
+        "violacoes_escopo_tentadas": 6,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 9,
+        "tentativas": 18,
+        "escalados": 3,
+        "testes_rodados": true,
+        "progresso_done": 9
+      },
+      {
+        "modo": "B",
+        "seed": 8,
+        "relatado": 9,
+        "concluidas": 9,
+        "violacoes_escopo_tentadas": 4,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 7,
+        "tentativas": 16,
+        "escalados": 3,
+        "testes_rodados": true,
+        "progresso_done": 9
+      },
+      {
+        "modo": "B",
+        "seed": 9,
+        "relatado": 9,
+        "concluidas": 9,
+        "violacoes_escopo_tentadas": 2,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 7,
+        "tentativas": 16,
+        "escalados": 3,
+        "testes_rodados": true,
+        "progresso_done": 9
+      },
+      {
+        "modo": "B",
+        "seed": 10,
+        "relatado": 10,
+        "concluidas": 10,
+        "violacoes_escopo_tentadas": 4,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 6,
+        "tentativas": 16,
+        "escalados": 2,
+        "testes_rodados": true,
+        "progresso_done": 10
+      },
+      {
+        "modo": "B",
+        "seed": 11,
+        "relatado": 10,
+        "concluidas": 10,
+        "violacoes_escopo_tentadas": 1,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 5,
+        "tentativas": 15,
+        "escalados": 2,
+        "testes_rodados": true,
+        "progresso_done": 10
+      },
+      {
+        "modo": "B",
+        "seed": 12,
+        "relatado": 9,
+        "concluidas": 9,
+        "violacoes_escopo_tentadas": 5,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 7,
+        "tentativas": 16,
+        "escalados": 3,
+        "testes_rodados": true,
+        "progresso_done": 9
+      },
+      {
+        "modo": "B",
+        "seed": 13,
+        "relatado": 9,
+        "concluidas": 9,
+        "violacoes_escopo_tentadas": 2,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 5,
+        "tentativas": 14,
+        "escalados": 3,
+        "testes_rodados": true,
+        "progresso_done": 9
+      },
+      {
+        "modo": "B",
+        "seed": 14,
+        "relatado": 10,
+        "concluidas": 10,
+        "violacoes_escopo_tentadas": 3,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 6,
+        "tentativas": 16,
+        "escalados": 2,
+        "testes_rodados": true,
+        "progresso_done": 10
+      },
+      {
+        "modo": "B",
+        "seed": 15,
+        "relatado": 10,
+        "concluidas": 10,
+        "violacoes_escopo_tentadas": 4,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 4,
+        "tentativas": 14,
+        "escalados": 2,
+        "testes_rodados": true,
+        "progresso_done": 10
+      },
+      {
+        "modo": "B",
+        "seed": 16,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 0,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 3,
+        "tentativas": 14,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 17,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 2,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 4,
+        "tentativas": 15,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 18,
+        "relatado": 11,
+        "concluidas": 11,
+        "violacoes_escopo_tentadas": 1,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 1,
+        "tentativas": 12,
+        "escalados": 1,
+        "testes_rodados": true,
+        "progresso_done": 11
+      },
+      {
+        "modo": "B",
+        "seed": 19,
+        "relatado": 10,
+        "concluidas": 10,
+        "violacoes_escopo_tentadas": 4,
+        "violacoes_escopo_aplicadas": 0,
+        "tentativas_desperdicadas": 5,
+        "tentativas": 15,
+        "escalados": 2,
+        "testes_rodados": true,
+        "progresso_done": 10
+      }
+    ],
+    "relatado": {
+      "media": 10.1,
+      "desvio_amostral": 0.8522,
+      "min": 9.0,
+      "max": 11.0
+    },
+    "concluidas": {
+      "media": 10.1,
+      "desvio_amostral": 0.8522,
+      "min": 9.0,
+      "max": 11.0
+    },
+    "violacoes_escopo_aplicadas": {
+      "media": 0.0,
+      "desvio_amostral": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "violacoes_escopo_tentadas": {
+      "media": 2.6,
+      "desvio_amostral": 1.729,
+      "min": 0.0,
+      "max": 6.0
+    },
+    "tentativas_desperdicadas": {
+      "media": 4.8,
+      "desvio_amostral": 2.1423,
+      "min": 0.0,
+      "max": 9.0
+    },
+    "escalados": {
+      "media": 1.9,
+      "desvio_amostral": 0.8522,
+      "min": 1.0,
+      "max": 3.0
+    }
+  }
+}
