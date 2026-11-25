@@ -1,0 +1,79 @@
+# NOTICE — Trilha Avançada
+
+Obra nova desta pasta: © 2026 Leandro França de Mello. Todos os direitos reservados (ver [`LICENSE.md`](./LICENSE.md)). Material de terceiros abaixo segue as respectivas licenças.
+
+Este produto inclui referências, trechos curtos de adaptação e dependências de terceiros. Esses trabalhos **mantêm as próprias licenças** e não são relicenciados pela trilha nem pelo tronco UniPDS.
+
+## Jane Street — tutor socrático (MIT)
+
+O arquivo [`tutor/tutor-socratico-ptbr.md`](./tutor/tutor-socratico-ptbr.md) é uma adaptação em português da skill `socratic-tutor` de Jane Street (`https://github.com/janestreet/agent_skills`, pasta `socratic-tutor/`).
+
+```
+The MIT License
+
+Copyright (c) 2026 Jane Street Group, LLC <opensource-contacts@janestreet.com>
+```
+
+O texto MIT completo está no próprio arquivo do tutor. Esta adaptação **não** é um produto oficial da Jane Street.
+
+## Luciano de Oliveira Nunes — llm-course (Apache-2.0)
+
+Leitura extra opcional, **não vendored nesta pasta**:
+
+- Upstream: https://github.com/lucianoon/llm-course
+- Fork usado no repo: https://github.com/leanderdulac/curso-de-engenharia-de-IA
+- Recorte já presente no clone: [`referencia/llm-course/`](../../referencia/llm-course/) (módulos 06, 13, 19 + tools)
+- Crédito: [`curso/ATRIBUICOES-llm-course.md`](../ATRIBUICOES-llm-course.md)
+- SPDX e NOTICE originais: [`referencia/llm-course/LICENSE`](../../referencia/llm-course/LICENSE), [`referencia/llm-course/NOTICE`](../../referencia/llm-course/NOTICE)
+
+O módulo A2 aponta o **módulo 02** desse curso (atenção) como aprofundamento. A11 pode apontar módulos de quantização/serving do mesmo curso. A8 pode apontar alinhamento. A9 pode apontar RL. A10 pode apontar destilação. A1 pode apontar tokenização/amostragem. A3/A4 podem apontar treino e dados. Esses módulos **não** estão no recorte vendored; quem quiser lê no repositório B. O texto, os labs e os testes de A0–A14 (publicados nesta pasta) são originais desta trilha. A6 aponta o módulo 06 do llm-course (LoRA) sem copiá-lo. O ADR do A12 não copia o do M09. A13 não copia labs sklearn de terceiros.
+
+## Modelos e tokenizers (Hugging Face)
+
+Os labs baixam pesos em tempo de execução. Cada modelo traz a licença no card:
+
+| Modelo | Card | Licença lida no card (nov/2026) | Onde |
+| --- | --- | --- | --- |
+| `HuggingFaceTB/SmolLM2-135M` | https://huggingface.co/HuggingFaceTB/SmolLM2-135M | Apache-2.0 | A2, A11 (PTQ/KV), A8 (DPO/LoRA), A9 (GRPO/LoRA), A10 (aluno), A1 (tokenizer + amostragem), A0 (bancada), A4 (tokenizer / máscara), A5 (SFT / π_SFT), A13 (mean-pool opcional) |
+| `HuggingFaceTB/SmolLM2-360M` | https://huggingface.co/HuggingFaceTB/SmolLM2-360M | Apache-2.0 | A10 (professor) |
+| `Qwen/Qwen2.5-0.5B` (opcional, `TRILHA_A2_MODELO=...`) | https://huggingface.co/Qwen/Qwen2.5-0.5B | Apache-2.0 | A2 (pesos opcionais); A1 (**só tokenizer**) |
+| `ibm-granite/granite-3.1-1b-a400m-instruct` | https://huggingface.co/ibm-granite/granite-3.1-1b-a400m-instruct | Apache-2.0 | A11 (MoE real) |
+| `allenai/OLMoE-1B-7B-0924-Instruct` | https://huggingface.co/allenai/OLMoE-1B-7B-0924-Instruct | Apache-2.0 | A11 (só config nesta CPU) |
+
+## scikit-learn (BSD-3-Clause)
+
+O lab A13 importa `sklearn` (`SVC`, `LogisticRegression`, `MLPClassifier`, `TfidfVectorizer`, `make_blobs`). O lab A14 reusa `sklearn` (`Pipeline`, `StandardScaler`, `PolynomialFeatures`, `Ridge`, `KNeighborsClassifier`, `StratifiedKFold`). Licença: BSD-3-Clause, https://github.com/scikit-learn/scikit-learn/blob/main/COPYING. Os algoritmos são citados nos `referencias.md`; o código dos labs é original desta trilha.
+
+## Google Research — Antigravity `/teamwork` (citação, não código)
+
+A caixa [`caixas/antigravity-teamwork.md`](./caixas/antigravity-teamwork.md) comenta o post de Vahab Mirrokni no blog Google Research (13/11/2026) e o post em X do mesmo dia. Texto da caixa é original desta trilha (paráfrase pedagógica). Números e nomes de produto permanecem alegações da fonte:
+
+- https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/ (acesso 2026-11-14)
+- https://x.com/mirrokni/status/2121351383236436247 (13/11/2026 21:15 UTC)
+
+Não há código, pesos nem suítes do Google nesta pasta. Citar o post **não** transfere licença nem implica endosso.
+
+## @0xTrackmind — harness engineering (citação, não código)
+
+A caixa [`caixas/harness-engineering.md`](./caixas/harness-engineering.md) comenta o artigo «Harness Engineering: How to Fix Your Agent Without Changing the Model» (@0xTrackmind, 21/11/2026). Texto da caixa, templates e a simulação em `caixas/harness/` são originais desta trilha. Os números 40/11/39 do artigo permanecem alegação da fonte (`ilustrativo_nao_medido`). A simulação offline não é medição de LLM (`llm_real` = `nao_calibrado`).
+
+- https://x.com/0xTrackmind/status/2124105677748527453 (21/11/2026; acesso 2026-11-23)
+- Anthropic, «Effective harnesses for long-running agents», 26/11/2025: https://www.anthropic.com/research/effective-harnesses-for-long-running-agents (acesso 2026-11-23)
+- Anthropic, «Harness design for long-running application development», 24/03/2026: https://www.anthropic.com/research/harness-design-long-running-apps (acesso 2026-11-23)
+- OpenAI, Ryan Lopopolo, «Harness engineering: leveraging Codex in an agent-first world», 11/02/2026: https://openai.com/index/harness-engineering/ (acesso 2026-11-23)
+
+Não há código, pesos nem produto dessas fontes nesta pasta. Citar **não** transfere licença nem implica endosso.
+
+## Lindholm et al. — livro CUP (citação / leitura, não obra derivada)
+
+Lindholm, Wahlström, Lindsten & Schön, *Machine Learning — A First Course for Engineers and Scientists*, Cambridge University Press, 2022, ISBN 9781108843607. Site: https://smlbook.org.
+
+O aviso de uso pessoal do rascunho/PDF (o aluno deve reler na cópia que baixar) restringe a **uso pessoal**: sem redistribuição, revenda ou uso em **obras derivadas**. Esta pasta **não** contém o PDF, **não** traduz capítulos, **não** copia figuras, exercícios, notação nem a ordem do livro. [`leituras.md`](./leituras.md) aponta o site para o aluno baixar. Aula e lab do A14 são texto original da trilha.
+
+## Papers (citação acadêmica, não código)
+
+Ver os `referencias.md` de cada módulo publicado. Citar um paper não transfere a licença do artigo para esta pasta.
+
+## Tronco UniPDS (CC BY-NC-ND 4.0)
+
+A trilha **cita** pastas e checkpoints de M01–M09 (por exemplo o lab de temperature do M01 e o LoRA do M09) sem copiar nem editar esses arquivos. O caso Amplitude Seguros é o mesmo da pós; datasets JSONL do M09 não são republicados aqui.

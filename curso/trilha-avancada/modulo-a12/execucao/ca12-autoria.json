@@ -1,0 +1,81 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "cpu": "Intel(R) Xeon(R) Processor",
+    "cpus_logicas": 4,
+    "plataforma": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "epoch_unix": 1794495528,
+    "pacotes": {
+      "torch": "2.15.0+cpu",
+      "transformers": "5.22.2",
+      "accelerate": "1.15.0",
+      "safetensors": "0.8.0",
+      "peft": "0.21.2",
+      "trl": "1.17.1",
+      "datasets": "5.2.0",
+      "bitsandbytes": null
+    },
+    "bitsandbytes_cpu": false,
+    "rss_inicio_mb": 1940.0
+  },
+  "rss_processo_mb": 1940.0,
+  "honestidade": {
+    "c09_5": "apontado; ADR desta trilha e original (nao copia decisoes-de-arquitetura.md)",
+    "dpo_grpo_destilacao_retreino": "nao_reexecutado; A8 entra como logps, A11 como PTQ",
+    "t4": "nao_calibrado",
+    "ic95": "nao_calibrado",
+    "harness_amplitude_m09": "nao_lido"
+  },
+  "tecnicas": [
+    "A8-logps",
+    "A11-ptq-int8"
+  ],
+  "a12_1": {
+    "modulo": "A8",
+    "tecnica": "logps / preferencia implicita (sem DPOTrainer)",
+    "ponto_partida": {
+      "encontrado": true,
+      "caminho": "/agent/repos/engenharia-de-software-com-ia-aplicada/curso/trilha-avancada/modulo-a5/execucao/pi_sft",
+      "env": null,
+      "padrao": "/agent/repos/engenharia-de-software-com-ia-aplicada/curso/trilha-avancada/modulo-a5/execucao/pi_sft",
+      "ponto_partida": "pi_sft"
+    },
+    "base": {
+      "n": 4,
+      "preferencia_bruta": 0.5,
+      "rewards_accuracies": 0.0,
+      "margem_media": 0.0
+    },
+    "pi_sft": {
+      "n": 4,
+      "preferencia_bruta": 1.0,
+      "rewards_accuracies": 0.0,
+      "margem_media": 0.0
+    },
+    "melhorou": true
+  },
+  "a12_2": {
+    "modulo": "A11",
+    "tecnica": "PTQ INT8 dinamico (lm_head fp32)",
+    "ppl_fp32": 217.4980450811796,
+    "ppl_int8": 950.4521831374268,
+    "delta_ppl": 732.9541380562472,
+    "int8_piorou": true,
+    "meta": {
+      "excluir_lm_head": true,
+      "lm_head_protegidos": 1,
+      "nota": "quantize_dynamic em Linear, CPU; lm_head em fp32"
+    },
+    "n_textos": 16
+  },
+  "a12_3_adr": {
+    "arquivo": "adr-capstone.md",
+    "existe": true
+  },
+  "a12_4_t4": {
+    "status": "nao_calibrado"
+  },
+  "segundos_total": 7.526
+}

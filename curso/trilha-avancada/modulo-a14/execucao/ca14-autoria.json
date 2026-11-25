@@ -1,0 +1,310 @@
+{
+  "ambiente": {
+    "python": "3.12.3",
+    "device": "cpu",
+    "gpu": null,
+    "epoch_unix": 1795011965,
+    "pacotes": {
+      "sklearn": "1.9.1",
+      "torch": null
+    },
+    "nota": "torch ausente nesta bancada; A14 é sklearn/numpy"
+  },
+  "rss_processo_mb": 127.9,
+  "sklearn": "1.9.1",
+  "honestidade": {
+    "smlbook_pdf": "nao_baixado; so citacao em leituras.md / NOTICE",
+    "figuras_belkin_nakkiran": "nao_reproduzidas",
+    "jsonl_m09": "nao_lido",
+    "a5_n_eval_publicado": 2,
+    "a13_n_eval_zhang": 6,
+    "t4": "nao_calibrado"
+  },
+  "a14_1": {
+    "a5_eval_n2": {
+      "nome": "A5 eval",
+      "origem": "modulo-a5/execucao/ca5-autoria.json",
+      "k": 1,
+      "n": 2,
+      "acc": 0.5,
+      "wilson95": {
+        "p": 0.5,
+        "lo": 0.09452865480086614,
+        "hi": 0.9054713451991339,
+        "largura": 0.8109426903982677
+      },
+      "bootstrap95": {
+        "p": 0.5,
+        "lo": 0.0,
+        "hi": 1.0,
+        "largura": 1.0,
+        "n_boot": 4000
+      },
+      "vacuo_pratico": true
+    },
+    "a5_se_n6": {
+      "nome": "A5 se n=6 (não medido)",
+      "origem": "hipotese pedagogica (nao medido no A5)",
+      "k": 3,
+      "n": 6,
+      "acc": 0.5,
+      "wilson95": {
+        "p": 0.5,
+        "lo": 0.18761280689940868,
+        "hi": 0.8123871931005913,
+        "largura": 0.6247743862011825
+      },
+      "bootstrap95": {
+        "p": 0.5,
+        "lo": 0.16666666666666666,
+        "hi": 0.8333333333333334,
+        "largura": 0.6666666666666667,
+        "n_boot": 4000
+      },
+      "vacuo_pratico": true
+    },
+    "a13_zhang_svm_n6": {
+      "nome": "A13 Zhang SVM RBF eval",
+      "origem": "modulo-a13/execucao/ca13-autoria.json a13_4.rotulos_aleatorios.svm_rbf",
+      "k": 3,
+      "n": 6,
+      "acc": 0.5,
+      "wilson95": {
+        "p": 0.5,
+        "lo": 0.18761280689940868,
+        "hi": 0.8123871931005913,
+        "largura": 0.6247743862011825
+      },
+      "bootstrap95": {
+        "p": 0.5,
+        "lo": 0.16666666666666666,
+        "hi": 0.8333333333333334,
+        "largura": 0.6666666666666667,
+        "n_boot": 4000
+      },
+      "vacuo_pratico": true
+    },
+    "a7_direto_n8": {
+      "nome": "A7 acc_direto",
+      "origem": "modulo-a7/execucao/ca7-autoria.json",
+      "k": 3,
+      "n": 8,
+      "acc": 0.375,
+      "wilson95": {
+        "p": 0.375,
+        "lo": 0.13684175946152105,
+        "hi": 0.6942621454161981,
+        "largura": 0.5574203859546771
+      },
+      "bootstrap95": {
+        "p": 0.375,
+        "lo": 0.0,
+        "hi": 0.75,
+        "largura": 0.75,
+        "n_boot": 4000
+      },
+      "vacuo_pratico": true
+    },
+    "leitura": "n=2 (A5 publicado) deixa o IC quase [0,1]. n=6 (hold-out A13) ainda é largo. O bound VC do A13 era vácuo; o IC empírico também não fecha a conta com n tão pequeno."
+  },
+  "a14_2": {
+    "n_treino": 126,
+    "n_eval": 54,
+    "n_features": 48,
+    "k_best": 4,
+    "mecanismo": "SelectKBest no X,y inteiro vs só treino",
+    "acc_escala_antes_do_split": 0.7777777777777778,
+    "acc_escala_so_treino": 0.7037037037037037,
+    "delta_otimista": 0.07407407407407407,
+    "otimista": true
+  },
+  "a14_3": {
+    "n_treino": 65,
+    "n_eval_limpo": 35,
+    "n_injetados": 32,
+    "classificador": "KNeighborsClassifier(k=1)",
+    "acc_treino": 1.0,
+    "acc_holdout_limpo": 0.6,
+    "acc_holdout_com_duplicata": 0.7910447761194029,
+    "delta_otimista": 0.19104477611940296,
+    "otimista": true,
+    "nota": "espelho raso de contaminação de benchmark: o teste viu o treino"
+  },
+  "a14_4": {
+    "k": 5,
+    "n": 80,
+    "accs": [
+      0.8125,
+      0.875,
+      0.6875,
+      0.625,
+      0.9375
+    ],
+    "media": 0.7875,
+    "desvio": 0.12960275845829825,
+    "min": 0.625,
+    "max": 0.9375
+  },
+  "a14_5": {
+    "polinomio": {
+      "n_treino": 52,
+      "n_eval": 28,
+      "linhas": [
+        {
+          "grau": 1,
+          "mse_treino": 0.29854145227811923,
+          "mse_eval": 0.3902538777809616
+        },
+        {
+          "grau": 2,
+          "mse_treino": 0.29792955245055397,
+          "mse_eval": 0.39763009154249856
+        },
+        {
+          "grau": 4,
+          "mse_treino": 0.08781082694036418,
+          "mse_eval": 0.18724795082406784
+        },
+        {
+          "grau": 8,
+          "mse_treino": 0.06913094201013106,
+          "mse_eval": 0.20294592300338193
+        },
+        {
+          "grau": 12,
+          "mse_treino": 0.06859921850981052,
+          "mse_eval": 0.5822546330225407
+        },
+        {
+          "grau": 16,
+          "mse_treino": 0.06599574877315885,
+          "mse_eval": 1.2474250697158642
+        }
+      ]
+    },
+    "knn": {
+      "n_treino": 98,
+      "n_eval": 42,
+      "linhas": [
+        {
+          "k": 1,
+          "acc_treino": 1.0,
+          "acc_eval": 0.7380952380952381
+        },
+        {
+          "k": 3,
+          "acc_treino": 0.8877551020408163,
+          "acc_eval": 0.7142857142857143
+        },
+        {
+          "k": 9,
+          "acc_treino": 0.8367346938775511,
+          "acc_eval": 0.6666666666666666
+        },
+        {
+          "k": 21,
+          "acc_treino": 0.7857142857142857,
+          "acc_eval": 0.5952380952380952
+        }
+      ]
+    },
+    "ridge": {
+      "grau": 14,
+      "n_treino": 52,
+      "linhas": [
+        {
+          "modelo": "ols",
+          "alpha": 0.0,
+          "mse_treino": 0.06920882038940163,
+          "mse_eval": 0.514883882209695
+        },
+        {
+          "modelo": "ridge",
+          "alpha": 0.01,
+          "mse_treino": 0.09997686282447432,
+          "mse_eval": 0.17301060281355643
+        },
+        {
+          "modelo": "ridge",
+          "alpha": 1.0,
+          "mse_treino": 0.2120136498303447,
+          "mse_eval": 0.2512232133222953
+        },
+        {
+          "modelo": "ridge",
+          "alpha": 100.0,
+          "mse_treino": 0.5757653301314145,
+          "mse_eval": 0.44479227181392983
+        }
+      ]
+    }
+  },
+  "a14_6": {
+    "n_treino": 40,
+    "n_eval": 160,
+    "d_true": 6,
+    "linhas": [
+      {
+        "p": 6,
+        "p_sobre_n": 0.15,
+        "interpola": false,
+        "mse_treino": 0.14448535963714698,
+        "mse_eval": 0.2311412652191856
+      },
+      {
+        "p": 12,
+        "p_sobre_n": 0.3,
+        "interpola": false,
+        "mse_treino": 0.11781456247234359,
+        "mse_eval": 0.26886990200613325
+      },
+      {
+        "p": 24,
+        "p_sobre_n": 0.6,
+        "interpola": false,
+        "mse_treino": 0.07423492853280518,
+        "mse_eval": 0.41239169724475555
+      },
+      {
+        "p": 36,
+        "p_sobre_n": 0.9,
+        "interpola": false,
+        "mse_treino": 0.013996521054550792,
+        "mse_eval": 3.333233274240147
+      },
+      {
+        "p": 40,
+        "p_sobre_n": 1.0,
+        "interpola": true,
+        "mse_treino": 1.2012756916522058e-29,
+        "mse_eval": 4.984294695851956
+      },
+      {
+        "p": 44,
+        "p_sobre_n": 1.1,
+        "interpola": true,
+        "mse_treino": 4.884562784254351e-30,
+        "mse_eval": 1.4158798882636243
+      },
+      {
+        "p": 80,
+        "p_sobre_n": 2.0,
+        "interpola": true,
+        "mse_treino": 4.232192534192063e-30,
+        "mse_eval": 1.3732102400577353
+      },
+      {
+        "p": 160,
+        "p_sobre_n": 4.0,
+        "interpola": true,
+        "mse_treino": 8.241944974632261e-30,
+        "mse_eval": 1.5165866116403912
+      }
+    ],
+    "pico_p": 40,
+    "pico_mse_eval": 4.984294695851956,
+    "desceu_depois_do_pico": true,
+    "nota": "pico clássico perto de p≈n. Segunda descida, se aparecer, é o fenômeno Belkin/Nakkiran neste desenho — não uma figura deles."
+  },
+  "segundos_total": 0.124
+}
