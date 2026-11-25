@@ -14,9 +14,13 @@ import {
   resolveMarkdownPath,
   stripHomeHeroDuplicate,
 } from "./lib/markdown.mjs";
+import { assertPreviewListen, previewContentGate } from "./lib/gate.mjs";
+import { safeInside } from "../ead/src/filesafe.mjs";
+import { hostGuard, securityHeaders } from "../ead/src/httpguard.mjs";
+import { sanitizeHtml } from "../ead/src/sanitize.mjs";
 
 const PORT = Number.parseInt(process.env.PORT, 10) || 3847;
-const HOST = process.env.HOST || "0.0.0.0";
+const HOST = process.env.HOST || "127.0.0.1";
 
 const GROK_MANIFEST = path.join(MEDIA_DIR, "videos", "grok", "manifest.json");
 const TTS_MANIFEST = path.join(MEDIA_DIR, "audios", "tts", "manifest.json");
@@ -54,12 +58,14 @@ async function handlePage(req, res) {
       return;
     }
 
-    res.json(renderMarkdownPage(markdown, rel));
+    const page = renderMarkdownPage(markdown, rel);
+    page.html = sanitizeHtml(page.html);
+    res.json(page);
   } catch (err) {
     const status = err.status || 500;
     res.status(status).json({
       error: true,
-      message: err.message || "Falha ao ler a página.",
+      message: status === 500 ? "Falha ao ler a página." : err.message || "Falha ao ler a página.",
     });
   }
 }
@@ -127,9 +133,9 @@ export async function ttsAudiosPayload() {
       vtt,
       vtt_src: `media/audios/tts/${vtt}`,
       source_path: toPreviewPath(item.source_path),
-      voice: item.voice || data.voice || "pt-BR-FranciscaNeural",
-      rate: item.rate || data.rate || "-18%",
-      pitch: item.pitch || data.pitch || "-2Hz",
+      voice: item.voice || data.voice || "luna",
+      rate: item.rate || data.rate || "1.0",
+      pitch: item.pitch || data.pitch || "",
       duration_seconds: item.duration_seconds ?? null,
       bytes: item.bytes ?? null,
       status: item.status || null,
@@ -137,10 +143,10 @@ export async function ttsAudiosPayload() {
   });
 
   return {
-    source: "Azure Neural TTS",
-    voice: data.voice || "pt-BR-FranciscaNeural",
-    rate: data.rate || "-18%",
-    pitch: data.pitch || "-2Hz",
+    source: data.engine || "grok-tts",
+    voice: data.voice || "luna",
+    rate: data.rate || "1.0",
+    pitch: data.pitch || "",
     audios,
   };
 }
@@ -237,6 +243,21 @@ async function handleMarkdownFile(req, res, next) {
 export function createApp() {
   const app = express();
   app.disable("x-powered-by");
+  app.set("query parser", "simple");
+  app.use(hostGuard);
+  app.use(securityHeaders);
+  app.use(previewContentGate);
+  app.use("/media", (req, res, next) => {
+    const rel = String(req.path || "").replace(/^\/+/, "");
+    if (!rel) return next();
+    try {
+      safeInside(MEDIA_DIR, rel);
+      next();
+    } catch (err) {
+      if (err.status === 404) return next();
+      res.status(err.status || 400).type("text/plain; charset=utf-8").send("Caminho recusado.");
+    }
+  });
 
   app.get("/api/page", handlePage);
   app.get("/api/grok-videos", handleGrokVideos);
@@ -296,12 +317,23 @@ export function createApp() {
     res.status(404).json({ error: true, message: "Recurso não encontrado." });
   });
 
+  app.use((err, req, res, next) => {
+    if (res.headersSent) return next(err);
+    res.status(500).json({ error: true, message: "Falha ao ler a página." });
+  });
+
   return app;
 }
 
 export { extractTitle, stripHomeHeroDuplicate, CURSO_ROOT };
 
 function start() {
+  try {
+    assertPreviewListen();
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
   const app = createApp();
   const server = app.listen(PORT, HOST, () => {
     const shownHost = HOST === "0.0.0.0" ? "localhost" : HOST;

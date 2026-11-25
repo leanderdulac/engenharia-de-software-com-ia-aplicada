@@ -1,521 +1,533 @@
 WEBVTT
 
 1
-00:00:00.100 --> 00:00:00.949
+00:00:00.080 --> 00:00:00.570
 Olá.
 
 2
-00:00:00.899 --> 00:00:04.634
+00:00:00.840 --> 00:00:03.770
 Seja bem-vinda, seja bem-vindo ao módulo nove.
 
 3
-00:00:04.634 --> 00:00:06.250
+00:00:03.980 --> 00:00:05.100
 O último da trilha.
 
 4
-00:00:06.250 --> 00:00:08.140
+00:00:05.380 --> 00:00:06.770
 Amplitude Seguros.
 
 5
-00:00:08.140 --> 00:00:10.426
+00:00:06.960 --> 00:00:08.740
 Auto e Saúde Empresarial.
 
 6
-00:00:10.426 --> 00:00:16.082
+00:00:08.960 --> 00:00:13.810
 Ajuste fino, o fine-tuning, nesta pós, não começa na placa de vídeo.
 
 7
-00:00:16.082 --> 00:00:17.911
+00:00:14.000 --> 00:00:15.540
 Começa em não treinar.
 
 8
-00:00:17.911 --> 00:00:21.079
+00:00:15.820 --> 00:00:18.600
 Há três casos no JSON da primeira pasta.
 
 9
-00:00:21.079 --> 00:00:23.018
+00:00:18.820 --> 00:00:20.270
 Orçamento de oficina.
 
 10
-00:00:23.018 --> 00:00:25.381
+00:00:20.480 --> 00:00:22.260
 Segurado, placa, valor.
 
 11
-00:00:25.381 --> 00:00:26.981
+00:00:22.440 --> 00:00:23.450
 Saída fixa.
 
 12
-00:00:26.981 --> 00:00:28.109
+00:00:23.620 --> 00:00:24.230
 Volume.
 
 13
-00:00:28.109 --> 00:00:29.374
+00:00:24.400 --> 00:00:25.230
 Candidato.
 
 14
-00:00:29.374 --> 00:00:31.158
+00:00:25.380 --> 00:00:26.580
 Recibo de saúde.
 
 15
-00:00:31.158 --> 00:00:34.054
+00:00:26.740 --> 00:00:29.160
 Beneficiário, procedimento, valor.
 
 16
-00:00:34.054 --> 00:00:35.655
+00:00:29.360 --> 00:00:30.460
 Dado sensível.
 
 17
-00:00:35.655 --> 00:00:37.469
+00:00:30.640 --> 00:00:31.980
 Volume ainda baixo.
 
 18
-00:00:37.469 --> 00:00:39.496
+00:00:32.160 --> 00:00:33.570
 Atendimento ao cliente.
 
 19
-00:00:39.496 --> 00:00:42.774
+00:00:33.740 --> 00:00:36.280
 Negociar contestação em conversa aberta.
 
 20
-00:00:42.774 --> 00:00:44.451
+00:00:36.460 --> 00:00:37.640
 Política que muda.
 
 21
-00:00:44.451 --> 00:00:50.990
+00:00:37.820 --> 00:00:43.260
 Geração aumentada por recuperação, o RAG, e o humano no loop já cobrem a rotina.
 
 22
-00:00:50.990 --> 00:00:52.850
+00:00:43.460 --> 00:00:44.810
 A ferramenta reprova.
 
 23
-00:00:52.850 --> 00:00:56.966
+00:00:45.000 --> 00:00:48.380
 Se você ajusta os três, não leu o quadro de decisão.
 
 24
-00:00:56.966 --> 00:01:02.542
+00:00:48.660 --> 00:00:53.170
 Ao final, você aplica o quadro nos três casos, com um reprovado visível.
 
 25
-00:01:02.542 --> 00:01:06.478
+00:00:53.360 --> 00:00:57.070
 Monta um conjunto em JSONL, com dado pessoal tratado.
 
 26
-00:01:06.478 --> 00:01:10.137
+00:00:57.260 --> 00:01:00.540
 Faz um treino de verdade, pela nuvem ou por LoRA.
 
 27
-00:01:10.137 --> 00:01:12.698
+00:01:00.760 --> 00:01:02.590
 Tira um número do banco de provas.
 
 28
-00:01:12.698 --> 00:01:15.076
+00:01:02.740 --> 00:01:04.430
 E escreve as suas decisões.
 
 29
-00:01:15.076 --> 00:01:20.320
+00:01:04.620 --> 00:01:08.910
 Se o valor presente líquido medido matar o ajuste, isso é nota alta.
 
 30
-00:01:20.320 --> 00:01:23.551
+00:01:09.100 --> 00:01:11.370
 Desde que o número venha do banco de provas.
 
 31
-00:01:23.551 --> 00:01:25.228
+00:01:11.580 --> 00:01:12.710
 Quatro perguntas.
 
 32
-00:01:25.228 --> 00:01:27.240
+00:01:12.880 --> 00:01:14.350
 A tarefa é estruturada.
 
 33
-00:01:27.240 --> 00:01:30.182
+00:01:14.520 --> 00:01:16.880
 Prompt e RAG já foram esgotados.
 
 34
-00:01:30.182 --> 00:01:31.859
+00:01:17.040 --> 00:01:18.220
 Há dado bastante.
 
 35
-00:01:31.859 --> 00:01:33.704
+00:01:18.380 --> 00:01:19.700
 A política é estável.
 
 36
-00:01:33.704 --> 00:01:38.185
+00:01:19.860 --> 00:01:23.520
 Há um processo hierárquico analítico, o AHP de Saaty.
 
 37
-00:01:38.185 --> 00:01:40.030
+00:01:23.560 --> 00:01:24.900
 Pesos não chutados.
 
 38
-00:01:40.030 --> 00:01:42.012
+00:01:25.060 --> 00:01:26.480
 Valor presente líquido.
 
 39
-00:01:42.012 --> 00:01:47.896
+00:01:26.660 --> 00:01:31.180
 Um portão da Lei Geral de Proteção de Dados, a LGPD, antes da conta.
 
 40
-00:01:47.896 --> 00:01:51.158
+00:01:31.380 --> 00:01:33.670
 Saúde testa o acordo de processamento.
 
 41
-00:01:51.158 --> 00:01:53.094
+00:01:33.840 --> 00:01:35.150
 Categoria sensível.
 
 42
-00:01:53.094 --> 00:01:58.810
+00:01:35.320 --> 00:01:40.680
 Adaptação de baixo posto, o LoRA, e o QLoRA, estão nos artigos da ementa.
 
 43
-00:01:58.810 --> 00:02:01.796
+00:01:40.880 --> 00:01:43.170
 Ajuste completo é o contraste caro.
 
 44
-00:02:01.796 --> 00:02:03.429
+00:01:43.340 --> 00:01:44.420
 Rode a ferramenta.
 
 45
-00:02:03.429 --> 00:02:05.701
+00:01:44.580 --> 00:01:46.180
 Não recaia a matriz no olho.
 
 46
-00:02:05.701 --> 00:02:10.350
+00:01:46.400 --> 00:01:49.890
 Atendimento quebra a primeira e a quarta pergunta de propósito.
 
 47
-00:02:10.350 --> 00:02:11.798
+00:01:50.060 --> 00:01:51.130
 Tarefa aberta.
 
 48
-00:02:11.798 --> 00:02:13.475
+00:01:51.300 --> 00:01:52.530
 Política instável.
 
 49
-00:02:13.475 --> 00:02:16.158
+00:01:52.700 --> 00:01:54.790
 Volume não salva conversa solta.
 
 50
-00:02:16.158 --> 00:02:18.033
+00:01:54.980 --> 00:01:56.330
 Auto passa com folga.
 
 51
-00:02:18.033 --> 00:02:23.506
+00:01:56.520 --> 00:02:00.800
 Saúde trava no dado, porque procedimento médico é categoria sensível.
 
 52
-00:02:23.506 --> 00:02:25.929
+00:02:01.020 --> 00:02:02.760
 Conjunto de dados é produto.
 
 53
-00:02:25.929 --> 00:02:30.091
+00:02:02.940 --> 00:02:06.010
 Há imagens sintéticas na pasta de documentos brutos.
 
 54
-00:02:30.091 --> 00:02:35.579
+00:02:06.180 --> 00:02:10.830
 Reconhecimento óptico de caracteres, o OCR, versus multimodal.
 
 55
-00:02:35.579 --> 00:02:36.524
+00:02:11.020 --> 00:02:11.880
 JSONL.
 
 56
-00:02:36.524 --> 00:02:38.338
+00:02:12.080 --> 00:02:13.350
 Um objeto por linha.
 
 57
-00:02:38.338 --> 00:02:39.847
+00:02:13.520 --> 00:02:14.610
 Esquema estável.
 
 58
-00:02:39.847 --> 00:02:41.402
+00:02:14.780 --> 00:02:15.740
 Deduplicação.
 
 59
-00:02:41.402 --> 00:02:43.612
+00:02:15.920 --> 00:02:17.560
 Balancear Auto e Saúde.
 
 60
-00:02:43.612 --> 00:02:46.859
+00:02:17.740 --> 00:02:20.130
 Dado pessoal sai antes de ir para a rede.
 
 61
-00:02:46.859 --> 00:02:50.518
+00:02:20.320 --> 00:02:23.020
 Sem esquema, o banco de provas vira teatro.
 
 62
-00:02:50.518 --> 00:02:57.820
+00:02:23.200 --> 00:02:28.740
 Sem dado pessoal tratado, o laboratório existe para falhar na sua cara, não na do encarregado.
 
 63
-00:02:57.820 --> 00:03:02.835
+00:02:28.980 --> 00:02:32.920
 Não misture linha de Auto e linha de Saúde sem um campo que discrimine.
 
 64
-00:03:02.835 --> 00:03:08.109
+00:02:33.110 --> 00:02:37.210
 O banco de provas depois parte os conjuntos para pegar regressão cruzada.
 
 65
-00:03:08.109 --> 00:03:11.844
+00:02:37.390 --> 00:02:40.110
 Esquema frouxo hoje é métrica mentirosa amanhã.
 
 66
-00:03:11.844 --> 00:03:14.314
+00:02:40.430 --> 00:02:42.170
 Vertex é opcional e pago.
 
 67
-00:03:14.314 --> 00:03:19.253
+00:02:42.330 --> 00:02:46.250
 Na gravação, trabalhos de menos de um real até cerca de quarenta.
 
 68
-00:03:19.253 --> 00:03:24.131
+00:02:46.430 --> 00:02:50.270
 Crédito grátis de nuvem não é promessa para inteligência artificial.
 
 69
-00:03:24.131 --> 00:03:26.509
+00:02:50.470 --> 00:02:52.120
 Nomes de modelo envelhecem.
 
 70
-00:03:26.509 --> 00:03:29.618
+00:02:52.310 --> 00:02:54.520
 Leia o texto complementar de validade.
 
 71
-00:03:29.618 --> 00:03:33.094
+00:02:54.690 --> 00:02:57.390
 Mentir um identificador de trabalho não conta.
 
 72
-00:03:33.094 --> 00:03:37.057
+00:02:57.590 --> 00:03:00.710
 Sem cartão, descreva com evidência e siga LoRA.
 
 73
-00:03:37.057 --> 00:03:37.896
+00:03:01.010 --> 00:03:01.650
 LoRA.
 
 74
-00:03:37.896 --> 00:03:40.746
+00:03:01.850 --> 00:03:03.820
 Posto quatro, oito, dezesseis.
 
 75
-00:03:40.746 --> 00:03:42.713
+00:03:04.050 --> 00:03:05.250
 MLX no Mac.
 
 76
-00:03:42.713 --> 00:03:44.298
+00:03:05.450 --> 00:03:06.640
 Colab no resto.
 
 77
-00:03:44.298 --> 00:03:47.713
+00:03:06.810 --> 00:03:09.380
 A configuração dos adaptadores está no Git.
 
 78
-00:03:47.713 --> 00:03:49.329
+00:03:09.590 --> 00:03:10.660
 Os pesos não vêm.
 
 79
-00:03:49.329 --> 00:03:51.128
+00:03:10.830 --> 00:03:12.040
 Quase dois gigas.
 
 80
-00:03:51.128 --> 00:03:52.774
+00:03:12.190 --> 00:03:13.300
 Você treina o seu.
 
 81
-00:03:52.774 --> 00:03:56.310
+00:03:13.470 --> 00:03:16.120
 Posto dezesseis não é automaticamente melhor.
 
 82
-00:03:56.310 --> 00:03:57.774
+00:03:16.290 --> 00:03:17.210
 É outra curva.
 
 83
-00:03:57.774 --> 00:03:59.496
+00:03:17.450 --> 00:03:18.610
 O banco de provas.
 
 84
-00:03:59.496 --> 00:04:02.085
-A contra B. Estresse de formato.
+00:03:18.790 --> 00:03:19.380
+A contra B.
 
 85
-00:04:02.085 --> 00:04:03.795
-Veredito de escala.
+00:03:19.410 --> 00:03:21.160
+Estresse de formato.
 
 86
-00:04:03.795 --> 00:04:07.484
-Valor presente líquido real contra o projetado.
+00:03:21.330 --> 00:03:22.570
+Veredito de escala.
 
 87
-00:04:07.484 --> 00:04:10.243
-Conjuntos só Auto e só Saúde.
+00:03:22.730 --> 00:03:25.540
+Valor presente líquido real contra o projetado.
 
 88
-00:04:10.243 --> 00:04:13.399
-Modelo como juiz no texto complementar.
+00:03:25.710 --> 00:03:27.870
+Conjuntos só Auto e só Saúde.
 
 89
-00:04:13.399 --> 00:04:14.466
-Um número.
+00:03:28.050 --> 00:03:30.430
+Modelo como juiz no texto complementar.
 
 90
-00:04:14.466 --> 00:04:18.140
-O portão de avaliação do TrialForge era a porta.
+00:03:30.610 --> 00:03:31.260
+Um número.
 
 91
-00:04:18.140 --> 00:04:20.426
-Aqui é o detector de metal.
+00:03:31.410 --> 00:03:34.290
+O portão de avaliação do TrialForge era a porta.
 
 92
-00:04:20.426 --> 00:04:23.307
-Auto funciona e Saúde desaba.
+00:03:34.470 --> 00:03:36.110
+Aqui é o detector de metal.
 
 93
-00:04:23.307 --> 00:04:25.731
-Isso é achado, não fracasso.
+00:03:36.310 --> 00:03:38.440
+Auto funciona e Saúde desaba.
 
 94
-00:04:25.731 --> 00:04:28.399
-O projeto final é um assistente.
+00:03:38.670 --> 00:03:40.550
+Isso é achado, não fracasso.
 
 95
-00:04:28.399 --> 00:04:31.966
-Conjunto de três mil. Decisões de arquitetura.
+00:03:40.810 --> 00:03:42.940
+O projeto final é um assistente.
 
 96
-00:04:31.966 --> 00:04:34.222
-Pode discordar do exemplo.
+00:03:43.130 --> 00:03:44.510
+Conjunto de três mil.
 
 97
-00:04:34.222 --> 00:04:38.018
-A regressão de formato na segunda rodada é o ponto.
+00:03:44.710 --> 00:03:46.250
+Decisões de arquitetura.
 
 98
-00:04:38.018 --> 00:04:39.512
-Há rota local.
+00:03:46.450 --> 00:03:48.080
+Pode discordar do exemplo.
 
 99
-00:04:39.512 --> 00:04:40.609
-Há Colab.
+00:03:48.250 --> 00:03:51.400
+A regressão de formato na segunda rodada é o ponto.
 
 100
-00:04:40.609 --> 00:04:42.454
-O projeto do módulo.
+00:03:51.590 --> 00:03:52.660
+Há rota local.
 
 101
-00:04:42.454 --> 00:04:43.628
-Decisão.
+00:03:52.850 --> 00:03:53.590
+Há Colab.
 
 102
-00:04:43.628 --> 00:04:44.725
-Conjunto.
+00:03:53.890 --> 00:03:55.180
+O projeto do módulo.
 
 103
-00:04:44.725 --> 00:04:47.271
-Um treino real. Banco de provas.
+00:03:55.350 --> 00:03:56.060
+Decisão.
 
 104
-00:04:47.271 --> 00:04:48.902
-Oito decisões.
+00:03:56.230 --> 00:03:57.020
+Conjunto.
 
 105
-00:04:48.902 --> 00:04:51.082
-Versão de modelo citada.
+00:03:57.210 --> 00:03:58.240
+Um treino real.
 
 106
-00:04:51.082 --> 00:04:55.015
-Se o número matar o ajuste fino, isso é nota dez.
+00:03:58.430 --> 00:03:59.590
+Banco de provas.
 
 107
-00:04:55.015 --> 00:04:58.673
-Se o slide salvar o projeto, você não mediu.
+00:03:59.790 --> 00:04:00.870
+Oito decisões.
 
 108
-00:04:58.673 --> 00:05:01.310
-Três recusas ainda valem nota.
+00:04:01.050 --> 00:04:02.730
+Versão de modelo citada.
 
 109
-00:05:01.310 --> 00:05:03.780
-Atendimento fora do ajuste.
+00:04:02.930 --> 00:04:06.150
+Se o número matar o ajuste fino, isso é nota dez.
 
 110
-00:05:03.780 --> 00:05:06.524
-Saúde esperando mais recibos.
+00:04:06.350 --> 00:04:09.340
+Se o slide salvar o projeto, você não mediu.
 
 111
-00:05:06.524 --> 00:05:11.661
-Auto cujo valor presente líquido medido ficou abaixo do projetado.
+00:04:09.650 --> 00:04:11.660
+Três recusas ainda valem nota.
 
 112
-00:05:11.661 --> 00:05:14.161
-Ninguém fica de fora por fatura.
+00:04:11.850 --> 00:04:13.620
+Atendimento fora do ajuste.
 
 113
-00:05:14.161 --> 00:05:16.844
-O que não existe é ajuste imaginário.
+00:04:13.810 --> 00:04:15.810
+Saúde esperando mais recibos.
 
 114
-00:05:16.844 --> 00:05:19.573
-Essa é a frase de saída da pós.
+00:04:16.030 --> 00:04:20.150
+Auto cujo valor presente líquido medido ficou abaixo do projetado.
 
 115
-00:05:19.573 --> 00:05:21.524
-Modelo é componente.
+00:04:20.350 --> 00:04:22.280
+Ninguém fica de fora por fatura.
 
 116
-00:05:21.524 --> 00:05:23.353
-Componente se mede.
+00:04:22.490 --> 00:04:24.680
+O que não existe é ajuste imaginário.
 
 117
-00:05:23.353 --> 00:05:25.792
-O resto é conversa.
+00:04:24.950 --> 00:04:26.880
+Essa é a frase de saída da pós.
 
 118
-00:05:26.020 --> 00:05:29.582
-Agente, RAG e regra continuam no menu.
+00:04:27.070 --> 00:04:28.450
+Modelo é componente.
 
 119
-00:05:29.532 --> 00:05:37.395
-Ajuste fino entra quando a saída é estável, o dado basta, o prompt já foi esgotado, e a conta fecha.
+00:04:28.610 --> 00:04:29.900
+Componente se mede.
 
 120
-00:05:37.395 --> 00:05:41.773
-Até lá, leia os textos de risco e de disponibilidade.
+00:04:30.070 --> 00:04:31.300
+O resto é conversa.
 
 121
-00:05:41.773 --> 00:05:44.548
-Rode a ferramenta nos três casos.
+00:04:31.550 --> 00:04:34.280
+Agente, RAG e regra continuam no menu.
 
 122
-00:05:44.548 --> 00:05:46.605
-Fotografe o reprovado.
+00:04:34.510 --> 00:04:41.440
+Ajuste fino entra quando a saída é estável, o dado basta, o prompt já foi esgotado, e a conta fecha.
 
 123
-00:05:46.605 --> 00:05:48.419
-Trate o dado pessoal.
+00:04:41.710 --> 00:04:45.220
+Até lá, leia os textos de risco e de disponibilidade.
 
 124
-00:05:48.419 --> 00:05:49.944
-Faça um treino.
+00:04:45.410 --> 00:04:47.420
+Rode a ferramenta nos três casos.
 
 125
-00:05:49.944 --> 00:05:51.224
-Tire um número.
+00:04:47.590 --> 00:04:49.080
+Fotografe o reprovado.
 
 126
-00:05:51.224 --> 00:05:53.526
-Escreva as oito decisões.
+00:04:49.250 --> 00:04:50.670
+Trate o dado pessoal.
 
 127
-00:05:53.526 --> 00:05:58.419
-Se a oitava for “não promover”, justifique com o banco de provas.
+00:04:50.870 --> 00:04:51.890
+Faça um treino.
 
 128
-00:05:58.419 --> 00:06:01.758
-Você fechou a trilha com a decisão mais cara.
+00:04:52.050 --> 00:04:52.950
+Tire um número.
 
 129
-00:06:01.758 --> 00:06:03.298
-Mudar pesos.
+00:04:53.110 --> 00:04:54.800
+Escreva as oito decisões.
 
 130
-00:06:03.298 --> 00:06:04.990
+00:04:54.990 --> 00:04:59.020
+Se a oitava for “não promover”, justifique com o banco de provas.
+
+131
+00:04:59.190 --> 00:05:01.800
+Você fechou a trilha com a decisão mais cara.
+
+132
+00:05:01.970 --> 00:05:02.970
+Mudar pesos.
+
+133
+00:05:03.130 --> 00:05:03.670
 Meça.

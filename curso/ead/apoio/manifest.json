@@ -1,0 +1,17 @@
+{
+  "esquema": 1,
+  "nota": "O botão de download só aparece se o PDF existir nesta pasta e começar com %PDF-. Não marque disponibilidade aqui. Os PDF Atividade* dos laboratórios não entram nesta lista.",
+  "pasta": "curso/ead/apoio/",
+  "materiais": [
+    {"id": "apostila-01", "modulo": "01", "titulo": "Apostila do módulo 01", "arquivo": "modulo-01-apostila.pdf"},
+    {"id": "apostila-02", "modulo": "02", "titulo": "Apostila do módulo 02", "arquivo": "modulo-02-apostila.pdf"},
+    {"id": "apostila-03", "modulo": "03", "titulo": "Apostila do módulo 03", "arquivo": "modulo-03-apostila.pdf"},
+    {"id": "apostila-04", "modulo": "04", "titulo": "Apostila do módulo 04", "arquivo": "modulo-04-apostila.pdf"},
+    {"id": "apostila-05", "modulo": "05", "titulo": "Apostila do módulo 05", "arquivo": "modulo-05-apostila.pdf"},
+    {"id": "apostila-06", "modulo": "06", "titulo": "Apostila do módulo 06", "arquivo": "modulo-06-apostila.pdf"},
+    {"id": "apostila-07", "modulo": "07", "titulo": "Apostila do módulo 07", "arquivo": "modulo-07-apostila.pdf"},
+    {"id": "apostila-08", "modulo": "08", "titulo": "Apostila do módulo 08", "arquivo": "modulo-08-apostila.pdf"},
+    {"id": "apostila-09", "modulo": "09", "titulo": "Apostila do módulo 09", "arquivo": "modulo-09-apostila.pdf"},
+    {"id": "guia-aluno", "modulo": null, "titulo": "Guia do aluno", "arquivo": "guia-do-aluno.pdf"}
+  ]
+}

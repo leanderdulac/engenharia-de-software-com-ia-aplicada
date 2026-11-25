@@ -1,158 +1,473 @@
 WEBVTT
 
 1
-00:00:00.100 --> 00:00:00.949
-Olá. Seja bem-vinda, seja bem-vindo ao módulo três.
-No módulo um, você consumiu o protocolo de contexto de modelo, 
+00:00:00.080 --> 00:00:00.580
+Olá.
 
 2
-00:00:00.899 --> 00:00:04.679
+00:00:00.860 --> 00:00:03.670
 Seja bem-vinda, seja bem-vindo ao módulo três.
-No módulo um, você consumiu o protocolo de contexto de modelo, o MCP. Playwright. Context7. Grafana. No módulo
 
 3
-00:00:04.679 --> 00:00:10.731
-No módulo um, você consumiu o protocolo de contexto de modelo, o MCP. Playwright. Context7. Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o 
+00:00:03.920 --> 00:00:08.710
+No módulo um, você consumiu o protocolo de contexto de modelo, o MCP.
 
 4
-00:00:10.731 --> 00:00:11.996
-Playwright. Context7. Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai
+00:00:08.980 --> 00:00:09.840
+Playwright.
 
 5
-00:00:11.996 --> 00:00:13.582
-Context7. Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai do seu bi
+00:00:10.040 --> 00:00:11.400
+Context7.
 
 6
-00:00:13.582 --> 00:00:14.695
-Grafana. No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai do seu binário e v
+00:00:11.440 --> 00:00:12.240
+Grafana.
 
 7
-00:00:14.695 --> 00:00:19.878
-No módulo dois, o agente já tinha ferramentas dentro do processo Node. Agora o contrato sai do seu binário e vira servidor. Qualquer anfitrião pode descobrir ferramentas, recursos e
+00:00:12.440 --> 00:00:16.970
+No módulo dois, o agente já tinha ferramentas dentro do processo Node.
 
 8
-00:00:19.878 --> 00:00:23.914
-Agora o contrato sai do seu binário e vira servidor. Qualquer anfitrião pode descobrir ferramentas, recursos e prompts do mesmo jeito. O seu editor. O agente. O in
+00:00:17.160 --> 00:00:20.430
+Agora o contrato sai do seu binário e vira servidor.
 
 9
-00:00:23.914 --> 00:00:29.984
-Qualquer anfitrião pode descobrir ferramentas, recursos e prompts do mesmo jeito. O seu editor. O agente. O inspetor. O grafo.
-Três papéis. Decore agora, com calma.
-O servidor MCP é o proces
+00:00:20.620 --> 00:00:25.690
+Qualquer anfitrião pode descobrir ferramentas, recursos e prompts do mesmo jeito.
 
 10
-00:00:29.984 --> 00:00:31.295
-O seu editor. O agente. O inspetor. O grafo.
-Três papéis. Decore agora, com calma.
-O servidor MCP é o processo que declara
+00:00:25.860 --> 00:00:26.790
+O seu editor.
 
 11
-00:00:31.295 --> 00:00:32.484
-O agente. O inspetor. O grafo.
-Três papéis. Decore agora, com calma.
-O servidor MCP é o processo que declara as ferram
+00:00:26.940 --> 00:00:27.740
+O agente.
 
 12
-00:00:32.484 --> 00:00:33.689
-O inspetor. O grafo.
-Três papéis. Decore agora, com calma.
-O servidor MCP é o processo que declara as ferramentas. Cript
+00:00:27.880 --> 00:00:28.760
+O inspetor.
 
 13
-00:00:33.689 --> 00:00:34.756
+00:00:28.920 --> 00:00:29.590
 O grafo.
-Três papéis. Decore agora, com calma.
-O servidor MCP é o processo que declara as ferramentas. Criptografia. 
 
 14
-00:00:34.756 --> 00:00:36.249
-Três papéis. Decore agora, com calma.
-O servidor MCP é o processo que declara as ferramentas. Criptografia. Clientes. O a
+00:00:29.800 --> 00:00:30.810
+Três papéis.
 
 15
-00:00:36.249 --> 00:00:38.414
+00:00:30.980 --> 00:00:32.690
 Decore agora, com calma.
-O servidor MCP é o processo que declara as ferramentas. Criptografia. Clientes. O anfitrião, o host, é o edi
 
 16
-00:00:38.414 --> 00:00:42.896
-O servidor MCP é o processo que declara as ferramentas. Criptografia. Clientes. O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de
+00:00:32.900 --> 00:00:36.380
+O servidor MCP é o processo que declara as ferramentas.
 
 17
-00:00:42.896 --> 00:00:44.435
-Criptografia. Clientes. O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de depuração. Se
+00:00:36.540 --> 00:00:37.560
+Criptografia.
 
 18
-00:00:44.435 --> 00:00:45.685
-Clientes. O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de depuração. Se misturar 
+00:00:37.700 --> 00:00:38.470
+Clientes.
 
 19
-00:00:45.685 --> 00:00:50.198
-O anfitrião, o host, é o editor ou o agente que conecta. O inspetor é a interface de depuração. Se misturar os três, o token do laboratório de segurança não faz sent
+00:00:38.620 --> 00:00:42.430
+O anfitrião, o host, é o editor ou o agente que conecta.
 
 20
-00:00:50.198 --> 00:00:53.323
-O inspetor é a interface de depuração. Se misturar os três, o token do laboratório de segurança não faz sentido. Quem recusa a chamada é a API Fast
+00:00:42.620 --> 00:00:45.080
+O inspetor é a interface de depuração.
 
 21
-00:00:53.323 --> 00:00:58.963
-Se misturar os três, o token do laboratório de segurança não faz sentido. Quem recusa a chamada é a API Fastify. O MCP só repassa o token de serviço.
-A especificação oficial está no
+00:00:45.280 --> 00:00:49.520
+Se misturar os três, o token do laboratório de segurança não faz sentido.
 
 22
-00:00:58.963 --> 00:01:02.073
-Quem recusa a chamada é a API Fastify. O MCP só repassa o token de serviço.
-A especificação oficial está no site do protocolo, já linkado no mater
+00:00:49.700 --> 00:00:52.580
+Quem recusa a chamada é a API Fastify.
 
 23
-00:01:02.073 --> 00:01:05.594
+00:00:52.760 --> 00:00:55.380
 O MCP só repassa o token de serviço.
-A especificação oficial está no site do protocolo, já linkado no material. Três primitivas bastam. Ferramen
 
 24
-00:01:05.594 --> 00:01:13.109
-A especificação oficial está no site do protocolo, já linkado no material. Três primitivas bastam. Ferramenta, a tool, é uma função com esquema. O modelo escolhe chamar. Recurso, o re
+00:00:55.600 --> 00:01:00.160
+A especificação oficial está no site do protocolo, já linkado no material.
 
 25
-00:01:13.109 --> 00:01:16.524
-Ferramenta, a tool, é uma função com esquema. O modelo escolhe chamar. Recurso, o resource, é dado para ler. Não é uma ação
+00:01:00.340 --> 00:01:01.880
+Três primitivas bastam.
 
 26
-00:01:16.524 --> 00:01:18.490
-O modelo escolhe chamar. Recurso, o resource, é dado para ler. Não é uma ação. É contexto. Prompt é um
+00:01:02.040 --> 00:01:05.170
+Ferramenta, a tool, é uma função com esquema.
 
 27
-00:05:29.596 --> 00:05:33.399
-Até lá, faça o inspetor listar as ferramentas.
+00:01:05.340 --> 00:01:06.800
+O modelo escolhe chamar.
 
 28
-00:05:33.349 --> 00:05:34.861
-Crie um cliente.
+00:01:06.960 --> 00:01:09.700
+Recurso, o resource, é dado para ler.
 
 29
-00:05:34.861 --> 00:05:37.178
-Mostre a recusa sem token.
+00:01:09.860 --> 00:01:10.830
+Não é uma ação.
 
 30
-00:05:37.178 --> 00:05:38.703
-Quatro saltos.
+00:01:10.960 --> 00:01:11.850
+É contexto.
 
 31
-00:05:38.703 --> 00:05:39.892
-Anfitrião.
+00:01:12.040 --> 00:01:14.450
+Prompt é um modelo de conversa pronto.
 
 32
-00:05:39.892 --> 00:05:41.111
-MCP.
+00:01:14.620 --> 00:01:16.530
+O anfitrião oferece ao usuário.
 
 33
-00:05:41.111 --> 00:05:42.148
-API.
+00:01:16.740 --> 00:01:20.650
+Não invente um gateway HTTP se o laboratório sobe no inspetor.
 
 34
-00:05:42.148 --> 00:05:43.093
-Token.
+00:01:20.900 --> 00:01:23.990
+Ao final, um agente fala com várias ferramentas.
 
 35
-00:05:43.093 --> 00:05:49.221
+00:01:24.160 --> 00:01:26.360
+Um servidor MCP nasce do zero.
+
+36
+00:01:26.520 --> 00:01:28.600
+Uma API legado vira MCP.
+
+37
+00:01:28.860 --> 00:01:31.120
+Token e papel recusam o anônimo.
+
+38
+00:01:31.280 --> 00:01:35.740
+E você publica num registro privado, ou consome a partir de vários servidores.
+
+39
+00:01:35.980 --> 00:01:39.020
+Vamos aos laboratórios, sem ler pasta em sequência.
+
+40
+00:01:39.240 --> 00:01:44.380
+No primeiro, a função que deveria devolver as ferramentas volta uma lista vazia no template.
+
+41
+00:01:44.560 --> 00:01:45.840
+Ligue pelo menos uma.
+
+42
+00:01:46.000 --> 00:01:49.110
+O arquivo de vendas não entra no modelo por telepatia.
+
+43
+00:01:49.280 --> 00:01:51.360
+Pergunte os produtos mais vendidos.
+
+44
+00:01:51.520 --> 00:01:53.190
+O Mongo precisa estar no ar.
+
+45
+00:01:53.360 --> 00:01:57.460
+Se o agente responder sem chamar ferramenta, você não ligou o MCP.
+
+46
+00:01:57.700 --> 00:01:58.440
+Só o chat.
+
+47
+00:01:58.720 --> 00:02:02.230
+O laboratório de tendências é o que de fato usa chave externa.
+
+48
+00:02:02.400 --> 00:02:03.610
+Sem chave, pule.
+
+49
+00:02:03.760 --> 00:02:04.940
+O módulo não morre.
+
+50
+00:02:05.160 --> 00:02:07.500
+Instruções e skills não são servidor.
+
+51
+00:02:07.660 --> 00:02:09.610
+São jeito de falar com o anfitrião.
+
+52
+00:02:09.780 --> 00:02:11.460
+Copie um arquivo de agente.
+
+53
+00:02:11.640 --> 00:02:13.830
+Abra uma skill na pasta de laboratório.
+
+54
+00:02:13.980 --> 00:02:15.720
+Junte com a live de fevereiro.
+
+55
+00:02:15.880 --> 00:02:18.990
+No módulo quatro, a API de notas vive disso.
+
+56
+00:02:19.200 --> 00:02:20.890
+Skill não autentica banco.
+
+57
+00:02:21.060 --> 00:02:22.590
+Anote isso numa frase.
+
+58
+00:02:22.760 --> 00:02:24.780
+No dia do token, a frase volta.
+
+59
+00:02:25.010 --> 00:02:26.690
+Depois vem o CipherSuite.
+
+60
+00:02:26.850 --> 00:02:29.880
+O template é criptografia local, sem MCP.
+
+61
+00:02:30.130 --> 00:02:32.150
+O gabarito é servidor de verdade.
+
+62
+00:02:32.330 --> 00:02:32.970
+Cifrar.
+
+63
+00:02:33.110 --> 00:02:33.880
+Decifrar.
+
+64
+00:02:34.030 --> 00:02:35.810
+Um recurso que explica a cifra.
+
+65
+00:02:35.990 --> 00:02:37.470
+Dois prompts prontos.
+
+66
+00:02:37.650 --> 00:02:40.070
+AES-256.
+
+67
+00:02:40.110 --> 00:02:42.820
+Vetor de inicialização novo a cada chamada.
+
+68
+00:02:42.990 --> 00:02:46.220
+Duas cifras da mesma frase devem parecer diferentes.
+
+69
+00:02:46.430 --> 00:02:47.430
+Abra o inspetor.
+
+70
+00:02:47.590 --> 00:02:50.460
+Confira a lista de ferramentas sem o modelo no meio.
+
+71
+00:02:50.630 --> 00:02:53.630
+Se a ferramenta não aparece, o problema é o servidor.
+
+72
+00:02:53.870 --> 00:02:56.720
+A API legado é o caso de ouro da disciplina.
+
+73
+00:02:56.890 --> 00:02:58.870
+Uma API Fastify com Mongo.
+
+74
+00:02:59.030 --> 00:03:00.960
+Um MCP vazio no template.
+
+75
+00:03:01.110 --> 00:03:04.520
+Você embrulha o criar, listar, atualizar e apagar.
+
+76
+00:03:04.710 --> 00:03:06.100
+Sobe a API primeiro.
+
+77
+00:03:06.270 --> 00:03:08.040
+Cria um cliente pela ferramenta.
+
+78
+00:03:08.190 --> 00:03:09.810
+Confere no Mongo Express.
+
+79
+00:03:09.970 --> 00:03:12.210
+Ninguém reescreveu o legado em agente.
+
+80
+00:03:12.370 --> 00:03:14.190
+Você embrulhou o que já existia.
+
+81
+00:03:14.370 --> 00:03:17.370
+O TrialForge vai chamar isso de ferramenta de domínio.
+
+82
+00:03:17.590 --> 00:03:25.350
+O laboratório de segurança acrescenta JSON Web Token, o JWT, papel, token de serviço e limite de taxa.
+
+83
+00:03:25.550 --> 00:03:27.530
+Sem token, a API recusa.
+
+84
+00:03:27.690 --> 00:03:28.940
+Com token, passa.
+
+85
+00:03:29.110 --> 00:03:32.010
+Compare o template com o gabarito no nível de cima.
+
+86
+00:03:32.190 --> 00:03:35.090
+O nome de gabarito dentro do template é armadilha.
+
+87
+00:03:35.290 --> 00:03:38.390
+JWT no prompt de sistema não é garantia.
+
+88
+00:03:38.570 --> 00:03:40.010
+O modelo não autoriza.
+
+89
+00:03:40.190 --> 00:03:41.390
+A API autoriza.
+
+90
+00:03:41.630 --> 00:03:44.960
+Há um laboratório de registro privado, o Verdaccio.
+
+91
+00:03:44.990 --> 00:03:48.180
+E outro que consome vários servidores pelo LangChain.
+
+92
+00:03:48.390 --> 00:03:49.190
+Escolha um.
+
+93
+00:03:49.390 --> 00:03:54.150
+Registro privado evita copiar o mesmo arquivo de MCP em dez repositórios.
+
+94
+00:03:54.410 --> 00:03:57.980
+O projeto do módulo é o MCP de clientes autenticado.
+
+95
+00:03:58.170 --> 00:04:00.290
+Uma chamada do token, mascarada.
+
+96
+00:04:00.450 --> 00:04:01.750
+Um log do inspetor.
+
+97
+00:04:01.930 --> 00:04:04.680
+E o que acontece se o token falta, ou expira.
+
+98
+00:04:04.910 --> 00:04:06.820
+Uma analogia clássica ajuda.
+
+99
+00:04:07.010 --> 00:04:09.270
+O servidor MCP é a sua API.
+
+100
+00:04:09.470 --> 00:04:11.800
+O anfitrião é o cliente HTTP.
+
+101
+00:04:12.050 --> 00:04:13.630
+O inspetor é o Postman.
+
+102
+00:04:13.810 --> 00:04:16.450
+O modelo é só quem escolhe qual rota chamar.
+
+103
+00:04:16.630 --> 00:04:19.740
+Ninguém autoriza um delete porque o pedido veio educado.
+
+104
+00:04:19.950 --> 00:04:21.620
+No OpsPilot isso volta.
+
+105
+00:04:21.810 --> 00:04:24.630
+O próprio copiloto sobe como servidor MCP.
+
+106
+00:04:24.910 --> 00:04:26.010
+Mesmo contrato.
+
+107
+00:04:26.190 --> 00:04:27.080
+Outro domínio.
+
+108
+00:04:27.270 --> 00:04:28.830
+Incidentes do Mercadinho.
+
+109
+00:04:28.990 --> 00:04:33.060
+Você já sabe quem é servidor, quem é anfitrião, e quem segura a chave.
+
+110
+00:04:33.310 --> 00:04:36.360
+Até lá, faça o inspetor listar as ferramentas.
+
+111
+00:04:36.550 --> 00:04:37.650
+Crie um cliente.
+
+112
+00:04:37.830 --> 00:04:39.650
+Mostre a recusa sem token.
+
+113
+00:04:39.830 --> 00:04:40.890
+Quatro saltos.
+
+114
+00:04:41.070 --> 00:04:41.890
+Anfitrião.
+
+115
+00:04:42.110 --> 00:04:42.750
+MCP.
+
+116
+00:04:43.030 --> 00:04:43.620
+API.
+
+117
+00:04:43.810 --> 00:04:44.410
+Token.
+
+118
+00:04:44.590 --> 00:04:48.950
 Um pulo a menos e você está de volta na injeção de prompt do módulo dois.
