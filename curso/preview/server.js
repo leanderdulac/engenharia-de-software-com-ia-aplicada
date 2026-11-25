@@ -133,9 +133,9 @@ export async function ttsAudiosPayload() {
       vtt,
       vtt_src: `media/audios/tts/${vtt}`,
       source_path: toPreviewPath(item.source_path),
-      voice: item.voice || data.voice || "pt-BR-FranciscaNeural",
-      rate: item.rate || data.rate || "-18%",
-      pitch: item.pitch || data.pitch || "-2Hz",
+      voice: item.voice || data.voice || "luna",
+      rate: item.rate || data.rate || "1.0",
+      pitch: item.pitch || data.pitch || "",
       duration_seconds: item.duration_seconds ?? null,
       bytes: item.bytes ?? null,
       status: item.status || null,
@@ -143,10 +143,10 @@ export async function ttsAudiosPayload() {
   });
 
   return {
-    source: "Azure Neural TTS",
-    voice: data.voice || "pt-BR-FranciscaNeural",
-    rate: data.rate || "-18%",
-    pitch: data.pitch || "-2Hz",
+    source: data.engine || "grok-tts",
+    voice: data.voice || "luna",
+    rate: data.rate || "1.0",
+    pitch: data.pitch || "",
     audios,
   };
 }

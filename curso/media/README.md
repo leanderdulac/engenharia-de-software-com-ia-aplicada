@@ -45,21 +45,21 @@ Estas intros **substituem / complementam** os IDs HeyGen da seção HeyGen mais 
 
 ## Narrações TTS
 
-Leitura falada de cada `curso/conteudo/modulo-0N/roteiro-narracao.md` (módulos 01–09), gerada com **Azure Neural TTS**, voz **`pt-BR-FranciscaNeural`**, rate **`-18%`**, pitch **`-2Hz`**, volume **`+0%`**. Esta versão é mais pausada (dicção mais clara; ~5 min 36 s–6 min 11 s). Metadados (`voice`, `rate`, `pitch`, `modulo`, `file`, `vtt`, `source_path`, `duration_seconds`, `bytes`, `status`) em [`audios/tts/manifest.json`](./audios/tts/manifest.json).
+Leitura falada de cada `curso/conteudo/modulo-0N/roteiro-narracao.md` (módulos 01–09), gerada com **grok-tts**, voz **`luna`**, idioma **`pt-BR`**, velocidade **`1.0`**. A fala fica no ritmo natural da voz. Termos que a voz lia como outra palavra (`Ollama`, `OpenRouter`, `Neo4j`, `top-K`, `one-hot`, `ReAct`, `QLoRA`, `AHP`, `Saaty`, `Verdaccio`, `Trivy`, `Jaeger`, `Plan-and-Execute`) entram na síntese em IPA; a legenda continua com a grafia do roteiro. Metadados (`engine`, `voice`, `language`, `rate`, `modulo`, `file`, `vtt`, `source_path`, `duration_seconds`, `bytes`, `status`) em [`audios/tts/manifest.json`](./audios/tts/manifest.json).
 
-No preview local: `GET /api/tts-audios` e a página `#/audios`; os MP3 são servidos em `/media/audios/tts/modulo-0N-narracao.mp3` e as legendas WebVTT em `/media/audios/tts/modulo-0N-narracao.vtt`. Cada faixa dura ~5,5–6 min.
+No preview local: `GET /api/tts-audios` e a página `#/audios`; os MP3 são servidos em `/media/audios/tts/modulo-0N-narracao.mp3` e as legendas WebVTT em `/media/audios/tts/modulo-0N-narracao.vtt`. Cada faixa dura cerca de 4,5–5 min.
 
 | Módulo | Áudio | Legenda | Duração |
 | --- | --- | --- | --- |
-| 01 — Fundamentos de IA e LLMs | [`audios/tts/modulo-01-narracao.mp3`](audios/tts/modulo-01-narracao.mp3) | [`audios/tts/modulo-01-narracao.vtt`](audios/tts/modulo-01-narracao.vtt) | 5 min 45 s (344,640 s) |
-| 02 — Integração de APIs de LLMs | [`audios/tts/modulo-02-narracao.mp3`](audios/tts/modulo-02-narracao.mp3) | [`audios/tts/modulo-02-narracao.vtt`](audios/tts/modulo-02-narracao.vtt) | 5 min 36 s (336,024 s) |
-| 03 — MCP na prática | [`audios/tts/modulo-03-narracao.mp3`](audios/tts/modulo-03-narracao.mp3) | [`audios/tts/modulo-03-narracao.vtt`](audios/tts/modulo-03-narracao.vtt) | 5 min 49 s (349,296 s) |
-| 04 — Agentes autônomos | [`audios/tts/modulo-04-narracao.mp3`](audios/tts/modulo-04-narracao.mp3) | [`audios/tts/modulo-04-narracao.vtt`](audios/tts/modulo-04-narracao.vtt) | 5 min 52 s (352,224 s) |
-| 05 — IA para UI/UX | [`audios/tts/modulo-05-narracao.mp3`](audios/tts/modulo-05-narracao.mp3) | [`audios/tts/modulo-05-narracao.vtt`](audios/tts/modulo-05-narracao.vtt) | 5 min 54 s (353,760 s) |
-| 06 — AIOps e engenharia agêntica | [`audios/tts/modulo-06-narracao.mp3`](audios/tts/modulo-06-narracao.mp3) | [`audios/tts/modulo-06-narracao.vtt`](audios/tts/modulo-06-narracao.vtt) | 6 min 00 s (359,520 s) |
-| 07 — Gestão de projetos com IA | [`audios/tts/modulo-07-narracao.mp3`](audios/tts/modulo-07-narracao.mp3) | [`audios/tts/modulo-07-narracao.vtt`](audios/tts/modulo-07-narracao.vtt) | 6 min 11 s (371,064 s) |
-| 08 — Arquitetura de sistemas com IA | [`audios/tts/modulo-08-narracao.mp3`](audios/tts/modulo-08-narracao.mp3) | [`audios/tts/modulo-08-narracao.vtt`](audios/tts/modulo-08-narracao.vtt) | 6 min 09 s (369,144 s) |
-| 09 — Dados e fine-tuning | [`audios/tts/modulo-09-narracao.mp3`](audios/tts/modulo-09-narracao.mp3) | [`audios/tts/modulo-09-narracao.vtt`](audios/tts/modulo-09-narracao.vtt) | 6 min 05 s (365,064 s) |
+| 01 — Fundamentos de IA e LLMs | [`audios/tts/modulo-01-narracao.mp3`](audios/tts/modulo-01-narracao.mp3) | [`audios/tts/modulo-01-narracao.vtt`](audios/tts/modulo-01-narracao.vtt) | 4 min 45 s (284,790 s) |
+| 02 — Integração de APIs de LLMs | [`audios/tts/modulo-02-narracao.mp3`](audios/tts/modulo-02-narracao.mp3) | [`audios/tts/modulo-02-narracao.vtt`](audios/tts/modulo-02-narracao.vtt) | 4 min 34 s (274,230 s) |
+| 03 — MCP na prática | [`audios/tts/modulo-03-narracao.mp3`](audios/tts/modulo-03-narracao.mp3) | [`audios/tts/modulo-03-narracao.vtt`](audios/tts/modulo-03-narracao.vtt) | 4 min 49 s (288,950 s) |
+| 04 — Agentes autônomos | [`audios/tts/modulo-04-narracao.mp3`](audios/tts/modulo-04-narracao.mp3) | [`audios/tts/modulo-04-narracao.vtt`](audios/tts/modulo-04-narracao.vtt) | 4 min 58 s (297,590 s) |
+| 05 — IA para UI/UX | [`audios/tts/modulo-05-narracao.mp3`](audios/tts/modulo-05-narracao.mp3) | [`audios/tts/modulo-05-narracao.vtt`](audios/tts/modulo-05-narracao.vtt) | 4 min 40 s (279,990 s) |
+| 06 — AIOps e engenharia agêntica | [`audios/tts/modulo-06-narracao.mp3`](audios/tts/modulo-06-narracao.mp3) | [`audios/tts/modulo-06-narracao.vtt`](audios/tts/modulo-06-narracao.vtt) | 4 min 58 s (297,590 s) |
+| 07 — Gestão de projetos com IA | [`audios/tts/modulo-07-narracao.mp3`](audios/tts/modulo-07-narracao.mp3) | [`audios/tts/modulo-07-narracao.vtt`](audios/tts/modulo-07-narracao.vtt) | 5 min 10 s (309,750 s) |
+| 08 — Arquitetura de sistemas com IA | [`audios/tts/modulo-08-narracao.mp3`](audios/tts/modulo-08-narracao.mp3) | [`audios/tts/modulo-08-narracao.vtt`](audios/tts/modulo-08-narracao.vtt) | 5 min 06 s (305,910 s) |
+| 09 — Dados e fine-tuning | [`audios/tts/modulo-09-narracao.mp3`](audios/tts/modulo-09-narracao.mp3) | [`audios/tts/modulo-09-narracao.vtt`](audios/tts/modulo-09-narracao.vtt) | 5 min 04 s (303,670 s) |
 
 ## Vídeos HeyGen
 
@@ -82,5 +82,5 @@ Referência complementar (não é a mídia versionada no repo). Fonte dos IDs: [
 
 1. **Imagens** — gerar de novo com **Grok** (mesmo recorte 16:9, paleta escura e tema de cada módulo). Substituir o PNG em `imagens/` e conferir o preview nesta página.
 2. **Intros Grok Imagine** — image-to-video (~8 s) a partir de `imagens/modulo-0N-capa.png`. Substituir o MP4 em `videos/grok/`, atualizar `request_id` / `duration` / `status` em `videos/grok/manifest.json` e a tabela acima. Não versionar `XAI_API_KEY` nem URLs temporárias de playback da xAI.
-3. **Narrações TTS** — sintetizar de novo a partir de `curso/conteudo/modulo-0N/roteiro-narracao.md` com Azure Neural TTS, voz `pt-BR-FranciscaNeural`, rate `-18%`, pitch `-2Hz`, volume `+0%`. Substituir o MP3 e o WebVTT em `audios/tts/`, atualizar `duration_seconds` / `bytes` / `status` / `vtt` (e `voice` / `rate` / `pitch` se mudarem) em `audios/tts/manifest.json` e a tabela acima. Caminhos no manifesto são relativos (`file`, `vtt`, `source_path`); não versionar chaves de API nem caminhos absolutos de máquina.
+3. **Narrações TTS** — sintetizar de novo a partir de `curso/conteudo/modulo-0N/roteiro-narracao.md` com grok-tts (`POST /v1/tts`), voz `luna`, `language` `pt-BR`, `speed` `1.0`, MP3 24 kHz / 128 kbps. A legenda sai dos timestamps da mesma chamada. Substituir o MP3 e o WebVTT em `audios/tts/` e atualizar `duration_seconds`, `bytes` e `status` em `audios/tts/manifest.json` e a tabela acima. Caminhos no manifesto são relativos (`file`, `vtt`, `source_path`). Não versionar `XAI_API_KEY` nem caminhos absolutos de máquina.
 4. **Vídeos HeyGen** (complementar) — gerar de novo no **HeyGen Video Agent**, estilo **Blueprint** (`style_id` `4c9025a3b9734c6ea6c122fc00e04767`). Atualizar o `video_id` correspondente em `videos/heygen-ids.json` e na tabela HeyGen. Não versionar o MP4 HeyGen nem URLs temporárias de playback.

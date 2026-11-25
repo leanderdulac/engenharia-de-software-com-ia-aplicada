@@ -1,481 +1,489 @@
 WEBVTT
 
 1
-00:00:00.100 --> 00:00:00.949
+00:00:00.060 --> 00:00:00.540
 Olá.
 
 2
-00:00:00.899 --> 00:00:09.207
+00:00:00.800 --> 00:00:06.760
 Seja bem-vinda, seja bem-vindo ao módulo um da pós Engenharia de Software com IA Aplicada.
 
 3
-00:00:09.207 --> 00:00:10.289
+00:00:07.120 --> 00:00:07.940
 Respire.
 
 4
-00:00:10.289 --> 00:00:13.033
+00:00:08.200 --> 00:00:10.300
 Esta aula é calma de propósito.
 
 5
-00:00:13.033 --> 00:00:15.167
+00:00:10.660 --> 00:00:12.250
 Você já escreve software.
 
 6
-00:00:15.167 --> 00:00:19.664
+00:00:12.420 --> 00:00:15.900
 Ninguém pede que você vire cientista de dados nesta semana.
 
 7
-00:00:19.664 --> 00:00:21.249
+00:00:16.120 --> 00:00:17.230
 O pedido é outro.
 
 8
-00:00:21.249 --> 00:00:23.871
+00:00:17.440 --> 00:00:19.530
 Trate o modelo como um componente.
 
 9
-00:00:23.871 --> 00:00:25.579
+00:00:19.720 --> 00:00:21.010
 Um binário no Node.
 
 10
-00:00:25.579 --> 00:00:28.887
+00:00:21.200 --> 00:00:23.790
 Um trabalhador em segundo plano no navegador.
 
 11
-00:00:28.887 --> 00:00:31.524
+00:00:23.980 --> 00:00:26.080
 Uma interface de prompt no Chrome.
 
 12
-00:00:31.524 --> 00:00:33.719
+00:00:26.280 --> 00:00:27.930
 Um processo na sua máquina.
 
 13
-00:00:33.719 --> 00:00:35.731
+00:00:28.120 --> 00:00:29.570
 Ou uma chamada pela rede.
 
 14
-00:00:35.731 --> 00:00:39.359
+00:00:29.880 --> 00:00:32.340
 O mercado quer que você pule direto para o chat.
 
 15
-00:00:39.359 --> 00:00:42.134
+00:00:32.380 --> 00:00:34.890
 Esta trilha faz o caminho inverso.
 
 16
-00:00:42.134 --> 00:00:44.176
+00:00:35.080 --> 00:00:36.570
 Primeiro uma rede pequena.
 
 17
-00:00:44.176 --> 00:00:47.042
+00:00:36.740 --> 00:00:38.960
 Depois um recomendador no navegador.
 
 18
-00:00:47.042 --> 00:00:49.801
+00:00:39.140 --> 00:00:41.320
 Depois um detector atira no pato.
 
 19
-00:00:49.801 --> 00:00:51.981
+00:00:41.520 --> 00:00:42.990
 Só então o texto entra.
 
 20
-00:00:51.981 --> 00:00:56.570
+00:00:43.180 --> 00:00:46.700
 No fim, você busca trechos, e só depois gera a resposta.
 
 21
-00:00:56.570 --> 00:01:00.335
+00:00:46.980 --> 00:00:49.700
 Ao sair daqui, você aponta cinco lugares.
 
 22
-00:01:00.335 --> 00:01:02.393
+00:00:49.880 --> 00:00:51.620
 Um modelo seu, no Node.
 
 23
-00:01:02.393 --> 00:01:04.740
+00:00:51.800 --> 00:00:53.560
 Um modelo de visão no cliente.
 
 24
-00:01:04.740 --> 00:01:07.682
+00:00:53.740 --> 00:00:55.960
 Um modelo de linguagem no dispositivo.
 
 25
-00:01:07.682 --> 00:01:11.082
+00:00:56.140 --> 00:00:58.730
 Um modelo local versus um modelo pela rede.
 
 26
-00:01:11.082 --> 00:01:16.935
+00:00:58.920 --> 00:01:03.680
 E um modelo com documentos, usando geração aumentada por recuperação, o RAG.
 
 27
-00:01:16.935 --> 00:01:18.475
+00:01:03.980 --> 00:01:04.920
 Vamos com calma.
 
 28
-00:01:18.475 --> 00:01:23.246
+00:01:05.160 --> 00:01:08.870
 No primeiro exemplo do módulo, o comentário ainda fala de pessoas.
 
 29
-00:01:23.246 --> 00:01:24.192
+00:01:09.060 --> 00:01:09.530
 Erick.
 
 30
-00:01:24.192 --> 00:01:25.015
+00:01:09.700 --> 00:01:10.060
 Ana.
 
 31
-00:01:25.015 --> 00:01:26.097
+00:01:10.160 --> 00:01:10.810
 Carlos.
 
 32
-00:01:26.097 --> 00:01:28.338
+00:01:10.980 --> 00:01:12.840
 Idade, cor, cidade.
 
 33
-00:01:28.338 --> 00:01:30.137
+00:01:13.060 --> 00:01:14.310
 A rede não vê isso.
 
 34
-00:01:30.137 --> 00:01:31.646
+00:01:14.480 --> 00:01:15.590
 Ela vê um vetor.
 
 35
-00:01:31.646 --> 00:01:32.713
+00:01:15.760 --> 00:01:16.390
 Números.
 
 36
-00:01:32.713 --> 00:01:34.664
+00:01:16.560 --> 00:01:17.850
 Idade normalizada.
 
 37
-00:01:34.664 --> 00:01:38.902
-Cor em código one-hot. Cidade em código one-hot.
+00:01:17.960 --> 00:01:19.670
+Cor em código one-hot.
 
 38
-00:01:38.902 --> 00:01:41.356
-Isso não é detalhe pedagógico.
+00:01:19.760 --> 00:01:21.650
+Cidade em código one-hot.
 
 39
-00:01:41.356 --> 00:01:42.774
-É o contrato.
+00:01:21.740 --> 00:01:23.550
+Isso não é detalhe pedagógico.
 
 40
-00:01:42.774 --> 00:01:50.899
-Modelos de linguagem grandes, os LLMs, redes de visão e embeddings fazem a mesma conversão.
+00:01:23.680 --> 00:01:24.610
+É o contrato.
 
 41
-00:01:50.899 --> 00:01:53.307
-Texto ou pixel vira tensor.
+00:01:24.800 --> 00:01:31.320
+Modelos de linguagem grandes, os LLMs, redes de visão e embeddings fazem a mesma conversão.
 
 42
-00:01:53.307 --> 00:01:56.417
-Só que com milhões de parâmetros a mais.
+00:01:31.540 --> 00:01:33.480
+Texto ou pixel vira tensor.
 
 43
-00:01:56.417 --> 00:02:02.042
-Seu trabalho, nesse primeiro exemplo, é completar o treino e fazer uma predição.
+00:01:33.680 --> 00:01:35.800
+Só que com milhões de parâmetros a mais.
 
 44
-00:02:02.042 --> 00:02:05.487
-O gabarito existe, na pasta de laboratório.
+00:01:36.080 --> 00:01:40.670
+Seu trabalho, nesse primeiro exemplo, é completar o treino e fazer uma predição.
 
 45
-00:02:05.487 --> 00:02:06.890
-Abra depois.
+00:01:40.880 --> 00:01:43.760
+O gabarito existe, na pasta de laboratório.
 
 46
-00:02:06.890 --> 00:02:08.856
-Não na primeira subida.
+00:01:43.960 --> 00:01:44.860
+Abra depois.
 
 47
-00:02:08.856 --> 00:02:13.490
-A loja de recomendações coloca a mesma ideia no navegador.
+00:01:45.040 --> 00:01:46.300
+Não na primeira subida.
 
 48
-00:02:13.490 --> 00:02:16.814
-O treino mora num trabalhador em segundo plano.
+00:01:46.560 --> 00:01:50.010
+A loja de recomendações coloca a mesma ideia no navegador.
 
 49
-00:02:16.814 --> 00:02:19.039
-A vitrine quase não muda.
+00:01:50.200 --> 00:01:52.730
+O treino mora num trabalhador em segundo plano.
 
 50
-00:02:19.039 --> 00:02:20.990
-O que evolui é o modelo.
+00:01:52.920 --> 00:01:54.460
+A vitrine quase não muda.
 
 51
-00:02:20.990 --> 00:02:22.667
-Depois vem o jogo.
+00:01:54.640 --> 00:01:56.160
+O que evolui é o modelo.
 
 52
-00:02:22.667 --> 00:02:24.359
-Aqui não há prompt.
+00:01:56.380 --> 00:01:57.570
+Depois vem o jogo.
 
 53
-00:02:24.359 --> 00:02:28.978
-Há um detector You Only Look Once, o YOLO, no cliente.
+00:01:57.760 --> 00:01:58.890
+Aqui não há prompt.
 
 54
-00:02:28.978 --> 00:02:30.914
-Você carrega o modelo.
+00:01:59.100 --> 00:02:02.800
+Há um detector You Only Look Once, o YOLO, no cliente.
 
 55
-00:02:30.914 --> 00:02:33.033
-Depois ajusta o limiar.
+00:02:02.980 --> 00:02:04.290
+Você carrega o modelo.
 
 56
-00:02:33.033 --> 00:02:34.039
-Jogue.
+00:02:04.440 --> 00:02:05.950
+Depois ajusta o limiar.
 
 57
-00:02:34.039 --> 00:02:35.335
-Erre um pato.
+00:02:06.140 --> 00:02:06.700
+Jogue.
 
 58
-00:02:35.335 --> 00:02:38.307
-Acerto e erro são métrica visível.
+00:02:06.880 --> 00:02:07.820
+Erre um pato.
 
 59
-00:02:38.307 --> 00:02:41.524
-Visão no navegador tem latência de quadro.
+00:02:08.000 --> 00:02:10.220
+Acerto e erro são métrica visível.
 
 60
-00:02:41.524 --> 00:02:42.957
-Não é agente.
+00:02:10.400 --> 00:02:12.900
+Visão no navegador tem latência de quadro.
 
 61
-00:02:42.957 --> 00:02:44.481
-Não precisa ser.
+00:02:13.060 --> 00:02:14.030
+Não é agente.
 
 62
-00:02:44.481 --> 00:02:50.762
-Guarde isso para o dia em que alguém quiser um agente para um problema que é só um classificador.
+00:02:14.200 --> 00:02:15.240
+Não precisa ser.
 
 63
-00:02:50.762 --> 00:02:52.820
-Só então entra o texto.
+00:02:15.420 --> 00:02:20.100
+Guarde isso para o dia em que alguém quiser um agente para um problema que é só um classificador.
 
 64
-00:02:52.820 --> 00:02:55.289
-O modelo de linguagem não sabe.
+00:02:20.360 --> 00:02:21.760
+Só então entra o texto.
 
 65
-00:02:55.289 --> 00:02:57.591
-Ele amostra o próximo token.
+00:02:22.000 --> 00:02:23.880
+O modelo de linguagem não sabe.
 
 66
-00:02:57.591 --> 00:03:01.554
-Dois controles que este curso obriga você a sentir.
+00:02:24.050 --> 00:02:25.860
+Ele amostra o próximo token.
 
 67
-00:03:01.554 --> 00:03:02.911
-Temperatura.
+00:02:26.050 --> 00:02:28.930
+Dois controles que este curso obriga você a sentir.
 
 68
-00:03:02.911 --> 00:03:05.213
-Quão plana é a distribuição.
+00:02:29.110 --> 00:02:30.000
+Temperatura.
 
 69
-00:03:05.213 --> 00:03:06.722
-Zero é guloso.
+00:02:30.170 --> 00:02:31.940
+Quão plana é a distribuição.
 
 70
-00:03:06.722 --> 00:03:08.856
-Um é criativo e instável.
+00:02:32.150 --> 00:02:33.240
+Zero é guloso.
 
 71
-00:03:08.856 --> 00:03:13.490
-E o top-K. Quantos tokens candidatos entram no sorteio.
+00:02:33.430 --> 00:02:35.170
+Um é criativo e instável.
 
 72
-00:03:13.490 --> 00:03:16.539
-Faça a mesma pergunta no zero e no um.
+00:02:35.310 --> 00:02:36.290
+E o top-K.
 
 73
-00:03:16.539 --> 00:03:18.155
-Anote o que mudou.
+00:02:36.350 --> 00:02:38.870
+Quantos tokens candidatos entram no sorteio.
 
 74
-00:03:18.155 --> 00:03:20.365
-Amostragem não é oráculo.
+00:02:39.130 --> 00:02:41.430
+Faça a mesma pergunta no zero e no um.
 
 75
-00:03:20.365 --> 00:03:25.929
-Há também um exemplo com streaming no Chrome, e outro que soma imagem e áudio.
+00:02:41.630 --> 00:02:42.770
+Anote o que mudou.
 
 76
-00:03:25.929 --> 00:03:29.954
-Se a interface de prompt falhar, não trave a semana.
+00:02:42.970 --> 00:02:44.620
+Amostragem não é oráculo.
 
 77
-00:03:29.954 --> 00:03:32.332
-Tem Ollama, o runtime local.
+00:02:44.850 --> 00:02:49.480
+Há também um exemplo com streaming no Chrome, e outro que soma imagem e áudio.
 
 78
-00:03:32.332 --> 00:03:35.381
-Tem OpenRouter, o gateway pela rede.
+00:02:49.670 --> 00:02:52.930
+Se a interface de prompt falhar, não trave a semana.
 
 79
-00:03:35.381 --> 00:03:40.198
-O ponto de verificação aceita um caminho alternativo documentado.
+00:02:53.090 --> 00:02:55.080
+Tem Ollama, o runtime local.
 
 80
-00:03:40.198 --> 00:03:43.765
-Prompt com saída estruturada também entra aqui.
+00:02:55.250 --> 00:02:57.830
+Tem OpenRouter, o gateway pela rede.
 
 81
-00:03:43.765 --> 00:03:46.280
-JSON, o formato de objetos.
+00:02:58.010 --> 00:03:01.630
+O ponto de verificação aceita um caminho alternativo documentado.
 
 82
-00:03:46.280 --> 00:03:48.765
-Ou TOON, o formato compacto.
+00:03:01.890 --> 00:03:04.590
+Prompt com saída estruturada também entra aqui.
 
 83
-00:03:48.765 --> 00:03:52.621
-Quando um programa consome a resposta, peça estrutura.
+00:03:04.810 --> 00:03:06.900
+JSON, o formato de objetos.
 
 84
-00:03:52.621 --> 00:03:54.603
-Texto livre é para humano.
+00:03:07.070 --> 00:03:09.000
+Ou TOON, o formato compacto.
 
 85
-00:03:54.603 --> 00:04:01.097
-O protocolo de contexto de modelo, o MCP, neste módulo é consumo, não autoria.
+00:03:09.190 --> 00:03:12.550
+Quando um programa consome a resposta, peça estrutura.
 
 86
-00:04:01.097 --> 00:04:02.911
-Você cola um prompt.
+00:03:12.750 --> 00:03:14.350
+Texto livre é para humano.
 
 87
-00:04:02.911 --> 00:04:04.390
-Gera testes.
+00:03:14.610 --> 00:03:20.400
+O protocolo de contexto de modelo, o MCP, neste módulo é consumo, não autoria.
 
 88
-00:04:04.390 --> 00:04:06.204
-Preenche um formulário.
+00:03:20.610 --> 00:03:21.880
+Você cola um prompt.
 
 89
-00:04:06.204 --> 00:04:08.887
-Investiga um vazamento no Grafana.
+00:03:22.090 --> 00:03:23.030
+Gera testes.
 
 90
-00:04:08.887 --> 00:04:11.509
-Ou roda a demonstração já pronta.
+00:03:23.170 --> 00:03:24.470
+Preenche um formulário.
 
 91
-00:04:11.509 --> 00:04:12.713
-Escolha um.
+00:03:24.630 --> 00:03:26.720
+Investiga um vazamento no Grafana.
 
 92
-00:04:12.713 --> 00:04:15.503
-Quatro no mesmo dia não é virtude.
+00:03:26.910 --> 00:03:28.880
+Ou roda a demonstração já pronta.
 
 93
-00:04:15.503 --> 00:04:19.939
-Ollama e OpenRouter recebem o mesmo tipo de chamada.
+00:03:29.070 --> 00:03:29.850
+Escolha um.
 
 94
-00:04:19.939 --> 00:04:21.874
-Um fica na sua máquina.
+00:03:30.030 --> 00:03:32.060
+Quatro no mesmo dia não é virtude.
 
 95
-00:04:21.874 --> 00:04:23.826
-O outro sai pela rede.
+00:03:32.240 --> 00:03:35.560
+Ollama e OpenRouter recebem o mesmo tipo de chamada.
 
 96
-00:04:23.826 --> 00:04:28.292
-Anote latência, qualidade, e se o dado saiu do computador.
+00:03:35.770 --> 00:03:37.130
+Um fica na sua máquina.
 
 97
-00:04:28.292 --> 00:04:31.006
-Dez linhas de comparação bastam.
+00:03:37.290 --> 00:03:38.760
+O outro sai pela rede.
 
 98
-00:04:31.006 --> 00:04:35.655
-Essa tabela volta mais à frente, como decisão de arquitetura.
+00:03:39.010 --> 00:03:43.150
+Anote latência, qualidade, e se o dado saiu do computador.
 
 99
-00:04:35.655 --> 00:04:39.496
-O fechamento é a geração aumentada por recuperação.
+00:03:43.430 --> 00:03:45.450
+Dez linhas de comparação bastam.
 
 100
-00:04:39.496 --> 00:04:44.649
-Um PDF vira embedding no Neo4j, o banco de grafos.
+00:03:45.670 --> 00:03:49.360
+Essa tabela volta mais à frente, como decisão de arquitetura.
 
 101
-00:04:44.649 --> 00:04:46.859
-Você sobe a infraestrutura.
+00:03:49.630 --> 00:03:52.820
+O fechamento é a geração aumentada por recuperação.
 
 102
-00:04:46.859 --> 00:04:48.673
-Indexa o documento.
+00:03:53.070 --> 00:03:57.180
+Um PDF vira embedding no Neo4j, o banco de grafos.
 
 103
-00:04:48.673 --> 00:04:50.243
-Busca trechos.
+00:03:57.390 --> 00:03:59.090
+Você sobe a infraestrutura.
 
 104
-00:04:50.243 --> 00:04:51.829
-Só então gera.
+00:03:59.290 --> 00:04:00.630
+Indexa o documento.
 
 105
-00:04:51.829 --> 00:04:54.451
-Sem trecho visível, não é RAG.
+00:04:00.810 --> 00:04:01.840
+Busca trechos.
 
 106
-00:04:54.451 --> 00:04:56.234
-É um modelo educado.
+00:04:02.030 --> 00:04:03.090
+Só então gera.
 
 107
-00:04:56.234 --> 00:04:59.603
-A pasta de respostas do gabarito existe.
+00:04:03.290 --> 00:04:05.390
+Sem trecho visível, não é RAG.
 
 108
-00:04:59.603 --> 00:05:01.981
-Leia depois da sua pergunta.
+00:04:05.610 --> 00:04:06.920
+É um modelo educado.
 
 109
-00:05:01.981 --> 00:05:03.902
-Trabalhe no template.
+00:04:07.130 --> 00:04:09.650
+A pasta de respostas do gabarito existe.
 
 110
-00:05:03.902 --> 00:05:05.762
-Não copie o gabarito.
+00:04:09.870 --> 00:04:11.460
+Leia depois da sua pergunta.
 
 111
-00:05:05.762 --> 00:05:10.274
-No Windows, a ligação nativa do TensorFlow costuma doer.
+00:04:11.710 --> 00:04:13.050
+Trabalhe no template.
 
 112
-00:05:10.274 --> 00:05:13.323
-O Linux no Windows ajuda.
+00:04:13.210 --> 00:04:14.580
+Não copie o gabarito.
 
 113
-00:05:13.564 --> 00:05:20.648
-Ao sair daqui, você distingue modelo no cliente, modelo local, e modelo via interface.
+00:04:14.790 --> 00:04:18.290
+No Windows, a ligação nativa do TensorFlow costuma doer.
 
 114
-00:05:20.598 --> 00:05:23.646
-E você já viu recuperação de verdade.
+00:04:18.510 --> 00:04:20.140
+O Linux no Windows ajuda.
 
 115
-00:05:23.646 --> 00:05:28.906
-No próximo módulo, esse modelo de linguagem entra atrás de um gateway.
+00:04:20.430 --> 00:04:26.370
+Ao sair daqui, você distingue modelo no cliente, modelo local, e modelo via interface.
 
 116
-00:05:28.906 --> 00:05:31.573
-E o grafo deixa de ser metáfora.
+00:04:26.550 --> 00:04:28.670
+E você já viu recuperação de verdade.
 
 117
-00:05:31.573 --> 00:05:35.625
-Até lá, complete o laboratório de embeddings.
+00:04:28.910 --> 00:04:33.120
+No próximo módulo, esse modelo de linguagem entra atrás de um gateway.
 
 118
-00:05:35.625 --> 00:05:37.381
-Faça uma pergunta.
+00:04:33.310 --> 00:04:35.200
+E o grafo deixa de ser metáfora.
 
 119
-00:05:37.381 --> 00:05:39.043
-Mostre os trechos.
+00:04:35.470 --> 00:04:38.220
+Até lá, complete o laboratório de embeddings.
 
 120
-00:05:39.043 --> 00:05:44.576
+00:04:38.410 --> 00:04:39.510
+Faça uma pergunta.
+
+121
+00:04:39.690 --> 00:04:40.880
+Mostre os trechos.
+
+122
+00:04:41.090 --> 00:04:44.790
 Esse é o seu primeiro sistema com inteligência artificial aplicada.
