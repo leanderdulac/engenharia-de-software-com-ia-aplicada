@@ -18,6 +18,8 @@ O texto didático (aula completa, roteiro de narração e metadados) está em [`
 
 Para abrir o pacote no navegador (sidebar, markdown, capas, narrações TTS, intros Grok, PDFs das missões e índice de mídia): [preview/README.md](./preview/README.md). Há build estático para GitHub Pages (**não** publicado daqui; ND pode bloquear). Piloto acompanhado: [piloto/protocolo.md](./piloto/protocolo.md).
 
+Sala de aula **com contas, progresso e notas** (SQLite local, sem Pages): [ead/README.md](./ead/README.md). O preview continua a ser a leitura estática sem login.
+
 ## Público-alvo
 
 - Pessoas desenvolvedoras (web/backend) que já escrevem software e querem **projetar, integrar e operar** sistemas com LLMs, agentes, MCP, RAG e AIOps.
