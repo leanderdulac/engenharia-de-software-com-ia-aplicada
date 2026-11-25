@@ -9,7 +9,7 @@ O M09 já escolhe rank. Aqui: *onde* o adapter entra, o merge que some com o LoR
 3. dizer qual adapter vence no JSON e qual na soma;
 4. marcar GGUF como `nao_calibrado`.
 
-Nada disto entra nas 240 h. Números saem do seu `ca6.json`. Leitura extra Apache-2.0 (não copiada): [`referencia/llm-course/modulo-06-lora/`](../../../../referencia/llm-course/modulo-06-lora/).
+Nada disto entra nas 240 h. Números saem do seu `ca6.json`. Leitura extra Apache-2.0 (não copiada): [`referencia/llm-course/modulo-06-lora/`](../../../referencia/llm-course/modulo-06-lora/).
 
 ---
 

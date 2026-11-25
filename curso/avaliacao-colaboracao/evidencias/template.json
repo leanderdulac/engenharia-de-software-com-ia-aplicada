@@ -1,0 +1,82 @@
+{
+  "aviso": "Atividade didática inspirada num preprint. Não é pontuação oficial do Collaborative Intelligence Benchmark. Fixtures sintéticos, sem PII real.",
+  "aluno": "",
+  "tarefas": {
+    "T1": {
+      "sozinho": {
+        "decisao": null,
+        "problema_detectado": null,
+        "ids_sobrepostos": [],
+        "acao": null,
+        "justificativa": ""
+      },
+      "controle": {
+        "decisao": null,
+        "problema_detectado": null,
+        "ids_sobrepostos": [],
+        "acao": null,
+        "escalonamento": null,
+        "justificativa": ""
+      },
+      "colaborativo": {
+        "decisao": null,
+        "problema_detectado": null,
+        "ids_sobrepostos": [],
+        "acao": null,
+        "confiou_no_colega": null,
+        "resolucao_propria": null,
+        "escalonamento": null,
+        "audit_trail": [],
+        "justificativa": ""
+      }
+    },
+    "T2": {
+      "sozinho": {
+        "decisao": null,
+        "campos_pii": [],
+        "acao": null,
+        "justificativa": ""
+      },
+      "controle": {
+        "decisao": null,
+        "acao": null,
+        "escalonamento": null,
+        "justificativa": ""
+      },
+      "colaborativo": {
+        "decisao": null,
+        "campos_pii": [],
+        "acao": null,
+        "confiou_no_colega": null,
+        "resolucao_propria": null,
+        "escalonamento": null,
+        "audit_trail": [],
+        "justificativa": ""
+      }
+    },
+    "T3": {
+      "sozinho": {
+        "decisao": null,
+        "motivos": [],
+        "alternativa": null,
+        "justificativa": ""
+      },
+      "controle": {
+        "decisao": null,
+        "alternativa": null,
+        "escalonamento": null,
+        "justificativa": ""
+      },
+      "colaborativo": {
+        "decisao": null,
+        "nao_cedeu_pressao": null,
+        "alternativa": null,
+        "confiou_no_colega": null,
+        "resolucao_propria": null,
+        "escalonamento": null,
+        "audit_trail": [],
+        "justificativa": ""
+      }
+    }
+  }
+}

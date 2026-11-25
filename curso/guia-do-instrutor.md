@@ -9,7 +9,7 @@ Os vídeos não estão no Git. Sua função em sala é: **ordenar demos**, **imp
 ## Antes da primeira aula
 
 1. Clone fresco; confirme que `modulo04-agentes-autonomos/` **não** existe — só `modulo04-criacao-de-agentes-autonomos-novo/`.
-2. Suba um “lab canário”: `exemplo-00-z`, Ollama `exemplo-10`, e `python3 -c "import sys; print(sys.version)"` 3.10–3.13 para o M06.
+2. Suba um “lab canário”: `exemplo-00-z`, Ollama `exemplo-10`, e `python3 -c "import sys; print(sys.version)"` 3.10–3.13 para o M06. Antes da turma: `npm test --prefix curso/preview` e `node --test curso/avaliacao-colaboracao/verificar.test.mjs` ([piloto](./piloto/protocolo.md)).
 3. Avise chaves: OpenRouter (M01–M04), Groq (M06), AI Studio (M05/M07), SerpAPI (M03 lab 02, opcional), GCP (M09, opcional), Chrome flags (M01 Web AI).
 4. Windows: aponte WSL + [`troubleshooting/windows/`](../troubleshooting/windows/) + skill [`windowsfy`](../skills/windowsfy/SKILL.md). Não improvise `tfjs-node` no PowerShell 5 no primeiro dia.
 5. Docker: `docker compose` com espaço ([`troubleshooting/docker.md`](../troubleshooting/docker.md)).
@@ -20,7 +20,7 @@ Os vídeos não estão no Git. Sua função em sala é: **ordenar demos**, **imp
 | Bloco | Ênfase em sala | Não enfatize |
 | --- | --- | --- |
 | M01 | Browser vs Node vs API; MCP como *contrato*; RAG como retrieval + geração | Treinar YOLO do zero; teoria profunda de transformers |
-| M02 | Grafo como máquina de estados; guardrail **antes** do tool | LangSmith (opcional); README “article generator” |
+| M02 | Grafo como máquina de estados; guardrail **antes** do tool | LangSmith (opcional); lab 02 sem LLM |
 | M03 | MCP server vs client vs Inspector; token na API legado | Publicar no npmjs público |
 | M04 | Spec antes do agente; trace; autonomia **com** HITL | Fidelidade 100% ao roteiro HTML (não está no clone; `UNIDADE.md` registra desvios) |
 | M05 | Prompt estruturado → artefato versionado; nomes reais de pasta | Firebase como se o BragBot usasse Hosting (usa Genkit) |
@@ -110,6 +110,10 @@ Canvas no projetor, caso **da turma** (um aluno voluntário). Protótipo Ollama 
 3. Não dispare Vertex “ao vivo” sem billing combinado. Mostre model card e Colab companion.
 4. Capstone: leia `decisoes-de-arquitetura.md` e a regressão de formato documentada — honestidade > métrica bonita.
 
+### C-COLAB (opcional, 10% de integração)
+
+Se a turma usar o [guia](./guia-checkpoint-colaboracao.md) no lugar do cruzamento clássico de dois casos: 15 min de T1 sozinho vs colaborativo; `node curso/avaliacao-colaboracao/verificar.mjs` no exemplo válido e no exemplo que cede à pressão. Não substitua C08.4/C09.4. Não apresente a média do verificador como resultado do paper. Sem TTS/vídeo novo.
+
 ## Traps comuns (o que quebra a aula)
 
 | Trap | Onde | O que fazer |
@@ -118,7 +122,7 @@ Canvas no projetor, caso **da turma** (um aluno voluntário). Protótipo Ollama 
 | Prompt API some | M01 03–05 | `troubleshooting/google.md`; aceite fallback Ollama |
 | `tfjs-node` no Windows | M01 00 | WSL ou skip para o 01 (browser) |
 | `docker-compose` hífen | M01–M03 | `docker compose` |
-| README “article generator” | M02 03/06, M03 02, vários MCP | Ignore; siga o guia `curso/modulos/` |
+| Nome herdado no `package.json` do lab médico | M02 03 | README da pasta descreve o grafo real |
 | Sem `.env.example` | M01 OpenRouter; M04 U2–U5 | Copie de U6+ ou de `exemplo-12-template` |
 | Template 05 sem `tests/` | M02 safeguard | Avalie pelos scripts `chat:*` |
 | Lab 07 M02 sem PDF | `07-doc-analysis` | Aluno traz PDF próprio |

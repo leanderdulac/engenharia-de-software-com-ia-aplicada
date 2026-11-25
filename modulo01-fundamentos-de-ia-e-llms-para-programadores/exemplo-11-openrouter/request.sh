@@ -7,7 +7,7 @@ OPENROUTER_SITE_NAME="My Example"
 NLP_MODEL="google/gemma-3-27b-it:free"
 
 curl --silent -X POST "$API_URL" \
--H "Content-Type: applicaton/json" \
+-H "Content-Type: application/json" \
 -H "Authorization: Bearer $OPENROUTER_API_KEY" \
 -H "HTTP-Referer: $OPENROUTER_SITE_URL" \
 -H "X-Title: $OPENROUTER_SITE_NAME" \

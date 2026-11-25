@@ -1,0 +1,87 @@
+name: CI — curso piloto
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  curso:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # mongo:8 recusa arranque em kernel Linux ≥ 6.19 (SERVER-121912).
+    # ubuntu-latest do GHA falhou com esse erro fatal — não contornámos o kernel.
+    # CRUD/customers no smoke SKIP sem Mongo; teste real fica no Docker local.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Setup Node.js 24.22.1 (Inspector / M03)
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24.22.1"
+
+      - name: Remember Node 24 path
+        run: echo "NODE24=$(command -v node)" >> "$GITHUB_ENV"
+
+      - name: Setup Node.js 22.23.4 (trilha)
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22.23.4"
+          cache: npm
+          cache-dependency-path: curso/preview/package-lock.json
+
+      - name: Install preview deps
+        run: npm --prefix curso/preview ci
+
+      - name: C-COLAB tests
+        run: node --test curso/avaliacao-colaboracao/verificar.test.mjs
+
+      - name: Preview unit + HTTP tests
+        run: npm --prefix curso/preview test
+
+      - name: Internal links + helpers
+        run: npm --prefix curso/preview run check
+
+      - name: Static GitHub Pages build (no deploy)
+        run: npm --prefix curso/preview run build
+
+      - name: Install lab deps (offline / local)
+        run: |
+          npm --prefix modulo02-integracao-apis-llms/02-langchain-intro ci --ignore-scripts
+          npm --prefix modulo03-mcp-na-pratica/05-mcps-do-zero-z ci --ignore-scripts
+          npm --prefix modulo03-mcp-na-pratica/06-your-legacy-api-as-mcp/nodejs-fastify-mongodb-crud ci --ignore-scripts
+          npm --prefix modulo03-mcp-na-pratica/06-your-legacy-api-as-mcp/customers-mcp-z ci --ignore-scripts
+          npm --prefix modulo05-ferramentas-de-IA-para-UI-UX/modulo-02/pix-app ci --ignore-scripts
+          # O submódulo routewise-danger-demo versiona package.json sem package-lock.
+          # npm ci falha (EUSAGE) nesse checkout; install --ignore-scripts desbloqueia o smoke.
+          rw=modulo07-ferramentas-de-ia-para-gestao-de-projetos/modulo-08-governanca-e-compliance/routewise-danger-demo
+          if [ -f "$rw/package-lock.json" ]; then
+            npm --prefix "$rw" ci --ignore-scripts
+          else
+            npm --prefix "$rw" install --ignore-scripts
+          fi
+
+      - name: Contratos (TESTE LOCAL ≠ integração)
+        run: node curso/piloto/check-contratos.mjs
+
+      - name: Pix build + unit
+        env:
+          CI: "true"
+        run: |
+          npm --prefix modulo05-ferramentas-de-IA-para-UI-UX/modulo-02/pix-app run build
+          npm --prefix modulo05-ferramentas-de-IA-para-UI-UX/modulo-02/pix-app test -- --watch=false
+
+      - name: C05.2 Pix a11y static
+        run: node curso/piloto/check-a11y-c052.mjs
+
+      - name: Smoke labs
+        env:
+          NODE24: ${{ env.NODE24 }}
+        run: node curso/piloto/smoke-labs.mjs
+
+      - name: Preview e2e (Chrome if present; SKIP exit 0)
+        run: npm --prefix curso/preview run e2e

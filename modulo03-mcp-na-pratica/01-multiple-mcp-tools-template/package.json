@@ -1,7 +1,7 @@
 {
   "name": "multiple-mcp-tools",
   "version": "1.0.0",
-  "description": "LangGraph agent that wraps SerpAPI Google Trends as a LangChain tool to answer video content strategy questions",
+  "description": "LangGraph agent with FS/Mongo/CSV MCP tools over sales.csv (description antiga falava SerpAPI)",
   "type": "module",
   "main": "src/index.ts",
   "scripts": {

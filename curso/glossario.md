@@ -16,7 +16,7 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **RAG** | Retrieval-Augmented Generation: busca trechos e só então gera. Paper Lewis et al. | `exemplo-13`; M06 lab 10; M08 M4 |
 | **Cypher** | Linguagem de consulta do Neo4j. No M02 o LLM **gera** Cypher. | `06-rag-neo4j-students-*` |
 | **MCP** | Model Context Protocol: contrato de tools, resources e prompts entre host (IDE/agente) e servidor. | M01 §8; M03; M04 U3 `npm run mcp`; live 2026-02-24 |
-| **MCP Inspector** | UI para depurar um servidor MCP (`mcp:inspect`). | M03 `05-mcps-do-zero-z` |
+| **MCP Inspector** | UI/CLI/TUI para depurar um servidor MCP. Pacote oficial `@modelcontextprotocol/inspector`; `npm run mcp:inspect`. UI v2 na porta **6274**. Site MCP: Node ≥22.19.0; npm 2.14.0 `engines`: `^22.23.4 \|\| ^24.22.1 \|\| >=26.12.1`. | M03 `05-mcps-do-zero-z`; README do módulo |
 | **Tool / function calling** | Função que o modelo escolhe chamar (schema JSON). | M02 safeguard; M03; M04 U3; M08 tool canvas |
 | **LangGraph / StateGraph** | Grafo de nós e arestas (incluindo condicionais) para fluxos com LLM. | M02; M03; M04 U6 |
 | **ReAct** | Loop Pensamento → Ação → Observação. Paper Yao et al. | M04 U2; M06 lab 4; M08 M2 |
@@ -27,7 +27,7 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **Prompt injection** | Entrada que tenta sobrescrever instruções ou ler arquivos. | `05-safeguard-prompt-injection-*` |
 | **HITL / Approval Gate** | Humano aprova ação de risco. HTTP 202 no OpsPilot; senha ChatOps; gate TrialForge. | M04 U7–U8; M06 labs 6 e 11; M08 M4 |
 | **OpenRouter** | Gateway de vários modelos (incluindo `:free`) com uma API. | `exemplo-11`; M02–M04 |
-| **Ollama** | Runtime local de modelos open-source. | `exemplo-10`; M08 padrão; M06 k8s complementar |
+| **Ollama** | Runtime local. Tag M08 `gemma4:e2b` existe no catálogo ([4,6–7,5 GB](https://ollama.com/library/gemma4)); `nomic-embed-text` [274 MB](https://ollama.com/library/nomic-embed-text). Não puxado nesta VM. | `exemplo-10`; M08 padrão |
 | **Groq** | Inferência rápida (Llama) usada pelo Nexus. | M06 `core/llm_config.py` |
 | **AIOps** | IA aplicada a operações (métricas, incidente, remediação). | M06; M07 Risk Monitor (AIOps de **projeto**) |
 | **IaC** | Infraestrutura como código (Terraform HCL nos labs Nexus). | M06 labs 1–2 |
@@ -40,7 +40,9 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **Context window / ContextBuilder** | Limite de contexto; montagem orçada por seção + sumarização em rolo. | M04 U5 |
 | **Memória semântica** | Recall por embeddings, não só histórico linear. | M04 U4 |
 | **Blackboard / supervisor** | Estado compartilhado e agente que despacha papéis. | M04 U9; M08 M3 |
-| **Multiagente** | Mais de um papel/modelo coordenado (padrões Sequential, Parallel, Supervisor, Hierarchical, Group Chat, Handoff). | M04 U9; M08 M3 |
+| **Multiagente** | Mais de um papel/modelo coordenado (padrões Sequential, Parallel, Supervisor, Hierarchical, Group Chat, Handoff). Não é MoE. | M04 U9; M08 M3 |
+| **MoE** | Mixture of experts: roteamento interno de tokens entre experts no mesmo modelo. Não confundir com multiagentes. | Fora do lab; aviso em [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md) |
+| **C-COLAB** | Checkpoint **opcional** de colaboração humano–IA (três fixtures sintéticos). Não substitui C08/C09. Não é score oficial do CIB. | [guia-checkpoint-colaboracao.md](./guia-checkpoint-colaboracao.md); [avaliacao.md](./avaliacao.md) |
 | **A2A** | Agent2Agent Protocol (referência de comunicação entre agentes). | README raiz M08 |
 | **RICE / WSJF / MoSCoW** | Frameworks de priorização de backlog. | M07 M2 |
 | **PERT / Monte Carlo** | Estimativa de três pontos; simulação de prazo (P50/P85/P95). **Script**, não LLM. | M07 M4 |
@@ -64,5 +66,13 @@ Termos como este repositório os **usa**. Não é um dicionário de IA: cada ent
 | **Gabarito `-z`** | Solução da aula. | M01–M03 |
 | **Snapshot** | Cópia completa do OpsPilot no fim da unidade N. | M04 |
 | **Windowsfy** | Skill que sugere patches Unix→Windows nos `package.json`. | `skills/windowsfy/` |
+| **INVEST / Gherkin** | Critérios de história; cenários Given/When/Then. | M07 M1; M05 OpenSpec |
+| **Agent Skills** | Pacotes de instrução+scripts que o agente carrega (não são MCP servers). | M03 lab 04; live 2026-02-24 |
+| **Verdaccio** | Registry npm privado. | M03 lab 08 |
+| **SERVICE_TOKEN** | Segredo de serviço na API legado MCP; sem ele a tool recusa. | M03 labs 07 e 09 |
+| **JWT / RBAC** | Token de sessão e papéis na API do lab 07. | M03 lab 07 |
+| **GRPO** | Demo (`grpo-verifiable-reward-demo.js`): 10 testes de matemática offline + rollout Ollama. **Não** treina pesos; **não** é C09.x. arXiv:2402.03300, 2501.12948. | M09 M1 |
+| **DPA / LGPD** | Gate pedagógico no JSON Amplitude. Definição de dado pessoal sensível: Lei 13.709/2018 Art. 5º II (Planalto). **Não** é parecer jurídico. | M09 M1 JSON dos casos |
+| **CC BY-NC-ND** | Licença do tronco: crédito, não comercial, sem distribuir derivados. | [LICENSE.md](../LICENSE.md); [licencas/LEIA-ME.md](./licencas/LEIA-ME.md) |
 
 Se um termo aparecer só em slide/vídeo e não nesta tabela, trate-o como opcional até existir pasta no repo.

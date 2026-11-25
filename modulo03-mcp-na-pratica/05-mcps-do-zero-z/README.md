@@ -1,150 +1,30 @@
-# @erickwendel/ciphersuite-mcp
+# Lab 05 gabarito — CipherSuite MCP
 
-An [MCP (Model Context Protocol)](https://modelcontextprotocol.io) server that provides AES-256-CBC encryption and decryption tools, a resource describing the algorithm, and ready-to-use prompts — all runnable directly inside VS Code Copilot Chat.
+Servidor MCP AES-256-CBC: tools `encrypt_message` / `decrypt_message`,
+resource `encryption://info`, prompts. Código em `src/mcp.ts` (no gabarito).
+IV novo a cada encrypt. Engine no `package.json`: **`v24.14.0`**.
 
----
-
-## What it does
-
-| Capability | Name | Description |
-|---|---|---|
-| 🔧 Tool | `encrypt_message` | Encrypts any plain-text message with a passphrase |
-| 🔧 Tool | `decrypt_message` | Decrypts a previously encrypted message with the same passphrase |
-| 📄 Resource | `encryption://info` | Returns details about the algorithm, key derivation, and output format |
-| 💬 Prompt | `encrypt_message_prompt` | Pre-built prompt that asks the agent to encrypt a message |
-| 💬 Prompt | `decrypt_message_prompt` | Pre-built prompt that asks the agent to decrypt a message |
-
-### How encryption works
-
-- **Algorithm**: AES-256-CBC
-- **Key derivation**: `scrypt(passphrase, fixedSalt, 32)` — you pass any passphrase string; the server derives a strong 32-byte key automatically
-- **Output format**: `<IV in hex>:<ciphertext in hex>` — keep the full string to decrypt later
-- **IV**: a fresh random 16-byte IV is generated on every encryption call, so the same message encrypted twice produces different output
-
----
-
-## Prerequisites
-
-- **Node.js v24+** (see `engines` in `package.json`)
-
----
-
-## Installation
-
-```bash
-npm install
-```
-
-No build step is needed — the server runs TypeScript directly via Node.js native TypeScript support.
-
----
-
-## Using in VS Code
-
-### 1. Add the MCP server configuration
-
-Create (or open) `.vscode/mcp.json` in your workspace and add:
-
-```json
-{
-  "servers": {
-    "ciphersuite-mcp": {
-      "command": "node",
-      "args": ["--experimental-strip-types", "ABSOLUTE_PATH_TO_PROJECT/src/index.ts"]
-    }
-  }
-}
-```
-
-or via npm
-```json
-{
-  "servers": {
-    "ciphersuite-mcp": {
-      "command": "npx",
-      "args": ["-y", "@erickwendel/ciphersuite-mcp"]
-    }
-  }
-}
-```
-
-> **Tip:** You can also add this server to your user-level MCP config at `~/.vscode/mcp.json` to make it available in every workspace.
-
-### 2. Reload VS Code
-
-Open the Command Palette (`Cmd+Shift+P`) and run **Developer: Reload Window** (or just restart VS Code).
-
-### 3. Use it in Copilot Chat
-
-Open Copilot Chat (Agent mode) and try:
-
-```
-Encrypt the message "Hello, World!" using the passphrase "my-secret-key"
-```
-
-```
-Decrypt this message: a3f1...:<ciphertext> using the passphrase "my-secret-key"
-```
-
-```
-Show me the encryption://info resource
-```
-
-The agent will automatically call the appropriate tool and return the result.
-
----
-
-## Running the MCP Inspector
-
-The MCP Inspector lets you explore and test all tools, resources, and prompts interactively in a browser UI:
+## Inspector (oficial)
 
 ```bash
 npm run mcp:inspect
+# equivale a: npx @modelcontextprotocol/inspector node src/index.ts
 ```
 
-This opens the inspector at `http://localhost:5173` and connects it to the running server.
+Pacote oficial: `@modelcontextprotocol/inspector`. UI web na **porta 6274** (`CLIENT_PORT` default v2).
+Fontes e engines: [README do módulo 03](../README.md). READMEs antigos com `:5173` estão desatualizados.
 
----
-
-## Running tests
 
 ```bash
-# Run all tests once
-npm test
-
-# Run tests in watch mode (with debugger)
-npm run test:dev
+npm ci
+npm test                 # tests/mcp.test.ts existe neste -z
+npm run mcp:inspect
 ```
 
-The test suite covers:
+VS Code: `.vscode/mcp.json`. C03.1 aceita este Inspector **ou** o CRUD de customers (lab 06).
 
-- Encrypting a message
-- Decrypting a message with the correct passphrase
-- Listing and reading the `encryption://info` resource
-- Fetching both prompts
-- Error: decrypting with the wrong passphrase
-- Error: decrypting a malformed ciphertext
+**Node:** vários `package.json` deste módulo declaram `engines.node` `>=24.10.0` ou `v24.14.0`.
+A trilha da pós recomenda **Node 22**. Teste no 22; se o runtime recusar (strip-types / EBADENGINE),
+documente a versão — não troque o lab.
 
----
-
-## Project structure
-
-```
-src/
-  index.ts   # Entry point — connects the server to stdio transport
-  mcp.ts     # All tools, resources, and prompts are registered here
-tests/
-  mcp.test.ts
-```
-
----
-
-## Available scripts
-
-| Script | Description |
-|---|---|
-| `npm start` | Start the server (used by MCP clients) |
-| `npm run dev` | Start with file-watch and Node.js inspector |
-| `npm test` | Run all tests |
-| `npm run test:dev` | Run tests in watch mode |
-| `npm run mcp:inspect` | Open the MCP Inspector UI |
+Inspector: ver o [README do módulo](../README.md) (comando oficial, porta 6274, engines npm vs site).

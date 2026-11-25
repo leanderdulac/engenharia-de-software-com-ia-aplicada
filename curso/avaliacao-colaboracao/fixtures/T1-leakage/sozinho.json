@@ -1,0 +1,45 @@
+{
+  "id": "T1",
+  "titulo": "Leakage treino/teste",
+  "versao": "sozinho",
+  "informacao_completa": true,
+  "objetivo": "Decidir se o split pode ir para treino de um extrator de orçamento (linha Auto).",
+  "contexto": "Você é a pessoa (ou o agente) que fecha o dataset da Atlas Assistência. Caso didático; entity_id e textos são sintéticos.",
+  "pergunta": "Pode treinar com este split? Se não, qual o problema e quais entity_id aparecem em treino e em teste?",
+  "splits": {
+    "treino": [
+      {
+        "id": "tr-01",
+        "entity_id": "APT-SYN-0001",
+        "linha": "auto",
+        "texto": "orçamento oficina placa ABC1D23 valor 1200"
+      },
+      {
+        "id": "tr-02",
+        "entity_id": "APT-SYN-0007",
+        "linha": "auto",
+        "texto": "orçamento oficina placa XYZ9K87 valor 3400"
+      },
+      {
+        "id": "tr-03",
+        "entity_id": "APT-SYN-0003",
+        "linha": "auto",
+        "texto": "orçamento oficina placa QRS2E45 valor 890"
+      }
+    ],
+    "teste": [
+      {
+        "id": "te-01",
+        "entity_id": "APT-SYN-0007",
+        "linha": "auto",
+        "texto": "orçamento oficina placa XYZ9K87 valor 3400"
+      },
+      {
+        "id": "te-02",
+        "entity_id": "APT-SYN-0009",
+        "linha": "auto",
+        "texto": "orçamento oficina placa LMN4F56 valor 2100"
+      }
+    ]
+  }
+}
